@@ -176,6 +176,7 @@ elif init_from == 'resume':
         if k.startswith(unwanted_prefix):
             state_dict[k[len(unwanted_prefix):]] = state_dict.pop(k)
     model.load_state_dict(state_dict)
+    state_dict = None
     iter_num = checkpoint['iter_num']
     best_val_loss = checkpoint['best_val_loss']
 elif init_from.startswith('gpt2'):
@@ -193,13 +194,15 @@ if block_size < model.config.block_size:
 model.to(device)
 
 # initialize a GradScaler. If enabled=False scaler is a no-op
-scaler = torch.cuda.amp.GradScaler(enabled=(dtype == 'float16'))
+scaler = torch.amp.GradScaler(device_type, enabled=(dtype == 'float16'))
 
 # optimizer
 optimizer = model.configure_optimizers(weight_decay, learning_rate, (beta1, beta2), device_type)
 if init_from == 'resume':
     optimizer.load_state_dict(checkpoint['optimizer'])
 checkpoint = None # free up memory
+if device_type == 'cuda':
+    torch.cuda.empty_cache()
 
 # compile the model
 if compile:
@@ -247,6 +250,8 @@ if wandb_log and master_process:
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
 
 # training loop
+if device_type == 'cuda':
+    torch.cuda.reset_peak_memory_stats(device)
 X, Y = get_batch('train') # fetch the very first batch
 t0 = time.time()
 local_iter_num = 0 # number of iterations in the lifetime of this process
@@ -284,7 +289,12 @@ while True:
                 }
                 print(f"saving checkpoint to {out_dir}")
                 torch.save(checkpoint, os.path.join(out_dir, 'ckpt.pt'))
+        # exclude evaluation and checkpoint I/O from the following training iteration time
+        t0 = time.time()
     if iter_num == 0 and eval_only:
+        break
+    # iter_num is the number of completed optimizer updates at this point
+    if iter_num >= max_iters:
         break
 
     # forward backward update, with optional gradient accumulation to simulate larger batch size
@@ -328,9 +338,15 @@ while True:
     iter_num += 1
     local_iter_num += 1
 
-    # termination conditions
-    if iter_num > max_iters:
-        break
+if master_process and device_type == 'cuda':
+    torch.cuda.synchronize()
+    peak_allocated = torch.cuda.max_memory_allocated(device) / (1024 ** 2)
+    peak_reserved = torch.cuda.max_memory_reserved(device) / (1024 ** 2)
+    total_memory = torch.cuda.get_device_properties(device).total_memory / (1024 ** 2)
+    print(
+        f"peak CUDA memory: {peak_allocated:.1f} MiB allocated, "
+        f"{peak_reserved:.1f} MiB reserved, {total_memory:.1f} MiB total"
+    )
 
 if ddp:
     destroy_process_group()
