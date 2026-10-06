@@ -126,6 +126,23 @@ def signature(args, dataset, scheduler, stage: int, world_size: int) -> dict:
     }
 
 
+def initialize_deepspeed_communication(
+    deepspeed, *, backend: str, expected_world_size: int
+) -> None:
+    """Attach DeepSpeed comms to the process group created by torchrun."""
+
+    deepspeed.init_distributed(
+        dist_backend=backend,
+        dist_init_required=False,
+    )
+    actual_world_size = deepspeed.comm.get_world_size()
+    if actual_world_size != expected_world_size:
+        raise RuntimeError(
+            "DeepSpeed communication world size does not match torch.distributed: "
+            f"{actual_world_size} != {expected_world_size}"
+        )
+
+
 def main() -> None:
     args = parse_args()
     if not args.benchmark and args.max_updates <= 0:
@@ -148,6 +165,11 @@ def main() -> None:
                 "launch DeepSpeed through torchrun, including for one GPU: "
                 "uv run torchrun --standalone --nproc_per_node=1 train_deepspeed.py"
             )
+        initialize_deepspeed_communication(
+            deepspeed,
+            backend=args.backend,
+            expected_world_size=env.world_size,
+        )
         seed_everything(args.model_seed)
         dataset = MemmapTokenDataset(args.data_dir, args.block_size)
         scheduler = GlobalWindowScheduler(
