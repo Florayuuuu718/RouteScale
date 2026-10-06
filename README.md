@@ -30,13 +30,23 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - [x] Checkpoint save and resume validation
 - [x] Reproducible single-GPU no-Profiler benchmark
 - [x] PyTorch Profiler bottleneck analysis and `torch.compile` A/B
+- [x] Deterministic DDP window sharding and local C-stage validation
+- [x] C5 deterministic full-window coverage and exact checkpoint resume
+- [x] DeepSpeed ZeRO-0/1/2/3 single-GPU engine/checkpoint smoke tests
+- [x] FSDP2 `fully_shard` and DCP single-GPU checkpoint smoke test
 - [ ] 1/2/4-GPU DDP scaling
+- [ ] Four-GPU DeepSpeed/FSDP2 performance and capacity matrix
 - [ ] Top-1 Mixture-of-Experts
 - [ ] Triton kernel evaluation
 
 ## Repository Structure
 
 - `config/`: reproducible training configurations
+- `train_coverage.py`: deterministic C5 coverage/checkpoint entry point
+- `train_deepspeed.py`: DeepSpeed ZeRO entry point
+- `train_fsdp2.py`: PyTorch FSDP2 entry point
+- `distributed_common.py`: shared model/data/optimizer semantics
+- `scripts/preflight_multigpu.py`: target-host admission report and NCCL check
 - `data/tinystories/`: TinyStories preparation scripts
 - `results/`: experiment configurations and results
 - `docs/`: environment records, project plan and upstream documentation

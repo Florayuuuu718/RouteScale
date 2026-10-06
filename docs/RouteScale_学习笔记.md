@@ -1,6 +1,6 @@
 # RouteScale 学习笔记与实验判断手册
 
-> 更新日期：2026-10-01
+> 更新日期：2026-10-06
 > 这份文档整理 RouteScale 学习过程中已经讨论并实际验证的知识。它不是聊天记录，也不是实施计划：实施顺序和验收条件见 [`RouteScale_实施教程大纲.md`](RouteScale_实施教程大纲.md)，实验原始结果见 [`../results/README.md`](../results/README.md)。
 
 ## 0. 怎样使用这份笔记
@@ -38,10 +38,11 @@
 |---|---|---|
 | 训练心智模型 | 1–6 | 能从原始故事讲到一次参数更新 |
 | 配置与系统判断 | 7–11 | 能解释显存、配置选择、优化目标和性能现象 |
-| 可靠性能实验 | 12–13 | 能解释 B1 测量协议并按现象选择诊断动作 |
-| 学习证据与复习 | 14–15 | 区分真正掌握与初步理解，并完成闭卷自测 |
+| 可靠性能实验 | 12 | 能解释 B1/B2 测量、诊断和验证闭环 |
+| 多卡实施规划 | 13 | 能区分 DDP 正确性、strong/weak scaling 和通信分析 |
+| 诊断与复习 | 14–16 | 按现象选择诊断动作，区分真正掌握与初步理解 |
 
-建议第一次按顺序阅读；以后遇到具体问题，直接查第 13 章诊断表，再回到对应原理章节。
+建议第一次按顺序阅读；以后遇到具体问题，直接查第 14 章诊断表，再回到对应原理章节。
 
 ---
 
@@ -1206,9 +1207,345 @@ compile=False → compile=True
 
 结论边界：编译时间不在稳态计时内，短任务未必能摊销；结果依赖 shape、PyTorch/CUDA 和硬件；短跑 loss 检查不等于逐 bit 等价或长期训练质量验证。Profiler 的事件层级可能重叠，因此不能把不同抽象层的百分比直接相加。
 
+### 12.11 本轮疑问：CPU、CUDA 和 H2D 怎样连接
+
+先建立一条数据和计算路径：
+
+```text
+磁盘上的 token
+    ↓ CPU 读取、采样并组成 batch
+CPU 普通内存
+    ↓ pin_memory，进入适合 DMA 的锁页内存
+H2D：Host to Device
+    ↓ 经过 CPU/GPU 之间的互连
+GPU 显存
+    ↓ CUDA kernel
+矩阵乘法、Attention、loss 和 backward
+```
+
+- **CPU 区域：**运行 Python 训练循环、准备 batch、调用 PyTorch，并通过 CUDA runtime 向 GPU 提交工作。
+- **CUDA API/launch：**例如 `cudaLaunchKernel`，表示 CPU 在提交 GPU 任务；提交本身不等于 GPU 已经完成。
+- **GPU kernel：**GPU 真正执行矩阵乘法、softmax、复制等工作。
+- **H2D：**Host to Device，即把 CPU 内存中的 `X/Y` 搬到 GPU 显存。它是一段数据传输，不是另一种处理器，也不是 GPU 之间通信。
+
+当前 `get_batch()` 先构造 CPU Tensor，再执行：
+
+```python
+x.pin_memory().to(device, non_blocking=True)
+```
+
+`pin_memory()` 让源数据位于适合异步 DMA 的锁页内存；`.to(device)` 才是 H2D。`non_blocking=True` 表示满足条件时 CPU 不必原地等待复制完成。异步不等于没有成本，仍需从 trace 判断复制是否让 GPU 等待。
+
+本次 eager trace 的 10 个 active updates 中，pinned H2D 合计仅 0.324 ms，约 0.0324 ms/update。它远小于模型计算，因此当前证据不支持优先改 DataLoader 或 H2D。DDP 中的 AllReduce 则是 GPU/rank 之间聚合梯度，不能与 H2D 混淆。
+
+### 12.12 本轮疑问：graph capture、graph break 和 recompile
+
+`torch.compile` 的基本思路是先观察一段 PyTorch 运算，把可以捕获的部分整理成计算图，再对整张图做优化：
+
+```text
+逐条执行的 PyTorch 程序
+        ↓ graph capture
+可分析的 FX 计算图
+        ↓ 融合、调度和代码生成
+优化后的 GPU kernels
+```
+
+三个容易混淆的词：
+
+| 名词 | 形象理解 | 性能影响 |
+|---|---|---|
+| graph capture | 把临时口头指令整理成一张施工图 | 有了整图才有跨算子优化机会 |
+| graph break | 某段 Python 行为无法继续画进同一张图，先退出到 eager，之后可能再开始新图 | 图变碎，融合减少，Python/launch 开销增加 |
+| recompile | shape、dtype、device 或其他 guard 条件变化，旧图不能复用，需要生成新版本 | 再次支付编译成本，频繁发生会抵消稳态收益 |
+
+Graph break 不一定导致报错；程序通常还能以 eager 方式继续，但编译优化覆盖率会下降。Recompile 也不是错误，它是为新条件生成另一份有效实现。问题在于二者如果过多，会让编译时间增加并减少融合收益。
+
+本项目固定 `batch=8`、`block_size=512`、BF16、模型结构和设备，shape 长期稳定，因此编译结果容易复用。换成动态 batch、动态序列长度或依赖 Tensor 数值的 Python 控制流后，必须重新观察 graph break 和 recompile，不能直接沿用本次 1.444 倍结果。
+
+### 12.13 本轮疑问：Dynamo、AOTAutograd 和 Inductor 的分工
+
+可以把默认编译路径记为三种角色：
+
+```text
+Python/PyTorch
+      ↓
+TorchDynamo：捕获员
+把可编译的 Tensor 运算捕获为 FX 图，并设置复用条件 guards
+      ↓
+AOTAutograd：正反向设计员
+整理 forward/backward 图以及反向需要保存的中间量
+      ↓
+TorchInductor：执行方案优化员
+做融合、调度、内存规划和代码生成
+      ↓
+CUDA kernels 在 GPU 上执行
+```
+
+当前代码执行的是 `torch.compile(model)`，所以优化重点是模型的 forward 及其 backward。`get_batch`、gradient clipping、AdamW step 和 `zero_grad` 在这个编译边界之外。trace 中 H2D、gradient clipping 和 AdamW 前后几乎不变，而 copy、launch 和模型计算下降，与这个边界相符。
+
+不能仅凭 key averages 断言某一个具体编译 pass 是唯一原因。当前证据足以说明编译后的模型图整体减少了复制和提交，并改善了稳态执行；若要定位到某个融合 kernel 或生成代码，还需进一步查看 Inductor 日志或专用 GPU 工具。
+
+### 12.14 B2 的十项能力怎样分步练习
+
+“运行两种 Profiler、打开 trace、找热点、提出假设、做 A/B、检查结果”不是十门独立技术，而是一条实验链：
+
+```text
+采集 → 阅读 → 判断 → 只改一个变量 → 无 Profiler 验证 → 限定结论
+```
+
+当前学习顺序不应是立刻重跑六次实验，而是先读取已经存在的证据：
+
+1. 执行 `less results/b2_profiler/baseline_key_averages.txt`，找到 `aten::mm`、`aten::copy_` 和调用次数，按 `q` 退出。
+2. 阅读 `compiled_key_averages.txt`，比较相同字段，不要求一开始看懂全部 CUDA kernel 名称。
+3. 执行 `python -m json.tool results/b2_profiler/summary.json | less`，回答“主要热点、H2D 是否重要、compile 改变了什么”。
+4. 在 Perfetto 打开 `logs/b2_profiler/baseline_trace.json`，先只找 CPU 轨道、GPU 轨道、`forward`、`backward` 和 `Memcpy HtoD (Pinned -> Device)`。
+5. 用固定句式提出假设：**观察到什么 → 判断瓶颈是什么 → 只改变什么 → 预计哪些指标变化**。
+6. 最后读取 `results/b2_compile_ab/summary.json`，用无 Profiler 的 step、tokens/s、显存、哈希和 loss 决定优化是否成立。
+
+本次假设可以完整复述为：eager trace 中 copy 和 kernel launch 很多，H2D 很小；因此尝试只打开 `torch.compile`，预计 copy/launch 和 step 时间下降；compiled trace 支持机制，无 Profiler 三次 A/B 才给出正式的 1.444 倍收益。
+
+现阶段 B2 的最低掌握标准不是能解释每个 kernel，而是能独立回答：
+
+1. `aten::mm` 为什么是主要 GPU 热点？
+2. H2D 为什么不是本次首要瓶颈？
+3. 为什么 `aten::copy_` 和 launch 数量支持尝试 compile？
+4. 为什么不能拿带 Profiler 的时间报告正式 speedup？
+5. 为什么本次结果不能直接推广到动态 shape 和目标四卡服务器？
+
 ---
 
-## 13. 面对现象时的初步诊断表
+## 13. C 阶段：1/2/4 卡 DDP 怎样开展
+
+### 13.1 第三阶段的目标和正确顺序
+
+C 阶段不是“让四张卡都亮起来”就完成了，而是要回答五个问题：
+
+1. 每个 rank 是否拿到了正确且可核对的数据？
+2. 多卡一次更新是否与等价单卡更新基本一致？
+3. 固定全局工作量时，1/2/4 卡能缩短多少 step 时间？
+4. 固定每卡工作量时，总吞吐能随 GPU 数怎样增长？
+5. 没有达到线性加速的时间花在计算、通信、数据等待还是最慢 rank？
+
+正确实施顺序是：
+
+```text
+目标服务器环境与同机单卡基线
+    ↓
+确定性全局窗口与 rank 分配
+    ↓
+单卡/两卡一次更新正确性
+    ↓
+1/2/4 卡 Strong scaling
+    ↓
+1/2/4 卡 Weak scaling
+    ↓
+NCCL/AllReduce trace 与拓扑解释
+    ↓
+可恢复的完整窗口覆盖训练
+```
+
+不能先测四卡速度再补正确性。错误的数据分片也可能产生看似很高的吞吐，但它不是有效训练。
+
+### 13.2 DDP 最小心智模型
+
+单机四卡通常启动四个 Python 进程，每个进程负责一张 GPU，并保存完整模型副本：
+
+| 名称 | 含义 |
+|---|---|
+| `RANK` | 当前进程在整个分布式任务中的全局编号 |
+| `LOCAL_RANK` | 当前进程在本机上的 GPU 编号 |
+| `WORLD_SIZE` | 总进程数；单机一卡、两卡、四卡时分别为 1、2、4 |
+| process group | 允许所有 rank 通过 NCCL 等后端通信的进程集合 |
+| DDP wrapper | 包装模型，在 backward 中触发梯度同步 |
+
+`rank` 不是 GPU 型号、梯度等级或模型层数，而是**一次分布式任务中某个进程的编号**。单机四卡通常是 rank 0–3，各自绑定一张 GPU；rank 0 常额外负责写日志和汇总，但计算和通信上仍是参与训练的普通成员。多机时 `RANK` 仍全局唯一，而 `LOCAL_RANK` 会在每台机器上从 0 重新编号。
+
+每个 rank 独立做 forward/backward。在 backward 过程中，DDP 对各 rank 的梯度执行 AllReduce，使所有模型副本得到一致的聚合梯度，再各自执行相同的 optimizer step。
+
+```text
+rank 0 本地梯度 ┐
+rank 1 本地梯度 ├─ AllReduce 求和/平均 ─→ 每个 rank 得到一致梯度
+rank 2 本地梯度 ┤
+rank 3 本地梯度 ┘
+```
+
+当前 `train.py` 已有读取 `RANK/LOCAL_RANK/WORLD_SIZE`、初始化 NCCL、绑定 GPU、包装 DDP，以及只在最后一个累积 micro-step 同步梯度的基础代码。但普通随机采样还不能审计全局窗口是否重复或遗漏；B1/B2 模式也明确只允许单卡；计时与显存尚未汇总所有 rank。因此“有 DDP 代码”不等于 C 阶段已经具备可验证基准。
+
+### 13.3 C0：目标服务器准入与同机单卡基线
+
+先在目标四卡服务器完成只读环境记录：
+
+```text
+nvidia-smi -L
+nvidia-smi topo -m
+PyTorch/CUDA/NCCL 版本
+GPU 型号与每卡显存
+代码 commit
+train.bin、val.bin、manifest 的 SHA256
+```
+
+然后固定其中一张 GPU，使用 B1 的 20 次预热、100 次测量、3 个独立进程重做单卡基线。这个结果才是服务器上 2/4 卡 speedup 的分母。
+
+正确性阶段先使用 `compile=False` 减少变量。性能阶段在目标服务器重新确认 compile 后，只选择一个 compile 状态作为 1/2/4 卡主对照，并在所有卡数中保持一致；本地 RTX 5060 Laptop 上的 1.444 倍不能替代服务器实测。
+
+### 13.4 C1：确定性全局窗口和正确性门槛
+
+先生成一条与 rank 数无关的**全局窗口序列**，再按 rank 分配，不能让每个 rank 各自随意随机抽取。Strong scaling 中，每次全局更新固定 32 条长度为 512 的序列：
+
+```text
+32 × 512 = 16,384 tokens/update
+```
+
+在 `batch=8` 下：
+
+| GPU 数 | 每 rank accumulation | 每 rank 每次更新的序列数 | 全局 tokens/update |
+|---:|---:|---:|---:|
+| 1 | 4 | 32 | 16,384 |
+| 2 | 2 | 16 | 16,384 |
+| 4 | 1 | 8 | 16,384 |
+
+必须先在小型人工窗口列表上验证：
+
+- 所有 rank 的并集恰好等于该次全局窗口；
+- rank 之间没有重复；
+- 没有窗口意外遗漏；
+- 不足完整全局 batch 时明确选择丢弃还是重复补齐，并记录数量；
+- 相同 seed 和更新编号能重建相同全局顺序。
+
+随后做最小数值正确性检查：相同初始化、相同全局输入下，对比单卡大有效 batch 与两卡分片的一次更新；检查聚合 loss、梯度或更新后参数的最大绝对/相对误差，并确认两个 rank 更新后的参数彼此一致。浮点归约顺序不同可能带来小误差，因此使用明确容差，而不是盲目要求逐 bit 相同。
+
+### 13.5 C2：新增可复现 DDP benchmark
+
+将 B1 协议扩展到每个 rank：
+
+- 20 次性能预热、100 次正式更新、每个卡数独立重复 3 次；
+- 每个 rank 使用 CUDA Event 记录 step；
+- 每次全局 step 以最慢 rank 时间作为关键时间，因为其他 rank 不能比最慢参与者更早完成有效全局更新；
+- 记录每 rank 原始时间、峰值 allocated/reserved、loss 和本地窗口哈希；
+- 由 rank 0 汇总全局窗口哈希、全机实际 token 数、中位数、全机 tokens/s、speedup 和 efficiency；
+- 计时区间排除初始化、编译、评估、checkpoint 和 Profiler。
+
+建议新增独立的 C 阶段配置与结果目录，避免让单卡 B1 JSON 混入多卡字段：
+
+```text
+config/benchmark_ddp_tinystories.py
+results/c_ddp/strong/{1gpu,2gpu,4gpu}/
+results/c_ddp/weak/{1gpu,2gpu,4gpu}/
+results/c_ddp/profiler/
+```
+
+### 13.6 C3：Strong scaling
+
+Strong scaling 固定的是**全机每次更新总工作量**：
+
+```text
+1/2/4 卡都处理 16,384 tokens/update
+```
+
+计算：
+
+```text
+speedup(N) = N卡全机 tokens/s ÷ 同机1卡 tokens/s
+efficiency(N) = speedup(N) ÷ N
+```
+
+它回答：“同一份工作交给更多 GPU，能更快完成多少？”GPU 越多，每卡分到的计算越少，而 AllReduce 仍有固定代价，所以四卡通常达不到四倍。
+
+每个卡数必须报告全机 tokens/s、step 中位数、speedup、efficiency、最慢 rank step、各 rank 显存和窗口哈希，不能只报告 rank 0 时间。
+
+### 13.7 C4：Weak scaling
+
+Weak scaling 固定的是**每张 GPU 的工作量**。若每卡仍使用 `batch=8, block=512, accumulation=4`：
+
+| GPU 数 | 每卡 tokens/update | 全局 tokens/update |
+|---:|---:|---:|
+| 1 | 16,384 | 16,384 |
+| 2 | 16,384 | 32,768 |
+| 4 | 16,384 | 65,536 |
+
+它回答：“每增加一张 GPU 并同时增加同等工作，总吞吐是否近似线性增长？”需要同时报告全机和每卡 tokens/s。Weak scaling 的全局 batch 会变大，因此它是系统吞吐实验，不应直接与固定全局 batch 的训练收敛速度混为一谈。
+
+### 13.8 C4：通信 trace 和四卡未线性加速的解释
+
+在 short Profiler schedule 中为每个 rank 保存不同文件名，并结合：
+
+```text
+nvidia-smi topo -m
+NCCL/AllReduce 事件
+backward kernel
+各 rank step 时间
+GPU 时间线空洞
+```
+
+依次区分：
+
+1. 每卡计算量太小，通信占比自然升高；
+2. AllReduce 本身耗时较大；
+3. 梯度通信没有与 backward 有效重叠；
+4. 某个 rank 数据准备或计算更慢，其他 rank 等待；
+5. PCIe/NVLink/NUMA 拓扑限制了通信；
+6. graph break、同步或日志让某些 rank 出现额外停顿。
+
+Profiler 在 C 阶段仍用于解释机制，正式 1/2/4 卡吞吐继续由无 Profiler benchmark 裁决。
+
+### 13.9 C5：可恢复的完整窗口覆盖训练
+
+性能基准通过后，再做一次完整数据覆盖。这里必须先定义“窗口”：建议把训练 token 文件切成不重叠的长度 512 训练窗口，而不是枚举每个可能的滑动起点，否则相邻窗口会高度重复、工作量膨胀约 512 倍。
+
+对长度为 `num_tokens` 的文件，因 `Y` 比 `X` 多向后取一个 token，可先定义：
+
+```text
+完整窗口数 = floor((num_tokens - 1) / block_size)
+尾部 token 数 = (num_tokens - 1) mod block_size
+```
+
+然后确定性打乱窗口编号并按 rank 分配。若最后不足一个全局更新，应明确采用丢弃或重复补齐；“所有窗口至少一次”通常需要补齐并记录重复数。Checkpoint 除模型和优化器外，还要能恢复 epoch、全局窗口游标、seed 和补齐策略。结束时报告覆盖率、重复数、尾部数、累计 token、总时长、峰值显存以及初末 validation loss。
+
+本机实测使用 `tail_policy=pad`：4,222 个完整训练窗口被确定性打乱，按每次更新 32 个窗口排成 132 次更新；4,224 个调度位置中有 2 个是明确记录的重复补齐，因此唯一窗口覆盖率仍为 100%。413 个不足一个 block 的训练尾部 token 没有伪装成完整窗口。完整 validation 则用变长的最后一段把全部 194,558 个 target token 纳入加权 loss，避免丢掉 validation 尾部。
+
+Checkpoint 的意义不是“有一个 `.pt` 文件”，而是能重建下一次更新。当前保存模型、optimizer、GradScaler、每个 rank 的 RNG、`next_update`、loss 历史、配置签名和已消费全局窗口前缀哈希。自动检查把训练拆成“2 步 + 恢复 2 步”，再与连续 4 步比较；模型 SHA256、loss 历史和窗口哈希相同，才算恢复正确。
+
+### 13.10 C6：DeepSpeed ZeRO 骨架怎样理解
+
+ZeRO 的核心不是让 forward 变成另一种模型，而是逐阶段把训练状态分散到 data-parallel ranks：stage 1 分 optimizer state，stage 2 再分 gradient，stage 3 再分 parameter。`train_deepspeed.py` 仍使用同一个 `GPT`、窗口调度器和 AdamW 参数组，只把 backward、梯度累积边界、step 和分片 checkpoint 生命周期交给 DeepSpeed Engine。
+
+单卡能验证 API、loss、更新边界、保存/恢复、配置解析和 checkpoint 合并，却不能证明“分片省显存”，因为 world size 为 1 时没有别的 rank 可分。当前 ZeRO-0 与原生路径在同一 4 步 smoke 中 loss 完全一致，最终参数最大绝对差 `7.451e-09`；ZeRO-1/2/3 也完成保存和新进程恢复，ZeRO-2/3 的 FP32 合并权重已由普通 `GPT` 严格加载。四卡实验的新增证据应是每卡状态减少、AllGather/ReduceScatter 事件、吞吐变化和 DDP OOM/ZeRO 可运行边界。
+
+### 13.11 C7：FSDP2 与 DCP 骨架怎样理解
+
+FSDP2 用 composable `fully_shard` 把模块参数表示为 DTensor。当前从每个 Transformer block 开始自底向上包装，根模型再负责 embedding、final norm 和共享 lm_head；梯度累积的非最后 micro-step 暂停同步，最后一个 micro-step 才执行跨 rank 归约。Checkpoint 使用 PyTorch Distributed Checkpoint（DCP），保存可在不同进程中重新装载的分片 model/optimizer state。
+
+单卡的 2 步保存、恢复到 4 步已通过，并与原生/ZeRO-0 使用相同 loss 轨迹和窗口哈希。这证明接线和状态生命周期成立，不证明四卡性能优于 ZeRO-3；后者必须查看真实 ReduceScatter/AllGather、显存峰值和 step 时间。
+
+### 13.12 当前第一要务与阶段门槛
+
+当前本机只有一张 GPU，因此不能伪造 2/4 卡结果。本机前置项已经扩展并完成到 C5/C6/C7 的可验证部分：
+
+1. 写出全局窗口到 rank/micro-step/batch 的确定性映射；
+2. 为 1/2/4 个逻辑 rank 做纯 CPU 单元测试，验证并集、重复、遗漏和尾部；
+3. 新增单卡可运行的 DDP benchmark 输出格式和汇总脚本；
+4. 准备单卡与两卡一次更新正确性测试；
+5. 完成 C5 全窗口覆盖、完整 validation 和确定性恢复；
+6. 完成 DeepSpeed ZeRO-0/1/2/3 与 FSDP2 单卡启动、更新和恢复；
+7. 到四卡服务器后依次执行 C0、两卡正确性、四卡正确性、Strong、Weak、通信 trace 和正式后端矩阵。
+
+截至 2026-10-06，前六项已在本机完成。原始结果见 `results/c_ddp/`、`results/c5_coverage/`、`results/c6_deepspeed/`、`results/c7_fsdp2/` 和 `results/c_distributed_smoke/`。这些证据只验收单卡能回答的问题，不替代第七项的目标服务器实验。
+
+每一步的进入门槛：
+
+| 阶段 | 必须先通过的门槛 |
+|---|---|
+| 两卡启动 | 全局窗口分片的 CPU 测试无重复、无遗漏 |
+| 四卡启动 | 两卡参数一致性和一次更新对照通过 |
+| scaling | 1/2/4 卡工作量、哈希、loss 和最慢 rank 时间可核对 |
+| 通信诊断 | 无 Profiler scaling 结果已经稳定 |
+| 完整覆盖 | checkpoint 能恢复窗口进度且尾部策略已记录 |
+| ZeRO 正式矩阵 | 单卡 ZeRO-0 更新对照、各 stage 保存恢复和解析配置已通过 |
+| FSDP2 四卡对照 | 单卡 `fully_shard` 与 DCP 保存恢复已通过 |
+
+---
+
+## 14. 面对现象时的初步诊断表
 
 | 现象 | 先确认 | 第一轮动作 |
 |---|---|---|
@@ -1227,7 +1564,7 @@ compile=False → compile=True
 
 ---
 
-## 14. 当前学习证据与后续深入边界
+## 15. 当前学习证据与后续深入边界
 
 不能只因为内容在对话中出现过，就把它算作已经掌握。当前证据分为：
 
@@ -1241,18 +1578,20 @@ compile=False → compile=True
 | 已实测 | 50.91M 本地候选的显存与稳定性 | batch 4/6/8 适配、300 次更新和恢复均完成 |
 | 已实测 | B1 确定性采样、CUDA Event 与三次独立运行 | 三次运行窗口哈希相同，中位数 346.390 ms/update、47,299 tokens/s，运行间范围约 0.20% |
 | 已实测 | B2 Profiler trace 与 `torch.compile` A/B | trace 排除 H2D 为首要瓶颈；无 Profiler 三次对照得到 1.444 倍加速，六次 loss 均有限 |
+| 已实测 | C 阶段本机可完成基础 | 1/2/4 逻辑 rank 窗口测试、单进程 CUDA/NCCL 与双进程 CPU/Gloo 更新对照通过；C 单卡三次中位数为 346.479 ms/update |
 | 初步理解 | OOM 处理、优化目标、吞吐与延迟区别 | 已完成解释，还需要在新现象中独立选择动作 |
-| 初步理解 | H2D、CUDA 异步、Event、同步、性能预热和独立进程 | 已完成解释并有 B1 实测证据，还需要闭卷复述整个进程层级 |
+| 初步理解 | H2D、CUDA 异步、Event、同步、性能预热和独立进程 | 已解释 H2D/CPU/GPU 路径并有 B1/B2 证据，还需要独立在 trace 中指出对应事件 |
+| 初步理解 | graph capture、graph break、recompile 与编译流水线 | 已解释 Dynamo/AOTAutograd/Inductor 分工；还需要独立观察编译日志或 graph break |
 | 初步理解 | batch 饱和、compile 摊销、Profiler、AllReduce | 已有本地 Profiler/compile 证据；还需要独立解读 trace，并在多卡阶段验证 AllReduce |
 
-“初步理解”的内容不算失败，它表示下一步需要用测量把口头知识变成诊断能力。完成第 15 章闭卷题后，可以把能独立回答的条目升级为“已复述”。
+“初步理解”的内容不算失败，它表示下一步需要用测量把口头知识变成诊断能力。完成第 16 章闭卷题后，可以把能独立回答的条目升级为“已复述”。
 
 ### 后续阶段再通过代码和测量掌握
 
 - 闭卷复述一次 B1 独立进程，以及 micro-step、optimizer update、Event 和同步之间的层级。
 - 独立打开 B2 trace，指出 CPU、GPU、H2D、矩阵计算、复制和 kernel launch 证据。
-- 将已完成的单卡确定性窗口采样扩展为 DDP 全局窗口和 rank 分配。
-- 做单卡与 DDP 的最小梯度正确性检查。
+- 已将单卡确定性窗口采样扩展为 DDP 全局窗口和 rank 分配；下一步在目标服务器复核 2/4 卡实际分配。
+- 已完成单进程 CUDA/NCCL 与双进程 CPU/Gloo 的最小更新正确性检查；下一步做双卡和四卡 CUDA/NCCL 对照。
 - 区分 strong scaling、weak scaling 和完整数据覆盖训练。
 - 深入 AllReduce 重叠、NCCL 拓扑和负载不均。
 - 在 MoE 阶段理解路由、expert 负载和 All-to-All。
@@ -1260,7 +1599,7 @@ compile=False → compile=True
 
 ---
 
-## 15. 闭卷自测题
+## 16. 闭卷自测题
 
 ### A. 数据与 batch
 
@@ -1312,6 +1651,27 @@ compile=False → compile=True
 13. B2 trace 为什么不支持优先优化 H2D？它支持尝试 `torch.compile` 的证据是什么？
 14. 为什么 compiled trace 只能解释机制，1.444 倍正式收益必须来自无 Profiler A/B？
 15. `torch.compile` 的稳态收益为什么不保证短任务、动态 shape 或另一张 GPU 也有相同结果？
+
+### E. B2 Profiler 与编译
+
+1. CPU、CUDA API、GPU kernel 和 H2D 在一批数据的训练路径中分别负责什么？
+2. `pin_memory()`、`.to(device)` 和 `non_blocking=True` 分别起什么作用？
+3. graph capture、graph break 和 recompile 各自是什么？为什么固定 shape 更利于编译复用？
+4. TorchDynamo、AOTAutograd 和 TorchInductor 分别处理哪一层问题？
+5. 当前 `torch.compile(model)` 为什么主要优化 forward/backward，而没有明显改变 H2D 和 AdamW？
+6. `Self CUDA`、`CUDA total` 和调用次数分别能说明什么？为什么不同层级时间不能随意相加？
+7. 用“观察、判断、单变量修改、预期、正式验证”五部分复述本次 compile 实验。
+
+### F. C 阶段 DDP
+
+1. `RANK`、`LOCAL_RANK` 和 `WORLD_SIZE` 有什么区别？为什么通常一张 GPU 对应一个进程？
+2. DDP 为什么需要 AllReduce？执行后各 rank 的模型参数为什么仍应一致？
+3. Strong scaling 中，1/2/4 卡怎样保持 16,384 个全局 tokens/update？
+4. Weak scaling 为什么会让全局 batch 随 GPU 数增加？它与 Strong scaling 回答的问题有什么不同？
+5. 为什么必须先生成确定性全局窗口，再按 rank 分配，而不是每个 rank 独立随机采样？
+6. 为什么多卡 step 应关注最慢 rank，而不能只报告 rank 0？
+7. 为什么目标服务器上的同机单卡基线才是 speedup 分母？
+8. 四卡达不到四倍速度时，怎样依次检查计算量、AllReduce、重叠、负载不均和拓扑？
 
 ### 一分钟口述模板
 

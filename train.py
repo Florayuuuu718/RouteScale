@@ -31,9 +31,11 @@ from statistics import mean, median
 
 import numpy as np
 import torch
+import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 
+from ddp_windows import GlobalWindowScheduler
 from model import GPTConfig, GPT
 
 # -----------------------------------------------------------------------------
@@ -86,6 +88,15 @@ benchmark_measure_steps = 100
 benchmark_data_seed = 20260920
 benchmark_results_dir = 'results/b1_single_gpu'
 benchmark_run_id = 'run1'
+# deterministic C-stage DDP benchmark settings
+ddp_benchmark = False
+ddp_scaling_mode = 'strong' # 'strong' or 'weak'
+ddp_benchmark_warmup_steps = 20
+ddp_benchmark_measure_steps = 100
+ddp_data_seed = 20260920
+ddp_tail_policy = 'drop' # 'drop' or 'pad'
+ddp_results_dir = 'results/c_ddp'
+ddp_run_id = 'run1'
 # short PyTorch Profiler trace settings
 profiler = False
 profiler_startup_warmup_steps = 20
@@ -104,21 +115,32 @@ config = {k: globals()[k] for k in config_keys} # will be useful for logging
 
 # various inits, derived attributes, I/O setup
 ddp = int(os.environ.get('RANK', -1)) != -1 # is this a ddp run?
+if sum((benchmark, ddp_benchmark, profiler)) > 1:
+    raise ValueError('benchmark, ddp_benchmark, and profiler are mutually exclusive')
+if ddp_benchmark and ddp_scaling_mode not in ('strong', 'weak'):
+    raise ValueError("ddp_scaling_mode must be 'strong' or 'weak'")
 if ddp:
-    init_process_group(backend=backend)
     ddp_rank = int(os.environ['RANK'])
     ddp_local_rank = int(os.environ['LOCAL_RANK'])
     ddp_world_size = int(os.environ['WORLD_SIZE'])
     device = f'cuda:{ddp_local_rank}'
     torch.cuda.set_device(device)
+    if backend == 'nccl':
+        init_process_group(backend=backend, device_id=torch.device(device))
+    else:
+        init_process_group(backend=backend)
     master_process = ddp_rank == 0 # this process will do logging, checkpointing etc.
     seed_offset = ddp_rank # each process gets a different seed
-    # world_size number of processes will be training simultaneously, so we can scale
-    # down the desired gradient accumulation iterations per process proportionally
-    assert gradient_accumulation_steps % ddp_world_size == 0
-    gradient_accumulation_steps //= ddp_world_size
+    if not (ddp_benchmark and ddp_scaling_mode == 'weak'):
+        # Standard training and strong scaling keep global work fixed, so divide
+        # the configured accumulation count across ranks. Weak scaling keeps the
+        # configured accumulation count on every rank.
+        assert gradient_accumulation_steps % ddp_world_size == 0
+        gradient_accumulation_steps //= ddp_world_size
 else:
     # if not ddp, we are running on a single gpu, and one process
+    ddp_rank = 0
+    ddp_local_rank = 0
     master_process = True
     seed_offset = 0
     ddp_world_size = 1
@@ -149,7 +171,7 @@ def record_region(name):
         return torch.profiler.record_function(name)
     return nullcontext()
 
-def get_batch(split, return_indices=False):
+def get_batch(split, return_indices=False, indices=None):
     with record_region('get_batch'):
         # We recreate np.memmap every batch to avoid a memory leak, as per
         # https://stackoverflow.com/questions/45132940/numpy-memmap-memory-usage-want-to-iterate-once/61472122#61472122
@@ -157,11 +179,20 @@ def get_batch(split, return_indices=False):
             data = np.memmap(os.path.join(data_dir, 'train.bin'), dtype=np.uint16, mode='r')
         else:
             data = np.memmap(os.path.join(data_dir, 'val.bin'), dtype=np.uint16, mode='r')
-        ix = torch.randint(
-            len(data) - block_size,
-            (batch_size,),
-            generator=data_generator,
-        )
+        if indices is None:
+            ix = torch.randint(
+                len(data) - block_size,
+                (batch_size,),
+                generator=data_generator,
+            )
+        else:
+            ix = torch.as_tensor(indices, dtype=torch.int64, device='cpu')
+            if ix.shape != (batch_size,):
+                raise ValueError(
+                    f'expected {batch_size} scheduled offsets, got shape {tuple(ix.shape)}'
+                )
+            if ix.min().item() < 0 or ix.max().item() + block_size >= len(data):
+                raise ValueError('scheduled training window is outside the token file')
         x = torch.stack([torch.from_numpy((data[i:i+block_size]).astype(np.int64)) for i in ix])
         y = torch.stack([torch.from_numpy((data[i+1:i+1+block_size]).astype(np.int64)) for i in ix])
         if device_type == 'cuda':
@@ -326,6 +357,56 @@ def run_training_step(X, Y, batch_indices=None, offsets_hasher=None):
     with record_region('zero_grad'):
         optimizer.zero_grad(set_to_none=True)
     return X, Y, batch_indices, loss
+
+
+def get_scheduled_batch(scheduler, update, micro_step):
+    """Load one rank-local batch from the deterministic global window plan."""
+    window_ids = scheduler.rank_window_ids(update)[micro_step]
+    offsets = window_ids * block_size
+    X, Y = get_batch('train', indices=offsets)
+    return X, Y, window_ids
+
+
+def run_scheduled_training_step(
+    X, Y, window_ids, update, scheduler, window_hasher
+):
+    """Run an update while preserving B1's forward/next-batch/backward pipeline."""
+    micro_losses = []
+    for micro_step in range(gradient_accumulation_steps):
+        expected_ids = scheduler.rank_window_ids(update)[micro_step]
+        if not np.array_equal(window_ids, expected_ids):
+            raise RuntimeError('scheduled batch cursor is out of sync')
+        window_hasher.update(
+            np.asarray(window_ids, dtype='<i8').tobytes(order='C')
+        )
+        if ddp:
+            model.require_backward_grad_sync = (
+                micro_step == gradient_accumulation_steps - 1
+            )
+        with ctx:
+            logits, unscaled_loss = model(X, Y)
+            loss = unscaled_loss / gradient_accumulation_steps
+        micro_losses.append(unscaled_loss.detach())
+
+        if micro_step + 1 < gradient_accumulation_steps:
+            next_update = update
+            next_micro_step = micro_step + 1
+        else:
+            next_update = update + 1
+            next_micro_step = 0
+        X, Y, window_ids = get_scheduled_batch(
+            scheduler, next_update, next_micro_step
+        )
+        scaler.scale(loss).backward()
+
+    if grad_clip != 0.0:
+        scaler.unscale_(optimizer)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+    scaler.step(optimizer)
+    scaler.update()
+    optimizer.zero_grad(set_to_none=True)
+    mean_micro_loss = torch.stack(micro_losses).mean()
+    return X, Y, window_ids, mean_micro_loss
 
 
 def sha256_file(path):
@@ -498,6 +579,278 @@ def run_b1_benchmark():
     print(f'wrote {output_path}')
 
 
+def run_c_ddp_benchmark():
+    if device_type != 'cuda':
+        raise RuntimeError('C DDP benchmark requires CUDA Event timing')
+    if ddp_benchmark_warmup_steps < 1 or ddp_benchmark_measure_steps < 1:
+        raise ValueError('C benchmark warmup and measurement steps must be positive')
+
+    global_windows_per_update = (
+        gradient_accumulation_steps * ddp_world_size * batch_size
+    )
+    train_path = Path(data_dir) / 'train.bin'
+    train_data = np.memmap(train_path, dtype=np.uint16, mode='r')
+    train_token_count = len(train_data)
+    del train_data
+    complete_window_count, trailing_token_count = divmod(
+        train_token_count - 1, block_size
+    )
+    scheduler = GlobalWindowScheduler(
+        window_count=complete_window_count,
+        global_windows_per_update=global_windows_per_update,
+        world_size=ddp_world_size,
+        rank=ddp_rank,
+        batch_size=batch_size,
+        seed=ddp_data_seed,
+        tail_policy=ddp_tail_policy,
+    )
+    if scheduler.local_micro_steps != gradient_accumulation_steps:
+        raise RuntimeError('window plan does not match effective gradient accumulation')
+
+    if master_process:
+        print(
+            f'C {ddp_scaling_mode} benchmark: world_size={ddp_world_size}, '
+            f'{ddp_benchmark_warmup_steps} warmup updates, '
+            f'{ddp_benchmark_measure_steps} measured updates, run {ddp_run_id}'
+        )
+
+    X, Y, window_ids = get_scheduled_batch(scheduler, 0, 0)
+    warmup_window_hasher = hashlib.sha256()
+    for update in range(ddp_benchmark_warmup_steps):
+        lr = get_lr(update) if decay_lr else learning_rate
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        X, Y, window_ids, loss = run_scheduled_training_step(
+            X, Y, window_ids, update, scheduler, warmup_window_hasher
+        )
+
+    torch.cuda.synchronize(device)
+    if ddp:
+        dist.barrier()
+    torch.cuda.reset_peak_memory_stats(device)
+
+    measured_window_hasher = hashlib.sha256()
+    start_events = []
+    end_events = []
+    measured_losses = []
+    measurement_start_update = ddp_benchmark_warmup_steps
+    for measured_step in range(ddp_benchmark_measure_steps):
+        update = measurement_start_update + measured_step
+        lr = get_lr(update) if decay_lr else learning_rate
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        start_event = torch.cuda.Event(enable_timing=True)
+        end_event = torch.cuda.Event(enable_timing=True)
+        start_event.record()
+        X, Y, window_ids, loss = run_scheduled_training_step(
+            X, Y, window_ids, update, scheduler, measured_window_hasher
+        )
+        end_event.record()
+        start_events.append(start_event)
+        end_events.append(end_event)
+        measured_losses.append(loss)
+
+    torch.cuda.synchronize(device)
+    local_step_times_ms = [
+        start.elapsed_time(end) for start, end in zip(start_events, end_events)
+    ]
+    local_losses = [value.item() for value in measured_losses]
+    local_record = {
+        'rank': ddp_rank,
+        'local_rank': ddp_local_rank,
+        'gpu': torch.cuda.get_device_name(device),
+        'step_times_ms': local_step_times_ms,
+        'mean_micro_batch_losses': local_losses,
+        'all_losses_finite': all(math.isfinite(value) for value in local_losses),
+        'warmup_window_ids_sha256': warmup_window_hasher.hexdigest(),
+        'measurement_window_ids_sha256': measured_window_hasher.hexdigest(),
+        'expected_warmup_window_ids_sha256': scheduler.hash_updates(
+            0, ddp_benchmark_warmup_steps, ddp_rank
+        ),
+        'expected_measurement_window_ids_sha256': scheduler.hash_updates(
+            measurement_start_update, ddp_benchmark_measure_steps, ddp_rank
+        ),
+        'peak_allocated_mib': torch.cuda.max_memory_allocated(device) / (1024 ** 2),
+        'peak_reserved_mib': torch.cuda.max_memory_reserved(device) / (1024 ** 2),
+        'device_total_mib': (
+            torch.cuda.get_device_properties(device).total_memory / (1024 ** 2)
+        ),
+    }
+    if (
+        local_record['warmup_window_ids_sha256']
+        != local_record['expected_warmup_window_ids_sha256']
+        or local_record['measurement_window_ids_sha256']
+        != local_record['expected_measurement_window_ids_sha256']
+    ):
+        raise RuntimeError('runtime window sequence differs from the planned sequence')
+
+    if ddp:
+        gathered_records = [None] * ddp_world_size if master_process else None
+        dist.gather_object(local_record, gathered_records, dst=0)
+    else:
+        gathered_records = [local_record]
+
+    if master_process:
+        rank_records = sorted(gathered_records, key=lambda record: record['rank'])
+        slowest_rank_step_times_ms = [
+            max(record['step_times_ms'][step] for record in rank_records)
+            for step in range(ddp_benchmark_measure_steps)
+        ]
+        global_step_losses = [
+            mean(record['mean_micro_batch_losses'][step] for record in rank_records)
+            for step in range(ddp_benchmark_measure_steps)
+        ]
+        median_step_ms = median(slowest_rank_step_times_ms)
+        global_tokens_per_update = global_windows_per_update * block_size
+        total_measured_tokens = (
+            ddp_benchmark_measure_steps * global_tokens_per_update
+        )
+        measured_global_ids = np.concatenate([
+            scheduler.global_window_ids(update)
+            for update in range(
+                measurement_start_update,
+                measurement_start_update + ddp_benchmark_measure_steps,
+            )
+        ])
+        repeated_measurement_windows = (
+            len(measured_global_ids) - len(np.unique(measured_global_ids))
+        )
+        manifest_path = Path(data_dir) / 'manifest.json'
+        manifest = None
+        if manifest_path.exists():
+            manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+
+        config_path = Path('config/benchmark_ddp_tinystories.py')
+        tracked_files = ['train.py', 'model.py', 'ddp_windows.py']
+        if config_path.exists():
+            tracked_files.append(str(config_path))
+        source_hashes = {
+            path: sha256_file(path) for path in tracked_files if Path(path).exists()
+        }
+        git_diff = command_output(['git', 'diff', '--binary', 'HEAD']) or ''
+        tokens_per_second = global_tokens_per_update / (median_step_ms / 1000)
+        result = {
+            'schema_version': 1,
+            'benchmark': 'C deterministic DDP no-Profiler benchmark',
+            'created_at_utc': datetime.now(timezone.utc).isoformat(),
+            'run_id': ddp_run_id,
+            'scaling_mode': ddp_scaling_mode,
+            'version': {
+                'git_commit': command_output(['git', 'rev-parse', 'HEAD']),
+                'git_status': command_output(['git', 'status', '--short']),
+                'tracked_diff_sha256': hashlib.sha256(git_diff.encode()).hexdigest(),
+                'source_sha256': source_hashes,
+            },
+            'environment': {
+                'platform': platform.platform(),
+                'python': platform.python_version(),
+                'pytorch': torch.__version__,
+                'cuda_runtime': torch.version.cuda,
+                'nccl': torch.cuda.nccl.version(),
+                'cudnn': torch.backends.cudnn.version(),
+                'driver': command_output([
+                    'nvidia-smi', '--query-gpu=driver_version', '--format=csv,noheader'
+                ]),
+                'nvidia_smi_list': command_output(['nvidia-smi', '-L']),
+                'nvidia_smi_topology': command_output(['nvidia-smi', 'topo', '-m']),
+            },
+            'data': {
+                'dataset': dataset,
+                'manifest': manifest,
+                'manifest_sha256': (
+                    sha256_file(manifest_path) if manifest_path.exists() else None
+                ),
+                'data_seed': ddp_data_seed,
+                'window_definition': 'non-overlapping block_size-token windows',
+                'train_token_count': train_token_count,
+                'complete_window_count': complete_window_count,
+                'trailing_token_count': trailing_token_count,
+                'tail_policy': ddp_tail_policy,
+                'epoch_plan': scheduler.epoch_metadata(0),
+                'warmup_global_window_ids_sha256': scheduler.hash_updates(
+                    0, ddp_benchmark_warmup_steps
+                ),
+                'measurement_global_window_ids_sha256': scheduler.hash_updates(
+                    measurement_start_update, ddp_benchmark_measure_steps
+                ),
+                'warmup_window_count': (
+                    ddp_benchmark_warmup_steps * global_windows_per_update
+                ),
+                'measurement_window_count': len(measured_global_ids),
+                'measurement_repeated_window_count': repeated_measurement_windows,
+            },
+            'configuration': {
+                **config,
+                'world_size': ddp_world_size,
+                'effective_gradient_accumulation_steps_per_rank': (
+                    gradient_accumulation_steps
+                ),
+                'local_windows_per_update': scheduler.local_windows_per_update,
+                'global_windows_per_update': global_windows_per_update,
+                'local_tokens_per_update': (
+                    scheduler.local_windows_per_update * block_size
+                ),
+                'global_tokens_per_update': global_tokens_per_update,
+                'model_parameter_count': sum(p.numel() for p in raw_model.parameters()),
+                'non_position_embedding_parameter_count': raw_model.get_num_params(),
+            },
+            'measurement': {
+                'timing': (
+                    'per-rank CUDA Events; one synchronization after measurement; '
+                    'global step uses the slowest rank'
+                ),
+                'profiler_enabled': False,
+                'warmup_steps': ddp_benchmark_warmup_steps,
+                'measured_steps': ddp_benchmark_measure_steps,
+                'total_measured_tokens': total_measured_tokens,
+                'slowest_rank_step_times_ms': slowest_rank_step_times_ms,
+                'global_mean_losses': global_step_losses,
+                'all_losses_finite': all(
+                    record['all_losses_finite'] for record in rank_records
+                ),
+                'all_window_hashes_match_plan': all(
+                    record['measurement_window_ids_sha256']
+                    == record['expected_measurement_window_ids_sha256']
+                    for record in rank_records
+                ),
+                'median_slowest_rank_step_ms': median_step_ms,
+                'mean_slowest_rank_step_ms': mean(slowest_rank_step_times_ms),
+                'min_slowest_rank_step_ms': min(slowest_rank_step_times_ms),
+                'max_slowest_rank_step_ms': max(slowest_rank_step_times_ms),
+                'global_tokens_per_second_from_median': tokens_per_second,
+                'per_gpu_tokens_per_second_from_median': (
+                    tokens_per_second / ddp_world_size
+                ),
+                'aggregate_global_tokens_per_second': (
+                    total_measured_tokens
+                    / (sum(slowest_rank_step_times_ms) / 1000)
+                ),
+                'first_loss': global_step_losses[0],
+                'last_loss': global_step_losses[-1],
+                'per_rank': rank_records,
+            },
+        }
+        results_path = (
+            Path(ddp_results_dir)
+            / ddp_scaling_mode
+            / f'{ddp_world_size}gpu'
+            / f'{ddp_run_id}.json'
+        )
+        results_path.parent.mkdir(parents=True, exist_ok=True)
+        results_path.write_text(
+            json.dumps(result, ensure_ascii=False, indent=2) + '\n',
+            encoding='utf-8',
+        )
+        print(
+            f'C result: median slowest-rank step {median_step_ms:.3f} ms, '
+            f'{tokens_per_second:,.0f} global tokens/s'
+        )
+        print(f'wrote {results_path}')
+
+    if ddp:
+        dist.barrier()
+
+
 def run_b2_profiler():
     if ddp:
         raise RuntimeError('B2 local trace is single-GPU; launch without torchrun')
@@ -643,6 +996,12 @@ def run_b2_profiler():
 
 if benchmark:
     run_b1_benchmark()
+    raise SystemExit(0)
+
+if ddp_benchmark:
+    run_c_ddp_benchmark()
+    if ddp:
+        destroy_process_group()
     raise SystemExit(0)
 
 if profiler:

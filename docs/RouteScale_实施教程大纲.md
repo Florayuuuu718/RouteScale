@@ -1,6 +1,6 @@
 # RouteScale：Transformer 训练系统项目实施大纲
 
-> 版本：2026-09-20
+> 版本：2026-10-06
 > 本文只记录项目路线、实施任务和阶段验收条件，不记录学习问答、完成进度或具体实验结果。
 
 相关文档：
@@ -18,8 +18,9 @@
 
 1. 单卡训练一步的时间与显存花在哪里？
 2. 1/2/4 卡 DDP 的吞吐、通信和扩展效率怎样变化？
-3. 将部分 Dense MLP 替换为 MoE 后，路由、负载和训练性能怎样变化？
-4. 根据 trace 选择一个真实热点后，Triton 实现能否改善完整训练？
+3. DeepSpeed ZeRO 如何改变模型状态分布、显存占用、通信和吞吐，与 DDP/FSDP2 有什么差异？
+4. 将部分 Dense MLP 替换为 MoE 后，路由、负载和训练性能怎样变化？
+5. 根据 trace 选择一个真实热点后，Triton 实现能否改善完整训练？
 
 ### 固定实验对象
 
@@ -37,6 +38,8 @@
 - 单卡无 Profiler 基线与 Profiler trace；
 - 1/2/4 卡 strong/weak scaling 报告；
 - 一次四卡完整训练窗口覆盖记录；
+- DeepSpeed ZeRO-0/1/2/3 的正确性、显存、吞吐、通信和 checkpoint 对照；
+- 可选的 PyTorch FSDP2 与 DeepSpeed ZeRO-3 同条件对照；
 - 单卡 Top-1 MoE 与 Dense 对照；
 - 一个 Triton 前反向正确性和完整训练性能对照；
 - 项目 README、图表、结论、失败记录和简历要点。
@@ -224,13 +227,82 @@
 6. 结束时对完整 validation 文件评估一次。
 7. 报告覆盖率、总时长、累计 token、峰值显存和初末 validation loss。
 
-### C 阶段验收
+截至 2026-10-06，单卡可验证版本已由 `train_coverage.py` 完成：debug 数据的 4,222 个完整窗口覆盖率为 100%，最后一个全局更新重复补齐 2 个窗口，413 个训练尾部 token 单独记录；完整 validation 的 194,558 个 target token 全部纳入初末评估。2 步保存后恢复到 4 步与连续 4 步的模型哈希、loss 历史和窗口哈希完全一致。该结果验证机制，不替代四卡 full 数据正式记录。
+
+### C1–C5 原生 DDP 验收（C6 前置条件）
 
 - 1/2/4 卡正确性检查通过；
 - strong 和 weak scaling 分开报告；
 - 有 NCCL/AllReduce 与 GPU 拓扑证据；
 - 能解释四卡没有达到四倍速度的原因；
 - 有一次可恢复、可核对的完整训练窗口覆盖记录。
+
+### C6. DeepSpeed ZeRO（完成 C1–C5 后实施）
+
+#### C6.1 接入边界
+
+1. 保留 `train.py` 作为原生 PyTorch/DDP 基线，新建 `train_deepspeed.py` 作为 DeepSpeed Engine 入口。
+2. 复用 `model.py`、`ddp_windows.py`、TinyStories 数据和正式模型配置，不改变数据顺序和模型结构。
+3. 在 `config/deepspeed/` 保存 ZeRO-0/1/2/3 和可选 offload 策略；运行时根据 world size 解析实际 micro-batch、梯度累积和全局 batch。
+4. 将完整解析后的 DeepSpeed 配置写入每次结果，不只保存原始 JSON。
+5. 第一轮保持 `compile=False`、BF16、相同 optimizer 超参数和相同全局 tokens/update，不同时引入 fused optimizer 或 offload。
+
+#### C6.2 Engine 与更新正确性
+
+1. 先用单卡 ZeRO-0 完成 forward、`engine.backward`、`engine.step` 和短训练冒烟检查。
+2. 用相同初始权重和全局 batch，对照原生 DDP 与 ZeRO-0 的一次参数更新。
+3. 核对各 rank 窗口、全局窗口哈希、loss、梯度累积边界和更新后参数误差。
+4. 正确性对照通过后再启用 ZeRO-1/2/3，不直接从 ZeRO-3 开始排错。
+
+#### C6.3 ZeRO 阶段对照
+
+1. 在同一台四卡服务器上对照原生 DDP、ZeRO-0、ZeRO-1、ZeRO-2 和 ZeRO-3。
+2. 使用相同模型、初始化、数据窗口、精度和全局 tokens/update，分别记录 1/2/4 卡条件下的结果。
+3. 正式无 Profiler 基准至少预热 20 次、测量 100 次并独立重复 3 次。
+4. 报告最慢 rank step 时间、全机 tokens/s、每卡峰值显存、loss、参数分片情况和 checkpoint 开销。
+5. 单独采集通信日志与 PyTorch Profiler trace，观察 AllReduce、ReduceScatter、AllGather、bucket 和计算/通信重叠；不将开启通信计时后的速度当作正式吞吐。
+6. 允许 ZeRO-3 在当前小模型上变慢，但必须用通信和显存证据解释原因。
+
+#### C6.4 模型容量边界
+
+1. 保持 GPT 模型家族、TinyStories 数据、序列长度和精度不变，逐步增加层数或宽度，不在本实验中更换为另一种模型架构。
+2. 固定 micro-batch 后分别寻找 DDP、ZeRO-2 和 ZeRO-3 的最大可训练参数规模，记录成功与 OOM 边界。
+3. 对每个容量点报告模型配置、参数量、每卡显存、step 时间、tokens/s 和 CPU 内存。
+4. 只在无 offload 的 ZeRO-3 完成后，再将 optimizer/parameter offload 作为独立变量，记录容量收益和 PCIe/CPU/NVMe 代价。
+
+#### C6.5 分布式 checkpoint
+
+1. 由所有 rank 共同保存分片 checkpoint，包含 model、optimizer、update 计数和数据窗口进度。
+2. 在新进程中恢复训练，检查下一个窗口、loss、optimizer state 和更新次数连续。
+3. 将 ZeRO-2/3 checkpoint 合并为普通 FP32 `state_dict`，用非 DeepSpeed 的 `GPT` 加载并对照固定输入的输出。
+4. 记录 checkpoint 分片数、总大小、保存/恢复时间和合并所需 CPU 内存。
+
+#### C6 验收
+
+- ZeRO-0 与原生 DDP 的更新正确性对照通过；
+- ZeRO-0/1/2/3 有同条件吞吐、显存和通信对照；
+- 能解释各 ZeRO 阶段分片的状态、新增的集合通信和性能取舍；
+- 有 DDP OOM 但 ZeRO 可训练的容量边界证据；
+- ZeRO 分片 checkpoint 可保存、恢复和合并为普通权重。
+
+截至 2026-10-06，仓库骨架和单卡可验证项已完成：ZeRO-0/1/2/3 均能启动、更新、保存并由新进程恢复；ZeRO-0 与原生路径的 4 步 loss 完全一致，最终参数最大绝对差为 `7.451e-09`；ZeRO-2/3 分片 checkpoint 均已合并为普通 FP32 `state_dict` 并由原生 `GPT` 严格加载。单 rank 的 ZeRO-1/2/3 不会产生真实跨卡分片收益，因此吞吐、显存、通信和容量边界仍必须在四卡服务器验收。当前 50.91M 同初始化对照默认关闭 `zero.Init`；只有容量实验显式传 `--zero-init`，避免构造时短暂复制完整参数。
+
+### C7. PyTorch FSDP2 对照（可选）
+
+进入条件：C6 完成且仍有时间和多卡资源。该阶段不阻塞后续 MoE 和 Triton 主线。
+
+1. 仅对照原生 DDP、DeepSpeed ZeRO-3 和 FSDP2 `fully_shard`，不重复所有 ZeRO 阶段的完整矩阵。
+2. 使用同一 GPT 模型、初始权重、数据窗口、全局 batch、BF16 和相同的无 Profiler 计时方法。
+3. 选择两个模型点：当前 50.91M 性能基准，以及 C6.4 中接近 DDP OOM 的容量点。
+4. 对比吞吐、峰值显存、AllGather/ReduceScatter 形态、包裹策略、checkpoint 格式和接入复杂度。
+5. 验证 FSDP2 分片 checkpoint 保存与恢复，并与 ZeRO-3 的分片权重生命周期做概念对照。
+6. 不为了增加框架数量再接入 Accelerate、Lightning 或 Colossal-AI；只在出现新的明确实验问题时扩展。
+
+#### C7 验收
+
+FSDP2 与 ZeRO-3 在同条件下都能正确训练和恢复；能用实测证据解释两者的显存、通信、性能和工程取舍。
+
+截至 2026-10-06，`train_fsdp2.py` 已按 Transformer block 自底向上调用 `fully_shard`，共享的 embedding/lm_head 留在根分片组；单卡 DCP 2 步保存并由新进程恢复到 4 步通过。多卡 ReduceScatter/AllGather、真实分片显存和性能尚未声称完成。
 
 ---
 
@@ -343,4 +415,14 @@ forward/backward 正确；能够分别报告算子收益和完整训练收益；
 | `config/train_tinystories.py` | TinyStories 训练配置 |
 | `model.py` | GPT 模型与后续模型接入点 |
 | `train.py` | 训练、计时、Profiler 和 DDP 主入口 |
+| `distributed_common.py` | 三种分布式后端共享的数据、模型、optimizer 与评估语义 |
+| `train_coverage.py` | C5 确定性完整覆盖与原生 DDP checkpoint 入口 |
+| `train_deepspeed.py` | C6 阶段建立的 DeepSpeed Engine 主入口 |
+| `train_fsdp2.py` | C7 阶段建立的 FSDP2 `fully_shard` 与 DCP 入口 |
+| `config/deepspeed/` | C6 阶段建立的 ZeRO 与 offload 策略 |
+| `scripts/preflight_multigpu.py` | 目标机器 GPU/软件/数据/NCCL collective 准入检查 |
+| `docs/c_stage_multigpu_runbook.md` | 四卡租用规格、准入顺序和 smoke 命令 |
+| `results/c5_coverage/` | C5 覆盖率、完整 validation 与恢复正确性结果 |
+| `results/c6_deepspeed/` | C6 DeepSpeed 正确性、性能、容量、通信与 checkpoint 结果 |
+| `results/c7_fsdp2/` | C7 FSDP2 正确性、性能、通信与 DCP 结果 |
 | `moe.py` | D 阶段建立的 Top-1 MoE |

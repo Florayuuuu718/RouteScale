@@ -14,6 +14,7 @@ dependencies = [
 [project.optional-dependencies]
 hf = ["transformers>=4,<6"]
 logging = ["wandb>=0.19,<1"]
+distributed = ["deepspeed==0.19.7", "ninja>=1.11,<2"]
 
 [tool.uv]
 package = false

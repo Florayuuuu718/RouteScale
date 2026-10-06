@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "stage": "C5",
+  "created_at_utc": "2026-10-06T10:00:23.238019+00:00",
+  "status": "pass",
+  "device": "cuda",
+  "dtype": "float32",
+  "split": "2 updates + resume to 4 updates",
+  "reference": "4 uninterrupted updates",
+  "checks": {
+    "model_state_sha256_equal": true,
+    "loss_history_equal": true,
+    "next_update_equal": true,
+    "window_prefix_sha256_equal": true
+  },
+  "loss_history": [
+    10.81082820892334,
+    10.800662994384766,
+    10.809271812438965,
+    10.797658920288086
+  ],
+  "model_state_sha256": "ce73993bfa414a9717ea8a61891459bcfecd13e15ff8c55daafba6c6158ae32f",
+  "global_window_prefix_sha256": "781f285a44ad814929aa3c3a946885cdcf5621fd3de83a01fcbf744e544716e8"
+}

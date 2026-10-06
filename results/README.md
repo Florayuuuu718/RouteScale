@@ -152,3 +152,58 @@ jobs may not recover that cost. The result applies to the tested fixed shapes,
 PyTorch 2.12.1, CUDA 12.9 and RTX 5060 Laptop GPU; the target four-GPU server
 must be measured again. Finite and closely matched losses establish a short-run
 correctness check, not bitwise equivalence or long-training quality parity.
+
+## C: deterministic DDP prerequisites and local one-GPU benchmark
+
+Date: 2026-10-06. The global-window scheduler, 1/2/4 logical-rank CPU tests,
+single-update correctness harness, per-rank benchmark schema, and scaling
+summary script are implemented. A two-process CPU/Gloo update matched the
+equivalent full-batch model within `3.725e-09` maximum parameter error, with
+identical parameters across ranks. The one-process CUDA/NCCL comparison was
+exact.
+
+The C no-Profiler benchmark was then run in three independent one-GPU
+processes, each with 20 warmup and 100 measured updates. Its run medians were
+346.696, 346.479 and 346.310 ms/update. The median of medians is **346.479
+ms/update**, or **47,287 tokens/s**, with 3,906.9 MiB peak allocated and 4,910.0
+MiB peak reserved memory. All losses were finite, runtime window hashes matched
+the plan, and each run used the same 3,200 unique measured windows.
+
+Full commands, raw JSON, scope limits, and the remaining multi-GPU work are in
+[`c_ddp/README.md`](c_ddp/README.md). These laptop results validate the harness
+only; they are not the denominator for target-server 2/4-GPU scaling.
+
+## C5: deterministic coverage and checkpoint recovery
+
+The 50.91M model completed one deterministic pass over every non-overlapping
+window in `tinystories_debug`: 4,222 unique windows, 4,224 scheduled positions,
+two explicitly padded repeats, and 413 trailing training tokens outside a full
+512-token window. Coverage was 100%. The run performed 132 optimizer updates
+in 55.41 seconds including periodic checkpoint work and reached 3,899.2 MiB
+peak allocated memory. This elapsed time is an operational coverage duration,
+not a no-checkpoint throughput benchmark.
+
+Full-validation loss, weighted over all 194,558 target tokens including the
+short final segment, changed from 10.9056 to 3.9285. An independent recovery
+check compared `2 updates + save + new-process resume to 4` against four
+uninterrupted updates. Model SHA256, loss history, next update and consumed
+window hash all matched. See [`c5_coverage/README.md`](c5_coverage/README.md).
+
+## C6/C7: local DeepSpeed and FSDP2 scaffolding
+
+DeepSpeed 0.19.7 ZeRO stages 0/1/2/3 each completed a one-GPU update,
+sharded-format save, and new-process recovery. ZeRO-0 and native PyTorch used
+the same four-step loss sequence; their final parameters differed by at most
+`7.451e-09`, below the declared `1e-7` tolerance. FSDP2 block-level
+`fully_shard` completed the same two-step save/resume-to-four workflow using
+Distributed Checkpoint. ZeRO-2 and ZeRO-3 checkpoints were also consolidated
+to ordinary FP32 state dictionaries and strictly loaded by the non-DeepSpeed
+`GPT`, with no missing or unexpected keys.
+
+These one-rank runs validate engine APIs, accumulation boundaries and state
+lifecycle. They do not demonstrate state partitioning, collective cost or
+memory savings, which require the target four-GPU process group. The tiny
+smoke timings are deliberately not treated as performance results. Details are
+in [`c6_deepspeed/README.md`](c6_deepspeed/README.md),
+[`c7_fsdp2/README.md`](c7_fsdp2/README.md), and
+[`c_distributed_smoke/trajectory_comparison.json`](c_distributed_smoke/trajectory_comparison.json).
