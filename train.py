@@ -23,6 +23,7 @@ import pickle
 import hashlib
 import json
 import platform
+import resource
 import subprocess
 from datetime import datetime, timezone
 from contextlib import nullcontext
@@ -684,6 +685,10 @@ def run_c_ddp_benchmark():
         'device_total_mib': (
             torch.cuda.get_device_properties(device).total_memory / (1024 ** 2)
         ),
+        # Linux reports ru_maxrss in KiB.
+        'peak_process_rss_bytes': int(
+            resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+        ),
     }
     if (
         local_record['warmup_window_ids_sha256']
@@ -694,6 +699,9 @@ def run_c_ddp_benchmark():
         raise RuntimeError('runtime window sequence differs from the planned sequence')
 
     if ddp:
+        # Preserve the recorded peak above, but keep result collection from
+        # becoming the limiting CUDA allocation near the capacity boundary.
+        torch.cuda.empty_cache()
         gathered_records = [None] * ddp_world_size if master_process else None
         dist.gather_object(local_record, gathered_records, dst=0)
     else:

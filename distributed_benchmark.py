@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import resource
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean, median
@@ -187,7 +188,15 @@ def run_distributed_benchmark(
         "peak_allocated_bytes": torch.cuda.max_memory_allocated(env.device),
         "peak_reserved_bytes": torch.cuda.max_memory_reserved(env.device),
         "device_total_bytes": torch.cuda.get_device_properties(env.device).total_memory,
+        # Linux reports ru_maxrss in KiB. This covers model construction,
+        # optimizer creation, warmup, and the measured updates for this rank.
+        "peak_process_rss_bytes": int(
+            resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+        ),
     }
+    # Peak CUDA values above are already captured. Release unused allocator
+    # cache so result collection itself does not become the capacity limit.
+    torch.cuda.empty_cache()
     gathered = gather_rank_objects(local_record, env)
     output_path = None
     if env.master:
