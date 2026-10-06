@@ -12,6 +12,10 @@ import torch
 import torch.distributed as dist
 
 from ddp_windows import GlobalWindowScheduler
+from distributed_benchmark import (
+    add_benchmark_arguments,
+    run_distributed_benchmark,
+)
 from distributed_common import (
     MemmapTokenDataset,
     atomic_json_dump,
@@ -57,6 +61,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--beta1", type=float, default=0.9)
     parser.add_argument("--beta2", type=float, default=0.95)
     parser.add_argument("--grad-clip", type=float, default=1.0)
+    parser.add_argument(
+        "--fused-optimizer",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="use torch fused AdamW; enable in formal runs to match native DDP",
+    )
     parser.add_argument("--dtype", choices=("float32", "bfloat16", "float16"),
                         default="bfloat16")
     parser.add_argument(
@@ -67,6 +77,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--backend", default="nccl")
+    add_benchmark_arguments(
+        parser, default_results_dir="results/c_backend_benchmark"
+    )
     return parser.parse_args()
 
 
@@ -108,14 +121,19 @@ def signature(args, dataset, scheduler, stage: int, world_size: int) -> dict:
         "weight_decay": args.weight_decay,
         "beta1": args.beta1,
         "beta2": args.beta2,
+        "fused_optimizer": args.fused_optimizer,
         "updates_per_epoch": scheduler.updates_per_epoch,
     }
 
 
 def main() -> None:
     args = parse_args()
-    if args.max_updates <= 0:
+    if not args.benchmark and args.max_updates <= 0:
         raise ValueError("max-updates must be positive")
+    if args.benchmark and (args.resume_dir or args.resume_tag):
+        raise ValueError("benchmark mode cannot resume from a checkpoint")
+    if args.benchmark and args.checkpoint_every:
+        raise ValueError("benchmark mode cannot save periodic checkpoints")
     try:
         import deepspeed
     except ImportError as error:
@@ -166,13 +184,17 @@ def main() -> None:
                 dropout=args.dropout,
                 bias=args.bias,
             )
+        model_parameter_count = sum(
+            getattr(parameter, "ds_numel", parameter.numel())
+            for parameter in model.parameters()
+        )
         optimizer = build_adamw(
             model,
             learning_rate=args.learning_rate,
             weight_decay=args.weight_decay,
             beta1=args.beta1,
             beta2=args.beta2,
-            fused=False,
+            fused=args.fused_optimizer,
         )
         engine, optimizer, _, _ = deepspeed.initialize(
             model=model,
@@ -180,6 +202,46 @@ def main() -> None:
             config=resolved_config,
             dist_init_required=False,
         )
+
+        def run_update(update: int, *, reduce_loss: bool) -> torch.Tensor:
+            micro_losses = []
+            starting_global_steps = engine.global_steps
+            for window_ids in scheduler.rank_window_ids(update):
+                x, y = dataset.batch("train", window_ids, env.device)
+                with autocast_context(env.device_type, args.dtype):
+                    _, loss = engine(x, y)
+                if not torch.isfinite(loss):
+                    raise FloatingPointError(f"non-finite loss at update {update}")
+                engine.backward(loss)
+                engine.step()
+                micro_losses.append(loss.detach())
+            if engine.global_steps != starting_global_steps + 1:
+                raise RuntimeError(
+                    "DeepSpeed did not produce exactly one optimizer update for "
+                    "the configured accumulation window"
+                )
+            mean_loss = torch.stack(micro_losses).mean()
+            if reduce_loss:
+                dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
+                mean_loss /= env.world_size
+            return mean_loss
+
+        if args.benchmark:
+            run_distributed_benchmark(
+                args=args,
+                env=env,
+                dataset=dataset,
+                scheduler=scheduler,
+                backend="deepspeed",
+                variant=f"deepspeed_zero{stage}",
+                model_parameter_count=model_parameter_count,
+                run_update=lambda update: run_update(update, reduce_loss=False),
+                extra_configuration={
+                    "zero_stage": stage,
+                    "resolved_deepspeed_config": resolved_config,
+                },
+            )
+            return
 
         next_update = 0
         loss_history: list[float] = []
@@ -224,25 +286,7 @@ def main() -> None:
         torch.cuda.synchronize(env.device)
         started = time.perf_counter()
         for update in range(next_update, args.max_updates):
-            micro_losses = []
-            starting_global_steps = engine.global_steps
-            for window_ids in scheduler.rank_window_ids(update):
-                x, y = dataset.batch("train", window_ids, env.device)
-                with autocast_context(env.device_type, args.dtype):
-                    _, loss = engine(x, y)
-                if not torch.isfinite(loss):
-                    raise FloatingPointError(f"non-finite loss at update {update}")
-                engine.backward(loss)
-                engine.step()
-                micro_losses.append(loss.detach())
-            if engine.global_steps != starting_global_steps + 1:
-                raise RuntimeError(
-                    "DeepSpeed did not produce exactly one optimizer update for "
-                    "the configured accumulation window"
-                )
-            mean_loss = torch.stack(micro_losses).mean()
-            dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
-            mean_loss /= env.world_size
+            mean_loss = run_update(update, reduce_loss=True)
             loss_history.append(float(mean_loss))
             next_update = update + 1
             if env.master:

@@ -8,3 +8,8 @@ ignored by Git.
 The result validates model/optimizer state loading and deterministic window
 progress. ReduceScatter, AllGather, sharded-memory reduction and performance
 are explicitly pending a four-GPU run.
+
+Formal server measurements use `train_fsdp2.py --benchmark`, sharing the same
+no-validation/no-checkpoint timing driver and result schema as DeepSpeed. This
+keeps the 20-warmup/100-measured protocol, slowest-rank timing, window hashes
+and fused-optimizer choice directly auditable.

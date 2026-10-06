@@ -19,3 +19,9 @@ ZeRO-3 passes.
 `zero3_single_gpu/fp32_verification.json` record successful consolidation to
 ordinary FP32 state dictionaries and strict loading into a non-DeepSpeed
 `GPT`. The generated `merged_fp32.pt` files are ignored.
+
+Formal server measurements use `train_deepspeed.py --benchmark`. That mode
+runs warmup and measured updates only, gathers per-rank CUDA Event timings and
+memory, and deliberately skips validation and checkpoint I/O. It records the
+resolved ZeRO configuration and the explicit fused-optimizer choice. See the
+C-stage multi-GPU runbook for the 1/2/4-GPU, three-run matrix.

@@ -285,7 +285,7 @@
 - 有 DDP OOM 但 ZeRO 可训练的容量边界证据；
 - ZeRO 分片 checkpoint 可保存、恢复和合并为普通权重。
 
-截至 2026-10-06，仓库骨架和单卡可验证项已完成：ZeRO-0/1/2/3 均能启动、更新、保存并由新进程恢复；ZeRO-0 与原生路径的 4 步 loss 完全一致，最终参数最大绝对差为 `7.451e-09`；ZeRO-2/3 分片 checkpoint 均已合并为普通 FP32 `state_dict` 并由原生 `GPT` 严格加载。单 rank 的 ZeRO-1/2/3 不会产生真实跨卡分片收益，因此吞吐、显存、通信和容量边界仍必须在四卡服务器验收。当前 50.91M 同初始化对照默认关闭 `zero.Init`；只有容量实验显式传 `--zero-init`，避免构造时短暂复制完整参数。
+截至 2026-10-06，仓库骨架和单卡可验证项已完成：ZeRO-0/1/2/3 均能启动、更新、保存并由新进程恢复；ZeRO-0 与原生路径的 4 步 loss 完全一致，最终参数最大绝对差为 `7.451e-09`；ZeRO-2/3 分片 checkpoint 均已合并为普通 FP32 `state_dict` 并由原生 `GPT` 严格加载。现已增加独立的 `--benchmark` 模式，共用 20 次预热、100 次测量、每 rank CUDA Event、最慢 rank 汇总和运行时窗口哈希，并明确排除 validation、Profiler 和 checkpoint I/O。单 rank 的 ZeRO-1/2/3 不会产生真实跨卡分片收益，因此正式吞吐、显存、通信和容量边界仍必须在四卡服务器验收。当前 50.91M 同初始化对照默认关闭 `zero.Init`；只有容量实验显式传 `--zero-init`，避免构造时短暂复制完整参数。
 
 ### C7. PyTorch FSDP2 对照（可选）
 
@@ -302,7 +302,7 @@
 
 FSDP2 与 ZeRO-3 在同条件下都能正确训练和恢复；能用实测证据解释两者的显存、通信、性能和工程取舍。
 
-截至 2026-10-06，`train_fsdp2.py` 已按 Transformer block 自底向上调用 `fully_shard`，共享的 embedding/lm_head 留在根分片组；单卡 DCP 2 步保存并由新进程恢复到 4 步通过。多卡 ReduceScatter/AllGather、真实分片显存和性能尚未声称完成。
+截至 2026-10-06，`train_fsdp2.py` 已按 Transformer block 自底向上调用 `fully_shard`，共享的 embedding/lm_head 留在根分片组；单卡 DCP 2 步保存并由新进程恢复到 4 步通过。FSDP2 已接入与 DeepSpeed 相同的正式 benchmark schema，但多卡 ReduceScatter/AllGather、真实分片显存和性能仍需在目标服务器采集后才能声称完成。
 
 ---
 

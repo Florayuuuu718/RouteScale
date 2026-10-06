@@ -107,6 +107,8 @@ profiler_data_seed = 20260920
 profiler_trace_dir = 'logs/b2_profiler'
 profiler_results_dir = 'results/b2_profiler'
 profiler_run_id = 'baseline'
+profiler_distributed = False
+profiler_tail_policy = 'drop'
 # -----------------------------------------------------------------------------
 config_keys = [k for k,v in globals().items() if not k.startswith('_') and isinstance(v, (int, float, bool, str))]
 exec(open('configurator.py').read()) # overrides from command line or config file
@@ -119,6 +121,8 @@ if sum((benchmark, ddp_benchmark, profiler)) > 1:
     raise ValueError('benchmark, ddp_benchmark, and profiler are mutually exclusive')
 if ddp_benchmark and ddp_scaling_mode not in ('strong', 'weak'):
     raise ValueError("ddp_scaling_mode must be 'strong' or 'weak'")
+if profiler_tail_policy not in ('drop', 'pad'):
+    raise ValueError("profiler_tail_policy must be 'drop' or 'pad'")
 if ddp:
     ddp_rank = int(os.environ['RANK'])
     ddp_local_rank = int(os.environ['LOCAL_RANK'])
@@ -383,9 +387,10 @@ def run_scheduled_training_step(
             model.require_backward_grad_sync = (
                 micro_step == gradient_accumulation_steps - 1
             )
-        with ctx:
-            logits, unscaled_loss = model(X, Y)
-            loss = unscaled_loss / gradient_accumulation_steps
+        with record_region('forward'):
+            with ctx:
+                logits, unscaled_loss = model(X, Y)
+                loss = unscaled_loss / gradient_accumulation_steps
         micro_losses.append(unscaled_loss.detach())
 
         if micro_step + 1 < gradient_accumulation_steps:
@@ -397,14 +402,18 @@ def run_scheduled_training_step(
         X, Y, window_ids = get_scheduled_batch(
             scheduler, next_update, next_micro_step
         )
-        scaler.scale(loss).backward()
+        with record_region('backward'):
+            scaler.scale(loss).backward()
 
     if grad_clip != 0.0:
-        scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
-    scaler.step(optimizer)
-    scaler.update()
-    optimizer.zero_grad(set_to_none=True)
+        with record_region('gradient_clipping'):
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+    with record_region('optimizer_step'):
+        scaler.step(optimizer)
+        scaler.update()
+    with record_region('zero_grad'):
+        optimizer.zero_grad(set_to_none=True)
     mean_micro_loss = torch.stack(micro_losses).mean()
     return X, Y, window_ids, mean_micro_loss
 
@@ -851,11 +860,18 @@ def run_c_ddp_benchmark():
         dist.barrier()
 
 
-def run_b2_profiler():
-    if ddp:
-        raise RuntimeError('B2 local trace is single-GPU; launch without torchrun')
+def run_profiler_trace():
+    if ddp and not profiler_distributed:
+        raise RuntimeError(
+            'the B2 profiler is single-GPU; set profiler_distributed=True '
+            'for a C4 multi-rank trace'
+        )
+    if profiler_distributed and not ddp:
+        raise RuntimeError(
+            'the C4 distributed profiler must be launched through torchrun'
+        )
     if device_type != 'cuda':
-        raise RuntimeError('B2 requires a CUDA device')
+        raise RuntimeError('Profiler requires a CUDA device')
     schedule_values = (
         profiler_wait_steps,
         profiler_warmup_steps,
@@ -864,26 +880,67 @@ def run_b2_profiler():
     if min(schedule_values) < 1 or profiler_startup_warmup_steps < 1:
         raise ValueError('Profiler schedule and startup warmup steps must be positive')
 
-    print(
-        f'B2 profiler: {profiler_startup_warmup_steps} unprofiled warmup updates, '
-        f'schedule wait={profiler_wait_steps}, warmup={profiler_warmup_steps}, '
-        f'active={profiler_active_steps}, run {profiler_run_id}'
+    profile_name = (
+        'C4 multi-rank DDP communication trace'
+        if profiler_distributed
+        else 'B2 single-GPU PyTorch Profiler trace'
     )
-    X, Y = get_batch('train')
+    if master_process:
+        print(
+            f'{profile_name}: {profiler_startup_warmup_steps} unprofiled '
+            f'warmup updates, schedule wait={profiler_wait_steps}, '
+            f'warmup={profiler_warmup_steps}, active={profiler_active_steps}, '
+            f'run {profiler_run_id}'
+        )
+
+    scheduler = None
+    window_hasher = None
+    window_ids = None
+    if profiler_distributed:
+        train_path = Path(data_dir) / 'train.bin'
+        train_data = np.memmap(train_path, dtype=np.uint16, mode='r')
+        complete_window_count = (len(train_data) - 1) // block_size
+        del train_data
+        global_windows_per_update = (
+            gradient_accumulation_steps * ddp_world_size * batch_size
+        )
+        scheduler = GlobalWindowScheduler(
+            window_count=complete_window_count,
+            global_windows_per_update=global_windows_per_update,
+            world_size=ddp_world_size,
+            rank=ddp_rank,
+            batch_size=batch_size,
+            seed=profiler_data_seed,
+            tail_policy=profiler_tail_policy,
+        )
+        X, Y, window_ids = get_scheduled_batch(scheduler, 0, 0)
+        window_hasher = hashlib.sha256()
+    else:
+        X, Y = get_batch('train')
+
     for step in range(profiler_startup_warmup_steps):
         lr = get_lr(step) if decay_lr else learning_rate
         for param_group in optimizer.param_groups:
             param_group['lr'] = lr
-        X, Y, _, loss = run_training_step(X, Y)
+        if profiler_distributed:
+            X, Y, window_ids, loss = run_scheduled_training_step(
+                X, Y, window_ids, step, scheduler, window_hasher
+            )
+        else:
+            X, Y, _, loss = run_training_step(X, Y)
     torch.cuda.synchronize(device)
+    if ddp:
+        dist.barrier()
 
     trace_dir = Path(profiler_trace_dir)
     results_dir = Path(profiler_results_dir)
     trace_dir.mkdir(parents=True, exist_ok=True)
     results_dir.mkdir(parents=True, exist_ok=True)
-    trace_path = trace_dir / f'{profiler_run_id}_trace.json'
-    table_path = results_dir / f'{profiler_run_id}_key_averages.txt'
-    events_path = results_dir / f'{profiler_run_id}_key_averages.json'
+    rank_suffix = f'_rank{ddp_rank}' if profiler_distributed else ''
+    artifact_stem = f'{profiler_run_id}{rank_suffix}'
+    trace_path = trace_dir / f'{artifact_stem}_trace.json'
+    table_path = results_dir / f'{artifact_stem}_key_averages.txt'
+    events_path = results_dir / f'{artifact_stem}_key_averages.json'
 
     def trace_handler(prof):
         prof.export_chrome_trace(str(trace_path))
@@ -942,17 +999,28 @@ def run_b2_profiler():
             lr = get_lr(global_step) if decay_lr else learning_rate
             for param_group in optimizer.param_groups:
                 param_group['lr'] = lr
-            X, Y, _, loss = run_training_step(X, Y)
-            observed_losses.append(loss.detach() * gradient_accumulation_steps)
+            if profiler_distributed:
+                X, Y, window_ids, loss = run_scheduled_training_step(
+                    X, Y, window_ids, global_step, scheduler, window_hasher
+                )
+                observed_losses.append(loss.detach())
+            else:
+                X, Y, _, loss = run_training_step(X, Y)
+                observed_losses.append(
+                    loss.detach() * gradient_accumulation_steps
+                )
             prof.step()
 
     torch.cuda.synchronize(device)
     losses = [value.item() for value in observed_losses]
     metadata = {
         'schema_version': 1,
-        'profile': 'B2 single-GPU PyTorch Profiler trace',
+        'profile': profile_name,
         'created_at_utc': datetime.now(timezone.utc).isoformat(),
         'run_id': profiler_run_id,
+        'rank': ddp_rank,
+        'local_rank': ddp_local_rank,
+        'world_size': ddp_world_size,
         'schedule': {
             'startup_unprofiled_warmup_steps': profiler_startup_warmup_steps,
             'wait_steps': profiler_wait_steps,
@@ -963,6 +1031,7 @@ def run_b2_profiler():
             **config,
             'effective_gradient_accumulation_steps': gradient_accumulation_steps,
             'tokens_per_update': tokens_per_iter,
+            'profiler_instrumentation_is_excluded_from_formal_throughput': True,
         },
         'environment': {
             'pytorch': torch.__version__,
@@ -973,6 +1042,14 @@ def run_b2_profiler():
             'all_losses_finite': all(math.isfinite(value) for value in losses),
             'first_observed_loss': losses[0],
             'last_observed_loss': losses[-1],
+            'window_ids_sha256': (
+                window_hasher.hexdigest() if window_hasher is not None else None
+            ),
+            'expected_window_ids_sha256': (
+                scheduler.hash_updates(0, profiler_startup_warmup_steps + scheduled_steps, ddp_rank)
+                if scheduler is not None
+                else None
+            ),
         },
         'memory': {
             'peak_allocated_mib': torch.cuda.max_memory_allocated(device) / (1024 ** 2),
@@ -985,13 +1062,59 @@ def run_b2_profiler():
         },
         'warning': 'Profiler timings include instrumentation overhead and are not formal throughput.',
     }
-    metadata_path = results_dir / f'{profiler_run_id}_metadata.json'
+    metadata_path = results_dir / f'{artifact_stem}_metadata.json'
     metadata_path.write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + '\n',
         encoding='utf-8',
     )
-    print(f'wrote trace {trace_path}')
-    print(f'wrote summaries {table_path}, {events_path}, {metadata_path}')
+    print(f'rank {ddp_rank} wrote trace {trace_path}', flush=True)
+    print(
+        f'rank {ddp_rank} wrote summaries {table_path}, {events_path}, '
+        f'{metadata_path}',
+        flush=True,
+    )
+
+    if ddp:
+        gathered_metadata = [None] * ddp_world_size if master_process else None
+        dist.gather_object(metadata, gathered_metadata, dst=0)
+        if master_process:
+            manifest = {
+                'schema_version': 1,
+                'profile': profile_name,
+                'created_at_utc': datetime.now(timezone.utc).isoformat(),
+                'run_id': profiler_run_id,
+                'world_size': ddp_world_size,
+                'all_losses_finite': all(
+                    item['correctness']['all_losses_finite']
+                    for item in gathered_metadata
+                ),
+                'all_window_hashes_match_plan': all(
+                    item['correctness']['window_ids_sha256']
+                    == item['correctness']['expected_window_ids_sha256']
+                    for item in gathered_metadata
+                ),
+                'environment': {
+                    'pytorch': torch.__version__,
+                    'cuda_runtime': torch.version.cuda,
+                    'nccl': torch.cuda.nccl.version(),
+                    'nvidia_smi_list': command_output(['nvidia-smi', '-L']),
+                    'nvidia_smi_topology': command_output(
+                        ['nvidia-smi', 'topo', '-m']
+                    ),
+                },
+                'ranks': gathered_metadata,
+                'warning': (
+                    'Profiler timings include instrumentation overhead and '
+                    'must not be used as formal throughput.'
+                ),
+            }
+            manifest_path = results_dir / f'{profiler_run_id}_manifest.json'
+            manifest_path.write_text(
+                json.dumps(manifest, ensure_ascii=False, indent=2) + '\n',
+                encoding='utf-8',
+            )
+            print(f'wrote distributed profiler manifest {manifest_path}')
+        dist.barrier()
 
 
 if benchmark:
@@ -1005,7 +1128,9 @@ if ddp_benchmark:
     raise SystemExit(0)
 
 if profiler:
-    run_b2_profiler()
+    run_profiler_trace()
+    if ddp:
+        destroy_process_group()
     raise SystemExit(0)
 
 if device_type == 'cuda':

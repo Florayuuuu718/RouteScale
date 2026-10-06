@@ -46,7 +46,10 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - `train_deepspeed.py`: DeepSpeed ZeRO entry point
 - `train_fsdp2.py`: PyTorch FSDP2 entry point
 - `distributed_common.py`: shared model/data/optimizer semantics
+- `distributed_benchmark.py`: shared C6/C7 no-Profiler timing and rank aggregation
 - `scripts/preflight_multigpu.py`: target-host admission report and NCCL check
+- `scripts/summarize_c4_profiler.py`: per-rank collective trace summary
+- `scripts/summarize_c_backends.py`: DeepSpeed/FSDP2 formal benchmark summary
 - `data/tinystories/`: TinyStories preparation scripts
 - `results/`: experiment configurations and results
 - `docs/`: environment records, project plan and upstream documentation

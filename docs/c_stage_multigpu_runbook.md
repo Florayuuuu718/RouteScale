@@ -58,6 +58,31 @@ uv run torchrun --standalone --nproc_per_node=4 train_coverage.py \
 
 正式完整覆盖时改用 `tinystories_full`、`--max-updates=0 --full-validation`。正式记录应保留覆盖率、补齐数、训练/validation 尾部、窗口哈希、初末 loss、checkpoint 哈希和每卡峰值显存。
 
+## C4 多 rank 通信 trace
+
+正式 strong/weak scaling 稳定后，单独采集一次四卡 Profiler trace。每个
+rank 会写独立的 Chrome trace、key averages 和 metadata；rank 0 另外写
+manifest。Profiler 有显著开销，结果只用于解释通信机制，不能替代无
+Profiler 吞吐。
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
+python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
+  train.py config/profile_ddp_tinystories.py \
+  --profiler_run_id=4gpu_autodl \
+  --profiler_trace_dir=logs/c_ddp_autodl_profiler \
+  --profiler_results_dir=results/c_ddp_autodl/profiler
+
+python3 scripts/summarize_c4_profiler.py \
+  --results-dir=results/c_ddp_autodl/profiler \
+  --run-id=4gpu_autodl \
+  --expected-ranks=4
+```
+
+`*_summary.json` 会按 rank 汇总 NCCL/AllReduce 等事件。计算与通信是否重叠
+必须在 Perfetto/Chrome trace 中检查 backward 与 collective 的时间区间；
+key averages 丢失了并发关系，不能单独裁决重叠。
+
 ## DeepSpeed 逐级 smoke
 
 必须从 ZeRO-0 开始，确认 loss 和窗口后再逐级增加分片：
@@ -115,6 +140,62 @@ uv run torchrun --standalone --nproc_per_node=4 train_fsdp2.py \
 
 这里验证的是 block 级 `fully_shard`、梯度累积同步边界和 DCP 恢复。不要用 smoke 的总耗时报告正式 speedup。
 
+## C6/C7 正式后端 benchmark
+
+`train_deepspeed.py` 和 `train_fsdp2.py` 的 `--benchmark` 模式与 smoke
+生命周期互斥：它只执行预热和正式测量，不运行 validation，也不保存或
+恢复 checkpoint。每个 rank 用 CUDA Event 记录更新时间，rank 0 使用每一步
+最慢 rank 的时间计算吞吐。默认协议是 20 次预热、100 次测量。
+
+DeepSpeed 对每个 ZeRO stage、每个 GPU 数和每个 run ID 启动新进程。例如
+四卡 ZeRO-2：
+
+```bash
+for run_id in run1 run2 run3; do
+  CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
+  python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
+    train_deepspeed.py \
+    --deepspeed-config=config/deepspeed/zero2.json \
+    --data-dir=data/tinystories_full \
+    --tail-policy=drop \
+    --fused-optimizer \
+    --benchmark \
+    --benchmark-run-id="$run_id" \
+    --benchmark-results-dir=results/c_backend_autodl
+done
+```
+
+一卡也必须由 `torchrun --nproc_per_node=1` 启动；两卡固定选择同 NUMA 的
+物理 GPU 0、1。对 ZeRO-0/1/2/3 重复 1/2/4 卡矩阵。FSDP2 使用同一参数：
+
+```bash
+for run_id in run1 run2 run3; do
+  CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
+  python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
+    train_fsdp2.py \
+    --data-dir=data/tinystories_full \
+    --tail-policy=drop \
+    --fused-optimizer \
+    --benchmark \
+    --benchmark-run-id="$run_id" \
+    --benchmark-results-dir=results/c_backend_autodl
+done
+```
+
+全部运行完成后校验 loss、窗口、重复次数，并与同机 DDP strong summary 对照：
+
+```bash
+python3 scripts/summarize_c_backends.py \
+  --results-dir=results/c_backend_autodl \
+  --world-sizes 1 2 4 \
+  --variants deepspeed_zero0 deepspeed_zero1 deepspeed_zero2 deepspeed_zero3 fsdp2 \
+  --ddp-summary=results/c_ddp_autodl/strong/summary.json
+```
+
+这里得到的是当前 50.91M 模型的正式性能点。容量边界实验仍应单独改变
+`n_layer`/`n_embd`；ZeRO-3 容量搜索显式使用 `--zero-init`，不得和性能矩阵
+默认的 `--no-zero-init` 混在同一汇总中。
+
 ## 什么时候开始正式矩阵
 
-四卡 preflight、2/4 卡 DDP 更新、C5 恢复、ZeRO-0、ZeRO-1/2/3、FSDP2 smoke 全部通过后，再冻结 commit、数据 SHA256、模型、BF16、全局 tokens/update 和 optimizer。正式性能矩阵仍使用“20 次预热、100 次测量、3 个独立进程”的协议，并把 Profiler、checkpoint 和 validation 排除在稳态计时外。当前这些入口已经具备训练和 checkpoint 骨架，但 smoke 的 `elapsed_seconds_this_invocation` 不是最终的 20/100×3 benchmark 裁决值。
+四卡 preflight、2/4 卡 DDP 更新、C5 恢复、ZeRO-0、ZeRO-1/2/3、FSDP2 smoke 全部通过后，再冻结 commit、数据 SHA256、模型、BF16、全局 tokens/update 和 optimizer。正式性能矩阵使用“20 次预热、100 次测量、3 个独立进程”的 `--benchmark` 模式，并把 Profiler、checkpoint 和 validation 排除在稳态计时外。smoke 的 `elapsed_seconds_this_invocation` 仍不能作为正式 benchmark 裁决值。

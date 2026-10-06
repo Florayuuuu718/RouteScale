@@ -20,6 +20,10 @@ from torch.distributed.device_mesh import init_device_mesh
 from torch.distributed.fsdp import MixedPrecisionPolicy, fully_shard
 
 from ddp_windows import GlobalWindowScheduler
+from distributed_benchmark import (
+    add_benchmark_arguments,
+    run_distributed_benchmark,
+)
 from distributed_common import (
     MemmapTokenDataset,
     atomic_json_dump,
@@ -66,12 +70,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--beta1", type=float, default=0.9)
     parser.add_argument("--beta2", type=float, default=0.95)
     parser.add_argument("--grad-clip", type=float, default=1.0)
+    parser.add_argument(
+        "--fused-optimizer",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="use torch fused AdamW; enable in formal runs to match native DDP",
+    )
     parser.add_argument("--dtype", choices=("float32", "bfloat16"),
                         default="bfloat16")
     parser.add_argument("--reshard-after-forward", action=argparse.BooleanOptionalAction,
                         default=True)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--backend", default="nccl")
+    add_benchmark_arguments(
+        parser, default_results_dir="results/c_backend_benchmark"
+    )
     return parser.parse_args()
 
 
@@ -96,6 +109,7 @@ def signature(args, dataset, scheduler, world_size: int) -> dict:
         "weight_decay": args.weight_decay,
         "beta1": args.beta1,
         "beta2": args.beta2,
+        "fused_optimizer": args.fused_optimizer,
         "reshard_after_forward": args.reshard_after_forward,
         "updates_per_epoch": scheduler.updates_per_epoch,
     }
@@ -150,8 +164,12 @@ def load_dcp_checkpoint(*, model, optimizer, checkpoint_dir: Path, rank: int) ->
 
 def main() -> None:
     args = parse_args()
-    if args.max_updates <= 0:
+    if not args.benchmark and args.max_updates <= 0:
         raise ValueError("max-updates must be positive")
+    if args.benchmark and args.resume_from:
+        raise ValueError("benchmark mode cannot resume from a checkpoint")
+    if args.benchmark and args.checkpoint_every:
+        raise ValueError("benchmark mode cannot save periodic checkpoints")
     env = initialize_distributed(device=args.device, backend=args.backend)
     try:
         if not env.distributed or env.device_type != "cuda":
@@ -179,6 +197,9 @@ def main() -> None:
             n_embd=args.n_embd,
             dropout=args.dropout,
             bias=args.bias,
+        )
+        model_parameter_count = sum(
+            parameter.numel() for parameter in model.parameters()
         )
         mesh = init_device_mesh(
             "cuda", (env.world_size,), mesh_dim_names=("data_parallel",)
@@ -210,8 +231,50 @@ def main() -> None:
             weight_decay=args.weight_decay,
             beta1=args.beta1,
             beta2=args.beta2,
-            fused=False,
+            fused=args.fused_optimizer,
         )
+
+        def run_update(update: int, *, reduce_loss: bool) -> torch.Tensor:
+            optimizer.zero_grad(set_to_none=True)
+            micro_losses = []
+            for micro_step, window_ids in enumerate(
+                scheduler.rank_window_ids(update)
+            ):
+                is_last = micro_step + 1 == scheduler.local_micro_steps
+                model.set_requires_gradient_sync(is_last)
+                model.set_reshard_after_backward(is_last)
+                x, y = dataset.batch("train", window_ids, env.device)
+                with autocast_context(env.device_type, args.dtype):
+                    _, loss = model(x, y)
+                    scaled_loss = loss / scheduler.local_micro_steps
+                if not torch.isfinite(loss):
+                    raise FloatingPointError(f"non-finite loss at update {update}")
+                scaled_loss.backward()
+                micro_losses.append(loss.detach())
+            if args.grad_clip > 0:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
+            optimizer.step()
+            mean_loss = torch.stack(micro_losses).mean()
+            if reduce_loss:
+                dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
+                mean_loss /= env.world_size
+            return mean_loss
+
+        if args.benchmark:
+            run_distributed_benchmark(
+                args=args,
+                env=env,
+                dataset=dataset,
+                scheduler=scheduler,
+                backend="fsdp2",
+                variant="fsdp2",
+                model_parameter_count=model_parameter_count,
+                run_update=lambda update: run_update(update, reduce_loss=False),
+                extra_configuration={
+                    "reshard_after_forward": args.reshard_after_forward,
+                },
+            )
+            return
 
         next_update = 0
         loss_history: list[float] = []
@@ -256,26 +319,7 @@ def main() -> None:
         started = time.perf_counter()
         last_checkpoint_update = None
         for update in range(next_update, args.max_updates):
-            optimizer.zero_grad(set_to_none=True)
-            micro_losses = []
-            for micro_step, window_ids in enumerate(scheduler.rank_window_ids(update)):
-                is_last = micro_step + 1 == scheduler.local_micro_steps
-                model.set_requires_gradient_sync(is_last)
-                model.set_reshard_after_backward(is_last)
-                x, y = dataset.batch("train", window_ids, env.device)
-                with autocast_context(env.device_type, args.dtype):
-                    _, loss = model(x, y)
-                    scaled_loss = loss / scheduler.local_micro_steps
-                if not torch.isfinite(loss):
-                    raise FloatingPointError(f"non-finite loss at update {update}")
-                scaled_loss.backward()
-                micro_losses.append(loss.detach())
-            if args.grad_clip > 0:
-                torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
-            optimizer.step()
-            mean_loss = torch.stack(micro_losses).mean()
-            dist.all_reduce(mean_loss, op=dist.ReduceOp.SUM)
-            mean_loss /= env.world_size
+            mean_loss = run_update(update, reduce_loss=True)
             loss_history.append(float(mean_loss))
             next_update = update + 1
             if env.master:
