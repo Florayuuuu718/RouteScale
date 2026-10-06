@@ -1,4 +1,4 @@
-"""Shared no-Profiler benchmark driver for C-stage distributed backends."""
+"""Shared benchmark and profiler drivers for C-stage distributed backends."""
 
 from __future__ import annotations
 
@@ -25,7 +25,12 @@ from distributed_common import (
 )
 
 
-def add_benchmark_arguments(parser, *, default_results_dir: str) -> None:
+def add_benchmark_arguments(
+    parser,
+    *,
+    default_results_dir: str,
+    default_profiler_dir: str = "results/c_backend_profiler",
+) -> None:
     parser.add_argument(
         "--benchmark",
         action="store_true",
@@ -35,6 +40,21 @@ def add_benchmark_arguments(parser, *, default_results_dir: str) -> None:
     parser.add_argument("--benchmark-measure-updates", type=int, default=100)
     parser.add_argument("--benchmark-run-id", default="run1")
     parser.add_argument("--benchmark-results-dir", default=default_results_dir)
+    parser.add_argument(
+        "--profiler",
+        action="store_true",
+        help="collect a short per-rank communication trace; not formal timing",
+    )
+    parser.add_argument("--profiler-startup-warmup-updates", type=int, default=2)
+    parser.add_argument("--profiler-wait-updates", type=int, default=1)
+    parser.add_argument("--profiler-warmup-updates", type=int, default=1)
+    parser.add_argument("--profiler-active-updates", type=int, default=3)
+    parser.add_argument("--profiler-run-id", default="4gpu")
+    parser.add_argument("--profiler-results-dir", default=default_profiler_dir)
+    parser.add_argument(
+        "--profiler-trace-dir",
+        default=f"{default_profiler_dir}/traces",
+    )
 
 
 def validate_benchmark_arguments(args, scheduler: GlobalWindowScheduler) -> None:
@@ -47,6 +67,19 @@ def validate_benchmark_arguments(args, scheduler: GlobalWindowScheduler) -> None
         raise ValueError(
             "benchmark warmup plus measurement exceeds one scheduled epoch"
         )
+
+
+def validate_profiler_arguments(args, scheduler: GlobalWindowScheduler) -> None:
+    values = (
+        args.profiler_startup_warmup_updates,
+        args.profiler_wait_updates,
+        args.profiler_warmup_updates,
+        args.profiler_active_updates,
+    )
+    if min(values) <= 0:
+        raise ValueError("profiler update counts must be positive")
+    if sum(values) > scheduler.updates_per_epoch:
+        raise ValueError("profiler updates exceed one scheduled epoch")
 
 
 def aggregate_rank_records(
@@ -283,3 +316,209 @@ def run_distributed_benchmark(
         print(f"saved {output_path}", flush=True)
     barrier()
     return output_path
+
+
+def run_distributed_profiler(
+    *,
+    args,
+    env: DistributedEnvironment,
+    dataset: MemmapTokenDataset,
+    scheduler: GlobalWindowScheduler,
+    backend: str,
+    variant: str,
+    model_parameter_count: int,
+    run_update: Callable[[int], torch.Tensor],
+    extra_configuration: dict | None = None,
+) -> Path | None:
+    """Collect short per-rank traces without treating them as formal timing."""
+
+    if env.device_type != "cuda":
+        raise RuntimeError("distributed profiler requires CUDA")
+    validate_profiler_arguments(args, scheduler)
+
+    startup_steps = args.profiler_startup_warmup_updates
+    wait_steps = args.profiler_wait_updates
+    profiler_warmup_steps = args.profiler_warmup_updates
+    active_steps = args.profiler_active_updates
+    scheduled_steps = wait_steps + profiler_warmup_steps + active_steps
+    total_steps = startup_steps + scheduled_steps
+    if env.master:
+        print(
+            f"{variant} profiler: world_size={env.world_size}, "
+            f"startup={startup_steps}, wait={wait_steps}, "
+            f"warmup={profiler_warmup_steps}, active={active_steps}, "
+            f"run {args.profiler_run_id}",
+            flush=True,
+        )
+
+    window_hasher = hashlib.sha256()
+    observed_losses: list[torch.Tensor] = []
+    for update in range(startup_steps):
+        ids = scheduler.rank_window_ids(update).reshape(-1)
+        window_hasher.update(np.asarray(ids, dtype="<i8").tobytes(order="C"))
+        loss = run_update(update)
+        if not torch.isfinite(loss):
+            raise FloatingPointError(f"non-finite profiler warmup loss at {update}")
+        observed_losses.append(loss.detach().float())
+
+    torch.cuda.synchronize(env.device)
+    barrier()
+    torch.cuda.reset_peak_memory_stats(env.device)
+
+    results_dir = Path(args.profiler_results_dir) / variant
+    trace_dir = Path(args.profiler_trace_dir) / variant
+    results_dir.mkdir(parents=True, exist_ok=True)
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    artifact_stem = f"{args.profiler_run_id}_rank{env.rank}"
+    trace_path = trace_dir / f"{artifact_stem}_trace.json"
+    table_path = results_dir / f"{artifact_stem}_key_averages.txt"
+    events_path = results_dir / f"{artifact_stem}_key_averages.json"
+
+    def trace_handler(prof) -> None:
+        prof.export_chrome_trace(str(trace_path))
+        averages = list(prof.key_averages())
+        table_path.write_text(
+            prof.key_averages().table(
+                sort_by="self_device_time_total",
+                row_limit=100,
+                max_name_column_width=100,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        rows = [
+            {
+                "name": event.key,
+                "count": event.count,
+                "self_cpu_time_us": event.self_cpu_time_total,
+                "cpu_time_total_us": event.cpu_time_total,
+                "self_device_time_us": event.self_device_time_total,
+                "device_time_total_us": event.device_time_total,
+                "self_cpu_memory_bytes": event.self_cpu_memory_usage,
+                "self_device_memory_bytes": event.self_device_memory_usage,
+            }
+            for event in averages
+        ]
+        rows.sort(key=lambda event: event["self_device_time_us"], reverse=True)
+        atomic_json_dump(rows, events_path)
+
+    with torch.profiler.profile(
+        activities=(
+            torch.profiler.ProfilerActivity.CPU,
+            torch.profiler.ProfilerActivity.CUDA,
+        ),
+        schedule=torch.profiler.schedule(
+            wait=wait_steps,
+            warmup=profiler_warmup_steps,
+            active=active_steps,
+            repeat=1,
+        ),
+        on_trace_ready=trace_handler,
+        record_shapes=True,
+        profile_memory=True,
+        with_stack=False,
+    ) as prof:
+        for profile_step in range(scheduled_steps):
+            update = startup_steps + profile_step
+            ids = scheduler.rank_window_ids(update).reshape(-1)
+            window_hasher.update(
+                np.asarray(ids, dtype="<i8").tobytes(order="C")
+            )
+            loss = run_update(update)
+            if not torch.isfinite(loss):
+                raise FloatingPointError(
+                    f"non-finite profiler loss at update {update}"
+                )
+            observed_losses.append(loss.detach().float())
+            prof.step()
+
+    torch.cuda.synchronize(env.device)
+    if not trace_path.is_file() or not events_path.is_file():
+        raise RuntimeError("profiler did not emit the expected rank artifacts")
+    losses = [float(value) for value in observed_losses]
+    expected_hash = scheduler.hash_updates(0, total_steps, env.rank)
+    metadata = {
+        "schema_version": 1,
+        "profile": "C6/C7 distributed backend communication trace",
+        "created_at_utc": datetime.now(timezone.utc).isoformat(),
+        "backend": backend,
+        "variant": variant,
+        "run_id": args.profiler_run_id,
+        "rank": env.rank,
+        "local_rank": env.local_rank,
+        "world_size": env.world_size,
+        "schedule": {
+            "startup_unprofiled_warmup_steps": startup_steps,
+            "wait_steps": wait_steps,
+            "profiler_warmup_steps": profiler_warmup_steps,
+            "active_steps": active_steps,
+        },
+        "configuration": {
+            **vars(args),
+            "model_parameter_count": model_parameter_count,
+            "local_micro_steps": scheduler.local_micro_steps,
+            "global_tokens_per_update": (
+                args.global_windows_per_update * args.block_size
+            ),
+            **(extra_configuration or {}),
+        },
+        "environment": environment_metadata(env),
+        "git": git_metadata(),
+        "correctness": {
+            "all_losses_finite": all(math.isfinite(value) for value in losses),
+            "first_observed_loss": losses[0],
+            "last_observed_loss": losses[-1],
+            "window_ids_sha256": window_hasher.hexdigest(),
+            "expected_window_ids_sha256": expected_hash,
+        },
+        "memory": {
+            "peak_allocated_bytes": torch.cuda.max_memory_allocated(env.device),
+            "peak_reserved_bytes": torch.cuda.max_memory_reserved(env.device),
+            "peak_process_rss_bytes": int(
+                resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+            ),
+        },
+        "artifacts": {
+            "trace": str(trace_path),
+            "key_averages_table": str(table_path),
+            "key_averages_json": str(events_path),
+        },
+        "warning": (
+            "Profiler timings include instrumentation overhead and are not "
+            "formal throughput results."
+        ),
+    }
+    metadata_path = results_dir / f"{artifact_stem}_metadata.json"
+    atomic_json_dump(metadata, metadata_path)
+    torch.cuda.empty_cache()
+    gathered = gather_rank_objects(metadata, env)
+
+    manifest_path = None
+    if env.master:
+        manifest = {
+            "schema_version": 1,
+            "profile": "C6/C7 distributed backend communication trace",
+            "created_at_utc": datetime.now(timezone.utc).isoformat(),
+            "backend": backend,
+            "variant": variant,
+            "run_id": args.profiler_run_id,
+            "world_size": env.world_size,
+            "all_losses_finite": all(
+                item["correctness"]["all_losses_finite"] for item in gathered
+            ),
+            "all_window_hashes_match_plan": all(
+                item["correctness"]["window_ids_sha256"]
+                == item["correctness"]["expected_window_ids_sha256"]
+                for item in gathered
+            ),
+            "ranks": gathered,
+            "warning": (
+                "Profiler timings include instrumentation overhead and must "
+                "not be used as formal throughput."
+            ),
+        }
+        manifest_path = results_dir / f"{args.profiler_run_id}_manifest.json"
+        atomic_json_dump(manifest, manifest_path)
+        print(f"saved profiler manifest {manifest_path}", flush=True)
+    barrier()
+    return manifest_path

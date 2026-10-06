@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import resource
 import time
 
 import torch
@@ -23,6 +24,7 @@ from ddp_windows import GlobalWindowScheduler
 from distributed_benchmark import (
     add_benchmark_arguments,
     run_distributed_benchmark,
+    run_distributed_profiler,
 )
 from distributed_common import (
     MemmapTokenDataset,
@@ -34,6 +36,7 @@ from distributed_common import (
     build_model,
     capture_rng_state,
     destroy_distributed,
+    directory_artifact_stats,
     environment_metadata,
     evaluate_loss,
     git_metadata,
@@ -117,7 +120,9 @@ def signature(args, dataset, scheduler, world_size: int) -> dict:
 
 def save_dcp_checkpoint(
     *, model, optimizer, checkpoint_dir: Path, metadata: dict, rank: int, master: bool
-) -> None:
+) -> float:
+    barrier()
+    started = time.perf_counter()
     model_state, optimizer_state = get_state_dict(
         model,
         optimizer,
@@ -133,9 +138,14 @@ def save_dcp_checkpoint(
     if master:
         atomic_json_dump(metadata, checkpoint_dir / "route_scale_metadata.json")
     barrier()
+    return time.perf_counter() - started
 
 
-def load_dcp_checkpoint(*, model, optimizer, checkpoint_dir: Path, rank: int) -> dict:
+def load_dcp_checkpoint(
+    *, model, optimizer, checkpoint_dir: Path, rank: int
+) -> tuple[dict, float]:
+    barrier()
+    started = time.perf_counter()
     metadata_path = checkpoint_dir / "route_scale_metadata.json"
     if not metadata_path.is_file():
         raise FileNotFoundError(metadata_path)
@@ -159,17 +169,21 @@ def load_dcp_checkpoint(*, model, optimizer, checkpoint_dir: Path, rank: int) ->
     if not rng_path.is_file():
         raise FileNotFoundError(rng_path)
     restore_rng_state(torch.load(rng_path, map_location="cpu", weights_only=False))
-    return metadata
+    barrier()
+    return metadata, time.perf_counter() - started
 
 
 def main() -> None:
     args = parse_args()
-    if not args.benchmark and args.max_updates <= 0:
+    if args.benchmark and args.profiler:
+        raise ValueError("benchmark and profiler modes are mutually exclusive")
+    special_mode = args.benchmark or args.profiler
+    if not special_mode and args.max_updates <= 0:
         raise ValueError("max-updates must be positive")
-    if args.benchmark and args.resume_from:
-        raise ValueError("benchmark mode cannot resume from a checkpoint")
-    if args.benchmark and args.checkpoint_every:
-        raise ValueError("benchmark mode cannot save periodic checkpoints")
+    if special_mode and args.resume_from:
+        raise ValueError("benchmark/profiler mode cannot resume from a checkpoint")
+    if special_mode and args.checkpoint_every:
+        raise ValueError("benchmark/profiler mode cannot save checkpoints")
     env = initialize_distributed(device=args.device, backend=args.backend)
     try:
         if not env.distributed or env.device_type != "cuda":
@@ -260,6 +274,22 @@ def main() -> None:
                 mean_loss /= env.world_size
             return mean_loss
 
+        if args.profiler:
+            run_distributed_profiler(
+                args=args,
+                env=env,
+                dataset=dataset,
+                scheduler=scheduler,
+                backend="fsdp2",
+                variant="fsdp2",
+                model_parameter_count=model_parameter_count,
+                run_update=lambda update: run_update(update, reduce_loss=False),
+                extra_configuration={
+                    "reshard_after_forward": args.reshard_after_forward,
+                },
+            )
+            return
+
         if args.benchmark:
             run_distributed_benchmark(
                 args=args,
@@ -279,8 +309,9 @@ def main() -> None:
         next_update = 0
         loss_history: list[float] = []
         initial_validation_loss = None
+        checkpoint_load_seconds = None
         if args.resume_from:
-            metadata = load_dcp_checkpoint(
+            metadata, checkpoint_load_seconds = load_dcp_checkpoint(
                 model=model,
                 optimizer=optimizer,
                 checkpoint_dir=Path(args.resume_from),
@@ -318,6 +349,7 @@ def main() -> None:
         torch.cuda.synchronize(env.device)
         started = time.perf_counter()
         last_checkpoint_update = None
+        checkpoint_save_seconds = None
         for update in range(next_update, args.max_updates):
             mean_loss = run_update(update, reduce_loss=True)
             loss_history.append(float(mean_loss))
@@ -330,7 +362,7 @@ def main() -> None:
                 )
             if args.checkpoint_every and next_update % args.checkpoint_every == 0:
                 checkpoint_dir = out_dir / "checkpoints" / f"update-{next_update:08d}"
-                save_dcp_checkpoint(
+                checkpoint_save_seconds = save_dcp_checkpoint(
                     model=model,
                     optimizer=optimizer,
                     checkpoint_dir=checkpoint_dir,
@@ -360,7 +392,7 @@ def main() -> None:
         )
         checkpoint_dir = out_dir / "checkpoints" / f"update-{next_update:08d}"
         if last_checkpoint_update != next_update:
-            save_dcp_checkpoint(
+            checkpoint_save_seconds = save_dcp_checkpoint(
                 model=model,
                 optimizer=optimizer,
                 checkpoint_dir=checkpoint_dir,
@@ -382,6 +414,11 @@ def main() -> None:
                 "elapsed_seconds_this_invocation": elapsed,
                 "peak_allocated_bytes": torch.cuda.max_memory_allocated(env.device),
                 "peak_reserved_bytes": torch.cuda.max_memory_reserved(env.device),
+                "peak_process_rss_bytes": int(
+                    resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+                ),
+                "checkpoint_save_seconds": checkpoint_save_seconds,
+                "checkpoint_load_seconds": checkpoint_load_seconds,
             },
             env,
         )
@@ -428,8 +465,24 @@ def main() -> None:
                     "peak_reserved_bytes": max(
                         item["peak_reserved_bytes"] for item in rank_metrics
                     ),
+                    "checkpoint_save_seconds_slowest_rank": max(
+                        item["checkpoint_save_seconds"] for item in rank_metrics
+                        if item["checkpoint_save_seconds"] is not None
+                    ),
+                    "checkpoint_load_seconds_slowest_rank": (
+                        max(
+                            item["checkpoint_load_seconds"]
+                            for item in rank_metrics
+                            if item["checkpoint_load_seconds"] is not None
+                        )
+                        if checkpoint_load_seconds is not None
+                        else None
+                    ),
                 },
-                "artifacts": {"checkpoint_dir": str(checkpoint_dir)},
+                "artifacts": {
+                    "checkpoint_dir": str(checkpoint_dir),
+                    "checkpoint": directory_artifact_stats(checkpoint_dir),
+                },
             }
             atomic_json_dump(result, out_dir / "result.json")
             print(f"saved {out_dir / 'result.json'}", flush=True)

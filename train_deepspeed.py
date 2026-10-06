@@ -6,6 +6,7 @@ import argparse
 from contextlib import nullcontext
 import json
 from pathlib import Path
+import resource
 import time
 
 import torch
@@ -15,6 +16,7 @@ from ddp_windows import GlobalWindowScheduler
 from distributed_benchmark import (
     add_benchmark_arguments,
     run_distributed_benchmark,
+    run_distributed_profiler,
 )
 from distributed_common import (
     MemmapTokenDataset,
@@ -24,6 +26,7 @@ from distributed_common import (
     build_adamw,
     build_model,
     destroy_distributed,
+    directory_artifact_stats,
     environment_metadata,
     evaluate_loss,
     git_metadata,
@@ -145,12 +148,15 @@ def initialize_deepspeed_communication(
 
 def main() -> None:
     args = parse_args()
-    if not args.benchmark and args.max_updates <= 0:
+    if args.benchmark and args.profiler:
+        raise ValueError("benchmark and profiler modes are mutually exclusive")
+    special_mode = args.benchmark or args.profiler
+    if not special_mode and args.max_updates <= 0:
         raise ValueError("max-updates must be positive")
-    if args.benchmark and (args.resume_dir or args.resume_tag):
-        raise ValueError("benchmark mode cannot resume from a checkpoint")
-    if args.benchmark and args.checkpoint_every:
-        raise ValueError("benchmark mode cannot save periodic checkpoints")
+    if special_mode and (args.resume_dir or args.resume_tag):
+        raise ValueError("benchmark/profiler mode cannot resume from a checkpoint")
+    if special_mode and args.checkpoint_every:
+        raise ValueError("benchmark/profiler mode cannot save checkpoints")
     try:
         import deepspeed
     except ImportError as error:
@@ -248,6 +254,23 @@ def main() -> None:
                 mean_loss /= env.world_size
             return mean_loss
 
+        if args.profiler:
+            run_distributed_profiler(
+                args=args,
+                env=env,
+                dataset=dataset,
+                scheduler=scheduler,
+                backend="deepspeed",
+                variant=f"deepspeed_zero{stage}",
+                model_parameter_count=model_parameter_count,
+                run_update=lambda update: run_update(update, reduce_loss=False),
+                extra_configuration={
+                    "zero_stage": stage,
+                    "resolved_deepspeed_config": resolved_config,
+                },
+            )
+            return
+
         if args.benchmark:
             run_distributed_benchmark(
                 args=args,
@@ -268,7 +291,10 @@ def main() -> None:
         next_update = 0
         loss_history: list[float] = []
         initial_validation_loss = None
+        checkpoint_load_seconds = None
         if args.resume_dir:
+            barrier()
+            checkpoint_load_started = time.perf_counter()
             load_path, client_state = engine.load_checkpoint(
                 args.resume_dir,
                 tag=args.resume_tag,
@@ -284,6 +310,10 @@ def main() -> None:
             initial_validation_loss = float(client_state["initial_validation_loss"])
             if client_state["global_window_prefix_sha256"] != scheduler.hash_updates(0, next_update):
                 raise ValueError("DeepSpeed checkpoint data-window progress mismatch")
+            barrier()
+            checkpoint_load_seconds = (
+                time.perf_counter() - checkpoint_load_started
+            )
 
         validation_ids = dataset.fixed_validation_ids(
             args.eval_windows, args.validation_seed
@@ -343,6 +373,8 @@ def main() -> None:
             dtype=args.dtype,
         )
         checkpoint_tag = f"update-{next_update:08d}"
+        barrier()
+        checkpoint_save_started = time.perf_counter()
         engine.save_checkpoint(
             str(out_dir / "checkpoints"),
             tag=checkpoint_tag,
@@ -356,6 +388,7 @@ def main() -> None:
             save_latest=True,
         )
         barrier()
+        checkpoint_save_seconds = time.perf_counter() - checkpoint_save_started
 
         rank_metrics = gather_rank_objects(
             {
@@ -363,6 +396,11 @@ def main() -> None:
                 "elapsed_seconds_this_invocation": elapsed,
                 "peak_allocated_bytes": torch.cuda.max_memory_allocated(env.device),
                 "peak_reserved_bytes": torch.cuda.max_memory_reserved(env.device),
+                "peak_process_rss_bytes": int(
+                    resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+                ),
+                "checkpoint_save_seconds": checkpoint_save_seconds,
+                "checkpoint_load_seconds": checkpoint_load_seconds,
             },
             env,
         )
@@ -411,11 +449,26 @@ def main() -> None:
                     "peak_reserved_bytes": max(
                         item["peak_reserved_bytes"] for item in rank_metrics
                     ),
+                    "checkpoint_save_seconds_slowest_rank": max(
+                        item["checkpoint_save_seconds"] for item in rank_metrics
+                    ),
+                    "checkpoint_load_seconds_slowest_rank": (
+                        max(
+                            item["checkpoint_load_seconds"]
+                            for item in rank_metrics
+                            if item["checkpoint_load_seconds"] is not None
+                        )
+                        if checkpoint_load_seconds is not None
+                        else None
+                    ),
                 },
                 "artifacts": {
                     "resolved_config": str(out_dir / "resolved_deepspeed_config.json"),
                     "checkpoint_dir": str(out_dir / "checkpoints"),
                     "checkpoint_tag": checkpoint_tag,
+                    "checkpoint": directory_artifact_stats(
+                        out_dir / "checkpoints" / checkpoint_tag
+                    ),
                 },
             }
             atomic_json_dump(result, out_dir / "result.json")

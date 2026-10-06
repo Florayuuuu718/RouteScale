@@ -196,6 +196,101 @@ python3 scripts/summarize_c_backends.py \
 `n_layer`/`n_embd`；ZeRO-3 容量搜索显式使用 `--zero-init`，不得和性能矩阵
 默认的 `--no-zero-init` 混在同一汇总中。
 
+## C6/C7 后端通信 trace
+
+正式吞吐矩阵完成后，用统一脚本顺序采集 ZeRO-0/1/2/3 和 FSDP2 的四卡
+短 trace。脚本使用 2 次不采样预热，以及 wait=1、profiler warmup=1、
+active=3 的 schedule；每个 rank 单独保存 Chrome trace、key averages 和
+metadata，最后自动生成 collective-family summary。
+
+```bash
+bash scripts/run_c_backend_profiler.sh
+```
+
+结果位于 `results/c_backend_profiler/`。重点核对 AllReduce、ReduceScatter、
+AllGather 的出现位置；wrapper 和 NCCL kernel 是同一通信工作的不同层级，
+不能把二者时间直接相加。是否与 backward 重叠仍需打开 Chrome trace 检查。
+Profiler 结果不得替代正式无 Profiler 吞吐。
+
+## C6/C7 checkpoint 定量记录
+
+下面的脚本在 50.91M debug 数据上为 ZeRO-2、ZeRO-3 和 FSDP2 分别执行
+2 步保存、由新进程恢复到第 3 步，并对 ZeRO-2/3 合并普通 FP32 权重。
+结果记录分片数、总字节数、最慢 rank 保存/恢复时间、进程峰值 RSS、合并
+时间和严格加载结果。
+
+```bash
+bash scripts/run_c_checkpoint_metrics.sh
+```
+
+汇总位于 `results/c_checkpoint_metrics/summary.json`。合并后的 `.pt` 和真实
+checkpoint 只留在数据盘，不纳入小型证据包。
+
+## C6/C7 容量封板与 FSDP2 可选点
+
+容量成功点由 benchmark JSON 自动发现；显式 OOM 使用结构化 failure record。
+例如 ZeRO-2 在 L32/D2304 的 backward gradient bucket OOM：
+
+```bash
+python3 scripts/record_capacity_failure.py \
+  --variant=deepspeed_zero2 \
+  --run-id=L32_D2304 \
+  --parameter-count=2155553280 \
+  --n-layer=32 --n-head=36 --n-embd=2304 \
+  --failure-type=cuda_oom \
+  --phase='backward gradient bucket flatten/allreduce-scatter' \
+  --gpu-index=3 \
+  --torch-allocated-mib=18698 \
+  --torch-reserved-unallocated-mib=4710 \
+  --requested-allocation-mib=922 \
+  --log=results/c_capacity/logs/zero2_L32_D2304.log \
+  --output=results/c_capacity/failures/zero2_L32_D2304.json
+```
+
+资源数值必须来自对应 OOM 行或同次运行的监控；无法可靠取得的字段直接省略，
+summary 会保留为 `null`，不得用邻近成功点代填。
+
+FSDP2 在 DDP OOM 的 9.84 亿参数点使用相同短容量协议：
+
+```bash
+set +e
+CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
+timeout --signal=INT --kill-after=30s 300s \
+python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
+  train_fsdp2.py \
+  --data-dir=data/tinystories_full \
+  --tail-policy=drop \
+  --n-layer=32 --n-head=24 --n-embd=1536 \
+  --fused-optimizer \
+  --benchmark \
+  --benchmark-warmup-updates=2 \
+  --benchmark-measure-updates=5 \
+  --benchmark-results-dir=results/c_capacity/backend \
+  --benchmark-run-id=L32_D1536 \
+  2>&1 | tee results/c_capacity/logs/fsdp2_L32_D1536.log
+echo "FSDP2_L32_D1536_EXIT=${PIPESTATUS[0]}"
+set -e
+
+python3 scripts/summarize_c_capacity.py \
+  --results-dir=results/c_capacity
+```
+
+若 ZeRO-3 没有继续搜索到失败点，汇总必须将最大成功点写成已验证下界，
+不得声称为精确最大容量。
+
+## 小型结果证据包
+
+关机前将 JSON、summary、key averages 和日志打包；脚本自动排除数据、
+checkpoint、合并权重、runtime 目录和大型 Chrome trace：
+
+```bash
+python3 scripts/package_c_results.py \
+  --results-dir=results \
+  --output=/root/autodl-tmp/routescale_c_evidence.tar.gz
+
+sha256sum /root/autodl-tmp/routescale_c_evidence.tar.gz
+```
+
 ## 什么时候开始正式矩阵
 
 四卡 preflight、2/4 卡 DDP 更新、C5 恢复、ZeRO-0、ZeRO-1/2/3、FSDP2 smoke 全部通过后，再冻结 commit、数据 SHA256、模型、BF16、全局 tokens/update 和 optimizer。正式性能矩阵使用“20 次预热、100 次测量、3 个独立进程”的 `--benchmark` 模式，并把 Profiler、checkpoint 和 validation 排除在稳态计时外。smoke 的 `elapsed_seconds_this_invocation` 仍不能作为正式 benchmark 裁决值。

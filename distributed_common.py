@@ -400,6 +400,16 @@ def atomic_json_dump(value: Any, path: str | Path) -> None:
     os.replace(temporary, destination)
 
 
+def directory_artifact_stats(path: str | Path) -> dict[str, Any]:
+    root = Path(path)
+    files = sorted(item for item in root.rglob("*") if item.is_file())
+    return {
+        "file_count": len(files),
+        "total_bytes": sum(item.stat().st_size for item in files),
+        "files": [str(item.relative_to(root)) for item in files],
+    }
+
+
 def git_metadata() -> dict[str, Any]:
     def run(*args: str) -> str | None:
         try:
