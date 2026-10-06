@@ -28,7 +28,8 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - [x] Reproducible TinyStories training baseline
 - [x] Mixed-precision and micro-batch memory evaluation
 - [x] Checkpoint save and resume validation
-- [ ] PyTorch Profiler bottleneck analysis
+- [x] Reproducible single-GPU no-Profiler benchmark
+- [x] PyTorch Profiler bottleneck analysis and `torch.compile` A/B
 - [ ] 1/2/4-GPU DDP scaling
 - [ ] Top-1 Mixture-of-Experts
 - [ ] Triton kernel evaluation
@@ -43,4 +44,3 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 ## Attribution
 
 RouteScale is built on [karpathy/nanoGPT](https://github.com/karpathy/nanoGPT). The original upstream commit is recorded in `UPSTREAM_COMMIT.txt`.
-

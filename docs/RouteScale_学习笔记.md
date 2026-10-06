@@ -1,6 +1,6 @@
 # RouteScale 学习笔记与实验判断手册
 
-> 更新日期：2026-09-20  
+> 更新日期：2026-10-01
 > 这份文档整理 RouteScale 学习过程中已经讨论并实际验证的知识。它不是聊天记录，也不是实施计划：实施顺序和验收条件见 [`RouteScale_实施教程大纲.md`](RouteScale_实施教程大纲.md)，实验原始结果见 [`../results/README.md`](../results/README.md)。
 
 ## 0. 怎样使用这份笔记
@@ -37,10 +37,11 @@
 | 部分 | 章节 | 复习目标 |
 |---|---|---|
 | 训练心智模型 | 1–6 | 能从原始故事讲到一次参数更新 |
-| 配置与系统判断 | 7–12 | 能解释显存、配置选择、优化目标和性能现象 |
-| 学习证据与复习 | 13–14 | 区分真正掌握与初步理解，并完成闭卷自测 |
+| 配置与系统判断 | 7–11 | 能解释显存、配置选择、优化目标和性能现象 |
+| 可靠性能实验 | 12–13 | 能解释 B1 测量协议并按现象选择诊断动作 |
+| 学习证据与复习 | 14–15 | 区分真正掌握与初步理解，并完成闭卷自测 |
 
-建议第一次按顺序阅读；以后遇到具体问题，直接查第 12 章诊断表，再回到对应原理章节。
+建议第一次按顺序阅读；以后遇到具体问题，直接查第 13 章诊断表，再回到对应原理章节。
 
 ---
 
@@ -64,6 +65,21 @@ flowchart LR
 
 一次**前向传播**是从 `X` 计算 logits 和 loss。一次**参数更新**还包括反向传播和优化器更新。使用梯度累积时，一次参数更新会包含多次前向与反向。
 
+先区分两个层次：
+
+```text
+一次 micro-step
+= 一个 micro-batch 的 forward + backward
+
+一次 optimizer update
+= 多个 micro-step 累积梯度
++ gradient clipping
++ optimizer.step
++ zero_grad
+```
+
+当前配置的 `gradient_accumulation=4` 表示四次 forward/backward 后才执行一次参数更新，不是连续更新四次参数。
+
 ### 当前配置中一次更新发生了什么
 
 ```text
@@ -76,15 +92,23 @@ GPU 数 = 1
 因此：
 
 ```text
-一次前向预测位置数 = 8 × 512 = 4,096
-一次参数更新预测位置数 = 8 × 512 × 4 = 16,384
+一个 micro-batch 的训练位置数
+= 8 条序列 × 每条 512 个位置
+= 4,096
+
+一次 optimizer update 的训练位置数
+= 4,096 × 4 次梯度累积
+= 16,384
 ```
 
 这里的 16,384 通常简称为一次更新处理的 token 数。严格来说，它是参与下一个 token 预测的训练位置数。
 
+`n_layer`、`n_head` 和 `n_embd` 不出现在这个 token 数公式里。它们决定“处理每个 token 要做多少计算”；`batch_size`、`block_size` 和梯度累积决定“一次参数更新处理多少训练位置”。
+
 ### 易错点
 
 - 前向传播不等于完整参数更新；它还没有执行 `backward()` 和 `optimizer.step()`。
+- 四次梯度累积不是四次参数更新；四次 backward 只产生一次 `optimizer.step()`。
 - 一条序列不是只预测最后一个 token。训练时每个位置都预测它的下一个 token。
 - loss 是一个汇总后的数，但它来自当前 micro-batch 中所有预测位置。
 
@@ -573,6 +597,28 @@ batch 4 × accumulation 8
 
 ## 8. 各配置项怎样影响模型、计算和显存
 
+可以把模型想成一座“故事加工厂”：
+
+| 参数 | 形象理解 | 当前配置的技术含义 |
+|---|---|---|
+| `n_layer=8` | 8 层连续加工车间 | 每段输入依次经过 8 个 Transformer Block |
+| `n_head=8` | 每层有 8 位观察员，从不同角度看上下文 | 512 维在每层 Attention 中切成 8 个 64 维 head，最后合并回 512 维 |
+| `n_embd=512` | 每个 token 有一张包含 512 项特征的档案 | 每个位置使用 512 维向量表示 |
+| `block_size=512` | 每条送入工厂的故事片段有 512 个位置 | 每条训练序列产生 512 个下一个 token 预测位置 |
+| `batch_size=8` | 一辆车一次运来 8 段故事 | 每个 micro-batch 同时处理 8 条序列 |
+| `gradient_accumulation=4` | 收集 4 车货物的意见后再统一调整机器 | 四次 forward/backward 累积梯度，只执行一次参数更新 |
+| `dtype=BF16` | 用较短的数字格式加工 | 主要计算使用 16 bit 格式，通常比 FP32 更省显存并适合 Tensor Core |
+| `compile=False` | 按原始工序逐项执行 | 不启用图编译和由此产生的算子融合、编译预热等变量 |
+| `dropout=0` | 不随机遮住任何工位 | 训练时关闭随机丢弃，使基线更简单且没有这项随机性 |
+
+这组参数分成两类：
+
+```text
+决定每个 token 计算有多重：n_layer、n_head、n_embd
+决定一次更新处理多少位置：batch_size、block_size、gradient_accumulation
+影响怎样执行这些计算：dtype、compile、dropout
+```
+
 ### 8.1 `n_layer`：Transformer Block 数量
 
 增加层数通常会近似线性增加：
@@ -628,6 +674,20 @@ BF16 具有接近 FP32 的指数范围，通常比 FP16 更不容易溢出；FP1
 - 预热后的稳态 step 时间；
 - 总训练时间；
 - 是否出现 graph break 或重新编译。
+
+### 8.8 `dropout`
+
+Dropout 会在训练期间随机把部分中间值置零，用于正则化。`dropout=0` 表示本项目当前基线不执行这种随机遮挡。
+
+关闭 Dropout 不代表所有训练都应该关闭它；这里是因为 TinyStories 系统实验首先关心稳定、可解释的性能对照。以后如果研究模型泛化，需要把 Dropout 当作训练超参数单独评估。
+
+### 易错点
+
+- `n_layer=8` 是前后串行的 8 个 Block；`n_head=8` 是每一层 Attention 内并行的 8 个视角。
+- `n_head=8` 不会把 512 维变成 `512 × 8`；当前每个 head 是 `512 / 8 = 64` 维。
+- `batch_size=8` 是一个 micro-batch，不是一次 optimizer update 的全部数据。
+- `block_size=512` 是数据序列长度，不是 Transformer 层数。
+- `compile=False` 不表示关闭 CUDA，只表示不使用 `torch.compile`。
 
 ---
 
@@ -853,7 +913,302 @@ nanoGPT 的 `estimate_mfu()` 默认拿 A100 BF16 的理论峰值作分母。当�
 
 ---
 
-## 12. 面对现象时的初步诊断表
+## 12. B1：无 Profiler 基线怎样建立、为什么必要
+
+### 12.1 B1 和 Profiler 回答不同问题
+
+无 Profiler 基线是后续实验的对照组和统一尺子：
+
+```text
+B1 无 Profiler：当前完整训练到底有多快？
+Profiler：时间具体花在哪里，下一步应优化什么？
+修改代码：根据 trace 只改变一个主要变量
+B1 无 Profiler重测：完整训练最终有没有真正变快？
+```
+
+Profiler 会收集事件、shape、调用栈、显存和时间线，本身会产生开销并改变运行状态。因此 Profiler 用于诊断，不能把带 Profiler 的速度直接作为正式吞吐。
+
+B1 为后续阶段提供：
+
+| 阶段 | 怎样使用 B1 |
+|---|---|
+| B2 Profiler | 先定位瓶颈，再用同一 B1 方法做无 Profiler 前后对照 |
+| C DDP | 用目标服务器同机单卡吞吐计算 2/4 卡 speedup 和 efficiency |
+| D MoE | 在相同窗口和工作量下比较 Dense/MoE 的速度、显存和 loss |
+| E Triton | 判断单个 kernel 的微基准收益是否转化为完整训练收益 |
+
+没有 B1 仍然可以让训练或 DDP 功能上跑起来，但不能可靠证明一次修改带来了多少端到端收益，也不能解释多卡扩展效率。
+
+### 12.2 先区分进程、参数更新和 micro-step
+
+当前一次完整 B1 运行的层级是：
+
+```text
+一次独立 Python 进程
+├── 创建模型、优化器和 CUDA 环境
+├── 20 次性能预热更新：执行，但不统计
+└── 100 次正式测量更新：得到 100 个 step 时间
+    └── 每次 optimizer update
+        ├── micro-step 1：forward + backward
+        ├── micro-step 2：forward + backward
+        ├── micro-step 3：forward + backward
+        ├── micro-step 4：forward + backward
+        ├── gradient clipping
+        ├── AdamW step：真正修改一次参数
+        └── zero_grad：清空梯度，不清空参数
+```
+
+因此每个进程的正式测量包含：
+
+```text
+100 次 optimizer update
+100 × 4 = 400 次 forward/backward
+100 次 AdamW 参数更新
+```
+
+项目再把这整个进程独立启动三次，而不是在同一进程中接着训练三段。
+
+### 12.3 怎样固定数据和其他变量
+
+原版 `get_batch()` 使用有放回随机采样，适合训练，但不同运行可能抽到不同窗口。B1 使用与模型 RNG 分离的数据生成器：
+
+```text
+模型初始化 seed = 1337
+数据窗口 seed = 20260920
+```
+
+测量时还把实际消费的窗口起点按顺序计算 SHA256。三次运行的窗口哈希相同，说明不是“配置看起来一样”，而是实际使用了相同的 3,200 个正式测量窗口。
+
+同时固定：
+
+```text
+模型初始化、窗口顺序
+batch=8、block_size=512、梯度累积=4
+BF16、compile=False、dropout=0
+模型层数、头数和宽度
+```
+
+固定 seed 不一定让所有 CUDA kernel 在所有硬件上逐 bit 完全一致。B1 不强制可能改变真实性能的全局确定性算法；它控制主要随机变量，并用 loss 有限、工作量一致和多次重复检查结果。
+
+### 12.4 为什么要预热、测 100 次并启动 3 个进程
+
+#### 性能预热不是学习率预热
+
+这里的性能预热是让系统进入稳态，不记录它的时间：
+
+- CUDA context 和 kernel 完成首次初始化；
+- PyTorch CUDA allocator 建立显存池；
+- GPU 从空闲频率进入稳定工作频率；
+- 文件页缓存和数据路径变热；
+- 优化器完成初期状态建立。
+
+它与“训练初期逐步增加学习率”的 learning-rate warmup 不是一回事。B1 配置使用固定学习率；20 次更新只是性能预热。
+
+20、100、3 是当前项目的最低实验协议，不是普遍不变的数学定律：
+
+| 数量 | 作用 |
+|---:|---|
+| 20 次预热 | 丢弃冷启动阶段；如果 20 次后仍不稳定，应继续增加 |
+| 100 次测量 | 保留足够原始值，观察典型速度、波动和离群点 |
+| 3 个独立进程 | 检查重新初始化 CUDA、allocator、模型以及系统状态后是否仍可复现 |
+
+独立进程主要检查运行间稳定性，不是用来固定数据；数据稳定已经由独立 RNG 和窗口哈希保证。
+
+一次进程从头到尾包含：
+
+```text
+启动 Python
+→ 读取配置并设置 seed
+→ 读取数据元信息
+→ 创建模型并搬到 GPU
+→ 创建 AdamW
+→ 用 memmap 取得第一批数据并 H2D
+→ 20 次预热
+→ 同步并重置峰值显存统计
+→ 100 次正式更新
+→ 同步并读取 Event、loss 和显存
+→ 写 JSON
+→ 进程退出并释放资源
+```
+
+### 12.5 H2D：数据怎样从 CPU 到 GPU
+
+H2D 是 **Host to Device**：
+
+```text
+Host = CPU 和系统内存 RAM
+Device = GPU 和显存 VRAM
+H2D = 把 batch 从 CPU 内存复制到 GPU 显存
+```
+
+可以把 CPU 内存看作仓库、GPU 显存看作厨房操作台。当前数据路径是：
+
+```text
+磁盘 train.bin
+→ np.memmap 读取窗口
+→ CPU Tensor
+→ pin_memory
+→ .to(cuda, non_blocking=True) 做 H2D
+→ GPU 上的 forward/backward
+```
+
+`non_blocking=True` 配合 pinned memory，让 CPU 尽量在 GPU 计算当前 batch 时准备和搬运下一批。如果 CPU 数据准备或 H2D 太慢，GPU 会出现等待空洞。
+
+CUDA Event 主要记录 GPU 时间线，不会把纯 CPU 工作单独拆成一个 CPU 指标；但 CPU 太慢导致 GPU 在两个 Event 之间等待时，这种空洞会影响完整 step 时间。B2 Profiler 会进一步区分 CPU 准备、H2D 和 GPU kernel。
+
+### 12.6 CUDA Event 与 `synchronize()` 分别做什么
+
+CUDA 默认异步执行：CPU 提交 GPU 工作后通常立即继续，不会自动等 GPU 完成。可以把 CPU 看成下单的服务员、GPU 看成做菜的厨师：服务员把订单全部交出去，不代表菜已经做完。
+
+两者职责不同：
+
+```text
+CUDA Event：在 GPU 自己的执行队列中放置时间戳
+CUDA synchronize：让 CPU 等待 GPU 完成当前已提交的工作
+```
+
+当前每次正式更新使用一对 Event：
+
+```text
+start_event
+    micro-step 1：forward / 准备下一批并 H2D / backward
+    micro-step 2：forward / 准备下一批并 H2D / backward
+    micro-step 3：forward / 准备下一批并 H2D / backward
+    micro-step 4：forward / 准备下一批并 H2D / backward
+    gradient clipping
+    AdamW step
+    zero_grad
+end_event
+```
+
+100 次更新使用 100 对 Event，也就是 100 个 start 和 100 个 end，最后得到 100 个原始时间。
+
+B1 在两个重要边界同步：
+
+1. 20 次预热之后同步，确认预热任务真的完成，再进入测量区间；
+2. 100 次测量之后同步，确认所有 end Event 已完成，再读取时间和 loss。
+
+不在每个小算子后随意同步，因为频繁同步会破坏 CPU/GPU 流水和将来的计算通信重叠，人为改变被测程序。
+
+### 12.7 为什么记录这些指标
+
+| 指标 | 回答的问题 | 为什么不能省略 |
+|---|---|---|
+| 每步原始时间 | 波动、尖峰和是否随时间变化怎样？ | 只保留平均值会掩盖离群点和趋势 |
+| 中位数 | 典型稳态 step 是多少？ | 比平均值更不容易被少量尖峰拉偏 |
+| tokens/s | 单位时间完成多少训练工作？ | batch、累积和 GPU 数变化时只看 step 时间会误判 |
+| peak allocated | 张量实际使用过多少显存？ | 用于判断 batch 余量和模型/算子额外开销 |
+| peak reserved | PyTorch allocator 向 CUDA 保留多少显存？ | 更接近其他进程看到的 PyTorch 显存占用 |
+| loss | 训练链路是否仍然有限且大致合理？ | 跳过 backward 也会“更快”，但不是有效优化 |
+| 实际 token 数 | 对照双方是否做了同样多的工作？ | 防止通过少算数据得到虚假加速 |
+
+当前每个更新的工作量：
+
+```text
+8 × 512 × 4 = 16,384 tokens/update
+```
+
+每个进程正式测量：
+
+```text
+100 × 16,384 = 1,638,400 个训练位置
+```
+
+吞吐计算：
+
+```text
+tokens/s = tokens/update ÷ seconds/update
+```
+
+B1 为避免每步 `.item()` 强制 CPU/GPU 同步，在测量结束后统一读取 loss。当前 JSON 记录的是每次更新最后一个 micro-batch 的 loss，用作轻量正确性哨兵，不是正式 validation loss；validation 必须放在正式计时区间之外。
+
+### 12.8 当前 B1 的具体证据
+
+固定配置：8 层、8 heads、宽度 512、序列长度 512、BF16、`compile=False`、micro-batch 8、梯度累积 4。
+
+| 独立运行 | step 中位数 | tokens/s | peak allocated | peak reserved |
+|---|---:|---:|---:|---:|
+| run1 | 347.097 ms | 47,203 | 3,906.9 MiB | 4,910.0 MiB |
+| run2 | 346.388 ms | 47,300 | 3,906.9 MiB | 4,910.0 MiB |
+| run3 | 346.390 ms | 47,299 | 3,906.9 MiB | 4,910.0 MiB |
+
+跨运行中位数为：
+
+```text
+346.390 ms/update
+47,299 tokens/s
+```
+
+三次运行中位数范围只相差 0.709 ms，约为报告中位数的 0.20%；测量窗口哈希完全相同，所有记录的 loss 均为有限值。原始结果和完整边界见 [`../results/README.md`](../results/README.md) 与 `../results/b1_single_gpu/`。
+
+这些本地结果是 RTX 5060 Laptop GPU 的 B1。C 阶段必须在目标四卡服务器的一张固定 GPU 上重复相同协议，才能用作该服务器 2/4 卡 speedup 的分母：
+
+```text
+speedup(N) = N 卡全机吞吐 / 同机 1 卡吞吐
+efficiency(N) = speedup(N) / N
+```
+
+不能用本地笔记本单卡与远程服务器四卡直接计算扩展效率。
+
+### 12.9 本轮问题形成的易错点清单
+
+- 性能预热是执行但丢弃，不是在测“预热有多快”。
+- 100 次测量是 100 对 CUDA Event、100 次 optimizer update，同时包含 400 次 forward/backward。
+- 三次独立进程主要验证系统级复现性；窗口 seed 和哈希负责固定数据。
+- Event 是 GPU 时间戳，`synchronize()` 是 CPU 等待 GPU 的边界动作。
+- H2D 是 CPU 内存到 GPU 显存，不是 GPU 之间通信；DDP 的梯度 AllReduce 是另一条通信路径。
+- step 更短不自动代表吞吐更高，必须同时核对实际 token 数。
+- Profiler 用来解释瓶颈，正式优化收益仍由无 Profiler 基线裁决。
+
+### 12.10 B2：怎样从 trace 得到优化并回到 B1 验证
+
+B2 在相同单卡工作负载上增加了以下范围标记：
+
+```text
+get_batch
+forward
+backward
+gradient_clipping
+optimizer_step
+zero_grad
+```
+
+20 次无 Profiler 更新让系统先进入稳态，随后使用：
+
+```text
+wait=2, warmup=2, active=10
+```
+
+采集 CPU/CUDA、shape 和显存 trace。eager trace 的主要证据是：
+
+- `aten::mm` 是主要 CUDA 算子，10 个 active step 累计 2,184.5 ms self-device time；
+- `aten::copy_` 有 4,880 次，累计 396.7 ms self-device time；
+- `cudaLaunchKernel + cuLaunchKernel` 共 17,460 次；
+- pinned H2D 总共只有 0.324 ms，不支持优先优化数据传输；
+- fused AdamW 和梯度裁剪在 10 步中分别约为 44.0 ms 和 18.3 ms。
+
+因此只改变一个变量：
+
+```text
+compile=False → compile=True
+```
+
+编译后的 trace 中，`aten::copy_` 从 4,880 次降到 160 次，合计 launch API 调用下降 20.4%，Profiler self CUDA time 下降 29.6%。这支持“图融合、减少复制/提交并选择更快计算实现”的解释；H2D 仍然很小。
+
+最终裁决来自无 Profiler、三次独立运行的 B1 方法：
+
+| 模式 | 跨运行 step 中位数 | tokens/s | peak allocated | peak reserved |
+|---|---:|---:|---:|---:|
+| eager | 346.381 ms | 47,301 | 3,906.9 MiB | 4,910.0 MiB |
+| `torch.compile` | 239.897 ms | 68,296 | 3,128.6 MiB | 3,382.0 MiB |
+
+即本机固定 shape 下得到 1.444 倍端到端加速，step 时间下降 30.74%，吞吐上升 44.39%。六次运行使用相同窗口哈希，loss 均有限且接近。
+
+结论边界：编译时间不在稳态计时内，短任务未必能摊销；结果依赖 shape、PyTorch/CUDA 和硬件；短跑 loss 检查不等于逐 bit 等价或长期训练质量验证。Profiler 的事件层级可能重叠，因此不能把不同抽象层的百分比直接相加。
+
+---
+
+## 13. 面对现象时的初步诊断表
 
 | 现象 | 先确认 | 第一轮动作 |
 |---|---|---|
@@ -872,7 +1227,7 @@ nanoGPT 的 `estimate_mfu()` 默认拿 A100 BF16 的理论峰值作分母。当�
 
 ---
 
-## 13. 当前学习证据与后续深入边界
+## 14. 当前学习证据与后续深入边界
 
 不能只因为内容在对话中出现过，就把它算作已经掌握。当前证据分为：
 
@@ -884,16 +1239,19 @@ nanoGPT 的 `estimate_mfu()` 默认拿 A100 BF16 的理论峰值作分母。当�
 | 已实测 | 环境、CUDA、单卡训练和 checkpoint | Shakespeare 短跑以及 checkpoint 已完成 |
 | 已实测 | TinyStories 流式转换、完整文件与 SHA256 | debug/full 文件已经生成并独立校验 |
 | 已实测 | 50.91M 本地候选的显存与稳定性 | batch 4/6/8 适配、300 次更新和恢复均完成 |
+| 已实测 | B1 确定性采样、CUDA Event 与三次独立运行 | 三次运行窗口哈希相同，中位数 346.390 ms/update、47,299 tokens/s，运行间范围约 0.20% |
+| 已实测 | B2 Profiler trace 与 `torch.compile` A/B | trace 排除 H2D 为首要瓶颈；无 Profiler 三次对照得到 1.444 倍加速，六次 loss 均有限 |
 | 初步理解 | OOM 处理、优化目标、吞吐与延迟区别 | 已完成解释，还需要在新现象中独立选择动作 |
-| 初步理解 | CUDA 同步、batch 饱和、compile 摊销、AllReduce | 已建立逻辑，还没有正式 trace 或多卡数据 |
+| 初步理解 | H2D、CUDA 异步、Event、同步、性能预热和独立进程 | 已完成解释并有 B1 实测证据，还需要闭卷复述整个进程层级 |
+| 初步理解 | batch 饱和、compile 摊销、Profiler、AllReduce | 已有本地 Profiler/compile 证据；还需要独立解读 trace，并在多卡阶段验证 AllReduce |
 
-“初步理解”的内容不算失败，它表示下一步需要用测量把口头知识变成诊断能力。完成第 14 章闭卷题后，可以把能独立回答的条目升级为“已复述”。
+“初步理解”的内容不算失败，它表示下一步需要用测量把口头知识变成诊断能力。完成第 15 章闭卷题后，可以把能独立回答的条目升级为“已复述”。
 
 ### 后续阶段再通过代码和测量掌握
 
-- 用 CUDA Event 和同步边界建立正式无 Profiler 基线。
-- 读取 profiler trace，区分 CPU、GPU、拷贝、等待和 kernel 时间。
-- 实现确定性窗口采样和 DDP rank 分配。
+- 闭卷复述一次 B1 独立进程，以及 micro-step、optimizer update、Event 和同步之间的层级。
+- 独立打开 B2 trace，指出 CPU、GPU、H2D、矩阵计算、复制和 kernel launch 证据。
+- 将已完成的单卡确定性窗口采样扩展为 DDP 全局窗口和 rank 分配。
 - 做单卡与 DDP 的最小梯度正确性检查。
 - 区分 strong scaling、weak scaling 和完整数据覆盖训练。
 - 深入 AllReduce 重叠、NCCL 拓扑和负载不均。
@@ -902,7 +1260,7 @@ nanoGPT 的 `estimate_mfu()` 默认拿 A100 BF16 的理论峰值作分母。当�
 
 ---
 
-## 14. 闭卷自测题
+## 15. 闭卷自测题
 
 ### A. 数据与 batch
 
@@ -937,10 +1295,28 @@ nanoGPT 的 `estimate_mfu()` 默认拿 A100 BF16 的理论峰值作分母。当�
 9. 为什么 DDP 的四张卡通常达不到四倍速度？
 10. 为什么不能用本地笔记本单卡和远程服务器四卡计算扩展效率？
 
+### D. B1 性能实验
+
+1. 为什么正式吞吐必须使用无 Profiler 基线，而不是直接报告 Profiler 运行速度？
+2. 当前 `batch=8, block_size=512, accumulation=4` 为什么是 16,384 tokens/update？哪些模型参数不会出现在这个公式里？
+3. 一次 optimizer update 中为什么有四次 forward/backward，却只有一次 AdamW step？
+4. H2D 的 Host 和 Device 分别是什么？当前 batch 从磁盘到 GPU 经过哪些步骤？
+5. 性能预热和 learning-rate warmup 有什么区别？为什么前 20 次更新不计时？
+6. “测量 100 次更新”对应多少对 CUDA Event、多少次 forward/backward、多少次 AdamW step？
+7. 为什么需要三个独立 Python 进程？它与固定数据窗口分别解决什么问题？
+8. CUDA Event 和 `torch.cuda.synchronize()` 的职责有什么不同？
+9. 为什么不能在每个小算子后都调用 `synchronize()`？
+10. 原始 step 时间、中位数、tokens/s、显存、loss 和实际 token 数分别防止什么误判？
+11. 当前一个 B1 进程的 100 次正式更新实际测量多少训练位置？
+12. 在四卡服务器上，为什么必须先重做同机单卡 B1，才能计算 DDP 扩展效率？
+13. B2 trace 为什么不支持优先优化 H2D？它支持尝试 `torch.compile` 的证据是什么？
+14. 为什么 compiled trace 只能解释机制，1.444 倍正式收益必须来自无 Profiler A/B？
+15. `torch.compile` 的稳态收益为什么不保证短任务、动态 shape 或另一张 GPU 也有相同结果？
+
 ### 一分钟口述模板
 
 不看文档，尝试完整说出：
 
-> 一批 TinyStories token 如何形成 X/Y，怎样经过 embedding、8 个 Transformer Blocks 和输出层得到 loss；loss 怎样通过四次梯度累积更新约 50.91M 参数；当前一次更新为什么是 16,384 个训练位置；如果出现 OOM、吞吐停滞或多卡加速不佳，分别先检查什么。
+> 一批 TinyStories token 如何形成 X/Y，怎样经过 embedding、8 个 Transformer Blocks 和输出层得到 loss；loss 怎样通过四次梯度累积更新约 50.91M 参数；当前一次更新为什么是 16,384 个训练位置；一次 B1 进程为什么先预热、再用 100 对 CUDA Event 测量、最后同步并独立重复三次；如果出现 OOM、吞吐停滞或多卡加速不佳，分别先检查什么。
 
 能准确完成这段口述，并能在代码中找到对应位置，就已经建立了进入 Profiler 和 DDP 阶段所需的核心心智模型。

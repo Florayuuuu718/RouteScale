@@ -20,7 +20,14 @@ import os
 import time
 import math
 import pickle
+import hashlib
+import json
+import platform
+import subprocess
+from datetime import datetime, timezone
 from contextlib import nullcontext
+from pathlib import Path
+from statistics import mean, median
 
 import numpy as np
 import torch
@@ -72,6 +79,23 @@ backend = 'nccl' # 'nccl', 'gloo', etc.
 device = 'cuda' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1' etc., or try 'mps' on macbooks
 dtype = 'bfloat16' if torch.cuda.is_available() and torch.cuda.is_bf16_supported() else 'float16' # 'float32', 'bfloat16', or 'float16', the latter will auto implement a GradScaler
 compile = True # use PyTorch 2.0 to compile the model to be faster
+# reproducible single-GPU benchmark settings
+benchmark = False
+benchmark_warmup_steps = 20
+benchmark_measure_steps = 100
+benchmark_data_seed = 20260920
+benchmark_results_dir = 'results/b1_single_gpu'
+benchmark_run_id = 'run1'
+# short PyTorch Profiler trace settings
+profiler = False
+profiler_startup_warmup_steps = 20
+profiler_wait_steps = 2
+profiler_warmup_steps = 2
+profiler_active_steps = 10
+profiler_data_seed = 20260920
+profiler_trace_dir = 'logs/b2_profiler'
+profiler_results_dir = 'results/b2_profiler'
+profiler_run_id = 'baseline'
 # -----------------------------------------------------------------------------
 config_keys = [k for k,v in globals().items() if not k.startswith('_') and isinstance(v, (int, float, bool, str))]
 exec(open('configurator.py').read()) # overrides from command line or config file
@@ -113,21 +137,40 @@ ctx = nullcontext() if device_type == 'cpu' else torch.amp.autocast(device_type=
 
 # poor man's data loader
 data_dir = os.path.join('data', dataset)
-def get_batch(split):
-    # We recreate np.memmap every batch to avoid a memory leak, as per
-    # https://stackoverflow.com/questions/45132940/numpy-memmap-memory-usage-want-to-iterate-once/61472122#61472122
-    if split == 'train':
-        data = np.memmap(os.path.join(data_dir, 'train.bin'), dtype=np.uint16, mode='r')
-    else:
-        data = np.memmap(os.path.join(data_dir, 'val.bin'), dtype=np.uint16, mode='r')
-    ix = torch.randint(len(data) - block_size, (batch_size,))
-    x = torch.stack([torch.from_numpy((data[i:i+block_size]).astype(np.int64)) for i in ix])
-    y = torch.stack([torch.from_numpy((data[i+1:i+1+block_size]).astype(np.int64)) for i in ix])
-    if device_type == 'cuda':
-        # pin arrays x,y, which allows us to move them to GPU asynchronously (non_blocking=True)
-        x, y = x.pin_memory().to(device, non_blocking=True), y.pin_memory().to(device, non_blocking=True)
-    else:
-        x, y = x.to(device), y.to(device)
+data_generator = None
+if benchmark or profiler:
+    data_generator = torch.Generator(device='cpu')
+    data_generator.manual_seed(
+        benchmark_data_seed if benchmark else profiler_data_seed
+    )
+
+def record_region(name):
+    if profiler:
+        return torch.profiler.record_function(name)
+    return nullcontext()
+
+def get_batch(split, return_indices=False):
+    with record_region('get_batch'):
+        # We recreate np.memmap every batch to avoid a memory leak, as per
+        # https://stackoverflow.com/questions/45132940/numpy-memmap-memory-usage-want-to-iterate-once/61472122#61472122
+        if split == 'train':
+            data = np.memmap(os.path.join(data_dir, 'train.bin'), dtype=np.uint16, mode='r')
+        else:
+            data = np.memmap(os.path.join(data_dir, 'val.bin'), dtype=np.uint16, mode='r')
+        ix = torch.randint(
+            len(data) - block_size,
+            (batch_size,),
+            generator=data_generator,
+        )
+        x = torch.stack([torch.from_numpy((data[i:i+block_size]).astype(np.int64)) for i in ix])
+        y = torch.stack([torch.from_numpy((data[i+1:i+1+block_size]).astype(np.int64)) for i in ix])
+        if device_type == 'cuda':
+            # pin arrays x,y, which allows us to move them to GPU asynchronously (non_blocking=True)
+            x, y = x.pin_memory().to(device, non_blocking=True), y.pin_memory().to(device, non_blocking=True)
+        else:
+            x, y = x.to(device), y.to(device)
+    if return_indices:
+        return x, y, ix
     return x, y
 
 # init these up here, can override if init_from='resume' (i.e. from a checkpoint)
@@ -250,13 +293,369 @@ if wandb_log and master_process:
     wandb.init(project=wandb_project, name=wandb_run_name, config=config)
 
 # training loop
+raw_model = model.module if ddp else model # unwrap DDP container if needed
+
+def run_training_step(X, Y, batch_indices=None, offsets_hasher=None):
+    """Run one optimizer update and prefetch the next batch."""
+    for micro_step in range(gradient_accumulation_steps):
+        if offsets_hasher is not None:
+            if batch_indices is None:
+                raise RuntimeError('benchmark batch indices are missing')
+            offsets = np.asarray(batch_indices.numpy(), dtype='<i8')
+            offsets_hasher.update(offsets.tobytes())
+        if ddp:
+            # only synchronize gradients on the final accumulation micro-step
+            model.require_backward_grad_sync = (micro_step == gradient_accumulation_steps - 1)
+        with record_region('forward'):
+            with ctx:
+                logits, loss = model(X, Y)
+                loss = loss / gradient_accumulation_steps
+        if offsets_hasher is None:
+            X, Y = get_batch('train')
+        else:
+            X, Y, batch_indices = get_batch('train', return_indices=True)
+        with record_region('backward'):
+            scaler.scale(loss).backward()
+    if grad_clip != 0.0:
+        with record_region('gradient_clipping'):
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
+    with record_region('optimizer_step'):
+        scaler.step(optimizer)
+        scaler.update()
+    with record_region('zero_grad'):
+        optimizer.zero_grad(set_to_none=True)
+    return X, Y, batch_indices, loss
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with open(path, 'rb') as handle:
+        for chunk in iter(lambda: handle.read(8 * 1024 * 1024), b''):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def command_output(args):
+    try:
+        completed = subprocess.run(
+            args,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return completed.stdout.strip()
+
+
+def run_b1_benchmark():
+    if ddp:
+        raise RuntimeError('B1 is a single-GPU benchmark; launch without torchrun')
+    if device_type != 'cuda':
+        raise RuntimeError('B1 requires a CUDA device for CUDA Event timing')
+    if benchmark_warmup_steps < 1 or benchmark_measure_steps < 1:
+        raise ValueError('benchmark warmup and measurement steps must be positive')
+
+    print(
+        f'B1 benchmark: {benchmark_warmup_steps} warmup updates, '
+        f'{benchmark_measure_steps} measured updates, run {benchmark_run_id}'
+    )
+    X, Y, batch_indices = get_batch('train', return_indices=True)
+    warmup_offsets = hashlib.sha256()
+    for step in range(benchmark_warmup_steps):
+        lr = get_lr(step) if decay_lr else learning_rate
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        X, Y, batch_indices, loss = run_training_step(
+            X, Y, batch_indices, warmup_offsets
+        )
+
+    torch.cuda.synchronize(device)
+    torch.cuda.reset_peak_memory_stats(device)
+    measured_offsets = hashlib.sha256()
+    start_events = []
+    end_events = []
+    measured_losses = []
+    for measured_step in range(benchmark_measure_steps):
+        global_step = benchmark_warmup_steps + measured_step
+        lr = get_lr(global_step) if decay_lr else learning_rate
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        start_event = torch.cuda.Event(enable_timing=True)
+        end_event = torch.cuda.Event(enable_timing=True)
+        start_event.record()
+        X, Y, batch_indices, loss = run_training_step(
+            X, Y, batch_indices, measured_offsets
+        )
+        end_event.record()
+        start_events.append(start_event)
+        end_events.append(end_event)
+        measured_losses.append(loss.detach() * gradient_accumulation_steps)
+
+    torch.cuda.synchronize(device)
+    step_times_ms = [
+        start.elapsed_time(end) for start, end in zip(start_events, end_events)
+    ]
+    step_losses = [loss_value.item() for loss_value in measured_losses]
+    peak_allocated = torch.cuda.max_memory_allocated(device) / (1024 ** 2)
+    peak_reserved = torch.cuda.max_memory_reserved(device) / (1024 ** 2)
+    total_memory = torch.cuda.get_device_properties(device).total_memory / (1024 ** 2)
+    median_step_ms = median(step_times_ms)
+    total_measured_tokens = benchmark_measure_steps * tokens_per_iter
+    manifest_path = Path(data_dir) / 'manifest.json'
+    manifest = None
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+
+    tracked_files = ['train.py', 'model.py']
+    config_path = Path('config/benchmark_tinystories.py')
+    if config_path.exists():
+        tracked_files.append(str(config_path))
+    source_hashes = {
+        path: sha256_file(path) for path in tracked_files if Path(path).exists()
+    }
+    git_diff = command_output(['git', 'diff', '--binary', 'HEAD']) or ''
+    result = {
+        'schema_version': 1,
+        'benchmark': 'B1 single-GPU no-Profiler baseline',
+        'created_at_utc': datetime.now(timezone.utc).isoformat(),
+        'run_id': benchmark_run_id,
+        'version': {
+            'git_commit': command_output(['git', 'rev-parse', 'HEAD']),
+            'git_status': command_output(['git', 'status', '--short']),
+            'tracked_diff_sha256': hashlib.sha256(git_diff.encode()).hexdigest(),
+            'source_sha256': source_hashes,
+        },
+        'environment': {
+            'platform': platform.platform(),
+            'python': platform.python_version(),
+            'pytorch': torch.__version__,
+            'cuda_runtime': torch.version.cuda,
+            'cudnn': torch.backends.cudnn.version(),
+            'gpu': torch.cuda.get_device_name(device),
+            'driver': command_output([
+                'nvidia-smi', '--query-gpu=driver_version', '--format=csv,noheader'
+            ]),
+        },
+        'data': {
+            'dataset': dataset,
+            'manifest': manifest,
+            'data_seed': benchmark_data_seed,
+            'warmup_offsets_sha256': warmup_offsets.hexdigest(),
+            'measurement_offsets_sha256': measured_offsets.hexdigest(),
+            'warmup_window_count': (
+                benchmark_warmup_steps * gradient_accumulation_steps * batch_size
+            ),
+            'measurement_window_count': (
+                benchmark_measure_steps * gradient_accumulation_steps * batch_size
+            ),
+        },
+        'configuration': {
+            **config,
+            'effective_gradient_accumulation_steps': gradient_accumulation_steps,
+            'world_size': ddp_world_size,
+            'tokens_per_update': tokens_per_iter,
+            'model_parameter_count': sum(p.numel() for p in raw_model.parameters()),
+            'non_position_embedding_parameter_count': raw_model.get_num_params(),
+        },
+        'measurement': {
+            'timing': 'per-update CUDA Events; one synchronization after measurement',
+            'profiler_enabled': False,
+            'warmup_steps': benchmark_warmup_steps,
+            'measured_steps': benchmark_measure_steps,
+            'total_measured_tokens': total_measured_tokens,
+            'step_times_ms': step_times_ms,
+            'last_micro_batch_losses': step_losses,
+            'all_losses_finite': all(math.isfinite(value) for value in step_losses),
+            'median_step_ms': median_step_ms,
+            'mean_step_ms': mean(step_times_ms),
+            'min_step_ms': min(step_times_ms),
+            'max_step_ms': max(step_times_ms),
+            'tokens_per_second_from_median': tokens_per_iter / (median_step_ms / 1000),
+            'aggregate_tokens_per_second': (
+                total_measured_tokens / (sum(step_times_ms) / 1000)
+            ),
+            'first_loss': step_losses[0],
+            'last_loss': step_losses[-1],
+            'peak_allocated_mib': peak_allocated,
+            'peak_reserved_mib': peak_reserved,
+            'device_total_mib': total_memory,
+        },
+    }
+    results_dir = Path(benchmark_results_dir)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    output_path = results_dir / f'{benchmark_run_id}.json'
+    output_path.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
+    )
+    print(
+        f'B1 result: median {median_step_ms:.3f} ms/update, '
+        f'{result["measurement"]["tokens_per_second_from_median"]:,.0f} tokens/s, '
+        f'peak {peak_allocated:.1f} MiB allocated, {peak_reserved:.1f} MiB reserved'
+    )
+    print(f'wrote {output_path}')
+
+
+def run_b2_profiler():
+    if ddp:
+        raise RuntimeError('B2 local trace is single-GPU; launch without torchrun')
+    if device_type != 'cuda':
+        raise RuntimeError('B2 requires a CUDA device')
+    schedule_values = (
+        profiler_wait_steps,
+        profiler_warmup_steps,
+        profiler_active_steps,
+    )
+    if min(schedule_values) < 1 or profiler_startup_warmup_steps < 1:
+        raise ValueError('Profiler schedule and startup warmup steps must be positive')
+
+    print(
+        f'B2 profiler: {profiler_startup_warmup_steps} unprofiled warmup updates, '
+        f'schedule wait={profiler_wait_steps}, warmup={profiler_warmup_steps}, '
+        f'active={profiler_active_steps}, run {profiler_run_id}'
+    )
+    X, Y = get_batch('train')
+    for step in range(profiler_startup_warmup_steps):
+        lr = get_lr(step) if decay_lr else learning_rate
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = lr
+        X, Y, _, loss = run_training_step(X, Y)
+    torch.cuda.synchronize(device)
+
+    trace_dir = Path(profiler_trace_dir)
+    results_dir = Path(profiler_results_dir)
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    trace_path = trace_dir / f'{profiler_run_id}_trace.json'
+    table_path = results_dir / f'{profiler_run_id}_key_averages.txt'
+    events_path = results_dir / f'{profiler_run_id}_key_averages.json'
+
+    def trace_handler(prof):
+        prof.export_chrome_trace(str(trace_path))
+        averages = list(prof.key_averages())
+        table_path.write_text(
+            prof.key_averages().table(
+                sort_by='self_device_time_total',
+                row_limit=80,
+                max_name_column_width=80,
+            ) + '\n',
+            encoding='utf-8',
+        )
+        event_rows = [
+            {
+                'name': event.key,
+                'count': event.count,
+                'self_cpu_time_us': event.self_cpu_time_total,
+                'cpu_time_total_us': event.cpu_time_total,
+                'self_device_time_us': event.self_device_time_total,
+                'device_time_total_us': event.device_time_total,
+                'self_cpu_memory_bytes': event.self_cpu_memory_usage,
+                'self_device_memory_bytes': event.self_device_memory_usage,
+            }
+            for event in averages
+        ]
+        event_rows.sort(
+            key=lambda event: event['self_device_time_us'], reverse=True
+        )
+        events_path.write_text(
+            json.dumps(event_rows, ensure_ascii=False, indent=2) + '\n',
+            encoding='utf-8',
+        )
+
+    activities = [
+        torch.profiler.ProfilerActivity.CPU,
+        torch.profiler.ProfilerActivity.CUDA,
+    ]
+    scheduled_steps = sum(schedule_values)
+    observed_losses = []
+    torch.cuda.reset_peak_memory_stats(device)
+    with torch.profiler.profile(
+        activities=activities,
+        schedule=torch.profiler.schedule(
+            wait=profiler_wait_steps,
+            warmup=profiler_warmup_steps,
+            active=profiler_active_steps,
+            repeat=1,
+        ),
+        on_trace_ready=trace_handler,
+        record_shapes=True,
+        profile_memory=True,
+        with_stack=False,
+    ) as prof:
+        for profile_step in range(scheduled_steps):
+            global_step = profiler_startup_warmup_steps + profile_step
+            lr = get_lr(global_step) if decay_lr else learning_rate
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = lr
+            X, Y, _, loss = run_training_step(X, Y)
+            observed_losses.append(loss.detach() * gradient_accumulation_steps)
+            prof.step()
+
+    torch.cuda.synchronize(device)
+    losses = [value.item() for value in observed_losses]
+    metadata = {
+        'schema_version': 1,
+        'profile': 'B2 single-GPU PyTorch Profiler trace',
+        'created_at_utc': datetime.now(timezone.utc).isoformat(),
+        'run_id': profiler_run_id,
+        'schedule': {
+            'startup_unprofiled_warmup_steps': profiler_startup_warmup_steps,
+            'wait_steps': profiler_wait_steps,
+            'profiler_warmup_steps': profiler_warmup_steps,
+            'active_steps': profiler_active_steps,
+        },
+        'configuration': {
+            **config,
+            'effective_gradient_accumulation_steps': gradient_accumulation_steps,
+            'tokens_per_update': tokens_per_iter,
+        },
+        'environment': {
+            'pytorch': torch.__version__,
+            'cuda_runtime': torch.version.cuda,
+            'gpu': torch.cuda.get_device_name(device),
+        },
+        'correctness': {
+            'all_losses_finite': all(math.isfinite(value) for value in losses),
+            'first_observed_loss': losses[0],
+            'last_observed_loss': losses[-1],
+        },
+        'memory': {
+            'peak_allocated_mib': torch.cuda.max_memory_allocated(device) / (1024 ** 2),
+            'peak_reserved_mib': torch.cuda.max_memory_reserved(device) / (1024 ** 2),
+        },
+        'artifacts': {
+            'trace': str(trace_path),
+            'key_averages_table': str(table_path),
+            'key_averages_json': str(events_path),
+        },
+        'warning': 'Profiler timings include instrumentation overhead and are not formal throughput.',
+    }
+    metadata_path = results_dir / f'{profiler_run_id}_metadata.json'
+    metadata_path.write_text(
+        json.dumps(metadata, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
+    )
+    print(f'wrote trace {trace_path}')
+    print(f'wrote summaries {table_path}, {events_path}, {metadata_path}')
+
+
+if benchmark:
+    run_b1_benchmark()
+    raise SystemExit(0)
+
+if profiler:
+    run_b2_profiler()
+    raise SystemExit(0)
+
 if device_type == 'cuda':
     torch.cuda.reset_peak_memory_stats(device)
 X, Y = get_batch('train') # fetch the very first batch
 t0 = time.time()
 local_iter_num = 0 # number of iterations in the lifetime of this process
-raw_model = model.module if ddp else model # unwrap DDP container if needed
 running_mfu = -1.0
+
 while True:
 
     # determine and set the learning rate for this iteration
@@ -297,31 +696,8 @@ while True:
     if iter_num >= max_iters:
         break
 
-    # forward backward update, with optional gradient accumulation to simulate larger batch size
-    # and using the GradScaler if data type is float16
-    for micro_step in range(gradient_accumulation_steps):
-        if ddp:
-            # in DDP training we only need to sync gradients at the last micro step.
-            # the official way to do this is with model.no_sync() context manager, but
-            # I really dislike that this bloats the code and forces us to repeat code
-            # looking at the source of that context manager, it just toggles this variable
-            model.require_backward_grad_sync = (micro_step == gradient_accumulation_steps - 1)
-        with ctx:
-            logits, loss = model(X, Y)
-            loss = loss / gradient_accumulation_steps # scale the loss to account for gradient accumulation
-        # immediately async prefetch next batch while model is doing the forward pass on the GPU
-        X, Y = get_batch('train')
-        # backward pass, with gradient scaling if training in fp16
-        scaler.scale(loss).backward()
-    # clip the gradient
-    if grad_clip != 0.0:
-        scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), grad_clip)
-    # step the optimizer and scaler if training in fp16
-    scaler.step(optimizer)
-    scaler.update()
-    # flush the gradients as soon as we can, no need for this memory anymore
-    optimizer.zero_grad(set_to_none=True)
+    # forward, backward and optimizer update
+    X, Y, _, loss = run_training_step(X, Y)
 
     # timing and logging
     t1 = time.time()
