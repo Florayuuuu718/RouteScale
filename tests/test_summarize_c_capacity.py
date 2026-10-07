@@ -91,6 +91,75 @@ class CapacitySummaryTests(unittest.TestCase):
             )
             self.assertFalse(summary["success_is_lower_bound_without_failure"])
 
+    def test_discovers_statusless_native_ddp_and_legacy_oom(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            success = root / "ddp" / "strong" / "4gpu" / "success.json"
+            success.parent.mkdir(parents=True)
+            success.write_text(
+                json.dumps(
+                    {
+                        "benchmark": "C deterministic DDP no-Profiler benchmark",
+                        "run_id": "success",
+                        "configuration": {
+                            "world_size": 4,
+                            "model_parameter_count": 100,
+                        },
+                        "measurement": {
+                            "median_slowest_rank_step_ms": 1.0,
+                            "global_tokens_per_second_from_median": 2.0,
+                            "all_losses_finite": True,
+                            "all_window_hashes_match_plan": True,
+                            "per_rank": [
+                                {
+                                    "peak_allocated_mib": 3.0,
+                                    "peak_reserved_mib": 4.0,
+                                    "peak_process_rss_bytes": 5,
+                                }
+                            ],
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            failure = root / "ddp" / "strong" / "4gpu" / "oom.json"
+            failure.write_text(
+                json.dumps(
+                    {
+                        "status": "oom",
+                        "backend": "native_ddp",
+                        "world_size": 4,
+                        "model": {"parameter_count": 200},
+                        "training": {"dtype": "bfloat16"},
+                        "failure": {
+                            "phase": "forward",
+                            "requested_mib": 8.0,
+                            "device_total_gib": 24.0,
+                            "pytorch_allocated_gib": 22.0,
+                            "reserved_unallocated_mib": 512.0,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            successes, failures = load_points(root)
+            summary = summarize_variant(
+                "native_ddp",
+                successes["native_ddp"],
+                failures["native_ddp"],
+            )
+            self.assertEqual(
+                summary["maximum_tested_success"]["parameter_count"], 100
+            )
+            failed = summary["first_tested_failure_above_success"]
+            self.assertEqual(failed["parameter_count"], 200)
+            self.assertEqual(
+                failed["resource_snapshot"]["requested_allocation_bytes"],
+                8 * 1024**2,
+            )
+            self.assertEqual(failed["configuration"]["world_size"], 4)
+
 
 if __name__ == "__main__":
     unittest.main()

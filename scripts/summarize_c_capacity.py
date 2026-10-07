@@ -52,7 +52,16 @@ def load_points(root: Path) -> tuple[dict[str, list[dict]], dict[str, list[dict]
             continue
         status = result.get("status")
         world_size = result.get("configuration", {}).get("world_size")
-        if status == "benchmark_complete" and world_size == 4:
+        is_native_ddp_success = (
+            variant == "native_ddp"
+            and result.get("benchmark")
+            == "C deterministic DDP no-Profiler benchmark"
+            and world_size == 4
+            and status is None
+        )
+        if (
+            status == "benchmark_complete" and world_size == 4
+        ) or is_native_ddp_success:
             measurement = result["measurement"]
             ranks = measurement["per_rank"]
             if "peak_allocated_bytes" in ranks[0]:
@@ -93,16 +102,58 @@ def load_points(root: Path) -> tuple[dict[str, list[dict]], dict[str, list[dict]
             )
         elif status in {"capacity_failure", "oom", "operational_failure"}:
             failure = result.get("failure", {})
+            resource_snapshot = failure.get("resource_snapshot")
+            if resource_snapshot is None and status == "oom":
+                def gib_to_bytes(key: str) -> int | None:
+                    value = failure.get(key)
+                    return (
+                        int(float(value) * 1024**3)
+                        if value is not None
+                        else None
+                    )
+
+                def mib_to_bytes(key: str) -> int | None:
+                    value = failure.get(key)
+                    return (
+                        int(float(value) * 1024**2)
+                        if value is not None
+                        else None
+                    )
+
+                resource_snapshot = {
+                    "gpu_index": failure.get("gpu_index"),
+                    "gpu_memory_used_bytes": None,
+                    "gpu_memory_total_bytes": gib_to_bytes(
+                        "device_total_gib"
+                    ),
+                    "torch_allocated_bytes": gib_to_bytes(
+                        "pytorch_allocated_gib"
+                    ),
+                    "torch_reserved_unallocated_bytes": mib_to_bytes(
+                        "reserved_unallocated_mib"
+                    ),
+                    "requested_allocation_bytes": mib_to_bytes(
+                        "requested_mib"
+                    ),
+                    "max_rank_process_rss_bytes": None,
+                }
+            failure_configuration = result.get("configuration", {})
+            if not failure_configuration and variant == "native_ddp":
+                failure_configuration = {
+                    "world_size": result.get("world_size"),
+                    **result.get("model", {}),
+                    **result.get("training", {}),
+                }
             failures.setdefault(variant, []).append(
                 {
                     "parameter_count": count,
                     "run_id": result.get("run_id"),
                     "path": str(path),
-                    "configuration": result.get("configuration", {}),
+                    "configuration": failure_configuration,
                     "failure_type": failure.get("type", status),
                     "failure_phase": failure.get("phase"),
                     "elapsed_seconds": failure.get("elapsed_seconds"),
-                    "resource_snapshot": failure.get("resource_snapshot"),
+                    "resource_snapshot": resource_snapshot,
                 }
             )
     return successes, failures
@@ -111,7 +162,13 @@ def load_points(root: Path) -> tuple[dict[str, list[dict]], dict[str, list[dict]
 def summarize_variant(
     variant: str, successes: list[dict], failures: list[dict]
 ) -> dict:
-    successes = sorted(successes, key=lambda item: item["parameter_count"])
+    successes = sorted(
+        successes,
+        key=lambda item: (
+            item["parameter_count"],
+            item["max_rank_peak_process_rss_bytes"] is not None,
+        ),
+    )
     failures = sorted(failures, key=lambda item: item["parameter_count"])
     maximum = successes[-1] if successes else None
     first_failure = None
