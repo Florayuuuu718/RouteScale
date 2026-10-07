@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "benchmark": "C deterministic DDP no-Profiler benchmark summary",
+  "scaling_mode": "strong",
+  "expected_runs_per_world_size": 3,
+  "world_sizes": [
+    1
+  ],
+  "world_size_results": [
+    {
+      "world_size": 1,
+      "run_files": [
+        "1gpu/run1.json",
+        "1gpu/run2.json",
+        "1gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 16384,
+      "local_tokens_per_update": 16384,
+      "median_slowest_rank_step_ms_by_run": [
+        346.69554138183594,
+        346.47850036621094,
+        346.3096008300781
+      ],
+      "median_of_run_medians_ms": 346.47850036621094,
+      "global_tokens_per_second": 47287.20536103368,
+      "per_gpu_tokens_per_second": 47287.20536103368,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          3906.91796875
+        ],
+        [
+          3906.91796875
+        ],
+        [
+          3906.91796875
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          4910.0
+        ],
+        [
+          4910.0
+        ],
+        [
+          4910.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.0,
+      "scaling_efficiency": 1.0
+    }
+  ],
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true
+}

@@ -1,0 +1,2162 @@
+[
+  {
+    "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+    "count": 55,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 370305.04000000004,
+    "device_time_total_us": 370305.04000000004,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "record_param_comms",
+    "count": 50,
+    "self_cpu_time_us": 6199.550999999463,
+    "cpu_time_total_us": 8233.189999999957,
+    "self_device_time_us": 336947.08900000004,
+    "device_time_total_us": 336947.08900000004,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "nccl:all_reduce",
+    "count": 50,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 336947.08900000004,
+    "device_time_total_us": 336947.08900000004,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::mm",
+    "count": 990,
+    "self_cpu_time_us": 29166.530000000705,
+    "cpu_time_total_us": 95192.80700000018,
+    "self_device_time_us": 109973.12599999987,
+    "device_time_total_us": 110362.66099999973,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 10587576320
+  },
+  {
+    "name": "DistributedDataParallel.forward",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 69400.20600000006,
+    "device_time_total_us": 69400.20600000006,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::copy_",
+    "count": 1730,
+    "self_cpu_time_us": 13487.888999999606,
+    "cpu_time_total_us": 31708.492999999795,
+    "self_device_time_us": 50034.17199999914,
+    "device_time_total_us": 50067.93299999902,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_nt_align8>(cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_nt_align8::Params)",
+    "count": 352,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 22685.167000000107,
+    "device_time_total_us": 22685.167000000107,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_128x256_nn_align1>(cutlass_75_tensorop_bf16_s1688gemm_bf16_128x256_nn_align1::Params)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 20990.563999999944,
+    "device_time_total_us": 20990.563999999944,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_nn_align8>(cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_nn_align8::Params)",
+    "count": 352,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 20154.953000000132,
+    "device_time_total_us": 20154.953000000132,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+    "count": 560,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 19946.58799999988,
+    "device_time_total_us": 19946.58799999988,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(float)#1}, std::array<char*, 2ul>)",
+    "count": 686,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 19448.502999999604,
+    "device_time_total_us": 19448.502999999604,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_128x128_tn_align1>(cutlass_75_tensorop_bf16_s1688gemm_bf16_128x128_tn_align1::Params)",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 17976.02200000002,
+    "device_time_total_us": 17976.02200000002,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::FusedOptimizerTensorListMetadata<4>, at::native::(anonymous namespace)::FusedAdamMathFunctor<float, 4, (at::native::ADAM_MODE)1, false>, float const*, double, double, double, double, double, bool, float const*, float const*>(at::native::(anonymous namespace)::FusedOptimizerTensorListMetadata<4>, at::native::(anonymous namespace)::FusedAdamMathFunctor<float, 4, (at::native::ADAM_MODE)1, false>, float const*, double, double, double, double, double, bool, float const*, float const*)",
+    "count": 22,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 17222.36100000004,
+    "device_time_total_us": 17222.36100000004,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::cunn_SoftMaxBackward<8, c10::BFloat16, float, c10::BFloat16, at::native::(anonymous namespace)::LogSoftMaxBackwardEpilogue>(c10::BFloat16*, c10::BFloat16 const*, c10::BFloat16 const*, long)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 16792.159000000058,
+    "device_time_total_us": 16792.159000000058,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_128x128_nt_align1>(cutlass_75_tensorop_bf16_s1688gemm_bf16_128x128_nt_align1::Params)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 16602.56099999991,
+    "device_time_total_us": 16602.56099999991,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Optimizer.step#AdamW.step",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 15718.020000000033,
+    "device_time_total_us": 15718.020000000033,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_fused_adamw_",
+    "count": 20,
+    "self_cpu_time_us": 555.379999999881,
+    "cpu_time_total_us": 806.1709999999002,
+    "self_device_time_us": 15654.466000000044,
+    "device_time_total_us": 15654.466000000044,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_log_softmax_backward_data",
+    "count": 10,
+    "self_cpu_time_us": 234.5120000000079,
+    "cpu_time_total_us": 350.90699999998833,
+    "self_device_time_us": 15265.992000000057,
+    "device_time_total_us": 15265.992000000057,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 4124753920
+  },
+  {
+    "name": "Memcpy DtoD (Device -> Device)",
+    "count": 572,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 12620.1569999996,
+    "device_time_total_us": 12620.1569999996,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8>(cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_64x64_32x6_tn_align8::Params)",
+    "count": 240,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 11105.322000000175,
+    "device_time_total_us": 11105.322000000175,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<float>, std::array<char*, 1ul> >(int, at::native::FillFunctor<float>, std::array<char*, 1ul>)",
+    "count": 53,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 9477.735999999997,
+    "device_time_total_us": 9477.735999999997,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::fill_",
+    "count": 70,
+    "self_cpu_time_us": 712.431999999978,
+    "cpu_time_total_us": 1633.5160000000878,
+    "self_device_time_us": 9370.793999999994,
+    "device_time_total_us": 9370.793999999994,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_flash_attention_backward",
+    "count": 80,
+    "self_cpu_time_us": 3357.391999999665,
+    "cpu_time_total_us": 9843.00499999995,
+    "self_device_time_us": 8692.530000000457,
+    "device_time_total_us": 8692.530000000457,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -691957760
+  },
+  {
+    "name": "aten::_log_softmax",
+    "count": 10,
+    "self_cpu_time_us": 199.1850000000395,
+    "cpu_time_total_us": 283.8030000000035,
+    "self_device_time_us": 8686.954999999987,
+    "device_time_total_us": 8686.954999999987,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 4117053440
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::cunn_SoftMaxForward<8, c10::BFloat16, float, c10::BFloat16, at::native::(anonymous namespace)::LogSoftMaxForwardEpilogue>(c10::BFloat16*, c10::BFloat16 const*, int)",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 8686.954999999987,
+    "device_time_total_us": 8686.954999999987,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::native_layer_norm_backward",
+    "count": 170,
+    "self_cpu_time_us": 3611.1289999998316,
+    "cpu_time_total_us": 9288.71000000006,
+    "self_device_time_us": 7862.164999999892,
+    "device_time_total_us": 7862.164999999892,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void pytorch_flash::flash_bwd_dq_dk_dv_loop_seqk_parallel_kernel<Flash_bwd_kernel_traits<64, 64, 128, 8, 2, 4, 4, true, false, cutlass::bfloat16_t, Flash_kernel_traits<64, 64, 128, 8, cutlass::bfloat16_t> >, false, true, false, false, true, true, false>(pytorch_flash::Flash_bwd_params)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 7476.951000000424,
+    "device_time_total_us": 7476.951000000424,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+    "count": 187,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 6941.723000000348,
+    "device_time_total_us": 6941.723000000348,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+    "count": 572,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 6861.043999999382,
+    "device_time_total_us": 6861.043999999382,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "gradient_clipping",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 6406.777999999904,
+    "device_time_total_us": 6406.777999999904,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::add_",
+    "count": 170,
+    "self_cpu_time_us": 1930.6009999997295,
+    "cpu_time_total_us": 3353.606999999596,
+    "self_device_time_us": 6301.279000000344,
+    "device_time_total_us": 6301.279000000344,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::mul",
+    "count": 520,
+    "self_cpu_time_us": 5951.714000000335,
+    "cpu_time_total_us": 10494.065000000424,
+    "self_device_time_us": 6258.839999999385,
+    "device_time_total_us": 6258.839999999385,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 5120
+  },
+  {
+    "name": "ampere_bf16_s1688gemm_bf16_128x64_sliced1x2_ldg8_f2f_tn",
+    "count": 80,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 5187.084000000337,
+    "device_time_total_us": 5187.084000000337,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::GammaBetaBackwardCUDAKernelTemplate<float, float, 32u, 32u, 256u, false, true, false>(long, long, float const*, float const*, float const*, float const*, float*, float*)",
+    "count": 187,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 4630.749999999567,
+    "device_time_total_us": 4630.749999999567,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarTensorFunctor<float, 1, 1, 0>, std::multiplies<float>, float*, float>(at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarTensorFunctor<float, 1, 1, 0>, std::multiplies<float>, float*, float)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 4343.399000000012,
+    "device_time_total_us": 4343.399000000012,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::layer_norm_grad_input_kernel_vectorized<float, float, false>(float const*, float const*, float const*, float const*, float const*, float*, int)",
+    "count": 187,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 4013.360000000327,
+    "device_time_total_us": 4013.360000000327,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_foreach_mul_",
+    "count": 10,
+    "self_cpu_time_us": 253.31199999997625,
+    "cpu_time_total_us": 403.90599999991537,
+    "self_device_time_us": 3948.041000000012,
+    "device_time_total_us": 3948.041000000012,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::GeluBackwardCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16, c10::BFloat16)#1}, std::array<char*, 3ul> >(int, at::native::GeluBackwardCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16, c10::BFloat16)#1}, std::array<char*, 3ul>)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 2755.0549999999794,
+    "device_time_total_us": 2755.0549999999794,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Memset (Device)",
+    "count": 641,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 2694.7429999996066,
+    "device_time_total_us": 2694.7429999996066,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::embedding_dense_backward",
+    "count": 20,
+    "self_cpu_time_us": 2012.829000000158,
+    "cpu_time_total_us": 6354.689000000115,
+    "self_device_time_us": 2677.4990000002726,
+    "device_time_total_us": 3801.211000000272,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -94602240
+  },
+  {
+    "name": "aten::gelu_backward",
+    "count": 80,
+    "self_cpu_time_us": 1518.2149999994035,
+    "cpu_time_total_us": 2290.355999999776,
+    "self_device_time_us": 2522.799999999981,
+    "device_time_total_us": 2522.799999999981,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 1342177280
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::LpNormFunctor<float, (at::native::NormType)2, float, 1, 1, 0>, float*, int>(at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::LpNormFunctor<float, (at::native::NormType)2, float, 1, 1, 0>, float*, int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 2503.5400000000373,
+    "device_time_total_us": 2503.5400000000373,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_flash_attention_forward",
+    "count": 80,
+    "self_cpu_time_us": 1846.3750000001426,
+    "cpu_time_total_us": 5446.3830000000635,
+    "self_device_time_us": 2479.149999999856,
+    "device_time_total_us": 2479.149999999856,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void pytorch_flash::flash_fwd_kernel<Flash_fwd_kernel_traits<64, 128, 128, 4, false, false, cutlass::bfloat16_t, Flash_kernel_traits<64, 128, 128, 4, cutlass::bfloat16_t> >, false, true, false, false, true, true, false, false>(pytorch_flash::Flash_fwd_params)",
+    "count": 80,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 2479.149999999856,
+    "device_time_total_us": 2479.149999999856,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_foreach_norm",
+    "count": 10,
+    "self_cpu_time_us": 2297.1770000000324,
+    "cpu_time_total_us": 3509.4510000000882,
+    "self_device_time_us": 2300.0199999998877,
+    "device_time_total_us": 2310.8679999999003,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -542720
+  },
+  {
+    "name": "aten::gelu",
+    "count": 80,
+    "self_cpu_time_us": 1260.6779999998378,
+    "cpu_time_total_us": 2042.3629999997906,
+    "self_device_time_us": 2153.074000000008,
+    "device_time_total_us": 2248.689999999988,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 1325400064
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::GeluCUDAKernelImpl(at::TensorIteratorBase&, at::native::GeluType)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)",
+    "count": 80,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 2153.074000000008,
+    "device_time_total_us": 2153.074000000008,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::native_layer_norm",
+    "count": 170,
+    "self_cpu_time_us": 4191.352000000631,
+    "cpu_time_total_us": 8738.41700000004,
+    "self_device_time_us": 1551.0010000003022,
+    "device_time_total_us": 1560.2170000002588,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<float, float, false>(int, float, float const*, float const*, float const*, float*, float*, float*)",
+    "count": 170,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 1551.0010000003022,
+    "device_time_total_us": 1551.0010000003022,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::add",
+    "count": 500,
+    "self_cpu_time_us": 3791.64299999957,
+    "cpu_time_total_us": 14345.37699999979,
+    "self_device_time_us": 1399.8709999999555,
+    "device_time_total_us": 1446.4319999999425,
+    "self_cpu_memory_bytes": 2560,
+    "self_device_memory_bytes": 1436451840
+  },
+  {
+    "name": "void at::native::unrolled_elementwise_kernel<at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>, 4, TrivialOffsetCalculator<2, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<2>, at::native::memory::StoreWithCast<1> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>, TrivialOffsetCalculator<2, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<2>, at::native::memory::StoreWithCast<1>)",
+    "count": 160,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 1324.4450000001016,
+    "device_time_total_us": 1324.4450000001016,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 3, 128, 1, 16, 8>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 1202.2299999998904,
+    "device_time_total_us": 1202.2299999998904,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void pytorch_flash::flash_bwd_dot_do_o_kernel<true, Flash_bwd_kernel_traits<64, 64, 128, 8, 2, 4, 4, true, false, cutlass::bfloat16_t, Flash_kernel_traits<64, 64, 128, 8, cutlass::bfloat16_t> > >(pytorch_flash::Flash_bwd_params)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 1137.693999999854,
+    "device_time_total_us": 1137.693999999854,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::cat",
+    "count": 120,
+    "self_cpu_time_us": 3184.3680000000586,
+    "cpu_time_total_us": 4554.593000000095,
+    "self_device_time_us": 1119.3839999998527,
+    "device_time_total_us": 1119.3839999998527,
+    "self_cpu_memory_bytes": 655360,
+    "self_device_memory_bytes": 1006643200
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::radix_sort::DeviceRadixSortOnesweepKernel<at_cuda_detail::cub::detail::radix::policy_hub<long, at::cuda::cub::detail::OpaqueType<8>, unsigned long long>::Policy1000, (at_cuda_detail::cub::SortOrder)0, long, at::cuda::cub::detail::OpaqueType<8>, unsigned long long, int, int, at_cuda_detail::cub::detail::identity_decomposer_t>(int*, int*, unsigned long long*, unsigned long long const*, long*, long const*, at::cuda::cub::detail::OpaqueType<8>*, at::cuda::cub::detail::OpaqueType<8> const*, int, int, int, at_cuda_detail::cub::detail::identity_decomposer_t)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 941.9740000000293,
+    "device_time_total_us": 941.9740000000293,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void cublasLt::splitKreduce_kernel<32, 16, int, __nv_bfloat16, __nv_bfloat16, float, __nv_bfloat16, false, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, true, false, false, false>(cublasLt::cublasSplitKParams<float>, __nv_bfloat16 const*, __nv_bfloat16 const*, __nv_bfloat16*, __nv_bfloat16*, float const*, float const*, __nv_bfloat16 const*, __nv_bfloat16 const*, __nv_bfloat16*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 928.3100000000868,
+    "device_time_total_us": 928.3100000000868,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void pytorch_flash::flash_bwd_convert_dq_kernel<Flash_bwd_kernel_traits<64, 64, 128, 8, 2, 4, 4, true, false, cutlass::bfloat16_t, Flash_kernel_traits<64, 64, 128, 8, cutlass::bfloat16_t> > >(pytorch_flash::Flash_bwd_params, int)",
+    "count": 88,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 923.3520000001799,
+    "device_time_total_us": 923.3520000001799,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Command Buffer Full",
+    "count": 27,
+    "self_cpu_time_us": 65727.81300000037,
+    "cpu_time_total_us": 65810.3460000002,
+    "self_device_time_us": 453.3129999997909,
+    "device_time_total_us": 453.3129999997909,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::compute_grad_weight<float, long>(long const*, float const*, long const*, long, long, long const*, long const*, at::AccumulateType<float, true>::type*, long)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 267.10300000016287,
+    "device_time_total_us": 267.10300000016287,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::embedding_backward_feature_kernel<float, float, long>(long const*, float const*, float*, int, long, int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 199.35900000003676,
+    "device_time_total_us": 199.35900000003676,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 178.56000000006497,
+    "device_time_total_us": 178.56000000006497,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::sum",
+    "count": 10,
+    "self_cpu_time_us": 293.0259999998525,
+    "cpu_time_total_us": 390.64999999990687,
+    "self_device_time_us": 165.24800000006508,
+    "device_time_total_us": 165.24800000006508,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 10485760
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::sum_and_scatter<float, long>(long const*, float*, long, long const*, long const*, at::AccumulateType<float, true>::type const*, long const*, long const*, long, long)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 160.06500000005326,
+    "device_time_total_us": 160.06500000005326,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::radix_sort::DeviceRadixSortHistogramKernel<at_cuda_detail::cub::detail::radix::policy_hub<long, at::cuda::cub::detail::OpaqueType<8>, unsigned long long>::Policy1000, (at_cuda_detail::cub::SortOrder)0, long, unsigned long long, at_cuda_detail::cub::detail::identity_decomposer_t>(unsigned long long*, long const*, unsigned long long, int, int, at_cuda_detail::cub::detail::identity_decomposer_t)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 132.7039999998815,
+    "device_time_total_us": 132.7039999998815,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::nll_loss_forward",
+    "count": 10,
+    "self_cpu_time_us": 259.15800000010404,
+    "cpu_time_total_us": 354.91500000002,
+    "self_device_time_us": 126.75100000001112,
+    "device_time_total_us": 126.75100000001112,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 10240
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::nll_loss_forward_reduce_cuda_kernel_2d<float, float, long>(float*, float*, float const*, long const*, float const*, bool, long, long, long, long)",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 126.75100000001112,
+    "device_time_total_us": 126.75100000001112,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::gather",
+    "count": 20,
+    "self_cpu_time_us": 438.878999999936,
+    "cpu_time_total_us": 643.9949999999504,
+    "self_device_time_us": 118.271999999939,
+    "device_time_total_us": 118.271999999939,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+    "count": 20,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 118.271999999939,
+    "device_time_total_us": 118.271999999939,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaThreadExchangeStreamCaptureMode",
+    "count": 190,
+    "self_cpu_time_us": 140.5180000001128,
+    "cpu_time_total_us": 140.5180000001128,
+    "self_device_time_us": 108.51299999997718,
+    "device_time_total_us": 108.51299999997718,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -131072
+  },
+  {
+    "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>::result_type*)",
+    "count": 21,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 106.59700000011071,
+    "device_time_total_us": 106.59700000011071,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::radix_sort::DeviceRadixSortExclusiveSumKernel<at_cuda_detail::cub::detail::radix::policy_hub<long, at::cuda::cub::detail::OpaqueType<8>, unsigned long long>::Policy1000, unsigned long long>(unsigned long long*)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 104.09800000010364,
+    "device_time_total_us": 104.09800000010364,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::arange",
+    "count": 40,
+    "self_cpu_time_us": 484.02999999976055,
+    "cpu_time_total_us": 1826.235999999913,
+    "self_device_time_us": 99.23700000011013,
+    "device_time_total_us": 198.47400000022026,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaEventQuery",
+    "count": 243,
+    "self_cpu_time_us": 395.5019999999058,
+    "cpu_time_total_us": 395.5019999999058,
+    "self_device_time_us": 94.1119999999064,
+    "device_time_total_us": 94.1119999999064,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 20971520
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::unique_by_key::DeviceUniqueByKeySweepKernel<at_cuda_detail::cub::detail::unique_by_key::policy_hub<long, int>::Policy1000, long const*, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::counting_iterator<int, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default>, long*, long*, long*, at_cuda_detail::cub::ScanTileState<unsigned long long, true>, cuda::std::__4::equal_to<void>, unsigned long long, at_cuda_detail::cub::detail::unique_by_key::VSMemHelper>(long const*, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::counting_iterator<int, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default, thrust::THRUST_300001_SM_750_800_860_900_1000_1200_NS::use_default>, long*, long*, long*, at_cuda_detail::cub::ScanTileState<unsigned long long, true>, cuda::std::__4::equal_to<void>, unsigned long long, int, at_cuda_detail::cub::detail::vsmem_t)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 93.6019999999171,
+    "device_time_total_us": 93.6019999999171,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::krn_partial_segment_offset<long>(long*, long const*, long const*, long const*, long const*)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 86.78499999999804,
+    "device_time_total_us": 86.78499999999804,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<long, long, long, unsigned int, at::cuda::cub::(anonymous namespace)::SumOp<long> >::Policy1000, long const*, long*, at_cuda_detail::cub::ScanTileState<long, true>, at::cuda::cub::(anonymous namespace)::SumOp<long>, at_cuda_detail::cub::detail::InputValue<long, long*>, unsigned int, long, false, long>(long const*, long*, at_cuda_detail::cub::ScanTileState<long, true>, int, at::cuda::cub::(anonymous namespace)::SumOp<long>, at_cuda_detail::cub::detail::InputValue<long, long*>, unsigned int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 86.55899999998474,
+    "device_time_total_us": 86.55899999998474,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "get_batch",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 85.72699999999895,
+    "device_time_total_us": 85.72699999999895,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::nll_loss_backward",
+    "count": 10,
+    "self_cpu_time_us": 385.253999999979,
+    "cpu_time_total_us": 970.5799999999763,
+    "self_device_time_us": 85.50400000002992,
+    "device_time_total_us": 8403.854000000101,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 8241807360
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::nll_loss_backward_reduce_cuda_kernel_2d<float, long>(float*, float const*, long const*, float const*, float const*, bool, int, int, long, long)",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 85.50400000002992,
+    "device_time_total_us": 85.50400000002992,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::scan::DeviceCompactInitKernel<at_cuda_detail::cub::ScanTileState<unsigned long long, true>, long*>(at_cuda_detail::cub::ScanTileState<unsigned long long, true>, int, long*)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 82.23899999994683,
+    "device_time_total_us": 82.23899999994683,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::compute_num_of_partial_segments<long>(long const*, long const*, long const*, long*)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 79.04200000000856,
+    "device_time_total_us": 79.04200000000856,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::krn_partials_per_segment<long>(long*, long const*, long const*, long)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 79.00599999990663,
+    "device_time_total_us": 79.00599999990663,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Memcpy HtoD (Pinned -> Device)",
+    "count": 20,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 75.96699999998236,
+    "device_time_total_us": 75.96699999998236,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<long, true> >(at_cuda_detail::cub::ScanTileState<long, true>, int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 69.43999999981861,
+    "device_time_total_us": 69.43999999981861,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<float> >(at::TensorIteratorBase&, at::native::CUDAFunctor_add<float> const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<float> >(at::TensorIteratorBase&, at::native::CUDAFunctor_add<float> const&)::{lambda(int)#1})",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 64.86499999985244,
+    "device_time_total_us": 64.86499999985244,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarFunctor<float, 1, 1, 0>, std::plus<float>, float>(at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarFunctor<float, 1, 1, 0>, std::plus<float>, float)",
+    "count": 22,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 49.53299999992305,
+    "device_time_total_us": 49.53299999992305,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_foreach_add_",
+    "count": 20,
+    "self_cpu_time_us": 342.21899999989546,
+    "cpu_time_total_us": 614.7330000000293,
+    "self_device_time_us": 44.9589999999298,
+    "device_time_total_us": 44.9589999999298,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "ProfilerStep*",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 37.34299999996438,
+    "device_time_total_us": 37.34299999996438,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::lpnorm_cleanup<float, (at::native::NormType)2, float, true, float>(float const*, at::native::TensorListAddresses, int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 27.134999999849242,
+    "device_time_total_us": 27.134999999849242,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::NormTwoOps<float, float, float, true>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::NormTwoOps<float, float, float, true>, unsigned int, float, 4, 4>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 24.959000000017113,
+    "device_time_total_us": 24.959000000017113,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::div",
+    "count": 20,
+    "self_cpu_time_us": 946.6840000002021,
+    "cpu_time_total_us": 1579.8140000001313,
+    "self_device_time_us": 24.06700000025012,
+    "device_time_total_us": 24.06700000025012,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 10240
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::BUnaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>)",
+    "count": 20,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 24.06700000025012,
+    "device_time_total_us": 24.06700000025012,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 23.200000000040745,
+    "device_time_total_us": 23.200000000040745,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::linalg_vector_norm",
+    "count": 10,
+    "self_cpu_time_us": 312.0260000000271,
+    "cpu_time_total_us": 412.9230000000025,
+    "self_device_time_us": 22.751000000018394,
+    "device_time_total_us": 22.751000000018394,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 5120
+  },
+  {
+    "name": "aten::mean",
+    "count": 10,
+    "self_cpu_time_us": 333.93699999991804,
+    "cpu_time_total_us": 446.390999999996,
+    "self_device_time_us": 21.05500000003667,
+    "device_time_total_us": 21.05500000003667,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 5120
+  },
+  {
+    "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 1, 128, 1, 16>(at::native::(anonymous namespace)::OpaqueType<4u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 19.519000000036613,
+    "device_time_total_us": 19.519000000036613,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "forward",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 13.345000000103028,
+    "device_time_total_us": 13.345000000103028,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::reciprocal_kernel_cuda(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::reciprocal_kernel_cuda(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 12.288000000051397,
+    "device_time_total_us": 12.288000000051397,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<float>, std::array<char*, 2ul>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 11.617000000005646,
+    "device_time_total_us": 11.617000000005646,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::launch_clamp_scalar(at::TensorIteratorBase&, c10::Scalar, c10::Scalar, at::native::detail::ClampLimits)::{lambda()#1}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+    "count": 11,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 11.615000000063446,
+    "device_time_total_us": 11.615000000063446,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::reciprocal",
+    "count": 10,
+    "self_cpu_time_us": 153.62600000008388,
+    "cpu_time_total_us": 232.71699999995326,
+    "self_device_time_us": 11.168000000048778,
+    "device_time_total_us": 11.168000000048778,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 5120
+  },
+  {
+    "name": "aten::clamp",
+    "count": 10,
+    "self_cpu_time_us": 184.54799999990064,
+    "cpu_time_total_us": 277.61800000002404,
+    "self_device_time_us": 10.55900000006659,
+    "device_time_total_us": 10.55900000006659,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 5120
+  },
+  {
+    "name": "backward",
+    "count": 10,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 0,
+    "self_device_time_us": 8.543999999987136,
+    "device_time_total_us": 8.543999999987136,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "ProfilerStep*",
+    "count": 10,
+    "self_cpu_time_us": 5473.427999999949,
+    "cpu_time_total_us": 460168.543,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 91250.54799999982,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -4117724160
+  },
+  {
+    "name": "forward",
+    "count": 10,
+    "self_cpu_time_us": 866.7929999997559,
+    "cpu_time_total_us": 111440.602,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 69094.07299999992,
+    "self_cpu_memory_bytes": 80,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "DistributedDataParallel.forward",
+    "count": 10,
+    "self_cpu_time_us": 18572.44800000057,
+    "cpu_time_total_us": 110259.04700000014,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 69080.72799999981,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -2201907200
+  },
+  {
+    "name": "aten::empty",
+    "count": 1510,
+    "self_cpu_time_us": 10201.945000000176,
+    "cpu_time_total_us": 10205.469000000166,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 9.215999999956694,
+    "self_cpu_memory_bytes": 160,
+    "self_device_memory_bytes": 4716165120
+  },
+  {
+    "name": "aten::resize_",
+    "count": 50,
+    "self_cpu_time_us": 272.62799999985157,
+    "cpu_time_total_us": 272.62799999985157,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 94740480
+  },
+  {
+    "name": "cudaLaunchKernel",
+    "count": 3680,
+    "self_cpu_time_us": 32643.37800000128,
+    "cpu_time_total_us": 44693.56400000134,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 115.3619999998482,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::embedding",
+    "count": 20,
+    "self_cpu_time_us": 289.24700000007954,
+    "cpu_time_total_us": 1771.9020000000587,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 118.271999999939,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::reshape",
+    "count": 1330,
+    "self_cpu_time_us": 3459.9029999999057,
+    "cpu_time_total_us": 7170.41700000009,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::view",
+    "count": 2090,
+    "self_cpu_time_us": 5343.3079999996835,
+    "cpu_time_total_us": 5343.3079999996835,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::index_select",
+    "count": 20,
+    "self_cpu_time_us": 417.21300000004624,
+    "cpu_time_total_us": 1407.015000000027,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 118.271999999939,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::expand",
+    "count": 20,
+    "self_cpu_time_us": 88.84399999999766,
+    "cpu_time_total_us": 116.9199999999945,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::as_strided",
+    "count": 4770,
+    "self_cpu_time_us": 4879.993000000404,
+    "cpu_time_total_us": 4879.993000000404,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::dropout",
+    "count": 170,
+    "self_cpu_time_us": 118.8199999999008,
+    "cpu_time_total_us": 118.8199999999008,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::layer_norm",
+    "count": 171,
+    "self_cpu_time_us": 1031.1380000001343,
+    "cpu_time_total_us": 9818.99900000019,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 1579.257000000238,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::linear",
+    "count": 660,
+    "self_cpu_time_us": 3400.74400000023,
+    "cpu_time_total_us": 75769.76000000011,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 73960.33199999975,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::to",
+    "count": 1750,
+    "self_cpu_time_us": 2713.216999998859,
+    "cpu_time_total_us": 43069.68899999952,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 38698.26399999935,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_to_copy",
+    "count": 1200,
+    "self_cpu_time_us": 7852.282000000319,
+    "cpu_time_total_us": 40355.12500000067,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 38698.26399999935,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::empty_strided",
+    "count": 1530,
+    "self_cpu_time_us": 11571.54399999974,
+    "cpu_time_total_us": 11573.686999999736,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 19671526400
+  },
+  {
+    "name": "aten::t",
+    "count": 1650,
+    "self_cpu_time_us": 5604.978999999852,
+    "cpu_time_total_us": 12583.200999999588,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::transpose",
+    "count": 3250,
+    "self_cpu_time_us": 11237.51799999977,
+    "cpu_time_total_us": 14518.08599999983,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::matmul",
+    "count": 330,
+    "self_cpu_time_us": 2571.2119999999313,
+    "cpu_time_total_us": 24334.428000000153,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 34739.149,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaDeviceGetAttribute",
+    "count": 1020,
+    "self_cpu_time_us": 591.1489999995767,
+    "cpu_time_total_us": 591.1489999995767,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cuLaunchKernel",
+    "count": 910,
+    "self_cpu_time_us": 11408.484999999677,
+    "cpu_time_total_us": 11408.484999999677,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_unsafe_view",
+    "count": 330,
+    "self_cpu_time_us": 949.7220000000898,
+    "cpu_time_total_us": 949.7220000000898,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::split",
+    "count": 80,
+    "self_cpu_time_us": 847.5939999997233,
+    "cpu_time_total_us": 2438.978000000035,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::narrow",
+    "count": 250,
+    "self_cpu_time_us": 631.4560000001297,
+    "cpu_time_total_us": 1726.291000000311,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::slice",
+    "count": 250,
+    "self_cpu_time_us": 866.4259999999247,
+    "cpu_time_total_us": 1094.8350000001813,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::scaled_dot_product_attention",
+    "count": 80,
+    "self_cpu_time_us": 1301.6650000001189,
+    "cpu_time_total_us": 9625.09200000015,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 2479.149999999856,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_scaled_dot_product_flash_attention",
+    "count": 80,
+    "self_cpu_time_us": 1790.3529999999498,
+    "cpu_time_total_us": 8323.427000000029,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 2479.149999999856,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::empty_like",
+    "count": 350,
+    "self_cpu_time_us": 1342.1130000005955,
+    "cpu_time_total_us": 3989.9210000004605,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaFuncSetAttribute",
+    "count": 160,
+    "self_cpu_time_us": 527.7339999998412,
+    "cpu_time_total_us": 527.7339999998412,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaOccupancyMaxActiveBlocksPerMultiprocessor",
+    "count": 80,
+    "self_cpu_time_us": 148.7810000001457,
+    "cpu_time_total_us": 149.42500000014593,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 18.304000000003725,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaMemsetAsync",
+    "count": 590,
+    "self_cpu_time_us": 4238.196000000074,
+    "cpu_time_total_us": 10846.199000000099,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 345.7909999999101,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::cross_entropy_loss",
+    "count": 10,
+    "self_cpu_time_us": 102.62000000009357,
+    "cpu_time_total_us": 1318.1250000000227,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 21927.519000000037,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::log_softmax",
+    "count": 10,
+    "self_cpu_time_us": 99.48299999985193,
+    "cpu_time_total_us": 391.1009999999478,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8686.954999999987,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::nll_loss_nd",
+    "count": 10,
+    "self_cpu_time_us": 39.71600000001399,
+    "cpu_time_total_us": 824.4039999999814,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 13240.56400000005,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::nll_loss",
+    "count": 20,
+    "self_cpu_time_us": 92.19500000000698,
+    "cpu_time_total_us": 1181.1219999999712,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 13367.31500000006,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::detach",
+    "count": 530,
+    "self_cpu_time_us": 1102.618000000698,
+    "cpu_time_total_us": 2035.9480000002222,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "detach",
+    "count": 530,
+    "self_cpu_time_us": 933.3299999995243,
+    "cpu_time_total_us": 933.3299999995243,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "get_batch",
+    "count": 10,
+    "self_cpu_time_us": 8364.571000000207,
+    "cpu_time_total_us": 14591.879000000004,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 75.96699999998236,
+    "self_cpu_memory_bytes": -658080,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::lift_fresh",
+    "count": 170,
+    "self_cpu_time_us": 82.37399999999798,
+    "cpu_time_total_us": 82.37399999999798,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::min",
+    "count": 10,
+    "self_cpu_time_us": 159.31999999997788,
+    "cpu_time_total_us": 219.24200000001383,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::item",
+    "count": 340,
+    "self_cpu_time_us": 578.7640000004321,
+    "cpu_time_total_us": 690.112000000302,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_local_scalar_dense",
+    "count": 340,
+    "self_cpu_time_us": 111.3479999998699,
+    "cpu_time_total_us": 111.3479999998699,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::max",
+    "count": 10,
+    "self_cpu_time_us": 80.77699999991455,
+    "cpu_time_total_us": 97.79400000000442,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::unbind",
+    "count": 20,
+    "self_cpu_time_us": 442.44700000003195,
+    "cpu_time_total_us": 1142.036999999842,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::select",
+    "count": 160,
+    "self_cpu_time_us": 570.7449999999562,
+    "cpu_time_total_us": 699.5899999998101,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::stack",
+    "count": 40,
+    "self_cpu_time_us": 1192.305999999231,
+    "cpu_time_total_us": 4404.372999999927,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 27.90299999996205,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::pin_memory",
+    "count": 20,
+    "self_cpu_time_us": 130.6820000000116,
+    "cpu_time_total_us": 1045.6560000000554,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::is_pinned",
+    "count": 20,
+    "self_cpu_time_us": 200.58300000005693,
+    "cpu_time_total_us": 273.94200000001,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaPointerGetAttributes",
+    "count": 20,
+    "self_cpu_time_us": 73.35899999995308,
+    "cpu_time_total_us": 73.35899999995308,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_pin_memory",
+    "count": 20,
+    "self_cpu_time_us": 294.39000000013584,
+    "cpu_time_total_us": 641.0320000000338,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::set_",
+    "count": 20,
+    "self_cpu_time_us": 47.4490000000078,
+    "cpu_time_total_us": 47.4490000000078,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaStreamIsCapturing",
+    "count": 250,
+    "self_cpu_time_us": 225.1219999996665,
+    "cpu_time_total_us": 225.1219999996665,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaMemcpyAsync",
+    "count": 540,
+    "self_cpu_time_us": 5903.549999999708,
+    "cpu_time_total_us": 5903.549999999708,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaEventRecordWithFlags",
+    "count": 120,
+    "self_cpu_time_us": 381.7750000002343,
+    "cpu_time_total_us": 381.7750000002343,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "backward",
+    "count": 10,
+    "self_cpu_time_us": 251854.87599999964,
+    "cpu_time_total_us": 299834.93100000004,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8.543999999987136,
+    "self_cpu_memory_bytes": -80,
+    "self_device_memory_bytes": -17508933632
+  },
+  {
+    "name": "aten::ones_like",
+    "count": 10,
+    "self_cpu_time_us": 58.09699999989971,
+    "cpu_time_total_us": 578.9659999999258,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8.543999999987136,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: DivBackward0",
+    "count": 10,
+    "self_cpu_time_us": 443.84499999997934,
+    "cpu_time_total_us": 1888.175999999985,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 10.72200000014709,
+    "self_cpu_memory_bytes": -80,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "DivBackward0",
+    "count": 10,
+    "self_cpu_time_us": 179.27899999998772,
+    "cpu_time_total_us": 1444.3310000000056,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 10.72200000014709,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: NllLossBackward0",
+    "count": 10,
+    "self_cpu_time_us": 357.5029999999351,
+    "cpu_time_total_us": 1536.1909999999607,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8403.854000000101,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -8241817600
+  },
+  {
+    "name": "NllLossBackward0",
+    "count": 10,
+    "self_cpu_time_us": 208.1080000000493,
+    "cpu_time_total_us": 1178.6880000000256,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8403.854000000101,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::zero_",
+    "count": 40,
+    "self_cpu_time_us": 243.3560000000507,
+    "cpu_time_total_us": 1494.5359999999164,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 9362.250000000007,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: ToCopyBackward0",
+    "count": 510,
+    "self_cpu_time_us": 4488.185999999412,
+    "cpu_time_total_us": 24636.60500000031,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 19200.124999999767,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -10014709760
+  },
+  {
+    "name": "ToCopyBackward0",
+    "count": 510,
+    "self_cpu_time_us": 1571.424000001114,
+    "cpu_time_total_us": 20148.419000000897,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 19200.124999999767,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: LogSoftmaxBackward0",
+    "count": 10,
+    "self_cpu_time_us": 122.49599999994643,
+    "cpu_time_total_us": 663.2349999999751,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 15265.992000000057,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -8234106880
+  },
+  {
+    "name": "LogSoftmaxBackward0",
+    "count": 10,
+    "self_cpu_time_us": 189.83200000004035,
+    "cpu_time_total_us": 540.7390000000287,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 15265.992000000057,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: ViewBackward0",
+    "count": 660,
+    "self_cpu_time_us": 4799.613999999867,
+    "cpu_time_total_us": 10292.87999999925,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "ViewBackward0",
+    "count": 660,
+    "self_cpu_time_us": 2112.363999999321,
+    "cpu_time_total_us": 5493.265999999383,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: UnsafeViewBackward0",
+    "count": 330,
+    "self_cpu_time_us": 2376.433000000068,
+    "cpu_time_total_us": 5395.370999999643,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "UnsafeViewBackward0",
+    "count": 330,
+    "self_cpu_time_us": 1123.2039999994595,
+    "cpu_time_total_us": 3018.9379999995745,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: MmBackward0",
+    "count": 330,
+    "self_cpu_time_us": 4948.34400000001,
+    "cpu_time_total_us": 93276.76399999995,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 75623.51199999974,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -10262005760
+  },
+  {
+    "name": "MmBackward0",
+    "count": 330,
+    "self_cpu_time_us": 4826.5740000002315,
+    "cpu_time_total_us": 88328.41999999994,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 75623.51199999974,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: TBackward0",
+    "count": 330,
+    "self_cpu_time_us": 2599.3909999990537,
+    "cpu_time_total_us": 6215.319999999321,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "TBackward0",
+    "count": 330,
+    "self_cpu_time_us": 960.0740000004625,
+    "cpu_time_total_us": 3615.9290000002675,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: NativeLayerNormBackward0",
+    "count": 170,
+    "self_cpu_time_us": 4433.019000000668,
+    "cpu_time_total_us": 18398.510000000206,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 10932.551000000225,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -4220641280
+  },
+  {
+    "name": "NativeLayerNormBackward0",
+    "count": 170,
+    "self_cpu_time_us": 1515.0999999998967,
+    "cpu_time_total_us": 10803.809999999956,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 7862.164999999892,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: torch::autograd::AccumulateGrad",
+    "count": 510,
+    "self_cpu_time_us": 8406.034000000613,
+    "cpu_time_total_us": 34097.68400000049,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 343196.2959999995,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "torch::autograd::AccumulateGrad",
+    "count": 510,
+    "self_cpu_time_us": 1661.1140000003234,
+    "cpu_time_total_us": 3563.6830000004375,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "torch::distributed::reducer::mul_out",
+    "count": 510,
+    "self_cpu_time_us": 1205.9639999989067,
+    "cpu_time_total_us": 11475.377999999355,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 6249.206999999471,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: AddBackward0",
+    "count": 170,
+    "self_cpu_time_us": 2096.978999999321,
+    "cpu_time_total_us": 8524.053999999536,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 1991.572999999873,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "AddBackward0",
+    "count": 170,
+    "self_cpu_time_us": 223.52500000003056,
+    "cpu_time_total_us": 223.52500000003056,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "c10d::allreduce_",
+    "count": 50,
+    "self_cpu_time_us": 2419.3990000001268,
+    "cpu_time_total_us": 10652.589000000084,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 336947.08900000004,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaStreamWaitEvent",
+    "count": 200,
+    "self_cpu_time_us": 441.3200000003799,
+    "cpu_time_total_us": 441.3200000003799,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "nccl:all_reduce",
+    "count": 50,
+    "self_cpu_time_us": 0,
+    "cpu_time_total_us": 6056.236000000032,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "INVALID",
+    "count": 100,
+    "self_cpu_time_us": 127.55099999993945,
+    "cpu_time_total_us": 127.55099999993945,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaEventRecord",
+    "count": 150,
+    "self_cpu_time_us": 303.66200000018216,
+    "cpu_time_total_us": 303.66200000018216,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaGetFuncBySymbol",
+    "count": 50,
+    "self_cpu_time_us": 125.58100000000923,
+    "cpu_time_total_us": 125.58100000000923,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cuLaunchKernelEx",
+    "count": 50,
+    "self_cpu_time_us": 614.1160000000054,
+    "cpu_time_total_us": 614.1160000000054,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: GeluBackward0",
+    "count": 80,
+    "self_cpu_time_us": 986.6500000000196,
+    "cpu_time_total_us": 3685.1820000000316,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 2522.799999999981,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -2684354560
+  },
+  {
+    "name": "GeluBackward0",
+    "count": 80,
+    "self_cpu_time_us": 408.17600000023594,
+    "cpu_time_total_us": 2698.532000000012,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 2522.799999999981,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaLaunchKernelExC",
+    "count": 80,
+    "self_cpu_time_us": 43161.19599999998,
+    "cpu_time_total_us": 43161.19599999998,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: TransposeBackward0",
+    "count": 320,
+    "self_cpu_time_us": 2513.373999999936,
+    "cpu_time_total_us": 5243.942000000421,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "TransposeBackward0",
+    "count": 320,
+    "self_cpu_time_us": 853.2220000001653,
+    "cpu_time_total_us": 2730.568000000485,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: ScaledDotProductFlashAttentionBackward0",
+    "count": 80,
+    "self_cpu_time_us": 1839.51300000017,
+    "cpu_time_total_us": 17762.804000000193,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8692.530000000457,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -1688289280
+  },
+  {
+    "name": "ScaledDotProductFlashAttentionBackward0",
+    "count": 80,
+    "self_cpu_time_us": 1067.848999999831,
+    "cpu_time_total_us": 15923.291000000021,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8692.530000000457,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::_scaled_dot_product_flash_attention_backward",
+    "count": 80,
+    "self_cpu_time_us": 2470.0450000002656,
+    "cpu_time_total_us": 14855.44200000019,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 8692.530000000457,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: SplitBackward0",
+    "count": 80,
+    "self_cpu_time_us": 949.0450000001638,
+    "cpu_time_total_us": 4212.706000000058,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 1091.4809999998906,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -1006632960
+  },
+  {
+    "name": "SplitBackward0",
+    "count": 80,
+    "self_cpu_time_us": 461.37699999984943,
+    "cpu_time_total_us": 3263.6609999998946,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 1091.4809999998906,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "autograd::engine::evaluate_function: EmbeddingBackward0",
+    "count": 20,
+    "self_cpu_time_us": 336.0430000000197,
+    "cpu_time_total_us": 7058.521000000037,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 7032.104000000283,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -1123676160
+  },
+  {
+    "name": "EmbeddingBackward0",
+    "count": 20,
+    "self_cpu_time_us": 97.35200000007171,
+    "cpu_time_total_us": 6530.552000000003,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 3801.211000000272,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::embedding_backward",
+    "count": 20,
+    "self_cpu_time_us": 78.5109999998167,
+    "cpu_time_total_us": 6433.199999999932,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 3801.211000000272,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "aten::zeros",
+    "count": 30,
+    "self_cpu_time_us": 255.67699999990145,
+    "cpu_time_total_us": 1697.293999999929,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 1043.899999999936,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags",
+    "count": 20,
+    "self_cpu_time_us": 67.76700000005803,
+    "cpu_time_total_us": 67.76700000005803,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "cudaPeekAtLastError",
+    "count": 170,
+    "self_cpu_time_us": 33.894999999807624,
+    "cpu_time_total_us": 33.894999999807624,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "torch.distributed.ddp.reducer::copy_bucket_to_grad",
+    "count": 510,
+    "self_cpu_time_us": 1128.5550000006915,
+    "cpu_time_total_us": 9206.48100000016,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 11369.668999999674,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "gradient_clipping",
+    "count": 10,
+    "self_cpu_time_us": 10968.982999999978,
+    "cpu_time_total_us": 19115.07699999989,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 6341.3399999999965,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -291840
+  },
+  {
+    "name": "aten::unsqueeze",
+    "count": 520,
+    "self_cpu_time_us": 1124.2880000008008,
+    "cpu_time_total_us": 1412.0050000006668,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "optimizer_step",
+    "count": 10,
+    "self_cpu_time_us": 461.7930000000051,
+    "cpu_time_total_us": 6701.459999999977,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 15699.424999999974,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Optimizer.step#AdamW.step",
+    "count": 10,
+    "self_cpu_time_us": 4800.839999999982,
+    "cpu_time_total_us": 6239.666999999972,
+    "self_device_time_us": 0.0,
+    "device_time_total_us": 15699.424999999974,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "zero_grad",
+    "count": 10,
+    "self_cpu_time_us": 408.349999999984,
+    "cpu_time_total_us": 1538.3890000000029,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  },
+  {
+    "name": "Optimizer.zero_grad#AdamW.zero_grad",
+    "count": 10,
+    "self_cpu_time_us": 1130.0390000000189,
+    "cpu_time_total_us": 1130.0390000000189,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": -2108334080
+  },
+  {
+    "name": "cudaDeviceSynchronize",
+    "count": 1,
+    "self_cpu_time_us": 93578.74800000031,
+    "cpu_time_total_us": 93657.89200000005,
+    "self_device_time_us": 0,
+    "device_time_total_us": 0,
+    "self_cpu_memory_bytes": 0,
+    "self_device_memory_bytes": 0
+  }
+]

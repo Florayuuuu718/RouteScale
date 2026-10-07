@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "analysis": "C4 per-rank collective event summary",
+  "status": "pass",
+  "run_id": "4gpu_autodl",
+  "world_size": 4,
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true,
+  "ranks": [
+    {
+      "rank": 0,
+      "active_steps": 10,
+      "collective_event_count": 205,
+      "collective_self_device_time_us": 686594.9900000006,
+      "collective_self_device_time_us_per_active_update": 68659.49900000005,
+      "top_collective_events": [
+        {
+          "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+          "count": 55,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 359602.8630000003,
+          "device_time_total_us": 359602.8630000003,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 326992.12700000027,
+          "device_time_total_us": 326992.12700000027,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "c10d::allreduce_",
+          "count": 50,
+          "self_cpu_time_us": 3115.025999999958,
+          "cpu_time_total_us": 10033.603999999916,
+          "self_device_time_us": 0.0,
+          "device_time_total_us": 326992.12700000027,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 5146.4060000001555,
+          "self_device_time_us": 0,
+          "device_time_total_us": 0,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        }
+      ],
+      "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank0_trace.json"
+    },
+    {
+      "rank": 1,
+      "active_steps": 10,
+      "collective_event_count": 205,
+      "collective_self_device_time_us": 702343.1879999998,
+      "collective_self_device_time_us_per_active_update": 70234.31879999998,
+      "top_collective_events": [
+        {
+          "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+          "count": 55,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 367923.2909999999,
+          "device_time_total_us": 367923.2909999999,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 334419.89699999994,
+          "device_time_total_us": 334419.89699999994,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "c10d::allreduce_",
+          "count": 50,
+          "self_cpu_time_us": 2286.030999999859,
+          "cpu_time_total_us": 10130.543999999867,
+          "self_device_time_us": 0.0,
+          "device_time_total_us": 334419.89699999994,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 5339.779999999992,
+          "self_device_time_us": 0,
+          "device_time_total_us": 0,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        }
+      ],
+      "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank1_trace.json"
+    },
+    {
+      "rank": 2,
+      "active_steps": 10,
+      "collective_event_count": 205,
+      "collective_self_device_time_us": 703177.8260000004,
+      "collective_self_device_time_us_per_active_update": 70317.78260000004,
+      "top_collective_events": [
+        {
+          "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+          "count": 55,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 368202.01800000016,
+          "device_time_total_us": 368202.01800000016,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 334975.80800000014,
+          "device_time_total_us": 334975.80800000014,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "c10d::allreduce_",
+          "count": 50,
+          "self_cpu_time_us": 2644.653000000015,
+          "cpu_time_total_us": 12740.367000000093,
+          "self_device_time_us": 0.0,
+          "device_time_total_us": 334975.80800000014,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 6326.830999999926,
+          "self_device_time_us": 0,
+          "device_time_total_us": 0,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        }
+      ],
+      "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank2_trace.json"
+    },
+    {
+      "rank": 3,
+      "active_steps": 10,
+      "collective_event_count": 205,
+      "collective_self_device_time_us": 707252.1290000001,
+      "collective_self_device_time_us_per_active_update": 70725.21290000001,
+      "top_collective_events": [
+        {
+          "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+          "count": 55,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 370305.04000000004,
+          "device_time_total_us": 370305.04000000004,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 0,
+          "self_device_time_us": 336947.08900000004,
+          "device_time_total_us": 336947.08900000004,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "c10d::allreduce_",
+          "count": 50,
+          "self_cpu_time_us": 2419.3990000001268,
+          "cpu_time_total_us": 10652.589000000084,
+          "self_device_time_us": 0.0,
+          "device_time_total_us": 336947.08900000004,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        },
+        {
+          "name": "nccl:all_reduce",
+          "count": 50,
+          "self_cpu_time_us": 0,
+          "cpu_time_total_us": 6056.236000000032,
+          "self_device_time_us": 0,
+          "device_time_total_us": 0,
+          "self_cpu_memory_bytes": 0,
+          "self_device_memory_bytes": 0
+        }
+      ],
+      "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank3_trace.json"
+    }
+  ],
+  "overlap_analysis": {
+    "automatically_decided": false,
+    "reason": "aggregate key averages do not preserve event concurrency; inspect backward and collective lanes in each Chrome trace"
+  },
+  "warning": "Profiler timings include instrumentation overhead and are not formal throughput results."
+}

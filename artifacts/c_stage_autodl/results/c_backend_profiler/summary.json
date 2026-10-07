@@ -1,0 +1,4020 @@
+{
+  "schema_version": 1,
+  "analysis": "C6/C7 backend collective-family profiler summary",
+  "run_id": "4gpu_autodl",
+  "world_size": 4,
+  "variants": [
+    {
+      "variant": "deepspeed_zero0",
+      "backend": "deepspeed",
+      "world_size": 4,
+      "observed_collective_families": [
+        "all_reduce"
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "active_steps": 3,
+          "families": {
+            "all_reduce": {
+              "event_count": 12,
+              "self_device_time_us": 95705.30599999998,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 47852.65299999999,
+                  "device_time_total_us": 47852.65299999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 47852.65299999999,
+                  "device_time_total_us": 47852.65299999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 136.56999999998516,
+                  "cpu_time_total_us": 583.7079999999951,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 47852.65299999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 369.88699999998425,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank0_trace.json"
+        },
+        {
+          "rank": 1,
+          "active_steps": 3,
+          "families": {
+            "all_reduce": {
+              "event_count": 12,
+              "self_device_time_us": 111593.082,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 55796.541,
+                  "device_time_total_us": 55796.541,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 55796.541,
+                  "device_time_total_us": 55796.541,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 120.78300000003219,
+                  "cpu_time_total_us": 485.24800000000687,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 55796.541,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 293.15700000001016,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank1_trace.json"
+        },
+        {
+          "rank": 2,
+          "active_steps": 3,
+          "families": {
+            "all_reduce": {
+              "event_count": 12,
+              "self_device_time_us": 113904.78800000002,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 56952.39400000001,
+                  "device_time_total_us": 56952.39400000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 56952.39400000001,
+                  "device_time_total_us": 56952.39400000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 128.57799999999406,
+                  "cpu_time_total_us": 492.1679999999833,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 56952.39400000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 291.82499999999345,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank2_trace.json"
+        },
+        {
+          "rank": 3,
+          "active_steps": 3,
+          "families": {
+            "all_reduce": {
+              "event_count": 12,
+              "self_device_time_us": 105816.12599999999,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 52908.062999999995,
+                  "device_time_total_us": 52908.062999999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 52908.062999999995,
+                  "device_time_total_us": 52908.062999999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 132.6739999999918,
+                  "cpu_time_total_us": 562.8790000000154,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 52908.062999999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 350.0540000000037,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank3_trace.json"
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero1",
+      "backend": "deepspeed",
+      "world_size": 4,
+      "observed_collective_families": [
+        "all_gather",
+        "all_reduce"
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 52531.330000000016,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26265.665000000008,
+                  "device_time_total_us": 26265.665000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26265.665000000008,
+                  "device_time_total_us": 26265.665000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 116.15499999999156,
+                  "cpu_time_total_us": 602.4059999999954,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 26265.665000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 388.6740000000136,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 110016.41800000005,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 55008.209000000024,
+                  "device_time_total_us": 55008.209000000024,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 49339.653,
+                  "device_time_total_us": 49339.653,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 3791.0160000000105,
+                  "device_time_total_us": 3791.0160000000105,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1877.5400000000154,
+                  "device_time_total_us": 1877.5400000000154,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 392.8990000000849,
+                  "cpu_time_total_us": 1653.6710000000276,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 55008.209000000024,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 998.0770000000557,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank0_trace.json"
+        },
+        {
+          "rank": 1,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 52904.351999999984,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26452.175999999992,
+                  "device_time_total_us": 26452.175999999992,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26452.175999999992,
+                  "device_time_total_us": 26452.175999999992,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 116.86199999997916,
+                  "cpu_time_total_us": 589.6719999999841,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 26452.175999999992,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 377.29400000001624,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 119834.95799999993,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 59917.47899999996,
+                  "device_time_total_us": 59917.47899999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 53978.638999999996,
+                  "device_time_total_us": 53978.638999999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 3989.254999999961,
+                  "device_time_total_us": 3989.254999999961,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1949.5850000000064,
+                  "device_time_total_us": 1949.5850000000064,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 351.92599999999584,
+                  "cpu_time_total_us": 5567.341000000022,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 59917.47899999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 909.4099999999307,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank1_trace.json"
+        },
+        {
+          "rank": 2,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 50905.06599999996,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25452.53299999998,
+                  "device_time_total_us": 25452.53299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25452.53299999998,
+                  "device_time_total_us": 25452.53299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 208.22900000005757,
+                  "cpu_time_total_us": 682.3640000000087,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 25452.53299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 377.35600000000704,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 107943.7600000001,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 53971.88000000005,
+                  "device_time_total_us": 53971.88000000005,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 53883.84200000001,
+                  "device_time_total_us": 53883.84200000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 51.748000000028696,
+                  "device_time_total_us": 51.748000000028696,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 36.29000000000815,
+                  "device_time_total_us": 36.29000000000815,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 365.1449999999568,
+                  "cpu_time_total_us": 1571.9919999999693,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 53971.88000000005,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 956.6109999999899,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank2_trace.json"
+        },
+        {
+          "rank": 3,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 54764.50600000005,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 27382.253000000026,
+                  "device_time_total_us": 27382.253000000026,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 27382.253000000026,
+                  "device_time_total_us": 27382.253000000026,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 73.65800000001764,
+                  "cpu_time_total_us": 385.4190000000235,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 27382.253000000026,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 251.928000000029,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 123193.88999999997,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 61596.944999999985,
+                  "device_time_total_us": 61596.944999999985,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 57626.42899999998,
+                  "device_time_total_us": 57626.42899999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 3264.9319999999934,
+                  "device_time_total_us": 3264.9319999999934,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 705.5840000000098,
+                  "device_time_total_us": 705.5840000000098,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 250.33299999999872,
+                  "cpu_time_total_us": 1089.0640000000276,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 61596.944999999985,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 674.3110000000706,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank3_trace.json"
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero2",
+      "backend": "deepspeed",
+      "world_size": 4,
+      "observed_collective_families": [
+        "all_gather",
+        "all_reduce"
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 52802.97599999991,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26401.487999999954,
+                  "device_time_total_us": 26401.487999999954,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26401.487999999954,
+                  "device_time_total_us": 26401.487999999954,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 119.74200000002747,
+                  "cpu_time_total_us": 613.5569999999861,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 26401.487999999954,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 397.5660000000207,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 152067.51600000006,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 76033.75800000003,
+                  "device_time_total_us": 76033.75800000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 59774.936000000016,
+                  "device_time_total_us": 59774.936000000016,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 12176.467000000011,
+                  "device_time_total_us": 12176.467000000011,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 4082.355000000003,
+                  "device_time_total_us": 4082.355000000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 380.98600000012084,
+                  "cpu_time_total_us": 1583.2920000000886,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 76033.75800000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 954.271000000037,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank0_trace.json"
+        },
+        {
+          "rank": 1,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 53327.11599999998,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26663.55799999999,
+                  "device_time_total_us": 26663.55799999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26663.55799999999,
+                  "device_time_total_us": 26663.55799999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 102.20200000000477,
+                  "cpu_time_total_us": 549.2169999999751,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 26663.55799999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 365.1100000000006,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 127893.91599999995,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 63946.95799999998,
+                  "device_time_total_us": 63946.95799999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 47467.84599999999,
+                  "device_time_total_us": 47467.84599999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 12330.65100000002,
+                  "device_time_total_us": 12330.65100000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 4148.460999999967,
+                  "device_time_total_us": 4148.460999999967,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 377.19499999999243,
+                  "cpu_time_total_us": 1563.9700000000448,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 63946.95799999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 938.1890000000494,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank1_trace.json"
+        },
+        {
+          "rank": 2,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 51743.66599999994,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25871.83299999997,
+                  "device_time_total_us": 25871.83299999997,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25871.83299999997,
+                  "device_time_total_us": 25871.83299999997,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 123.57699999999022,
+                  "cpu_time_total_us": 595.3810000000085,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 25871.83299999997,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 375.7440000000497,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 126223.3239999999,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 63111.66199999995,
+                  "device_time_total_us": 63111.66199999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 62819.355999999985,
+                  "device_time_total_us": 62819.355999999985,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 152.71399999996356,
+                  "device_time_total_us": 152.71399999996356,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 139.5920000000042,
+                  "device_time_total_us": 139.5920000000042,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 384.07799999990675,
+                  "cpu_time_total_us": 1560.1309999999721,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 63111.66199999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 935.1509999999907,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank2_trace.json"
+        },
+        {
+          "rank": 3,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 24,
+              "self_device_time_us": 51292.98200000002,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25646.49100000001,
+                  "device_time_total_us": 25646.49100000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25646.49100000001,
+                  "device_time_total_us": 25646.49100000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 6,
+                  "self_cpu_time_us": 118.62900000001537,
+                  "cpu_time_total_us": 601.7160000000003,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 25646.49100000001,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 384.5479999999952,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 48,
+              "self_device_time_us": 121905.08799999995,
+              "events": [
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 60952.54399999997,
+                  "device_time_total_us": 60952.54399999997,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 60362.13700000002,
+                  "device_time_total_us": 60362.13700000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 321.81299999998737,
+                  "device_time_total_us": 321.81299999998737,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 268.5939999999682,
+                  "device_time_total_us": 268.5939999999682,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 12,
+                  "self_cpu_time_us": 380.90200000003824,
+                  "cpu_time_total_us": 1568.9259999999995,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 60952.54399999997,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 12,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 940.7130000000107,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank3_trace.json"
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero3",
+      "backend": "deepspeed",
+      "world_size": 4,
+      "observed_collective_families": [
+        "all_gather",
+        "all_reduce",
+        "reduce_scatter"
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 228,
+              "self_device_time_us": 73660.90600000016,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 36830.45300000008,
+                  "device_time_total_us": 36830.45300000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 36830.45300000008,
+                  "device_time_total_us": 36830.45300000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 57,
+                  "self_cpu_time_us": 458.35599999977194,
+                  "cpu_time_total_us": 2755.0049999998773,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 36830.45300000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 1691.7220000001803,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 24,
+              "self_device_time_us": 15944.075999999943,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 7972.037999999971,
+                  "device_time_total_us": 7972.037999999971,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 7972.037999999971,
+                  "device_time_total_us": 7972.037999999971,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 6,
+                  "self_cpu_time_us": 133.76499999998487,
+                  "cpu_time_total_us": 581.05799999999,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 7972.037999999971,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 360.8550000000396,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 12,
+              "self_device_time_us": 172778.98200000005,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 86389.49100000002,
+                  "device_time_total_us": 86389.49100000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 86389.49100000002,
+                  "device_time_total_us": 86389.49100000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 3,
+                  "self_cpu_time_us": 58.52000000006228,
+                  "cpu_time_total_us": 338.7980000000389,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 86389.49100000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 198.4539999999397,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank0_trace.json"
+        },
+        {
+          "rank": 1,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 228,
+              "self_device_time_us": 53729.64400000016,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26864.82200000008,
+                  "device_time_total_us": 26864.82200000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 26864.82200000008,
+                  "device_time_total_us": 26864.82200000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 57,
+                  "self_cpu_time_us": 650.1330000000785,
+                  "cpu_time_total_us": 4071.8650000000557,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 26864.82200000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 2449.281000000061,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 24,
+              "self_device_time_us": 104.44999999992433,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 52.224999999962165,
+                  "device_time_total_us": 52.224999999962165,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 52.224999999962165,
+                  "device_time_total_us": 52.224999999962165,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 6,
+                  "self_cpu_time_us": 182.2570000000851,
+                  "cpu_time_total_us": 784.6750000000029,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 52.224999999962165,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 474.10100000000966,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 12,
+              "self_device_time_us": 51584.28800000006,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25792.14400000003,
+                  "device_time_total_us": 25792.14400000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 25792.14400000003,
+                  "device_time_total_us": 25792.14400000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 3,
+                  "self_cpu_time_us": 85.0010000000475,
+                  "cpu_time_total_us": 486.29599999998754,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 25792.14400000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 280.75999999999476,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank1_trace.json"
+        },
+        {
+          "rank": 2,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 228,
+              "self_device_time_us": 62518.61999999998,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 31259.30999999999,
+                  "device_time_total_us": 31259.30999999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 31259.30999999999,
+                  "device_time_total_us": 31259.30999999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 57,
+                  "self_cpu_time_us": 648.7729999999365,
+                  "cpu_time_total_us": 4012.6689999998935,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 31259.30999999999,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 2463.362000000028,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 24,
+              "self_device_time_us": 1433.5740000000806,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 716.7870000000403,
+                  "device_time_total_us": 716.7870000000403,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 716.7870000000403,
+                  "device_time_total_us": 716.7870000000403,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 6,
+                  "self_cpu_time_us": 176.5640000000276,
+                  "cpu_time_total_us": 782.1510000000271,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 716.7870000000403,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 481.01200000003155,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 12,
+              "self_device_time_us": 99114.576,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 49557.288,
+                  "device_time_total_us": 49557.288,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 49557.288,
+                  "device_time_total_us": 49557.288,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 3,
+                  "self_cpu_time_us": 86.0219999999972,
+                  "cpu_time_total_us": 506.070000000007,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 49557.288,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 275.44200000002456,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank2_trace.json"
+        },
+        {
+          "rank": 3,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 228,
+              "self_device_time_us": 63080.83799999997,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 31540.418999999983,
+                  "device_time_total_us": 31540.418999999983,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 31540.418999999983,
+                  "device_time_total_us": 31540.418999999983,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 57,
+                  "self_cpu_time_us": 656.6109999996333,
+                  "cpu_time_total_us": 3998.33699999978,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 31540.418999999983,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 57,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 2442.969999999999,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 24,
+              "self_device_time_us": 2081.47800000009,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1040.739000000045,
+                  "device_time_total_us": 1040.739000000045,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1040.739000000045,
+                  "device_time_total_us": 1040.739000000045,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 6,
+                  "self_cpu_time_us": 185.72000000003027,
+                  "cpu_time_total_us": 783.7299999999668,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 1040.739000000045,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 473.96599999997125,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 12,
+              "self_device_time_us": 103272.94599999997,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 51636.47299999998,
+                  "device_time_total_us": 51636.47299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 51636.47299999998,
+                  "device_time_total_us": 51636.47299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 3,
+                  "self_cpu_time_us": 85.48799999996845,
+                  "cpu_time_total_us": 498.295999999973,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 51636.47299999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 271.4379999999801,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank3_trace.json"
+        }
+      ]
+    },
+    {
+      "variant": "fsdp2",
+      "backend": "fsdp2",
+      "world_size": 4,
+      "observed_collective_families": [
+        "all_gather",
+        "all_reduce",
+        "other_collective",
+        "reduce_scatter"
+      ],
+      "ranks": [
+        {
+          "rank": 0,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 459,
+              "self_device_time_us": 174640.91200000016,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 82177.74800000004,
+                  "device_time_total_us": 82177.74800000004,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 82177.74800000004,
+                  "device_time_total_us": 82177.74800000004,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1069.0909999999894,
+                  "device_time_total_us": 1069.0909999999894,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1068.1000000000067,
+                  "device_time_total_us": 1068.1000000000067,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1026.143999999993,
+                  "device_time_total_us": 1026.143999999993,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 997.8870000000279,
+                  "device_time_total_us": 997.8870000000279,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 983.9970000000012,
+                  "device_time_total_us": 983.9970000000012,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 911.3210000000199,
+                  "device_time_total_us": 911.3210000000199,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 751.2469999999867,
+                  "device_time_total_us": 751.2469999999867,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 571.5879999999852,
+                  "device_time_total_us": 571.5879999999852,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 449.5010000000075,
+                  "device_time_total_us": 449.5010000000075,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 415.86599999998725,
+                  "device_time_total_us": 415.86599999998725,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 358.99899999999616,
+                  "device_time_total_us": 358.99899999999616,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 355.03000000001794,
+                  "device_time_total_us": 355.03000000001794,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 327.8920000000144,
+                  "device_time_total_us": 327.8920000000144,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 271.66600000003746,
+                  "device_time_total_us": 271.66600000003746,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 239.6650000000027,
+                  "device_time_total_us": 239.6650000000027,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 213.26099999998405,
+                  "device_time_total_us": 213.26099999998405,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 192.524999999996,
+                  "device_time_total_us": 192.524999999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 81.63600000002043,
+                  "device_time_total_us": 81.63600000002043,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 767.9430000000668,
+                  "cpu_time_total_us": 1720.0390000000225,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 13649.753000000004,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -38994432
+                },
+                {
+                  "name": "fsdp::all_gather_copy_in",
+                  "count": 51,
+                  "self_cpu_time_us": 2535.0380000001705,
+                  "cpu_time_total_us": 5524.209000000011,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 865.8780000001207,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 51,
+                  "self_cpu_time_us": 1654.5540000000328,
+                  "cpu_time_total_us": 8078.455999999958,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 82177.74800000004,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 5126.97299999995,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 385.1469999999704,
+                  "cpu_time_total_us": 843.0669999999659,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 380.4730000000045,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 155974656
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1918.0279999998875,
+                  "cpu_time_total_us": 4075.035000000011,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4821.1659999999565,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1110.9739999999879,
+                  "cpu_time_total_us": 2063.320000000006,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 236.40000000001055,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 42995712
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1910.7830000000067,
+                  "cpu_time_total_us": 4061.798999999988,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4792.39699999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1141.546999999884,
+                  "cpu_time_total_us": 2115.138999999999,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 139.56300000000465,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 43401216
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1924.6490000000576,
+                  "cpu_time_total_us": 3980.764999999996,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 6346.771000000032,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1153.7879999999313,
+                  "cpu_time_total_us": 2139.6219999999776,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 72.35899999998401,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1892.2540000000226,
+                  "cpu_time_total_us": 3963.8289999999834,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 10492.529,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1129.001999999964,
+                  "cpu_time_total_us": 2093.5520000000142,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 121.96299999999064,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1894.6349999999402,
+                  "cpu_time_total_us": 4019.3940000000057,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 8923.601999999986,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1129.5089999999,
+                  "cpu_time_total_us": 2143.3059999999878,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 71.61999999998079,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1877.0750000000444,
+                  "cpu_time_total_us": 4021.3280000000086,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 8900.91200000004,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1130.7299999999177,
+                  "cpu_time_total_us": 2101.574999999986,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 256.36899999996604,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1923.473000000129,
+                  "cpu_time_total_us": 4036.8890000000065,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 12652.15600000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1158.890000000014,
+                  "cpu_time_total_us": 2222.0169999999816,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 266.76900000002206,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 2212.1669999999212,
+                  "cpu_time_total_us": 4460.3910000000105,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 14226.43400000007,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 1263.8870000001189,
+                  "cpu_time_total_us": 2264.4030000000166,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 54.91500000005544,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 15,
+              "self_device_time_us": 230.99200000002747,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 115.49600000001374,
+                  "device_time_total_us": 115.49600000001374,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 115.49600000001374,
+                  "device_time_total_us": 115.49600000001374,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 35.04000000000815,
+                  "cpu_time_total_us": 607.9719999999943,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 118.2489999999816,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 75.51600000000326,
+                  "cpu_time_total_us": 432.93700000000536,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 115.49600000001374,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 271.83399999997346,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "other_collective": {
+              "event_count": 6,
+              "self_device_time_us": 0,
+              "events": [
+                {
+                  "name": "_c10d_functional::_wrap_tensor_autograd",
+                  "count": 3,
+                  "self_cpu_time_us": 122.82200000000012,
+                  "cpu_time_total_us": 122.82200000000012,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::wait_tensor",
+                  "count": 3,
+                  "self_cpu_time_us": 70.73600000001898,
+                  "cpu_time_total_us": 91.11000000001513,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 108,
+              "self_device_time_us": 149399.36599999986,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 74699.68299999993,
+                  "device_time_total_us": 74699.68299999993,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 74699.68299999993,
+                  "device_time_total_us": 74699.68299999993,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 27,
+                  "self_cpu_time_us": 1127.0040000000517,
+                  "cpu_time_total_us": 5276.118000000031,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 74699.68299999993,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 3326.6039999998757,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank0_trace.json"
+        },
+        {
+          "rank": 1,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 459,
+              "self_device_time_us": 107274.18300000005,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 48676.114000000016,
+                  "device_time_total_us": 48676.114000000016,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 48676.114000000016,
+                  "device_time_total_us": 48676.114000000016,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1082.0590000000266,
+                  "device_time_total_us": 1082.0590000000266,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1045.2239999999897,
+                  "device_time_total_us": 1045.2239999999897,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1017.0300000000061,
+                  "device_time_total_us": 1017.0300000000061,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 996.802999999989,
+                  "device_time_total_us": 996.802999999989,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 986.8830000000125,
+                  "device_time_total_us": 986.8830000000125,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 912.5080000000198,
+                  "device_time_total_us": 912.5080000000198,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 771.4440000000113,
+                  "device_time_total_us": 771.4440000000113,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 589.2570000000233,
+                  "device_time_total_us": 589.2570000000233,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 449.91800000001695,
+                  "device_time_total_us": 449.91800000001695,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 443.51799999997934,
+                  "device_time_total_us": 443.51799999997934,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 334.9010000000126,
+                  "device_time_total_us": 334.9010000000126,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 266.86600000001636,
+                  "device_time_total_us": 266.86600000001636,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 217.2319999999654,
+                  "device_time_total_us": 217.2319999999654,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 188.07599999999366,
+                  "device_time_total_us": 188.07599999999366,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 187.50099999999475,
+                  "device_time_total_us": 187.50099999999475,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 186.05999999996402,
+                  "device_time_total_us": 186.05999999996402,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 167.69200000002093,
+                  "device_time_total_us": 167.69200000002093,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 78.98299999997835,
+                  "device_time_total_us": 78.98299999997835,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 827.0970000000113,
+                  "cpu_time_total_us": 1815.420000000015,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 13284.037999999959,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -38994432
+                },
+                {
+                  "name": "fsdp::all_gather_copy_in",
+                  "count": 51,
+                  "self_cpu_time_us": 2622.475999999876,
+                  "cpu_time_total_us": 5615.6870000000035,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 681.1970000000229,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 51,
+                  "self_cpu_time_us": 1678.4520000000198,
+                  "cpu_time_total_us": 11819.675999999909,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 48676.114000000016,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 5166.476999999937,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 411.9080000000413,
+                  "cpu_time_total_us": 878.0239999999935,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 384.7610000000177,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 155974656
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1887.7039999999965,
+                  "cpu_time_total_us": 3979.10899999997,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5210.915999999983,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1147.3180000001057,
+                  "cpu_time_total_us": 2078.0369999999925,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 223.94999999997708,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 42995712
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1948.0790000000425,
+                  "cpu_time_total_us": 4110.832000000015,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5157.341999999993,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1158.7639999999546,
+                  "cpu_time_total_us": 2116.7649999999394,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 81.73099999995429,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 43401216
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 2052.982000000001,
+                  "cpu_time_total_us": 7852.645000000013,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5144.894999999964,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1204.4909999999036,
+                  "cpu_time_total_us": 2234.2519999999913,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 73.31899999997586,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1912.1970000000474,
+                  "cpu_time_total_us": 4002.046000000004,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4732.6410000000305,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1139.1049999999996,
+                  "cpu_time_total_us": 2118.6369999999515,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 73.99100000005456,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1956.39700000003,
+                  "cpu_time_total_us": 4088.934999999965,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4182.878000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1136.5169999999925,
+                  "cpu_time_total_us": 2123.692999999992,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 89.18999999996595,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1932.2120000000723,
+                  "cpu_time_total_us": 4095.3340000000353,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 3819.5850000000755,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1145.9029999999148,
+                  "cpu_time_total_us": 2108.3199999999997,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 71.8130000000092,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1947.9089999999233,
+                  "cpu_time_total_us": 4073.557999999979,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 3542.579000000027,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1154.9199999998673,
+                  "cpu_time_total_us": 2189.4129999999896,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 194.92499999998472,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 2268.9150000000373,
+                  "cpu_time_total_us": 4582.043000000016,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5511.544999999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 1218.914000000008,
+                  "cpu_time_total_us": 2193.113999999987,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 52.93300000000454,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 15,
+              "self_device_time_us": 154.31399999998393,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 77.15699999999197,
+                  "device_time_total_us": 77.15699999999197,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 77.15699999999197,
+                  "device_time_total_us": 77.15699999999197,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 41.82099999998172,
+                  "cpu_time_total_us": 657.0249999999796,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 79.9089999999851,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 83.17200000002049,
+                  "cpu_time_total_us": 467.47900000000664,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 77.15699999999197,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 290.92100000001665,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "other_collective": {
+              "event_count": 6,
+              "self_device_time_us": 0,
+              "events": [
+                {
+                  "name": "_c10d_functional::_wrap_tensor_autograd",
+                  "count": 3,
+                  "self_cpu_time_us": 157.59900000000198,
+                  "cpu_time_total_us": 157.59900000000198,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::wait_tensor",
+                  "count": 3,
+                  "self_cpu_time_us": 77.96700000000419,
+                  "cpu_time_total_us": 101.59200000001874,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 108,
+              "self_device_time_us": 144680.8859999999,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 72340.44299999996,
+                  "device_time_total_us": 72340.44299999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 72340.44299999996,
+                  "device_time_total_us": 72340.44299999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 27,
+                  "self_cpu_time_us": 1085.7439999999478,
+                  "cpu_time_total_us": 5057.086999999934,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 72340.44299999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 3183.767999999982,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank1_trace.json"
+        },
+        {
+          "rank": 2,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 459,
+              "self_device_time_us": 163276.60400000017,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 76725.18000000008,
+                  "device_time_total_us": 76725.18000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 76725.18000000008,
+                  "device_time_total_us": 76725.18000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1105.9930000000277,
+                  "device_time_total_us": 1105.9930000000277,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1052.6770000000215,
+                  "device_time_total_us": 1052.6770000000215,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1051.845000000019,
+                  "device_time_total_us": 1051.845000000019,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 995.9690000000091,
+                  "device_time_total_us": 995.9690000000091,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 975.5839999999916,
+                  "device_time_total_us": 975.5839999999916,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 758.1309999999639,
+                  "device_time_total_us": 758.1309999999639,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 685.0370000000075,
+                  "device_time_total_us": 685.0370000000075,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 535.0429999999906,
+                  "device_time_total_us": 535.0429999999906,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 439.64400000000023,
+                  "device_time_total_us": 439.64400000000023,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 419.80299999999966,
+                  "device_time_total_us": 419.80299999999966,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 349.81499999999414,
+                  "device_time_total_us": 349.81499999999414,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 328.6930000000466,
+                  "device_time_total_us": 328.6930000000466,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 242.38099999998485,
+                  "device_time_total_us": 242.38099999998485,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 211.21499999998923,
+                  "device_time_total_us": 211.21499999998923,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 203.6610000000046,
+                  "device_time_total_us": 203.6610000000046,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 201.83899999997448,
+                  "device_time_total_us": 201.83899999997448,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 194.47700000000623,
+                  "device_time_total_us": 194.47700000000623,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 74.43699999996534,
+                  "device_time_total_us": 74.43699999996534,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 772.6729999999627,
+                  "cpu_time_total_us": 1717.1829999999768,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 13522.840999999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -38994432
+                },
+                {
+                  "name": "fsdp::all_gather_copy_in",
+                  "count": 51,
+                  "self_cpu_time_us": 2622.066000000197,
+                  "cpu_time_total_us": 5635.606000000036,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 648.9980000000223,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 51,
+                  "self_cpu_time_us": 1658.8460000000732,
+                  "cpu_time_total_us": 8056.3910000000105,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 76725.18000000008,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 5075.866999999963,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 386.96400000000176,
+                  "cpu_time_total_us": 824.1510000000144,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 431.09999999998854,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 155974656
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1830.7630000001423,
+                  "cpu_time_total_us": 3900.977999999989,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4367.391000000061,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1126.5219999999663,
+                  "cpu_time_total_us": 2037.4200000000087,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 225.45299999995768,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 42995712
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1915.5820000000267,
+                  "cpu_time_total_us": 4042.8329999999924,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4411.396999999998,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1146.6020000001035,
+                  "cpu_time_total_us": 2106.7800000000097,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 96.64500000001954,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 43401216
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1922.6950000000052,
+                  "cpu_time_total_us": 3976.225000000015,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5622.385999999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1139.0190000001112,
+                  "cpu_time_total_us": 2113.193000000012,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 77.28599999996914,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1889.8019999999597,
+                  "cpu_time_total_us": 3928.3519999999735,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 9901.482000000007,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1137.052000000136,
+                  "cpu_time_total_us": 2090.921000000022,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 140.5520000000197,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1853.5579999998317,
+                  "cpu_time_total_us": 4016.2379999999976,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 7554.704000000047,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1138.2660000000214,
+                  "cpu_time_total_us": 2129.077999999983,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 81.82800000000134,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1899.603999999952,
+                  "cpu_time_total_us": 4010.686999999969,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 7901.670000000022,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1132.6890000000822,
+                  "cpu_time_total_us": 2102.318999999983,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 120.0429999999833,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 2086.856000000038,
+                  "cpu_time_total_us": 4363.992000000024,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 11389.389999999989,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1144.6480000000884,
+                  "cpu_time_total_us": 2168.397999999983,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 294.38700000004974,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 2434.9940000000533,
+                  "cpu_time_total_us": 4872.446999999993,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 14162.822000000011,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 1371.612000000052,
+                  "cpu_time_total_us": 2420.4110000000073,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 51.17199999998775,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 15,
+              "self_device_time_us": 180.55400000000373,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 90.27700000000186,
+                  "device_time_total_us": 90.27700000000186,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 90.27700000000186,
+                  "device_time_total_us": 90.27700000000186,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 52.76899999997113,
+                  "cpu_time_total_us": 874.3329999999987,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 92.99700000003213,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 109.33600000003935,
+                  "cpu_time_total_us": 609.082000000024,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 90.27700000000186,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 376.52999999999884,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "other_collective": {
+              "event_count": 6,
+              "self_device_time_us": 0,
+              "events": [
+                {
+                  "name": "_c10d_functional::_wrap_tensor_autograd",
+                  "count": 3,
+                  "self_cpu_time_us": 182.22400000003108,
+                  "cpu_time_total_us": 182.22400000003108,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::wait_tensor",
+                  "count": 3,
+                  "self_cpu_time_us": 103.22000000000116,
+                  "cpu_time_total_us": 133.7630000000063,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 108,
+              "self_device_time_us": 131179.64799999993,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 65589.82399999996,
+                  "device_time_total_us": 65589.82399999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 65589.82399999996,
+                  "device_time_total_us": 65589.82399999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 27,
+                  "self_cpu_time_us": 1136.3709999999846,
+                  "cpu_time_total_us": 5184.696000000011,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 65589.82399999996,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 3248.2299999999814,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank2_trace.json"
+        },
+        {
+          "rank": 3,
+          "active_steps": 3,
+          "families": {
+            "all_gather": {
+              "event_count": 459,
+              "self_device_time_us": 145142.363,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 67547.31399999995,
+                  "device_time_total_us": 67547.31399999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 67547.31399999995,
+                  "device_time_total_us": 67547.31399999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1060.7719999999877,
+                  "device_time_total_us": 1060.7719999999877,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1052.737000000002,
+                  "device_time_total_us": 1052.737000000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 1023.2629999999899,
+                  "device_time_total_us": 1023.2629999999899,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 999.7100000000428,
+                  "device_time_total_us": 999.7100000000428,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 992.8300000000272,
+                  "device_time_total_us": 992.8300000000272,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 794.5790000000052,
+                  "device_time_total_us": 794.5790000000052,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 758.3190000000268,
+                  "device_time_total_us": 758.3190000000268,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 514.815999999988,
+                  "device_time_total_us": 514.815999999988,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 456.9250000000129,
+                  "device_time_total_us": 456.9250000000129,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 431.3540000000096,
+                  "device_time_total_us": 431.3540000000096,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 393.8490000000056,
+                  "device_time_total_us": 393.8490000000056,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 340.4380000000019,
+                  "device_time_total_us": 340.4380000000019,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 249.58600000001388,
+                  "device_time_total_us": 249.58600000001388,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 247.3099999999904,
+                  "device_time_total_us": 247.3099999999904,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 242.92699999998513,
+                  "device_time_total_us": 242.92699999998513,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 230.7980000000116,
+                  "device_time_total_us": 230.7980000000116,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 175.85200000000077,
+                  "device_time_total_us": 175.85200000000077,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 81.67000000000189,
+                  "device_time_total_us": 81.67000000000189,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather",
+                  "count": 3,
+                  "self_cpu_time_us": 798.021999999989,
+                  "cpu_time_total_us": 1756.23100000001,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 13406.98300000002,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -38994432
+                },
+                {
+                  "name": "fsdp::all_gather_copy_in",
+                  "count": 51,
+                  "self_cpu_time_us": 2635.020999999879,
+                  "cpu_time_total_us": 5630.059999999932,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 640.1679999999878,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_allgather_base_",
+                  "count": 51,
+                  "self_cpu_time_us": 1661.81499999988,
+                  "cpu_time_total_us": 8105.625999999938,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 67547.31399999995,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_all_gather_base",
+                  "count": 51,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 5172.610999999993,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out",
+                  "count": 3,
+                  "self_cpu_time_us": 399.47899999998754,
+                  "cpu_time_total_us": 854.7829999999935,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 373.0160000000051,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 155974656
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1885.6380000001495,
+                  "cpu_time_total_us": 3995.860000000026,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4718.6019999999835,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.0)",
+                  "count": 6,
+                  "self_cpu_time_us": 1150.859000000024,
+                  "cpu_time_total_us": 2085.4159999999865,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 249.00700000000234,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 42995712
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1938.7309999999652,
+                  "cpu_time_total_us": 4110.840000000018,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 4650.050999999987,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.1)",
+                  "count": 6,
+                  "self_cpu_time_us": 1155.5109999999922,
+                  "cpu_time_total_us": 2115.271000000017,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 109.0280000000148,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 43401216
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1957.012000000038,
+                  "cpu_time_total_us": 4066.291999999986,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 5118.368999999987,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.2)",
+                  "count": 6,
+                  "self_cpu_time_us": 1172.5899999999283,
+                  "cpu_time_total_us": 2156.3979999999783,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 62.88599999996404,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1877.4089999999778,
+                  "cpu_time_total_us": 3969.0469999999677,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 9203.522000000024,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.3)",
+                  "count": 6,
+                  "self_cpu_time_us": 1162.7890000000243,
+                  "cpu_time_total_us": 2149.9359999999997,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 130.8580000000038,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1970.0470000000169,
+                  "cpu_time_total_us": 4104.734999999995,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 6581.148999999967,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.4)",
+                  "count": 6,
+                  "self_cpu_time_us": 1150.588000000038,
+                  "cpu_time_total_us": 2147.3090000000284,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 115.59099999997488,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1946.4079999999722,
+                  "cpu_time_total_us": 4130.630000000005,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 6677.509999999982,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.5)",
+                  "count": 6,
+                  "self_cpu_time_us": 1156.4979999999596,
+                  "cpu_time_total_us": 2131.245999999981,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 134.3439999999864,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1925.994000000017,
+                  "cpu_time_total_us": 4034.6560000000245,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 8487.795999999991,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.6)",
+                  "count": 6,
+                  "self_cpu_time_us": 1163.9040000000787,
+                  "cpu_time_total_us": 2197.4310000000005,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 235.72700000002806,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                },
+                {
+                  "name": "FSDP::all_gather (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 2269.1169999999292,
+                  "cpu_time_total_us": 4572.131000000019,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 10700.897000000012,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": -9440256
+                },
+                {
+                  "name": "FSDP::all_gather_copy_out (transformer.h.7)",
+                  "count": 6,
+                  "self_cpu_time_us": 1294.0679999999375,
+                  "cpu_time_total_us": 2295.345000000001,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 53.63500000001295,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 45895680
+                }
+              ]
+            },
+            "all_reduce": {
+              "event_count": 15,
+              "self_device_time_us": 253.58400000000256,
+              "events": [
+                {
+                  "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 126.79200000000128,
+                  "device_time_total_us": 126.79200000000128,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 126.79200000000128,
+                  "device_time_total_us": 126.79200000000128,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 39.01899999998568,
+                  "cpu_time_total_us": 630.6800000000221,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 129.47999999998137,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::allreduce_",
+                  "count": 3,
+                  "self_cpu_time_us": 81.86499999999069,
+                  "cpu_time_total_us": 451.3969999999972,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 126.79200000000128,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:all_reduce",
+                  "count": 3,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 281.4020000000164,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "other_collective": {
+              "event_count": 6,
+              "self_device_time_us": 0,
+              "events": [
+                {
+                  "name": "_c10d_functional::_wrap_tensor_autograd",
+                  "count": 3,
+                  "self_cpu_time_us": 133.45299999996496,
+                  "cpu_time_total_us": 133.45299999996496,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "_c10d_functional::wait_tensor",
+                  "count": 3,
+                  "self_cpu_time_us": 73.53900000000431,
+                  "cpu_time_total_us": 95.24000000001979,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            },
+            "reduce_scatter": {
+              "event_count": 108,
+              "self_device_time_us": 134454.15200000006,
+              "events": [
+                {
+                  "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 67227.07600000003,
+                  "device_time_total_us": 67227.07600000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 0,
+                  "self_device_time_us": 67227.07600000003,
+                  "device_time_total_us": 67227.07600000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "c10d::_reduce_scatter_base_",
+                  "count": 27,
+                  "self_cpu_time_us": 1106.6060000000289,
+                  "cpu_time_total_us": 5193.516999999963,
+                  "self_device_time_us": 0.0,
+                  "device_time_total_us": 67227.07600000003,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                },
+                {
+                  "name": "nccl:_reduce_scatter_base",
+                  "count": 27,
+                  "self_cpu_time_us": 0,
+                  "cpu_time_total_us": 3288.724999999962,
+                  "self_device_time_us": 0,
+                  "device_time_total_us": 0,
+                  "self_cpu_memory_bytes": 0,
+                  "self_device_memory_bytes": 0
+                }
+              ]
+            }
+          },
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank3_trace.json"
+        }
+      ]
+    }
+  ],
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true,
+  "overlap_analysis": {
+    "automatically_decided": false,
+    "reason": "key averages do not preserve concurrency; inspect backward and collective lanes in the Chrome traces"
+  },
+  "warning": "Profiler timings include instrumentation overhead. Wrapper and kernel events are preserved separately and must not be summed as independent communication work."
+}

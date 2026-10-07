@@ -1,0 +1,795 @@
+{
+  "schema_version": 1,
+  "benchmark": "C6/C7 distributed backend benchmark summary",
+  "expected_runs_per_world_size": 3,
+  "world_sizes": [
+    1,
+    2,
+    4
+  ],
+  "variants": [
+    {
+      "variant": "deepspeed_zero0",
+      "backend": "deepspeed",
+      "model_parameter_count": 51168256,
+      "global_tokens_per_update": 16384,
+      "dtype": "bfloat16",
+      "fused_optimizer": true,
+      "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+      "measurement_global_window_ids_sha256": "aa0764b0b2bc700b2b3589f5c95da98926f48abdf3d8985bdae857a9c82c885e",
+      "world_size_results": [
+        {
+          "world_size": 1,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            104.66963195800781,
+            93.76193618774414,
+            103.48796463012695
+          ],
+          "median_of_run_medians_ms": 103.48796463012695,
+          "global_tokens_per_second": 158317.92671309688,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3036645888
+            ],
+            [
+              3036645888
+            ],
+            [
+              3036645888
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              3393191936
+            ],
+            [
+              3393191936
+            ],
+            [
+              3393191936
+            ]
+          ],
+          "speedup_vs_1gpu": 1.0,
+          "scaling_efficiency": 1.0,
+          "throughput_vs_native_ddp": 0.836784770281888
+        },
+        {
+          "world_size": 2,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            63.11323356628418,
+            63.3067512512207,
+            63.39494514465332
+          ],
+          "median_of_run_medians_ms": 63.3067512512207,
+          "global_tokens_per_second": 258803.36103464285,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3036644864,
+              3036644864
+            ],
+            [
+              3036644864,
+              3036644864
+            ],
+            [
+              3036644864,
+              3036644864
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              3393191936,
+              3393191936
+            ],
+            [
+              3393191936,
+              3393191936
+            ],
+            [
+              3393191936,
+              3393191936
+            ]
+          ],
+          "speedup_vs_1gpu": 1.6347066084540463,
+          "scaling_efficiency": 0.8173533042270231,
+          "throughput_vs_native_ddp": 1.0565095867942396
+        },
+        {
+          "world_size": 4,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            45.88339042663574,
+            46.02668762207031,
+            45.8895206451416
+          ],
+          "median_of_run_medians_ms": 45.8895206451416,
+          "global_tokens_per_second": 357031.40433075326,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              2930300928,
+              2930300928,
+              2930300928,
+              2930300928
+            ],
+            [
+              2930300928,
+              2930300928,
+              2930300928,
+              2930300928
+            ],
+            [
+              2930300928,
+              2930300928,
+              2930300928,
+              2930300928
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              3393191936,
+              3393191936,
+              3393191936,
+              3393191936
+            ],
+            [
+              3393191936,
+              3393191936,
+              3393191936,
+              3393191936
+            ],
+            [
+              3393191936,
+              3393191936,
+              3393191936,
+              3393191936
+            ]
+          ],
+          "speedup_vs_1gpu": 2.2551546229996062,
+          "scaling_efficiency": 0.5637886557499016,
+          "throughput_vs_native_ddp": 1.1140941817777514
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero1",
+      "backend": "deepspeed",
+      "model_parameter_count": 51168256,
+      "global_tokens_per_update": 16384,
+      "dtype": "bfloat16",
+      "fused_optimizer": true,
+      "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+      "measurement_global_window_ids_sha256": "aa0764b0b2bc700b2b3589f5c95da98926f48abdf3d8985bdae857a9c82c885e",
+      "world_size_results": [
+        {
+          "world_size": 1,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            112.9979362487793,
+            112.96159744262695,
+            113.1140022277832
+          ],
+          "median_of_run_medians_ms": 112.9979362487793,
+          "global_tokens_per_second": 144993.79850556338,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              4033507328
+            ],
+            [
+              4033507328
+            ],
+            [
+              4033507328
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4362076160
+            ],
+            [
+              4362076160
+            ],
+            [
+              4362076160
+            ]
+          ],
+          "speedup_vs_1gpu": 1.0,
+          "scaling_efficiency": 1.0,
+          "throughput_vs_native_ddp": 0.7663604804189195
+        },
+        {
+          "world_size": 2,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            67.68790435791016,
+            67.2092170715332,
+            67.12217712402344
+          ],
+          "median_of_run_medians_ms": 67.2092170715332,
+          "global_tokens_per_second": 243776.08777322783,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3725924352,
+              3725915136
+            ],
+            [
+              3725924352,
+              3725915136
+            ],
+            [
+              3725924352,
+              3725915136
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              3839885312,
+              4253024256
+            ],
+            [
+              3839885312,
+              4253024256
+            ],
+            [
+              3839885312,
+              4253024256
+            ]
+          ],
+          "speedup_vs_1gpu": 1.68128630524756,
+          "scaling_efficiency": 0.84064315262378,
+          "throughput_vs_native_ddp": 0.9951639450661304
+        },
+        {
+          "world_size": 4,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            49.04355239868164,
+            48.39971351623535,
+            49.0505428314209
+          ],
+          "median_of_run_medians_ms": 49.04355239868164,
+          "global_tokens_per_second": 334070.4169798358,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              2467141120,
+              2467141120,
+              2467444736,
+              2467141120
+            ],
+            [
+              2467141120,
+              2467141120,
+              2467444736,
+              2467141120
+            ],
+            [
+              2467141120,
+              2467141120,
+              2467444736,
+              2467141120
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              3380609024,
+              3380609024,
+              3380609024,
+              3380609024
+            ],
+            [
+              3380609024,
+              3380609024,
+              3380609024,
+              3380609024
+            ],
+            [
+              3380609024,
+              3380609024,
+              3380609024,
+              3380609024
+            ]
+          ],
+          "speedup_vs_1gpu": 2.3040324512018184,
+          "scaling_efficiency": 0.5760081128004546,
+          "throughput_vs_native_ddp": 1.0424458558735354
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero2",
+      "backend": "deepspeed",
+      "model_parameter_count": 51168256,
+      "global_tokens_per_update": 16384,
+      "dtype": "bfloat16",
+      "fused_optimizer": true,
+      "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+      "measurement_global_window_ids_sha256": "aa0764b0b2bc700b2b3589f5c95da98926f48abdf3d8985bdae857a9c82c885e",
+      "world_size_results": [
+        {
+          "world_size": 1,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            146.7535400390625,
+            146.41458892822266,
+            147.02130889892578
+          ],
+          "median_of_run_medians_ms": 146.7535400390625,
+          "global_tokens_per_second": 111642.96272266378,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3862977536
+            ],
+            [
+              3862977536
+            ],
+            [
+              3862977536
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4737466368
+            ],
+            [
+              4737466368
+            ],
+            [
+              4737466368
+            ]
+          ],
+          "speedup_vs_1gpu": 1.0,
+          "scaling_efficiency": 1.0,
+          "throughput_vs_native_ddp": 0.5900856135184931
+        },
+        {
+          "world_size": 2,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            94.66667175292969,
+            95.69887924194336,
+            98.02748489379883
+          ],
+          "median_of_run_medians_ms": 95.69887924194336,
+          "global_tokens_per_second": 171203.6768850595,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3505133568,
+              3556421632
+            ],
+            [
+              3505133568,
+              3556421632
+            ],
+            [
+              3505133568,
+              3556421632
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4628414464,
+              4628414464
+            ],
+            [
+              4628414464,
+              4628414464
+            ],
+            [
+              4628414464,
+              4628414464
+            ]
+          ],
+          "speedup_vs_1gpu": 1.5334927765250426,
+          "scaling_efficiency": 0.7667463882625213,
+          "throughput_vs_native_ddp": 0.698902538206514
+        },
+        {
+          "world_size": 4,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            56.910335540771484,
+            55.74910354614258,
+            56.594430923461914
+          ],
+          "median_of_run_medians_ms": 56.594430923461914,
+          "global_tokens_per_second": 289498.4494526972,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3298818560,
+              3298818560,
+              3299122176,
+              3299122176
+            ],
+            [
+              3298818560,
+              3298818560,
+              3299122176,
+              3299122176
+            ],
+            [
+              3298818560,
+              3298818560,
+              3299122176,
+              3299122176
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4479516672,
+              4479516672,
+              4479516672,
+              4479516672
+            ],
+            [
+              4479516672,
+              4479516672,
+              4479516672,
+              4479516672
+            ],
+            [
+              4479516672,
+              4479516672,
+              4479516672,
+              4479516672
+            ]
+          ],
+          "speedup_vs_1gpu": 2.5930738704225407,
+          "scaling_efficiency": 0.6482684676056352,
+          "throughput_vs_native_ddp": 0.9033618170746138
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero3",
+      "backend": "deepspeed",
+      "model_parameter_count": 51168256,
+      "global_tokens_per_update": 16384,
+      "dtype": "bfloat16",
+      "fused_optimizer": true,
+      "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+      "measurement_global_window_ids_sha256": "aa0764b0b2bc700b2b3589f5c95da98926f48abdf3d8985bdae857a9c82c885e",
+      "world_size_results": [
+        {
+          "world_size": 1,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            347.86253356933594,
+            347.5500946044922,
+            346.3843994140625
+          ],
+          "median_of_run_medians_ms": 347.5500946044922,
+          "global_tokens_per_second": 47141.40566885701,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              4031200768
+            ],
+            [
+              4031200768
+            ],
+            [
+              4031200768
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4557111296
+            ],
+            [
+              4557111296
+            ],
+            [
+              4557111296
+            ]
+          ],
+          "speedup_vs_1gpu": 1.0,
+          "scaling_efficiency": 1.0,
+          "throughput_vs_native_ddp": 0.2491645206096331
+        },
+        {
+          "world_size": 2,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            194.84413146972656,
+            196.18109130859375,
+            192.19094848632812
+          ],
+          "median_of_run_medians_ms": 194.84413146972656,
+          "global_tokens_per_second": 84087.72630930187,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3724290560,
+              3724290560
+            ],
+            [
+              3724290560,
+              3724290560
+            ],
+            [
+              3724290560,
+              3724290560
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4154458112,
+              4164943872
+            ],
+            [
+              4164943872,
+              4164943872
+            ],
+            [
+              4164943872,
+              4164943872
+            ]
+          ],
+          "speedup_vs_1gpu": 1.7837339620284738,
+          "scaling_efficiency": 0.8918669810142369,
+          "throughput_vs_native_ddp": 0.34327022888089836
+        },
+        {
+          "world_size": 4,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            107.49430465698242,
+            106.30233764648438,
+            107.60235214233398
+          ],
+          "median_of_run_medians_ms": 107.49430465698242,
+          "global_tokens_per_second": 152417.3773883355,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3519175680,
+              3519175680,
+              3519175680,
+              3519175680
+            ],
+            [
+              3519175680,
+              3519175680,
+              3519175680,
+              3519175680
+            ],
+            [
+              3519175680,
+              3519175680,
+              3519175680,
+              3519175680
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4066377728,
+              4066377728,
+              4055891968,
+              4055891968
+            ],
+            [
+              4055891968,
+              4055891968,
+              4055891968,
+              4066377728
+            ],
+            [
+              4066377728,
+              4066377728,
+              4055891968,
+              4055891968
+            ]
+          ],
+          "speedup_vs_1gpu": 3.2331954303396357,
+          "scaling_efficiency": 0.8082988575849089,
+          "throughput_vs_native_ddp": 0.4756088996385853
+        }
+      ]
+    },
+    {
+      "variant": "fsdp2",
+      "backend": "fsdp2",
+      "model_parameter_count": 51168256,
+      "global_tokens_per_update": 16384,
+      "dtype": "bfloat16",
+      "fused_optimizer": true,
+      "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+      "measurement_global_window_ids_sha256": "aa0764b0b2bc700b2b3589f5c95da98926f48abdf3d8985bdae857a9c82c885e",
+      "world_size_results": [
+        {
+          "world_size": 1,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            190.1584014892578,
+            187.79651641845703,
+            191.61767578125
+          ],
+          "median_of_run_medians_ms": 190.1584014892578,
+          "global_tokens_per_second": 86159.74825033195,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3997646336
+            ],
+            [
+              3997646336
+            ],
+            [
+              3997646336
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              5309988864
+            ],
+            [
+              5309988864
+            ],
+            [
+              5309988864
+            ]
+          ],
+          "speedup_vs_1gpu": 1.0,
+          "scaling_efficiency": 1.0,
+          "throughput_vs_native_ddp": 0.45539482889927885
+        },
+        {
+          "world_size": 2,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            108.77132797241211,
+            111.4198226928711,
+            110.78099060058594
+          ],
+          "median_of_run_medians_ms": 110.78099060058594,
+          "global_tokens_per_second": 147895.40977360914,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3692655104,
+              3692653056
+            ],
+            [
+              3692655104,
+              3692653056
+            ],
+            [
+              3692655104,
+              3692653056
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              5171576832,
+              5171576832
+            ],
+            [
+              5171576832,
+              5171576832
+            ],
+            [
+              5171576832,
+              5171576832
+            ]
+          ],
+          "speedup_vs_1gpu": 1.716525556039323,
+          "scaling_efficiency": 0.8582627780196616,
+          "throughput_vs_native_ddp": 0.6037515032417405
+        },
+        {
+          "world_size": 4,
+          "run_ids": [
+            "run1",
+            "run2",
+            "run3"
+          ],
+          "run_median_step_ms": [
+            69.09337615966797,
+            69.50492858886719,
+            69.11727905273438
+          ],
+          "median_of_run_medians_ms": 69.11727905273438,
+          "global_tokens_per_second": 237046.3684992505,
+          "peak_allocated_bytes_by_run_and_rank": [
+            [
+              3318966784,
+              3318966784,
+              3318966784,
+              3318966784
+            ],
+            [
+              3318966784,
+              3318966784,
+              3318966784,
+              3318966784
+            ],
+            [
+              3318966784,
+              3318966784,
+              3318966784,
+              3318966784
+            ]
+          ],
+          "peak_reserved_bytes_by_run_and_rank": [
+            [
+              4261412864,
+              4261412864,
+              4261412864,
+              4261412864
+            ],
+            [
+              4261412864,
+              4261412864,
+              4261412864,
+              4261412864
+            ],
+            [
+              4261412864,
+              4261412864,
+              4261412864,
+              4261412864
+            ]
+          ],
+          "speedup_vs_1gpu": 2.751242585000673,
+          "scaling_efficiency": 0.6878106462501683,
+          "throughput_vs_native_ddp": 0.7396883768574752
+        }
+      ]
+    }
+  ],
+  "native_ddp_summary": "results/c_ddp_autodl/strong/summary.json",
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true
+}

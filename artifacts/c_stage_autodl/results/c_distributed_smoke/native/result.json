@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "stage": "C5",
+  "backend": "native_ddp",
+  "status": "partial",
+  "configuration": {
+    "data_dir": "data/tinystories_debug",
+    "out_dir": "results/c_distributed_smoke/native",
+    "resume_from": null,
+    "max_updates": 4,
+    "checkpoint_every": 0,
+    "eval_windows": 4,
+    "batch_size": 2,
+    "block_size": 32,
+    "global_windows_per_update": 4,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 64,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "dtype": "float32",
+    "device": "cuda",
+    "backend": "auto"
+  },
+  "checkpoint_signature": {
+    "data_manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "block_size": 32,
+    "batch_size": 2,
+    "global_windows_per_update": 4,
+    "world_size": 1,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "n_layer": 2,
+    "n_head": 2,
+    "n_embd": 64,
+    "dropout": 0.0,
+    "bias": false,
+    "dtype": "float32",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "updates_per_epoch": 16891
+  },
+  "environment": {
+    "rank": 0,
+    "local_rank": 0,
+    "world_size": 1,
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "distributed": false,
+    "torch_version": "2.12.1+cu129",
+    "cuda_runtime": "12.9",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "gpu_total_memory_bytes": 8546484224
+  },
+  "git": {
+    "commit": "abbcd9f82b97faf62a03cf6288d15ca2505c32fc",
+    "dirty": true
+  },
+  "dataset": {
+    "data_dir": "data/tinystories_debug",
+    "manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "train_bin_sha256": "5f76f6d0018cc41bcec8e445c53f6586b4f340ec2736812d3b77fe40066c8223",
+    "val_bin_sha256": "5f2d5a7972a450f23d4fcb6a3f94dfc4c40ed5cf5a0ce616b895ae5308f4fd85",
+    "train_token_count": 2162078,
+    "train_window_count": 67564,
+    "tail_token_count": 29
+  },
+  "epoch_plan": {
+    "epoch": 0,
+    "complete_window_count": 67564,
+    "scheduled_window_count": 67564,
+    "updates_per_epoch": 16891,
+    "dropped_window_count": 0,
+    "padded_window_count": 0,
+    "tail_policy": "pad"
+  },
+  "progress": {
+    "next_update": 4,
+    "target_update": 4,
+    "unique_windows_covered": 16,
+    "coverage_ratio": 0.00023681250370019536,
+    "scheduled_windows_processed": 16,
+    "padded_windows_in_complete_epoch": null,
+    "global_window_prefix_sha256": "781f285a44ad814929aa3c3a946885cdcf5621fd3de83a01fcbf744e544716e8"
+  },
+  "metrics": {
+    "initial_validation_loss": 10.838383674621582,
+    "final_validation_loss": 10.775049209594727,
+    "last_train_loss": 10.797658920288086,
+    "elapsed_seconds_this_invocation": 1.1344692659986322,
+    "peak_allocated_bytes": 172220416,
+    "updates_this_invocation": 4,
+    "tokens_per_second_this_invocation": 451.3123584263034
+  },
+  "artifacts": {
+    "checkpoint": "results/c_distributed_smoke/native/checkpoint.pt",
+    "checkpoint_sha256": "ed4cbd8803e06ed2c7ec2b2d61464ec80854242d02385398cc71ac88186d5f21",
+    "model_state_sha256": "ce73993bfa414a9717ea8a61891459bcfecd13e15ff8c55daafba6c6158ae32f"
+  }
+}

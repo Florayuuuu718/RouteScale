@@ -1,0 +1,27 @@
+{
+  "status": "oom",
+  "backend": "native_ddp",
+  "world_size": 4,
+  "model": {
+    "n_layer": 32,
+    "n_head": 24,
+    "n_embd": 1536,
+    "parameter_count": 984050688
+  },
+  "training": {
+    "dtype": "bfloat16",
+    "batch_size_per_rank": 8,
+    "block_size": 512,
+    "global_tokens_per_update": 16384
+  },
+  "failure": {
+    "phase": "first warmup forward",
+    "operation": "MLP c_fc linear",
+    "requested_mib": 48.0,
+    "device_total_gib": 23.52,
+    "pytorch_allocated_gib": 22.36,
+    "reserved_unallocated_mib": 569.07
+  },
+  "log": "results/c_capacity/logs/ddp_L32_D1536.log",
+  "log_sha256": "2ce1a7dca98d28bc9177dec6c9a155ca981aadca9df8511ecf7ff87fdb30100b"
+}

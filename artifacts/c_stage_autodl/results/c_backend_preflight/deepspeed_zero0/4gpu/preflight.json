@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "benchmark": "C distributed backend no-Profiler benchmark",
+  "created_at_utc": "2026-10-06T13:15:03.609295+00:00",
+  "status": "benchmark_complete",
+  "backend": "deepspeed",
+  "variant": "deepspeed_zero0",
+  "run_id": "preflight",
+  "environment": {
+    "rank": 0,
+    "local_rank": 0,
+    "world_size": 4,
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "distributed": true,
+    "torch_version": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_memory_bytes": 25250627584
+  },
+  "git": {
+    "commit": "aacf06a9b8df63aa970f239634231387449efc92",
+    "dirty": true
+  },
+  "data": {
+    "data_dir": "data/tinystories_full",
+    "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+    "train_window_count": 925766,
+    "data_seed": 20260920,
+    "tail_policy": "drop",
+    "warmup_global_window_ids_sha256": "f1ac1aaed939d13372bd7c53f90f78c3566adc946c5b6c236c8fe08ee329299c",
+    "measurement_global_window_ids_sha256": "4d4acf3ad04f563d92a094bc711a8078224348822715e32bf13b40609cf21b67",
+    "measurement_window_count": 160,
+    "measurement_repeated_window_count": 0
+  },
+  "configuration": {
+    "deepspeed_config": "config/deepspeed/zero0.json",
+    "data_dir": "data/tinystories_full",
+    "out_dir": "results/c6_deepspeed/zero0_single_gpu",
+    "max_updates": 5,
+    "checkpoint_every": 0,
+    "resume_dir": null,
+    "resume_tag": null,
+    "eval_windows": 32,
+    "batch_size": 8,
+    "block_size": 512,
+    "global_windows_per_update": 32,
+    "tail_policy": "drop",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "fused_optimizer": true,
+    "dtype": "bfloat16",
+    "zero_init": false,
+    "device": "cuda",
+    "backend": "nccl",
+    "benchmark": true,
+    "benchmark_warmup_updates": 2,
+    "benchmark_measure_updates": 5,
+    "benchmark_run_id": "preflight",
+    "benchmark_results_dir": "results/c_backend_preflight",
+    "world_size": 4,
+    "local_micro_steps": 1,
+    "local_windows_per_update": 8,
+    "local_tokens_per_update": 4096,
+    "global_tokens_per_update": 16384,
+    "model_parameter_count": 51168256,
+    "zero_stage": 0,
+    "resolved_deepspeed_config": {
+      "bf16": {
+        "enabled": true
+      },
+      "zero_optimization": {
+        "stage": 0
+      },
+      "gradient_clipping": 1.0,
+      "steps_per_print": 1000000,
+      "wall_clock_breakdown": false,
+      "train_micro_batch_size_per_gpu": 8,
+      "gradient_accumulation_steps": 1,
+      "train_batch_size": 32,
+      "fp16": {
+        "enabled": false
+      }
+    }
+  },
+  "measurement": {
+    "per_rank": [
+      {
+        "rank": 0,
+        "local_rank": 0,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          45.97657775878906,
+          45.81196975708008,
+          46.09436798095703,
+          45.061279296875,
+          45.149375915527344
+        ],
+        "mean_micro_batch_losses": [
+          9.6875,
+          9.375,
+          9.1875,
+          8.875,
+          8.9375
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "e35f7a4bcdd09eaa95e4263fb3f5416bfad0f83adc0cca04449f9a3b50413cd9",
+        "measurement_window_ids_sha256": "c24fdaeadb582f4c8e89f0bb11dc26a0dd9c6e53812db8760f9644f86ded0e40",
+        "expected_warmup_window_ids_sha256": "e35f7a4bcdd09eaa95e4263fb3f5416bfad0f83adc0cca04449f9a3b50413cd9",
+        "expected_measurement_window_ids_sha256": "c24fdaeadb582f4c8e89f0bb11dc26a0dd9c6e53812db8760f9644f86ded0e40",
+        "peak_allocated_bytes": 2930252288,
+        "peak_reserved_bytes": 3393191936,
+        "device_total_bytes": 25250627584
+      },
+      {
+        "rank": 1,
+        "local_rank": 1,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          42.5483512878418,
+          45.73183822631836,
+          46.185569763183594,
+          45.205665588378906,
+          45.46473693847656
+        ],
+        "mean_micro_batch_losses": [
+          9.6875,
+          9.375,
+          9.25,
+          8.875,
+          8.875
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "354fc3e863f1c7b04e03298634459acfd5a52695e35bd7b91e87947218bd7e64",
+        "measurement_window_ids_sha256": "10058e98d8e93c5d2807755d7fc137847af13d5cb909f79cc1e6f426d5b29226",
+        "expected_warmup_window_ids_sha256": "354fc3e863f1c7b04e03298634459acfd5a52695e35bd7b91e87947218bd7e64",
+        "expected_measurement_window_ids_sha256": "10058e98d8e93c5d2807755d7fc137847af13d5cb909f79cc1e6f426d5b29226",
+        "peak_allocated_bytes": 2930252288,
+        "peak_reserved_bytes": 3393191936,
+        "device_total_bytes": 25250627584
+      },
+      {
+        "rank": 2,
+        "local_rank": 2,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          45.77382278442383,
+          46.79267120361328,
+          45.09785461425781,
+          45.06614303588867,
+          45.58611297607422
+        ],
+        "mean_micro_batch_losses": [
+          9.625,
+          9.4375,
+          9.1875,
+          8.8125,
+          8.8125
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "2562e342d1929bc7d0a2f8a3dac847fed12571c55152502b3fb9a15650729934",
+        "measurement_window_ids_sha256": "82a9b5a2105fa984606a5c223bef52302285a6eefe440eaa4f90ba5d018b8c72",
+        "expected_warmup_window_ids_sha256": "2562e342d1929bc7d0a2f8a3dac847fed12571c55152502b3fb9a15650729934",
+        "expected_measurement_window_ids_sha256": "82a9b5a2105fa984606a5c223bef52302285a6eefe440eaa4f90ba5d018b8c72",
+        "peak_allocated_bytes": 2930252288,
+        "peak_reserved_bytes": 3393191936,
+        "device_total_bytes": 25250627584
+      },
+      {
+        "rank": 3,
+        "local_rank": 3,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          46.046207427978516,
+          45.47292709350586,
+          46.22739028930664,
+          45.5681266784668,
+          45.002750396728516
+        ],
+        "mean_micro_batch_losses": [
+          9.625,
+          9.375,
+          9.1875,
+          8.9375,
+          8.875
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "2750501ebe9f221b66c0b50e52f7ac9c2eed3bcad9816ad319c9f440c4199650",
+        "measurement_window_ids_sha256": "0a2173f827608bc0a892b148478b92d6925f1dfe2232fb4032091112c5c32d4a",
+        "expected_warmup_window_ids_sha256": "2750501ebe9f221b66c0b50e52f7ac9c2eed3bcad9816ad319c9f440c4199650",
+        "expected_measurement_window_ids_sha256": "0a2173f827608bc0a892b148478b92d6925f1dfe2232fb4032091112c5c32d4a",
+        "peak_allocated_bytes": 2930252288,
+        "peak_reserved_bytes": 3393191936,
+        "device_total_bytes": 25250627584
+      }
+    ],
+    "slowest_rank_step_times_ms": [
+      46.046207427978516,
+      46.79267120361328,
+      46.22739028930664,
+      45.5681266784668,
+      45.58611297607422
+    ],
+    "global_mean_losses": [
+      9.65625,
+      9.390625,
+      9.203125,
+      8.875,
+      8.875
+    ],
+    "all_losses_finite": true,
+    "all_window_hashes_match_plan": true,
+    "median_slowest_rank_step_ms": 46.046207427978516,
+    "mean_slowest_rank_step_ms": 46.04410171508789,
+    "min_slowest_rank_step_ms": 45.5681266784668,
+    "max_slowest_rank_step_ms": 46.79267120361328,
+    "global_tokens_per_second_from_median": 355816.49206672306,
+    "aggregate_global_tokens_per_second": 355832.7644522433,
+    "first_loss": 9.65625,
+    "last_loss": 8.875,
+    "timing": "per-rank CUDA Events; one synchronization after measurement; global update uses the slowest rank",
+    "profiler_enabled": false,
+    "warmup_steps": 2,
+    "measured_steps": 5,
+    "total_measured_tokens": 81920
+  }
+}

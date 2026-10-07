@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "stage": "C7",
+  "backend": "fsdp2",
+  "status": "smoke_complete",
+  "configuration": {
+    "data_dir": "data/tinystories_debug",
+    "out_dir": "results/c_checkpoint_metrics/fsdp2_save",
+    "max_updates": 2,
+    "checkpoint_every": 0,
+    "resume_from": null,
+    "eval_windows": 32,
+    "batch_size": 8,
+    "block_size": 512,
+    "global_windows_per_update": 32,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "fused_optimizer": true,
+    "dtype": "bfloat16",
+    "reshard_after_forward": true,
+    "device": "cuda",
+    "backend": "nccl",
+    "benchmark": false,
+    "benchmark_warmup_updates": 20,
+    "benchmark_measure_updates": 100,
+    "benchmark_run_id": "run1",
+    "benchmark_results_dir": "results/c_backend_benchmark",
+    "profiler": false,
+    "profiler_startup_warmup_updates": 2,
+    "profiler_wait_updates": 1,
+    "profiler_warmup_updates": 1,
+    "profiler_active_updates": 3,
+    "profiler_run_id": "4gpu",
+    "profiler_results_dir": "results/c_backend_profiler",
+    "profiler_trace_dir": "results/c_backend_profiler/traces"
+  },
+  "checkpoint_signature": {
+    "backend": "fsdp2",
+    "data_manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "block_size": 512,
+    "batch_size": 8,
+    "global_windows_per_update": 32,
+    "world_size": 4,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "dtype": "bfloat16",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "fused_optimizer": true,
+    "reshard_after_forward": true,
+    "updates_per_epoch": 132
+  },
+  "environment": {
+    "rank": 0,
+    "local_rank": 0,
+    "world_size": 4,
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "distributed": true,
+    "torch_version": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_memory_bytes": 25250627584
+  },
+  "git": {
+    "commit": "931f5a3f6d1cba2b75d26e0a3ca6b02324a6ef85",
+    "dirty": true
+  },
+  "dataset": {
+    "manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "train_window_count": 4222
+  },
+  "progress": {
+    "next_update": 2,
+    "updates_per_epoch": 132,
+    "global_window_prefix_sha256": "76a497a019b9b35da76d60d1fff6b7e38514a3eff23ec9687e35b791d03268cf"
+  },
+  "metrics": {
+    "initial_validation_loss": 10.921875,
+    "final_validation_loss": 9.5625,
+    "last_train_loss": 10.0,
+    "updates_this_invocation": 2,
+    "elapsed_seconds_this_invocation": 0.5759187340736389,
+    "per_rank": [
+      {
+        "rank": 0,
+        "elapsed_seconds_this_invocation": 0.5759187340736389,
+        "peak_allocated_bytes": 3320520704,
+        "peak_reserved_bytes": 3703570432,
+        "peak_process_rss_bytes": 2049695744,
+        "checkpoint_save_seconds": 0.7942477390170097,
+        "checkpoint_load_seconds": null
+      },
+      {
+        "rank": 1,
+        "elapsed_seconds_this_invocation": 0.571032352745533,
+        "peak_allocated_bytes": 3320520704,
+        "peak_reserved_bytes": 3703570432,
+        "peak_process_rss_bytes": 2001522688,
+        "checkpoint_save_seconds": 0.7942294627428055,
+        "checkpoint_load_seconds": null
+      },
+      {
+        "rank": 2,
+        "elapsed_seconds_this_invocation": 0.5717606469988823,
+        "peak_allocated_bytes": 3320520704,
+        "peak_reserved_bytes": 3703570432,
+        "peak_process_rss_bytes": 2000695296,
+        "checkpoint_save_seconds": 0.7942390069365501,
+        "checkpoint_load_seconds": null
+      },
+      {
+        "rank": 3,
+        "elapsed_seconds_this_invocation": 0.5719982758164406,
+        "peak_allocated_bytes": 3320520704,
+        "peak_reserved_bytes": 3703570432,
+        "peak_process_rss_bytes": 2000777216,
+        "checkpoint_save_seconds": 0.7942390441894531,
+        "checkpoint_load_seconds": null
+      }
+    ],
+    "tokens_per_second_this_invocation": 56896.916285779604,
+    "peak_allocated_bytes": 3320520704,
+    "peak_reserved_bytes": 3703570432,
+    "checkpoint_save_seconds_slowest_rank": 0.7942477390170097,
+    "checkpoint_load_seconds_slowest_rank": null
+  },
+  "artifacts": {
+    "checkpoint_dir": "results/c_checkpoint_metrics/fsdp2_save/checkpoints/update-00000002",
+    "checkpoint": {
+      "file_count": 10,
+      "total_bytes": 718248105,
+      "files": [
+        ".metadata",
+        "__0_0.distcp",
+        "__1_0.distcp",
+        "__2_0.distcp",
+        "__3_0.distcp",
+        "rng_rank0.pt",
+        "rng_rank1.pt",
+        "rng_rank2.pt",
+        "rng_rank3.pt",
+        "route_scale_metadata.json"
+      ]
+    }
+  }
+}

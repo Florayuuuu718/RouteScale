@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "benchmark": "C deterministic DDP no-Profiler benchmark",
+  "created_at_utc": "2026-10-06T13:44:00.228171+00:00",
+  "run_id": "L24_D1024",
+  "scaling_mode": "strong",
+  "version": {
+    "git_commit": "aacf06a9b8df63aa970f239634231387449efc92",
+    "git_status": "M results/c6_deepspeed/zero0_single_gpu/resolved_deepspeed_config.json\n?? results/c0_environment/preflight_4gpu.json\n?? results/c0_environment/preflight_4gpu_debug.json\n?? results/c5_coverage/4gpu_fp32_compare/\n?? results/c5_coverage/4gpu_full/\n?? results/c5_coverage/4gpu_smoke/\n?? results/c6_deepspeed/zero0_4gpu_fp32_compare/\n?? results/c6_deepspeed/zero0_4gpu_smoke/\n?? results/c6_deepspeed/zero1_4gpu_smoke/\n?? results/c6_deepspeed/zero2_4gpu_smoke/\n?? results/c6_deepspeed/zero3_4gpu_smoke/\n?? results/c7_fsdp2/4gpu_smoke/\n?? results/c_backend_autodl/\n?? results/c_backend_preflight/\n?? results/c_ddp/correctness/2proc_cuda.json\n?? results/c_ddp/correctness/4proc_cuda.json\n?? results/c_ddp_autodl/",
+    "tracked_diff_sha256": "3f511c58145fb8d6634d4821ee7f4fa79671d9be18f607d3f9c4ce5d498bf75d",
+    "source_sha256": {
+      "train.py": "97b60b8d41e274a30d5888102b2c6c5f7b8e6943040236ad1cc3e09fed8ee310",
+      "model.py": "7c01703240dbec5d554527dc666e35b3df8391d0b117fddc07afcf325a21d11c",
+      "ddp_windows.py": "140bf948410c76e7d7960add9e0c79cd670c6b7c8e5d2264689c02f09ba82593",
+      "config/benchmark_ddp_tinystories.py": "d15f57eae93dca116deef05993b1436c572543abf423e161761054a596b33381"
+    }
+  },
+  "environment": {
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "pytorch": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "nccl": [
+      2,
+      29,
+      7
+    ],
+    "cudnn": 92000,
+    "driver": "580.76.05\n580.76.05\n580.76.05\n580.76.05",
+    "nvidia_smi_list": "GPU 0: NVIDIA GeForce RTX 4090 D (UUID: GPU-ddb56540-ee2d-d4ce-9bc1-d31b67bcdb4d)\nGPU 1: NVIDIA GeForce RTX 4090 D (UUID: GPU-d8280419-2f2a-b45c-37a1-9a6ed1b6a205)\nGPU 2: NVIDIA GeForce RTX 4090 D (UUID: GPU-edc47a87-5ca8-1d54-4fce-5146183fe680)\nGPU 3: NVIDIA GeForce RTX 4090 D (UUID: GPU-40ab5798-3cc1-ecf2-59cc-44c2ec30a13e)",
+    "nvidia_smi_topology": "\u001b[4mGPU0\tGPU1\tGPU2\tGPU3\tNIC0\tNIC1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tNODE\tSYS\tSYS\tSYS\tSYS\t0-47,96-143\t0\t\tN/A\nGPU1\tNODE\t X \tSYS\tSYS\tSYS\tSYS\t0-47,96-143\t0\t\tN/A\nGPU2\tSYS\tSYS\t X \tNODE\tNODE\tNODE\t48-95,144-191\t1\t\tN/A\nGPU3\tSYS\tSYS\tNODE\t X \tNODE\tNODE\t48-95,144-191\t1\t\tN/A\nNIC0\tSYS\tSYS\tNODE\tNODE\t X \tPIX\t\t\t\t\nNIC1\tSYS\tSYS\tNODE\tNODE\tPIX\t X \t\t\t\t\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks\n\nNIC Legend:\n\n  NIC0: mlx5_0\n  NIC1: mlx5_1"
+  },
+  "data": {
+    "dataset": "tinystories_full",
+    "manifest": {
+      "created_at_utc": "2026-09-20T11:08:29.174451+00:00",
+      "mode": "full",
+      "dataset_id": "roneneldan/TinyStories",
+      "dataset_revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+      "selection": "complete splits",
+      "tokenizer": "gpt2",
+      "software_versions": {
+        "datasets": "4.8.5",
+        "tiktoken": "0.14.0"
+      },
+      "vocab_size": 50257,
+      "separator": "GPT-2 end-of-text token appended to every story",
+      "separator_token_id": 50256,
+      "dtype": "uint16",
+      "splits": {
+        "train": {
+          "source_split": "train",
+          "story_limit": null,
+          "story_count": 2119719,
+          "token_count": 473992236,
+          "max_token_id": 50256,
+          "bytes": 947984472,
+          "sha256": "66c5c49a38ebcab576854f2f58fad55e06b2bb29ecbc34fa421910e4beb37500"
+        },
+        "validation": {
+          "source_split": "validation",
+          "story_limit": null,
+          "story_count": 21990,
+          "token_count": 4765918,
+          "max_token_id": 50256,
+          "bytes": 9531836,
+          "sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be"
+        }
+      }
+    },
+    "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+    "data_seed": 20260920,
+    "window_definition": "non-overlapping block_size-token windows",
+    "train_token_count": 473992236,
+    "complete_window_count": 925766,
+    "trailing_token_count": 43,
+    "tail_policy": "drop",
+    "epoch_plan": {
+      "epoch": 0,
+      "complete_window_count": 925766,
+      "scheduled_window_count": 925760,
+      "updates_per_epoch": 28930,
+      "dropped_window_count": 6,
+      "padded_window_count": 0,
+      "tail_policy": "drop"
+    },
+    "warmup_global_window_ids_sha256": "f1ac1aaed939d13372bd7c53f90f78c3566adc946c5b6c236c8fe08ee329299c",
+    "measurement_global_window_ids_sha256": "4d4acf3ad04f563d92a094bc711a8078224348822715e32bf13b40609cf21b67",
+    "warmup_window_count": 64,
+    "measurement_window_count": 160,
+    "measurement_repeated_window_count": 0
+  },
+  "configuration": {
+    "out_dir": "out-c-ddp-tinystories",
+    "eval_interval": 1000000,
+    "log_interval": 1000000,
+    "eval_iters": 20,
+    "eval_only": false,
+    "always_save_checkpoint": false,
+    "init_from": "scratch",
+    "wandb_log": false,
+    "wandb_project": "owt",
+    "wandb_run_name": "gpt2",
+    "dataset": "tinystories_full",
+    "gradient_accumulation_steps": 4,
+    "batch_size": 8,
+    "block_size": 512,
+    "n_layer": 24,
+    "n_head": 16,
+    "n_embd": 1024,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "max_iters": 120,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "decay_lr": false,
+    "warmup_iters": 20,
+    "lr_decay_iters": 120,
+    "min_lr": 3e-05,
+    "backend": "nccl",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "compile": false,
+    "benchmark": false,
+    "benchmark_warmup_steps": 20,
+    "benchmark_measure_steps": 100,
+    "benchmark_data_seed": 20260920,
+    "benchmark_results_dir": "results/b1_single_gpu",
+    "benchmark_run_id": "run1",
+    "ddp_benchmark": true,
+    "ddp_scaling_mode": "strong",
+    "ddp_benchmark_warmup_steps": 2,
+    "ddp_benchmark_measure_steps": 5,
+    "ddp_data_seed": 20260920,
+    "ddp_tail_policy": "drop",
+    "ddp_results_dir": "results/c_capacity/ddp",
+    "ddp_run_id": "L24_D1024",
+    "profiler": false,
+    "profiler_startup_warmup_steps": 20,
+    "profiler_wait_steps": 2,
+    "profiler_warmup_steps": 2,
+    "profiler_active_steps": 10,
+    "profiler_data_seed": 20260920,
+    "profiler_trace_dir": "logs/b2_profiler",
+    "profiler_results_dir": "results/b2_profiler",
+    "profiler_run_id": "baseline",
+    "profiler_distributed": false,
+    "profiler_tail_policy": "drop",
+    "world_size": 4,
+    "effective_gradient_accumulation_steps_per_rank": 1,
+    "local_windows_per_update": 8,
+    "global_windows_per_update": 32,
+    "local_tokens_per_update": 4096,
+    "global_tokens_per_update": 16384,
+    "model_parameter_count": 354027520,
+    "non_position_embedding_parameter_count": 353503232
+  },
+  "measurement": {
+    "timing": "per-rank CUDA Events; one synchronization after measurement; global step uses the slowest rank",
+    "profiler_enabled": false,
+    "warmup_steps": 2,
+    "measured_steps": 5,
+    "total_measured_tokens": 81920,
+    "slowest_rank_step_times_ms": [
+      288.8489074707031,
+      288.2641906738281,
+      287.8689270019531,
+      288.60107421875,
+      287.7800598144531
+    ],
+    "global_mean_losses": [
+      9.265731811523438,
+      8.435824394226074,
+      14.008541107177734,
+      13.786605834960938,
+      11.186397314071655
+    ],
+    "all_losses_finite": true,
+    "all_window_hashes_match_plan": true,
+    "median_slowest_rank_step_ms": 288.2641906738281,
+    "mean_slowest_rank_step_ms": 288.2726318359375,
+    "min_slowest_rank_step_ms": 287.7800598144531,
+    "max_slowest_rank_step_ms": 288.8489074707031,
+    "global_tokens_per_second_from_median": 56836.75090444567,
+    "per_gpu_tokens_per_second_from_median": 14209.187726111417,
+    "aggregate_global_tokens_per_second": 56835.08661801966,
+    "first_loss": 9.265731811523438,
+    "last_loss": 11.186397314071655,
+    "per_rank": [
+      {
+        "rank": 0,
+        "local_rank": 0,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          288.8489074707031,
+          288.18023681640625,
+          287.81976318359375,
+          288.60107421875,
+          287.7122497558594
+        ],
+        "mean_micro_batch_losses": [
+          9.268970489501953,
+          8.43764877319336,
+          14.034149169921875,
+          13.776290893554688,
+          11.31147575378418
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "e35f7a4bcdd09eaa95e4263fb3f5416bfad0f83adc0cca04449f9a3b50413cd9",
+        "measurement_window_ids_sha256": "c24fdaeadb582f4c8e89f0bb11dc26a0dd9c6e53812db8760f9644f86ded0e40",
+        "expected_warmup_window_ids_sha256": "e35f7a4bcdd09eaa95e4263fb3f5416bfad0f83adc0cca04449f9a3b50413cd9",
+        "expected_measurement_window_ids_sha256": "c24fdaeadb582f4c8e89f0bb11dc26a0dd9c6e53812db8760f9644f86ded0e40",
+        "peak_allocated_mib": 11937.46484375,
+        "peak_reserved_mib": 12906.0,
+        "device_total_mib": 24080.875
+      },
+      {
+        "rank": 1,
+        "local_rank": 1,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          288.57550048828125,
+          288.1689453125,
+          287.8689270019531,
+          288.4300842285156,
+          287.7800598144531
+        ],
+        "mean_micro_batch_losses": [
+          9.258491516113281,
+          8.424518585205078,
+          13.9586181640625,
+          13.788223266601562,
+          11.109599113464355
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "354fc3e863f1c7b04e03298634459acfd5a52695e35bd7b91e87947218bd7e64",
+        "measurement_window_ids_sha256": "10058e98d8e93c5d2807755d7fc137847af13d5cb909f79cc1e6f426d5b29226",
+        "expected_warmup_window_ids_sha256": "354fc3e863f1c7b04e03298634459acfd5a52695e35bd7b91e87947218bd7e64",
+        "expected_measurement_window_ids_sha256": "10058e98d8e93c5d2807755d7fc137847af13d5cb909f79cc1e6f426d5b29226",
+        "peak_allocated_mib": 11937.46484375,
+        "peak_reserved_mib": 12906.0,
+        "device_total_mib": 24080.875
+      },
+      {
+        "rank": 2,
+        "local_rank": 2,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          288.5273742675781,
+          288.2641906738281,
+          287.8464050292969,
+          288.5038146972656,
+          287.7398986816406
+        ],
+        "mean_micro_batch_losses": [
+          9.254947662353516,
+          8.479438781738281,
+          14.041046142578125,
+          13.8123779296875,
+          11.11612319946289
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "2562e342d1929bc7d0a2f8a3dac847fed12571c55152502b3fb9a15650729934",
+        "measurement_window_ids_sha256": "82a9b5a2105fa984606a5c223bef52302285a6eefe440eaa4f90ba5d018b8c72",
+        "expected_warmup_window_ids_sha256": "2562e342d1929bc7d0a2f8a3dac847fed12571c55152502b3fb9a15650729934",
+        "expected_measurement_window_ids_sha256": "82a9b5a2105fa984606a5c223bef52302285a6eefe440eaa4f90ba5d018b8c72",
+        "peak_allocated_mib": 11937.46484375,
+        "peak_reserved_mib": 12906.0,
+        "device_total_mib": 24080.875
+      },
+      {
+        "rank": 3,
+        "local_rank": 3,
+        "gpu": "NVIDIA GeForce RTX 4090 D",
+        "step_times_ms": [
+          288.4954833984375,
+          288.2099304199219,
+          287.7911682128906,
+          288.5805969238281,
+          287.75115966796875
+        ],
+        "mean_micro_batch_losses": [
+          9.280517578125,
+          8.401691436767578,
+          14.000350952148438,
+          13.76953125,
+          11.208391189575195
+        ],
+        "all_losses_finite": true,
+        "warmup_window_ids_sha256": "2750501ebe9f221b66c0b50e52f7ac9c2eed3bcad9816ad319c9f440c4199650",
+        "measurement_window_ids_sha256": "0a2173f827608bc0a892b148478b92d6925f1dfe2232fb4032091112c5c32d4a",
+        "expected_warmup_window_ids_sha256": "2750501ebe9f221b66c0b50e52f7ac9c2eed3bcad9816ad319c9f440c4199650",
+        "expected_measurement_window_ids_sha256": "0a2173f827608bc0a892b148478b92d6925f1dfe2232fb4032091112c5c32d4a",
+        "peak_allocated_mib": 11937.46484375,
+        "peak_reserved_mib": 12906.0,
+        "device_total_mib": 24080.875
+      }
+    ]
+  }
+}

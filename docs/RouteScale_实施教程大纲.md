@@ -285,7 +285,7 @@
 - 有 DDP OOM 但 ZeRO 可训练的容量边界证据；
 - ZeRO 分片 checkpoint 可保存、恢复和合并为普通权重。
 
-截至 2026-10-06，仓库骨架和单卡可验证项已完成：ZeRO-0/1/2/3 均能启动、更新、保存并由新进程恢复；ZeRO-0 与原生路径的 4 步 loss 完全一致，最终参数最大绝对差为 `7.451e-09`；ZeRO-2/3 分片 checkpoint 均已合并为普通 FP32 `state_dict` 并由原生 `GPT` 严格加载。现已增加独立的 `--benchmark` 模式，共用 20 次预热、100 次测量、每 rank CUDA Event、最慢 rank 汇总和运行时窗口哈希，并明确排除 validation、Profiler 和 checkpoint I/O。单 rank 的 ZeRO-1/2/3 不会产生真实跨卡分片收益，因此正式吞吐、显存、通信和容量边界仍必须在四卡服务器验收。当前 50.91M 同初始化对照默认关闭 `zero.Init`；只有容量实验显式传 `--zero-init`，避免构造时短暂复制完整参数。
+截至 2026-10-07，C6 已在四卡 RTX 4090 D 上验收。ZeRO-0/1/2/3 的 1/2/4 卡正式矩阵、通信 trace、保存恢复和 ZeRO-2/3 FP32 合并均已完成；所有 loss 有限且窗口哈希与计划一致。51.17M 模型的四卡吞吐分别为 357,031、334,070、289,498、152,417 token/s，原生 DDP 为 320,468 token/s。容量探测得到 DDP 6.94 亿成功/9.84 亿 OOM、ZeRO-2 20.41 亿成功/21.56 亿 OOM、ZeRO-3 22.74 亿成功/23.95 亿 OOM。结果说明小模型吞吐优先 ZeRO-0/1，大模型容量不足时再进入 ZeRO-2/3；详细证据与限制见 `docs/c_stage_results.md`。
 
 ### C7. PyTorch FSDP2 对照（可选）
 
@@ -302,7 +302,7 @@
 
 FSDP2 与 ZeRO-3 在同条件下都能正确训练和恢复；能用实测证据解释两者的显存、通信、性能和工程取舍。
 
-截至 2026-10-06，`train_fsdp2.py` 已按 Transformer block 自底向上调用 `fully_shard`，共享的 embedding/lm_head 留在根分片组；单卡 DCP 2 步保存并由新进程恢复到 4 步通过。FSDP2 已接入与 DeepSpeed 相同的正式 benchmark schema，但多卡 ReduceScatter/AllGather、真实分片显存和性能仍需在目标服务器采集后才能声称完成。
+截至 2026-10-07，C7 可选对照也已完成。FSDP2 的 1/2/4 卡正式矩阵、AllGather/ReduceScatter trace、四卡 DCP 保存恢复以及 9.84 亿参数 DDP-OOM 点均通过。51.17M 模型四卡吞吐为 237,046 token/s，是原生 DDP 的 74.0%。同一重开拓扑的 9.84 亿点上，FSDP2 为 22,481 token/s、12.091/13.898 GiB allocated/reserved，ZeRO-3 为 33,805 token/s、14.020/17.436 GiB，形成明确的 GPU 显存/吞吐取舍。实验没有继续寻找 FSDP2 的首个失败点，因此 9.84 亿是已测试成功下界，不是最大容量。
 
 ---
 

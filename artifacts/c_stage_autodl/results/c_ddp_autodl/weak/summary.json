@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "benchmark": "C deterministic DDP no-Profiler benchmark summary",
+  "scaling_mode": "weak",
+  "expected_runs_per_world_size": 3,
+  "world_sizes": [
+    1,
+    2,
+    4
+  ],
+  "world_size_results": [
+    {
+      "world_size": 1,
+      "run_files": [
+        "1gpu/run1.json",
+        "1gpu/run2.json",
+        "1gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 16384,
+      "local_tokens_per_update": 16384,
+      "median_slowest_rank_step_ms_by_run": [
+        86.59251403808594,
+        86.5643539428711,
+        86.59814453125
+      ],
+      "median_of_run_medians_ms": 86.59251403808594,
+      "global_tokens_per_second": 189208.04161886137,
+      "per_gpu_tokens_per_second": 189208.04161886137,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          3851.04296875
+        ],
+        [
+          3851.04296875
+        ],
+        [
+          3851.04296875
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          4882.0
+        ],
+        [
+          4882.0
+        ],
+        [
+          4882.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.0,
+      "scaling_efficiency": 1.0
+    },
+    {
+      "world_size": 2,
+      "run_files": [
+        "2gpu/run1.json",
+        "2gpu/run2.json",
+        "2gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 32768,
+      "local_tokens_per_update": 16384,
+      "median_slowest_rank_step_ms_by_run": [
+        109.46406555175781,
+        109.49939346313477,
+        109.55878448486328
+      ],
+      "median_of_run_medians_ms": 109.49939346313477,
+      "global_tokens_per_second": 299252.79915849055,
+      "per_gpu_tokens_per_second": 149626.39957924528,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          4047.71484375,
+          4047.71484375
+        ],
+        [
+          4047.71484375,
+          4047.71484375
+        ],
+        [
+          4047.71484375,
+          4047.71484375
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.5816071906779847,
+      "scaling_efficiency": 0.7908035953389924
+    },
+    {
+      "world_size": 4,
+      "run_files": [
+        "4gpu/run1.json",
+        "4gpu/run2.json",
+        "4gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 65536,
+      "local_tokens_per_update": 16384,
+      "median_slowest_rank_step_ms_by_run": [
+        114.93119812011719,
+        115.08940887451172,
+        114.88358306884766
+      ],
+      "median_of_run_medians_ms": 114.93119812011719,
+      "global_tokens_per_second": 570219.4101509918,
+      "per_gpu_tokens_per_second": 142554.85253774794,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          4047.71484375,
+          4047.71484375,
+          4047.71484375,
+          4047.71484375
+        ],
+        [
+          4047.71484375,
+          4047.71484375,
+          4047.71484375,
+          4047.71484375
+        ],
+        [
+          4047.71484375,
+          4047.71484375,
+          4047.71484375,
+          4047.71484375
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          5078.0,
+          5078.0,
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0,
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0,
+          5078.0,
+          5078.0
+        ]
+      ],
+      "speedup_vs_1gpu": 3.013716569719777,
+      "scaling_efficiency": 0.7534291424299443
+    }
+  ],
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true
+}

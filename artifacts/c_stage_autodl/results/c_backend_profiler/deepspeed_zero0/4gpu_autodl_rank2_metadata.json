@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "profile": "C6/C7 distributed backend communication trace",
+  "created_at_utc": "2026-10-07T06:55:44.389815+00:00",
+  "backend": "deepspeed",
+  "variant": "deepspeed_zero0",
+  "run_id": "4gpu_autodl",
+  "rank": 2,
+  "local_rank": 2,
+  "world_size": 4,
+  "schedule": {
+    "startup_unprofiled_warmup_steps": 2,
+    "wait_steps": 1,
+    "profiler_warmup_steps": 1,
+    "active_steps": 3
+  },
+  "configuration": {
+    "deepspeed_config": "config/deepspeed/zero0.json",
+    "data_dir": "data/tinystories_full",
+    "out_dir": "results/c_backend_profiler/runtime/deepspeed_zero0",
+    "max_updates": 5,
+    "checkpoint_every": 0,
+    "resume_dir": null,
+    "resume_tag": null,
+    "eval_windows": 32,
+    "batch_size": 8,
+    "block_size": 512,
+    "global_windows_per_update": 32,
+    "tail_policy": "drop",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "fused_optimizer": true,
+    "dtype": "bfloat16",
+    "zero_init": false,
+    "device": "cuda",
+    "backend": "nccl",
+    "benchmark": false,
+    "benchmark_warmup_updates": 20,
+    "benchmark_measure_updates": 100,
+    "benchmark_run_id": "run1",
+    "benchmark_results_dir": "results/c_backend_benchmark",
+    "profiler": true,
+    "profiler_startup_warmup_updates": 2,
+    "profiler_wait_updates": 1,
+    "profiler_warmup_updates": 1,
+    "profiler_active_updates": 3,
+    "profiler_run_id": "4gpu_autodl",
+    "profiler_results_dir": "results/c_backend_profiler",
+    "profiler_trace_dir": "results/c_backend_profiler/traces",
+    "model_parameter_count": 51168256,
+    "local_micro_steps": 1,
+    "global_tokens_per_update": 16384,
+    "zero_stage": 0,
+    "resolved_deepspeed_config": {
+      "bf16": {
+        "enabled": true
+      },
+      "zero_optimization": {
+        "stage": 0
+      },
+      "gradient_clipping": 1.0,
+      "steps_per_print": 1000000,
+      "wall_clock_breakdown": false,
+      "train_micro_batch_size_per_gpu": 8,
+      "gradient_accumulation_steps": 1,
+      "train_batch_size": 32,
+      "fp16": {
+        "enabled": false
+      }
+    }
+  },
+  "environment": {
+    "rank": 2,
+    "local_rank": 2,
+    "world_size": 4,
+    "device": "cuda:2",
+    "device_type": "cuda",
+    "distributed": true,
+    "torch_version": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_memory_bytes": 25250627584
+  },
+  "git": {
+    "commit": "931f5a3f6d1cba2b75d26e0a3ca6b02324a6ef85",
+    "dirty": true
+  },
+  "correctness": {
+    "all_losses_finite": true,
+    "first_observed_loss": 10.9375,
+    "last_observed_loss": 8.8125,
+    "window_ids_sha256": "f559db6c9802727ec7c9e5fe39f44296c57b4db34cb22d4513a9b9066453f33b",
+    "expected_window_ids_sha256": "f559db6c9802727ec7c9e5fe39f44296c57b4db34cb22d4513a9b9066453f33b"
+  },
+  "memory": {
+    "peak_allocated_bytes": 2930253312,
+    "peak_reserved_bytes": 3393191936,
+    "peak_process_rss_bytes": 2002440192
+  },
+  "artifacts": {
+    "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank2_trace.json",
+    "key_averages_table": "results/c_backend_profiler/deepspeed_zero0/4gpu_autodl_rank2_key_averages.txt",
+    "key_averages_json": "results/c_backend_profiler/deepspeed_zero0/4gpu_autodl_rank2_key_averages.json"
+  },
+  "warning": "Profiler timings include instrumentation overhead and are not formal throughput results."
+}

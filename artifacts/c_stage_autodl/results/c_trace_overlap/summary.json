@@ -1,0 +1,691 @@
+{
+  "schema_version": 1,
+  "analysis": "C-stage NCCL/compute overlap from Chrome traces",
+  "variants": [
+    {
+      "variant": "native_ddp",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.22411489804200546,
+      "median_nccl_within_backward_scope_ratio": 0.6011442303601089,
+      "ranks": [
+        {
+          "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 55,
+          "compute_kernel_count": 5152,
+          "backward_scope_count": 20,
+          "nccl_kernel_union_time_us": 359602.86328125,
+          "compute_kernel_union_time_us": 281975.8580932617,
+          "nccl_compute_overlap_us": 81779.5034790039,
+          "nccl_compute_overlap_ratio": 0.2274161632996874,
+          "nccl_within_backward_scope_us": 226840.98516845703,
+          "nccl_within_backward_scope_ratio": 0.6308097302079649,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 55
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 55,
+          "compute_kernel_count": 5152,
+          "backward_scope_count": 20,
+          "nccl_kernel_union_time_us": 367923.29095458984,
+          "compute_kernel_union_time_us": 274311.2026977539,
+          "nccl_compute_overlap_us": 82235.25860595703,
+          "nccl_compute_overlap_ratio": 0.22351196737938164,
+          "nccl_within_backward_scope_us": 222054.0909423828,
+          "nccl_within_backward_scope_ratio": 0.603533661503885,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 55
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 55,
+          "compute_kernel_count": 5077,
+          "backward_scope_count": 20,
+          "nccl_kernel_union_time_us": 368202.0178833008,
+          "compute_kernel_union_time_us": 271012.37658691406,
+          "nccl_compute_overlap_us": 82741.55798339844,
+          "nccl_compute_overlap_ratio": 0.2247178287046293,
+          "nccl_within_backward_scope_us": 208216.0909423828,
+          "nccl_within_backward_scope_ratio": 0.5654941603507875,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 55
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "logs/c_ddp_autodl_profiler/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 55,
+          "compute_kernel_count": 4992,
+          "backward_scope_count": 20,
+          "nccl_kernel_union_time_us": 370305.03997802734,
+          "compute_kernel_union_time_us": 260767.51092529297,
+          "nccl_compute_overlap_us": 82226.99542236328,
+          "nccl_compute_overlap_ratio": 0.22205205585979157,
+          "nccl_within_backward_scope_us": 221721.91986083984,
+          "nccl_within_backward_scope_ratio": 0.5987547992163328,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 55
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero0",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.0,
+      "median_nccl_within_backward_scope_ratio": 0.0,
+      "ranks": [
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 3,
+          "compute_kernel_count": 3804,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 47852.65301513672,
+          "compute_kernel_union_time_us": 60915.55651855469,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 3,
+          "compute_kernel_count": 3804,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 55796.541015625,
+          "compute_kernel_union_time_us": 61783.02819824219,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 3,
+          "compute_kernel_count": 3804,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 56952.393981933594,
+          "compute_kernel_union_time_us": 61614.92053222656,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero0/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 3,
+          "compute_kernel_count": 3804,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 52908.06298828125,
+          "compute_kernel_union_time_us": 60382.084899902344,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero1",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.0,
+      "median_nccl_within_backward_scope_ratio": 0.0,
+      "ranks": [
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 1311,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 81273.8740234375,
+          "compute_kernel_union_time_us": 51547.068298339844,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 1311,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 86369.65502929688,
+          "compute_kernel_union_time_us": 51310.99981689453,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 2082,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 79424.4130859375,
+          "compute_kernel_union_time_us": 51535.19079589844,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero1/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 2037,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 88979.19812011719,
+          "compute_kernel_union_time_us": 51172.12145996094,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero2",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.0,
+      "median_nccl_within_backward_scope_ratio": 0.0,
+      "ranks": [
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 1311,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 102435.24597167969,
+          "compute_kernel_union_time_us": 50800.49694824219,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 1311,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 90610.5160522461,
+          "compute_kernel_union_time_us": 51385.92266845703,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 2082,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 88983.49505615234,
+          "compute_kernel_union_time_us": 51707.860778808594,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero2/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 18,
+          "compute_kernel_count": 2037,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 86599.03497314453,
+          "compute_kernel_union_time_us": 52331.806884765625,
+          "nccl_compute_overlap_us": 0.0,
+          "nccl_compute_overlap_ratio": 0.0,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_u8_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "variant": "deepspeed_zero3",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.006921463420593849,
+      "median_nccl_within_backward_scope_ratio": 0.0,
+      "ranks": [
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 66,
+          "compute_kernel_count": 1449,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 131191.98223876953,
+          "compute_kernel_union_time_us": 53169.63751220703,
+          "nccl_compute_overlap_us": 728.97509765625,
+          "nccl_compute_overlap_ratio": 0.005556552200953215,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 57
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 66,
+          "compute_kernel_count": 1449,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 52709.19079589844,
+          "compute_kernel_union_time_us": 56032.28564453125,
+          "nccl_compute_overlap_us": 511.45599365234375,
+          "nccl_compute_overlap_ratio": 0.009703355068242532,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 57
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 66,
+          "compute_kernel_count": 1449,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 81533.38507080078,
+          "compute_kernel_union_time_us": 55695.138244628906,
+          "nccl_compute_overlap_us": 564.1699829101562,
+          "nccl_compute_overlap_ratio": 0.006919496626078391,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 57
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/deepspeed_zero3/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 66,
+          "compute_kernel_count": 1449,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 84217.630859375,
+          "compute_kernel_union_time_us": 53831.860107421875,
+          "nccl_compute_overlap_us": 583.0748901367188,
+          "nccl_compute_overlap_ratio": 0.006923430215109306,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 57
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f64_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 6
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_bf16_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "variant": "fsdp2",
+      "world_size": 4,
+      "all_losses_finite": true,
+      "all_window_hashes_match_plan": true,
+      "median_nccl_compute_overlap_ratio": 0.17953159475044786,
+      "median_nccl_within_backward_scope_ratio": 0.0,
+      "ranks": [
+        {
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank0_trace.json",
+          "nccl_kernel_count": 81,
+          "compute_kernel_count": 1425,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 156992.92681884766,
+          "compute_kernel_union_time_us": 68198.63690185547,
+          "nccl_compute_overlap_us": 28888.865844726562,
+          "nccl_compute_overlap_ratio": 0.1840138051446171,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 51
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 27
+            }
+          ],
+          "rank": 0
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank1_trace.json",
+          "nccl_kernel_count": 81,
+          "compute_kernel_count": 1425,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 121093.7138671875,
+          "compute_kernel_union_time_us": 67482.22875976562,
+          "nccl_compute_overlap_us": 19516.840087890625,
+          "nccl_compute_overlap_ratio": 0.16117137268823217,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 51
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 27
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank2_trace.json",
+          "nccl_kernel_count": 81,
+          "compute_kernel_count": 1425,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 142405.28088378906,
+          "compute_kernel_union_time_us": 67017.54266357422,
+          "nccl_compute_overlap_us": 25506.46759033203,
+          "nccl_compute_overlap_ratio": 0.1791118098432514,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 51
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 27
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "trace": "results/c_backend_profiler/traces/fsdp2/4gpu_autodl_rank3_trace.json",
+          "nccl_kernel_count": 81,
+          "compute_kernel_count": 1425,
+          "backward_scope_count": 0,
+          "nccl_kernel_union_time_us": 134901.18194580078,
+          "compute_kernel_union_time_us": 66569.57836914062,
+          "nccl_compute_overlap_us": 24275.65380859375,
+          "nccl_compute_overlap_ratio": 0.17995137965764432,
+          "nccl_within_backward_scope_us": 0.0,
+          "nccl_within_backward_scope_ratio": 0.0,
+          "nccl_kernel_names": [
+            {
+              "name": "ncclDevKernel_AllGather_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 51
+            },
+            {
+              "name": "ncclDevKernel_AllReduce_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 3
+            },
+            {
+              "name": "ncclDevKernel_ReduceScatter_Sum_f32_RING_LL(ncclDevKernelArgsStorage<4096ul>)",
+              "count": 27
+            }
+          ],
+          "rank": 3
+        }
+      ]
+    }
+  ],
+  "method": {
+    "direct_overlap": "intersection of GPU NCCL kernel intervals and non-NCCL GPU kernel intervals on the same rank",
+    "backward_scope": "NCCL kernel time occurring inside host record_function regions named backward",
+    "timing_unit": "microseconds"
+  },
+  "limitations": [
+    "Profiler instrumentation changes timings, so ratios explain scheduling rather than formal throughput.",
+    "Backward host scope is a proxy; direct GPU-kernel overlap is the stronger concurrency signal."
+  ]
+}

@@ -1369,7 +1369,7 @@ rank 2 本地梯度 ┤
 rank 3 本地梯度 ┘
 ```
 
-当前 `train.py` 已有读取 `RANK/LOCAL_RANK/WORLD_SIZE`、初始化 NCCL、绑定 GPU、包装 DDP，以及只在最后一个累积 micro-step 同步梯度的基础代码。但普通随机采样还不能审计全局窗口是否重复或遗漏；B1/B2 模式也明确只允许单卡；计时与显存尚未汇总所有 rank。因此“有 DDP 代码”不等于 C 阶段已经具备可验证基准。
+`train.py` 现在不仅能读取 `RANK/LOCAL_RANK/WORLD_SIZE`、初始化 NCCL、绑定 GPU 和包装 DDP，还接入了与 world size 无关的全局窗口计划、最后一个累积 micro-step 才同步梯度、每 rank CUDA Event、最慢 rank 汇总和窗口哈希审计。2/4 卡更新与等价单进程更新的 loss 完全一致，参数最大绝对误差为 `3.725e-09`，rank 间参数误差为 0。这个结果说明“有 DDP 代码”只有在数据、数值和结果 schema 都经过核对后，才升级为可验证的多卡基准。
 
 ### 13.3 C0：目标服务器准入与同机单卡基线
 
@@ -1488,6 +1488,10 @@ GPU 时间线空洞
 
 Profiler 在 C 阶段仍用于解释机制，正式 1/2/4 卡吞吐继续由无 Profiler benchmark 裁决。
 
+目标四卡服务器的实测正好展示了这个原则。Strong scaling 固定 16,384 tokens/update，1/2/4 卡分别为 189,198、244,961、320,468 token/s，四卡 speedup 1.694 倍、效率 42.3%；Weak scaling 固定每卡工作量，四卡达到 570,219 token/s、3.014 倍、效率 75.3%。两组实验的 loss 和窗口哈希全部通过，三次运行 spread 最高仅 0.23%。服务器没有 NVLink，并且 GPU 跨两个 NUMA 节点，所以固定工作量被切小后，PCIe/NUMA 上的 AllReduce 和同步更难摊薄。
+
+Chrome trace 中原生 DDP 只观察到 AllReduce，NCCL kernel 与非 NCCL GPU kernel 的直接重叠中位数为 22.4%，60.1% 的 NCCL 时间落在标记的 backward scope 中。这解释了“有一部分梯度通信能和反向计算重叠，但不足以消除通信成本”，同时再次说明带 Profiler 的时间不用于计算正式 speedup。
+
 ### 13.9 C5：可恢复的完整窗口覆盖训练
 
 性能基准通过后，再做一次完整数据覆盖。这里必须先定义“窗口”：建议把训练 token 文件切成不重叠的长度 512 训练窗口，而不是枚举每个可能的滑动起点，否则相邻窗口会高度重复、工作量膨胀约 512 倍。
@@ -1505,11 +1509,17 @@ Profiler 在 C 阶段仍用于解释机制，正式 1/2/4 卡吞吐继续由无 
 
 Checkpoint 的意义不是“有一个 `.pt` 文件”，而是能重建下一次更新。当前保存模型、optimizer、GradScaler、每个 rank 的 RNG、`next_update`、loss 历史、配置签名和已消费全局窗口前缀哈希。自动检查把训练拆成“2 步 + 恢复 2 步”，再与连续 4 步比较；模型 SHA256、loss 历史和窗口哈希相同，才算恢复正确。
 
+四卡完整 TinyStories 实验进一步覆盖了 925,766 个唯一窗口，补齐 26 个重复窗口，保留 43 个不足一个完整 block 的尾部 token 记录，共执行 28,931 次更新。完整 validation 覆盖 4,765,917 个 target，loss 从 10.9090 降到 1.4831；总耗时 3,952.23 秒。这个 119,934 token/s 包含完整训练流程和额外工作，不与前面的无 checkpoint 稳态 benchmark 直接比较。
+
 ### 13.10 C6：DeepSpeed ZeRO 骨架怎样理解
 
 ZeRO 的核心不是让 forward 变成另一种模型，而是逐阶段把训练状态分散到 data-parallel ranks：stage 1 分 optimizer state，stage 2 再分 gradient，stage 3 再分 parameter。`train_deepspeed.py` 仍使用同一个 `GPT`、窗口调度器和 AdamW 参数组，只把 backward、梯度累积边界、step 和分片 checkpoint 生命周期交给 DeepSpeed Engine。
 
 单卡能验证 API、loss、更新边界、保存/恢复、配置解析和 checkpoint 合并，却不能证明“分片省显存”，因为 world size 为 1 时没有别的 rank 可分。当前 ZeRO-0 与原生路径在同一 4 步 smoke 中 loss 完全一致，最终参数最大绝对差 `7.451e-09`；ZeRO-1/2/3 也完成保存和新进程恢复，ZeRO-2/3 的 FP32 合并权重已由普通 `GPT` 严格加载。四卡实验的新增证据应是每卡状态减少、AllGather/ReduceScatter 事件、吞吐变化和 DDP OOM/ZeRO 可运行边界。
+
+四卡证据现在已经补齐。51.17M 模型上，ZeRO-0/1/2/3 分别达到 357,031、334,070、289,498、152,417 token/s，原生 DDP 为 320,468 token/s。小模型下 ZeRO-0 最快，ZeRO-3 只有原生 DDP 的 47.6%，因为参数 materialize 和更多集合通信没有足够计算来摊薄。trace 实际观察到 ZeRO-0 为 AllReduce，ZeRO-1/2 为 AllGather + AllReduce，ZeRO-3 为 AllGather + ReduceScatter + 小量 AllReduce。这里 ZeRO-2 没有出现预想的 ReduceScatter，是 DeepSpeed 0.19.7 当前 bucket 配置的实际行为，必须以 trace 而不是概念图为准。
+
+容量上，DDP 在 6.94 亿参数成功、9.84 亿 OOM；ZeRO-2 在 20.41 亿成功、21.56 亿 OOM；ZeRO-3 在 22.74 亿成功、23.95 亿 OOM。这证明分片扩大了可训练模型范围，也说明越高 ZeRO stage 的价值是容量而非保证吞吐更高。
 
 ### 13.11 C7：FSDP2 与 DCP 骨架怎样理解
 
@@ -1517,19 +1527,22 @@ FSDP2 用 composable `fully_shard` 把模块参数表示为 DTensor。当前从�
 
 单卡的 2 步保存、恢复到 4 步已通过，并与原生/ZeRO-0 使用相同 loss 轨迹和窗口哈希。这证明接线和状态生命周期成立，不证明四卡性能优于 ZeRO-3；后者必须查看真实 ReduceScatter/AllGather、显存峰值和 step 时间。
 
-### 13.12 当前第一要务与阶段门槛
+四卡 FSDP2 已完成 51.17M 正式矩阵、通信 trace、分片 DCP 保存恢复，以及 DDP OOM 的 9.84 亿容量点。小模型达到 237,046 token/s，是原生 DDP 的 74.0%；trace 观察到 AllGather、ReduceScatter 和少量 AllReduce，直接 NCCL/compute 重叠中位数为 18.0%。同一重开拓扑的 9.84 亿点上，FSDP2 为 22,481 token/s、12.091/13.898 GiB allocated/reserved、4.758 GiB/rank CPU RSS；ZeRO-3 为 33,805 token/s、14.020/17.436 GiB、1.615 GiB/rank。FSDP2 更省 GPU 显存，ZeRO-3 更快且更省 CPU 内存。没有继续搜索 FSDP2 首个失败点，所以 9.84 亿只能写成“已测试成功下界”。
 
-当前本机只有一张 GPU，因此不能伪造 2/4 卡结果。本机前置项已经扩展并完成到 C5/C6/C7 的可验证部分：
+### 13.12 C 阶段完成状态与进入下一阶段的门槛
 
-1. 写出全局窗口到 rank/micro-step/batch 的确定性映射；
-2. 为 1/2/4 个逻辑 rank 做纯 CPU 单元测试，验证并集、重复、遗漏和尾部；
-3. 新增单卡可运行的 DDP benchmark 输出格式和汇总脚本；
-4. 准备单卡与两卡一次更新正确性测试；
-5. 完成 C5 全窗口覆盖、完整 validation 和确定性恢复；
-6. 完成 DeepSpeed ZeRO-0/1/2/3 与 FSDP2 单卡启动、更新和恢复；
-7. 到四卡服务器后依次执行 C0、两卡正确性、四卡正确性、Strong、Weak、通信 trace 和正式后端矩阵。
+截至 2026-10-07，目标四卡实验已经完成，不能再把 C 阶段描述为“等待多卡服务器”。已通过的验收项包括：
 
-截至 2026-10-06，前六项已在本机完成。原始结果见 `results/c_ddp/`、`results/c5_coverage/`、`results/c6_deepspeed/`、`results/c7_fsdp2/` 和 `results/c_distributed_smoke/`。这些证据只验收单卡能回答的问题，不替代第七项的目标服务器实验。
+1. 全局窗口到 rank/micro-step/batch 的确定性映射和 CPU 单元测试；
+2. 2/4 卡 CUDA/NCCL 一次更新正确性与 rank 副本一致性；
+3. 1/2/4 卡 DDP Strong/Weak scaling，每点三次独立运行；
+4. DDP 与五种分片后端的通信算子和重叠分析；
+5. 四卡完整数据覆盖、完整 validation 和确定性 checkpoint 恢复；
+6. DeepSpeed ZeRO-0/1/2/3 与 FSDP2 正式吞吐/显存矩阵；
+7. ZeRO-2/3 与 FSDP2 四卡 checkpoint 保存恢复，ZeRO-2/3 FP32 合并；
+8. DDP、ZeRO-2、ZeRO-3 的成功/失败容量夹逼，以及 FSDP2 的 DDP-OOM 成功点。
+
+完整结论和证据地图见 `docs/c_stage_results.md`，下载并逐文件校验的证据快照见 `artifacts/c_stage_autodl/`。C 阶段现在可以封板，下一阶段可以进入单卡 Top-1 MoE；只有当新模型形状、网络拓扑或软件版本改变时，才需要重新跑相关 C 基准，而不是重复整套实验。
 
 每一步的进入门槛：
 
@@ -1578,11 +1591,13 @@ FSDP2 用 composable `fully_shard` 把模块参数表示为 DTensor。当前从�
 | 已实测 | 50.91M 本地候选的显存与稳定性 | batch 4/6/8 适配、300 次更新和恢复均完成 |
 | 已实测 | B1 确定性采样、CUDA Event 与三次独立运行 | 三次运行窗口哈希相同，中位数 346.390 ms/update、47,299 tokens/s，运行间范围约 0.20% |
 | 已实测 | B2 Profiler trace 与 `torch.compile` A/B | trace 排除 H2D 为首要瓶颈；无 Profiler 三次对照得到 1.444 倍加速，六次 loss 均有限 |
-| 已实测 | C 阶段本机可完成基础 | 1/2/4 逻辑 rank 窗口测试、单进程 CUDA/NCCL 与双进程 CPU/Gloo 更新对照通过；C 单卡三次中位数为 346.479 ms/update |
+| 已实测 | C 阶段 DDP 正确性与扩展 | 2/4 卡参数误差 `3.725e-09`、副本误差 0；四卡 strong 1.694 倍、weak 3.014 倍，窗口哈希与 loss 均通过 |
+| 已实测 | C5 四卡完整覆盖与恢复 | 925,766 个唯一窗口 100% 覆盖；validation loss 10.9090→1.4831；拆分恢复与连续训练 SHA256/轨迹相同 |
+| 已实测 | C6/C7 后端、通信与容量 | ZeRO-0/1/2/3、FSDP2 正式矩阵和 trace 完成；DDP/ZeRO-2/ZeRO-3 成功失败边界闭合；分片 checkpoint 恢复通过 |
 | 初步理解 | OOM 处理、优化目标、吞吐与延迟区别 | 已完成解释，还需要在新现象中独立选择动作 |
 | 初步理解 | H2D、CUDA 异步、Event、同步、性能预热和独立进程 | 已解释 H2D/CPU/GPU 路径并有 B1/B2 证据，还需要独立在 trace 中指出对应事件 |
 | 初步理解 | graph capture、graph break、recompile 与编译流水线 | 已解释 Dynamo/AOTAutograd/Inductor 分工；还需要独立观察编译日志或 graph break |
-| 初步理解 | batch 饱和、compile 摊销、Profiler、AllReduce | 已有本地 Profiler/compile 证据；还需要独立解读 trace，并在多卡阶段验证 AllReduce |
+| 初步理解 | batch 饱和、compile 摊销、Profiler、AllReduce | 已有单卡 compile 与四卡 AllReduce/AllGather/ReduceScatter 证据；下一步是在新 trace 中独立复现同样的判断 |
 
 “初步理解”的内容不算失败，它表示下一步需要用测量把口头知识变成诊断能力。完成第 16 章闭卷题后，可以把能独立回答的条目升级为“已复述”。
 
@@ -1590,10 +1605,10 @@ FSDP2 用 composable `fully_shard` 把模块参数表示为 DTensor。当前从�
 
 - 闭卷复述一次 B1 独立进程，以及 micro-step、optimizer update、Event 和同步之间的层级。
 - 独立打开 B2 trace，指出 CPU、GPU、H2D、矩阵计算、复制和 kernel launch 证据。
-- 已将单卡确定性窗口采样扩展为 DDP 全局窗口和 rank 分配；下一步在目标服务器复核 2/4 卡实际分配。
-- 已完成单进程 CUDA/NCCL 与双进程 CPU/Gloo 的最小更新正确性检查；下一步做双卡和四卡 CUDA/NCCL 对照。
-- 区分 strong scaling、weak scaling 和完整数据覆盖训练。
-- 深入 AllReduce 重叠、NCCL 拓扑和负载不均。
+- 用新的模型大小或 batch 独立复算 strong/weak scaling 的工作量、speedup 和 efficiency。
+- 独立从一份新 trace 识别 AllReduce、AllGather、ReduceScatter，并判断是否存在计算通信重叠。
+- 解释为什么 ZeRO-3 的四卡扩展效率较高却仍比 ZeRO-0 慢，以及为什么容量成功点不等于数学极限。
+- 在不同 GPU 拓扑上重测一个代表点，验证 PCIe/NUMA/NVLink 对结论可迁移性的影响。
 - 在 MoE 阶段理解路由、expert 负载和 All-to-All。
 - 在 Triton 阶段深入 LayerNorm 或实际热点的 forward/backward 内核。
 

@@ -34,10 +34,15 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - [x] C5 deterministic full-window coverage and exact checkpoint resume
 - [x] DeepSpeed ZeRO-0/1/2/3 single-GPU engine/checkpoint smoke tests
 - [x] FSDP2 `fully_shard` and DCP single-GPU checkpoint smoke test
-- [ ] 1/2/4-GPU DDP scaling
-- [ ] Four-GPU DeepSpeed/FSDP2 performance and capacity matrix
+- [x] 1/2/4-GPU DDP strong/weak scaling and communication trace
+- [x] Four-GPU DeepSpeed/FSDP2 performance, capacity and checkpoint matrix
 - [ ] Top-1 Mixture-of-Experts
 - [ ] Triton kernel evaluation
+
+The completed C-stage findings, decision guide, limitations and evidence map
+are documented in [`docs/c_stage_results.md`](docs/c_stage_results.md). The
+verified AutoDL evidence snapshot is stored under
+[`artifacts/c_stage_autodl/`](artifacts/c_stage_autodl/).
 
 ## Repository Structure
 

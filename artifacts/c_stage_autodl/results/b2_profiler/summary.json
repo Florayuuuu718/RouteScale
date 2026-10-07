@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "experiment": "B2 PyTorch Profiler eager/compiled trace comparison",
+  "warning": "Profiler totals include instrumentation overhead and overlapping abstraction levels; formal speed comes from the no-Profiler A/B.",
+  "baseline": {
+    "run_id": "baseline",
+    "compile": false,
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 5797.0,
+    "self_cuda_time_total_ms": 3545.0,
+    "aten_mm": {
+      "name": "aten::mm",
+      "count": 3960,
+      "self_cpu_time_us": 235724.30899999768,
+      "cpu_time_total_us": 605611.8430000022,
+      "self_device_time_us": 2184535.817999997,
+      "device_time_total_us": 2184535.817999997,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 42342625280
+    },
+    "aten_copy": {
+      "name": "aten::copy_",
+      "count": 4880,
+      "self_cpu_time_us": 81624.24599998107,
+      "cpu_time_total_us": 354772.1309999842,
+      "self_device_time_us": 396744.41400001716,
+      "device_time_total_us": 396744.41400001716,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "h2d": {
+      "name": "Memcpy HtoD (Pinned -> Device)",
+      "count": 84,
+      "self_cpu_time_us": 0,
+      "cpu_time_total_us": 0,
+      "self_device_time_us": 323.91200000247045,
+      "device_time_total_us": 323.91200000247045,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "gradient_clipping": {
+      "name": "gradient_clipping",
+      "count": 10,
+      "self_cpu_time_us": 12317.020999998786,
+      "cpu_time_total_us": 26195.3500000005,
+      "self_device_time_us": 0.0,
+      "device_time_total_us": 18281.95499999833,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": -291840
+    },
+    "optimizer_step": {
+      "name": "optimizer_step",
+      "count": 10,
+      "self_cpu_time_us": 645.760999999824,
+      "cpu_time_total_us": 9616.438000000664,
+      "self_device_time_us": 0.0,
+      "device_time_total_us": 44039.99700000073,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "cuda_launch_kernel_count": 13500,
+    "cu_launch_kernel_count": 3960,
+    "combined_launch_api_count": 17460
+  },
+  "compiled": {
+    "run_id": "compiled",
+    "compile": true,
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 3858.0,
+    "self_cuda_time_total_ms": 2496.0,
+    "aten_mm": {
+      "name": "aten::mm",
+      "count": 3960,
+      "self_cpu_time_us": 178168.6359999911,
+      "cpu_time_total_us": 484852.58799999184,
+      "self_device_time_us": 1490863.8869999934,
+      "device_time_total_us": 1517022.1759999937,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "aten_copy": {
+      "name": "aten::copy_",
+      "count": 160,
+      "self_cpu_time_us": 2489.471000000907,
+      "cpu_time_total_us": 8467.465999999935,
+      "self_device_time_us": 313.10399999978836,
+      "device_time_total_us": 313.10399999978836,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "h2d": {
+      "name": "Memcpy HtoD (Pinned -> Device)",
+      "count": 86,
+      "self_cpu_time_us": 0,
+      "cpu_time_total_us": 0,
+      "self_device_time_us": 336.623999999807,
+      "device_time_total_us": 336.623999999807,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "gradient_clipping": {
+      "name": "gradient_clipping",
+      "count": 10,
+      "self_cpu_time_us": 14616.323999993969,
+      "cpu_time_total_us": 31268.790000000386,
+      "self_device_time_us": 0.0,
+      "device_time_total_us": 18329.352000000945,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": -291840
+    },
+    "optimizer_step": {
+      "name": "optimizer_step",
+      "count": 10,
+      "self_cpu_time_us": 703.7839999998105,
+      "cpu_time_total_us": 11391.933000000456,
+      "self_device_time_us": 0.0,
+      "device_time_total_us": 44125.677999999025,
+      "self_cpu_memory_bytes": 0,
+      "self_device_memory_bytes": 0
+    },
+    "cuda_launch_kernel_count": 3180,
+    "cu_launch_kernel_count": 10720,
+    "combined_launch_api_count": 13900
+  },
+  "comparison": {
+    "self_cpu_time_reduction_percent": 33.44833534586855,
+    "self_cuda_time_reduction_percent": 29.590973201692528,
+    "combined_launch_api_count_reduction_percent": 20.389461626575034,
+    "aten_copy_call_reduction_percent": 96.72131147540983,
+    "aten_mm_self_device_time_reduction_percent": 31.753744904722126
+  }
+}

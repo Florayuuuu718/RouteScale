@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "analysis": "C6/C7 checkpoint quantitative summary",
+  "runs": [
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero2_save/result.json",
+      "backend": "deepspeed",
+      "zero_stage": 2,
+      "run_role": "initial_save",
+      "checkpoint_tag": "update-00000002",
+      "file_count": 5,
+      "total_bytes": 716399417,
+      "files": [
+        "bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_1_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_2_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_3_mp_rank_00_optim_states.pt",
+        "mp_rank_00_model_states.pt"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 1,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "save_seconds_slowest_rank": 0.4339609369635582,
+      "load_seconds_slowest_rank": null,
+      "max_rank_peak_process_rss_bytes": 2038071296
+    },
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero2_resume/result.json",
+      "backend": "deepspeed",
+      "zero_stage": 2,
+      "run_role": "resume_and_resave",
+      "checkpoint_tag": "update-00000003",
+      "file_count": 5,
+      "total_bytes": 716399417,
+      "files": [
+        "bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_1_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_2_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_3_mp_rank_00_optim_states.pt",
+        "mp_rank_00_model_states.pt"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 1,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "save_seconds_slowest_rank": 0.4244102016091347,
+      "load_seconds_slowest_rank": 0.3530791252851486,
+      "max_rank_peak_process_rss_bytes": 2029813760
+    },
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero3_save/result.json",
+      "backend": "deepspeed",
+      "zero_stage": 3,
+      "run_role": "initial_save",
+      "checkpoint_tag": "update-00000002",
+      "file_count": 8,
+      "total_bytes": 614157848,
+      "files": [
+        "bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_1_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_2_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_3_mp_rank_00_optim_states.pt",
+        "zero_pp_rank_0_mp_rank_00_model_states.pt",
+        "zero_pp_rank_1_mp_rank_00_model_states.pt",
+        "zero_pp_rank_2_mp_rank_00_model_states.pt",
+        "zero_pp_rank_3_mp_rank_00_model_states.pt"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 4,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "save_seconds_slowest_rank": 0.2549484670162201,
+      "load_seconds_slowest_rank": null,
+      "max_rank_peak_process_rss_bytes": 1909596160
+    },
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero3_resume/result.json",
+      "backend": "deepspeed",
+      "zero_stage": 3,
+      "run_role": "resume_and_resave",
+      "checkpoint_tag": "update-00000003",
+      "file_count": 8,
+      "total_bytes": 614157848,
+      "files": [
+        "bf16_zero_pp_rank_0_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_1_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_2_mp_rank_00_optim_states.pt",
+        "bf16_zero_pp_rank_3_mp_rank_00_optim_states.pt",
+        "zero_pp_rank_0_mp_rank_00_model_states.pt",
+        "zero_pp_rank_1_mp_rank_00_model_states.pt",
+        "zero_pp_rank_2_mp_rank_00_model_states.pt",
+        "zero_pp_rank_3_mp_rank_00_model_states.pt"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 4,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "save_seconds_slowest_rank": 0.2943262830376625,
+      "load_seconds_slowest_rank": 0.15386845916509628,
+      "max_rank_peak_process_rss_bytes": 1916608512
+    },
+    {
+      "path": "results/c_checkpoint_metrics/fsdp2_save/result.json",
+      "backend": "fsdp2",
+      "zero_stage": null,
+      "run_role": "initial_save",
+      "checkpoint_tag": null,
+      "file_count": 10,
+      "total_bytes": 718248105,
+      "files": [
+        ".metadata",
+        "__0_0.distcp",
+        "__1_0.distcp",
+        "__2_0.distcp",
+        "__3_0.distcp",
+        "rng_rank0.pt",
+        "rng_rank1.pt",
+        "rng_rank2.pt",
+        "rng_rank3.pt",
+        "route_scale_metadata.json"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 0,
+        "model_state_files": 0,
+        "distributed_checkpoint_shards": 4,
+        "rng_state_files": 4,
+        "other_files": 2
+      },
+      "save_seconds_slowest_rank": 0.7942477390170097,
+      "load_seconds_slowest_rank": null,
+      "max_rank_peak_process_rss_bytes": 2049695744
+    },
+    {
+      "path": "results/c_checkpoint_metrics/fsdp2_resume/result.json",
+      "backend": "fsdp2",
+      "zero_stage": null,
+      "run_role": "resume_and_resave",
+      "checkpoint_tag": null,
+      "file_count": 10,
+      "total_bytes": 718248119,
+      "files": [
+        ".metadata",
+        "__0_0.distcp",
+        "__1_0.distcp",
+        "__2_0.distcp",
+        "__3_0.distcp",
+        "rng_rank0.pt",
+        "rng_rank1.pt",
+        "rng_rank2.pt",
+        "rng_rank3.pt",
+        "route_scale_metadata.json"
+      ],
+      "file_breakdown": {
+        "optimizer_state_files": 0,
+        "model_state_files": 0,
+        "distributed_checkpoint_shards": 4,
+        "rng_state_files": 4,
+        "other_files": 2
+      },
+      "save_seconds_slowest_rank": 0.5325484052300453,
+      "load_seconds_slowest_rank": 0.7113961651921272,
+      "max_rank_peak_process_rss_bytes": 2046480384
+    }
+  ],
+  "fp32_verifications": [
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero2_save/fp32_verification.json",
+      "zero_stage": 2,
+      "checkpoint_file_count": 5,
+      "checkpoint_total_bytes": 716399417,
+      "checkpoint_file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 1,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "merge_seconds": 0.1397695392370224,
+      "strict_load_seconds": 0.007067367434501648,
+      "peak_process_rss_bytes": 1465614336,
+      "merged_output_bytes": 204679773,
+      "model_state_sha256": "da5e1f4a75d556b07b1726151321f89d9dc43e4410c3cdbaaaf846979559bb0b"
+    },
+    {
+      "path": "results/c_checkpoint_metrics/deepspeed_zero3_save/fp32_verification.json",
+      "zero_stage": 3,
+      "checkpoint_file_count": 8,
+      "checkpoint_total_bytes": 614157848,
+      "checkpoint_file_breakdown": {
+        "optimizer_state_files": 4,
+        "model_state_files": 4,
+        "distributed_checkpoint_shards": 0,
+        "rng_state_files": 0,
+        "other_files": 0
+      },
+      "merge_seconds": 0.07871546596288681,
+      "strict_load_seconds": 0.006278760731220245,
+      "peak_process_rss_bytes": 1458065408,
+      "merged_output_bytes": 204689753,
+      "model_state_sha256": "f0bdcce40b3a902b1441b83a4b3599040d1f8504939e26f8ab38b1f4e2977932"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "experiment": "B2 no-Profiler torch.compile A/B",
+  "changed_variable": {
+    "compile": {
+      "before": false,
+      "after": true
+    }
+  },
+  "invariants": {
+    "measurement_offsets_sha256": "b920fdb1d2364511a3673bebce3395fa739d8b25c6340cc4d544a0ea7ea91157",
+    "tokens_per_update": 16384,
+    "model_parameter_count": 51168256,
+    "batch_size": 8,
+    "block_size": 512,
+    "gradient_accumulation_steps": 4,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dtype": "bfloat16",
+    "warmup_steps": 20,
+    "measured_steps": 100
+  },
+  "eager": {
+    "median_step_ms_by_run": [
+      346.80979919433594,
+      346.3808288574219,
+      346.2728271484375
+    ],
+    "median_of_run_medians_ms": 346.3808288574219,
+    "tokens_per_second": 47300.539276508345,
+    "median_peak_allocated_mib": 3906.91650390625,
+    "median_peak_reserved_mib": 4910.0
+  },
+  "compiled": {
+    "median_step_ms_by_run": [
+      239.85610961914062,
+      240.25337982177734,
+      239.8971176147461
+    ],
+    "median_of_run_medians_ms": 239.8971176147461,
+    "tokens_per_second": 68295.94353989397,
+    "median_peak_allocated_mib": 3128.5634765625,
+    "median_peak_reserved_mib": 3382.0
+  },
+  "comparison": {
+    "speedup": 1.4438724078947849,
+    "step_time_reduction_percent": 30.74180277064551,
+    "throughput_increase_percent": 44.38724078947853,
+    "peak_allocated_change_mib": -778.35302734375,
+    "peak_reserved_change_mib": -1528.0,
+    "all_losses_finite": true
+  }
+}

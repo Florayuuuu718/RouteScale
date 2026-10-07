@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "stage": "C5",
+  "backend": "native_ddp",
+  "status": "complete",
+  "configuration": {
+    "data_dir": "data/tinystories_full",
+    "out_dir": "results/c5_coverage/4gpu_full",
+    "resume_from": null,
+    "max_updates": 0,
+    "checkpoint_every": 1000,
+    "eval_windows": 32,
+    "full_validation": true,
+    "batch_size": 8,
+    "block_size": 512,
+    "global_windows_per_update": 32,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "dtype": "bfloat16",
+    "device": "auto",
+    "backend": "auto"
+  },
+  "checkpoint_signature": {
+    "data_manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+    "block_size": 512,
+    "batch_size": 8,
+    "global_windows_per_update": 32,
+    "world_size": 4,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "eval_windows": 32,
+    "full_validation": true,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "dtype": "bfloat16",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "updates_per_epoch": 28931
+  },
+  "environment": {
+    "rank": 0,
+    "local_rank": 0,
+    "world_size": 4,
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "distributed": true,
+    "torch_version": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_memory_bytes": 25250627584
+  },
+  "git": {
+    "commit": "991082e23dcc619ef62def4fe6b314ab4aae1ce6",
+    "dirty": true
+  },
+  "dataset": {
+    "data_dir": "data/tinystories_full",
+    "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+    "train_bin_sha256": "66c5c49a38ebcab576854f2f58fad55e06b2bb29ecbc34fa421910e4beb37500",
+    "val_bin_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "train_token_count": 473992236,
+    "train_window_count": 925766,
+    "tail_token_count": 43,
+    "validation_target_count": 4765917,
+    "validation_tail_token_count": 221
+  },
+  "epoch_plan": {
+    "epoch": 0,
+    "complete_window_count": 925766,
+    "scheduled_window_count": 925792,
+    "updates_per_epoch": 28931,
+    "dropped_window_count": 0,
+    "padded_window_count": 26,
+    "tail_policy": "pad"
+  },
+  "progress": {
+    "next_update": 28931,
+    "target_update": 28931,
+    "unique_windows_covered": 925766,
+    "coverage_ratio": 1.0,
+    "scheduled_windows_processed": 925792,
+    "padded_windows_in_complete_epoch": 26,
+    "global_window_prefix_sha256": "0f9d647e6eab6d186fd571eaa0412f456170f3de2db21b69ae6b663961dfebe6"
+  },
+  "metrics": {
+    "initial_validation_loss": 10.909049939930732,
+    "final_validation_loss": 1.4830776318645769,
+    "validation_scope": "all_target_tokens",
+    "last_train_loss": 1.413426160812378,
+    "elapsed_seconds_this_invocation": 3952.2304292470217,
+    "per_rank": [
+      {
+        "rank": 0,
+        "elapsed_seconds_this_invocation": 3952.2304292470217,
+        "peak_allocated_bytes": 4035708928,
+        "peak_reserved_bytes": 4756340736
+      },
+      {
+        "rank": 1,
+        "elapsed_seconds_this_invocation": 3952.2276240065694,
+        "peak_allocated_bytes": 4035708928,
+        "peak_reserved_bytes": 4756340736
+      },
+      {
+        "rank": 2,
+        "elapsed_seconds_this_invocation": 3952.2297593057156,
+        "peak_allocated_bytes": 4035708928,
+        "peak_reserved_bytes": 4756340736
+      },
+      {
+        "rank": 3,
+        "elapsed_seconds_this_invocation": 3952.22796074301,
+        "peak_allocated_bytes": 4035708928,
+        "peak_reserved_bytes": 4756340736
+      }
+    ],
+    "peak_allocated_bytes": 4035708928,
+    "peak_reserved_bytes": 4756340736,
+    "updates_this_invocation": 28931,
+    "tokens_per_second_this_invocation": 119933.67099557185
+  },
+  "artifacts": {
+    "checkpoint": "results/c5_coverage/4gpu_full/checkpoint.pt",
+    "checkpoint_sha256": "566d90797723500f9aeb0fb6c6981d8f6353b2c1978a65e1182baa5c8b45bb1b",
+    "model_state_sha256": "f87a7caadaa1916211e66e2158bd1abf03da90b58a5dddac33ff20de60b8de47"
+  }
+}

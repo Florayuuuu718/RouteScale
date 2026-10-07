@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "stage": "C6",
+  "backend": "deepspeed",
+  "zero_stage": 2,
+  "status": "smoke_complete",
+  "configuration": {
+    "deepspeed_config": "config/deepspeed/zero2.json",
+    "data_dir": "data/tinystories_debug",
+    "out_dir": "results/c6_deepspeed/zero2_4gpu_smoke",
+    "max_updates": 4,
+    "checkpoint_every": 0,
+    "resume_dir": "results/c6_deepspeed/zero2_4gpu_smoke/checkpoints",
+    "resume_tag": "update-00000002",
+    "eval_windows": 32,
+    "batch_size": 8,
+    "block_size": 512,
+    "global_windows_per_update": 32,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "validation_seed": 20260921,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "dtype": "bfloat16",
+    "zero_init": false,
+    "device": "cuda",
+    "backend": "nccl"
+  },
+  "resolved_deepspeed_config": {
+    "bf16": {
+      "enabled": true
+    },
+    "zero_optimization": {
+      "stage": 2,
+      "overlap_comm": true,
+      "contiguous_gradients": true,
+      "reduce_scatter": true
+    },
+    "gradient_clipping": 1.0,
+    "steps_per_print": 1000000,
+    "wall_clock_breakdown": false,
+    "train_micro_batch_size_per_gpu": 8,
+    "gradient_accumulation_steps": 1,
+    "train_batch_size": 32,
+    "fp16": {
+      "enabled": false
+    }
+  },
+  "checkpoint_signature": {
+    "backend": "deepspeed",
+    "zero_stage": 2,
+    "data_manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "block_size": 512,
+    "batch_size": 8,
+    "global_windows_per_update": 32,
+    "world_size": 4,
+    "tail_policy": "pad",
+    "data_seed": 20260920,
+    "model_seed": 1337,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "dtype": "bfloat16",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "updates_per_epoch": 132
+  },
+  "environment": {
+    "rank": 0,
+    "local_rank": 0,
+    "world_size": 4,
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "distributed": true,
+    "torch_version": "2.12.1+cu130",
+    "cuda_runtime": "13.0",
+    "cudnn_version": 92000,
+    "gpu_name": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_memory_bytes": 25250627584
+  },
+  "git": {
+    "commit": "991082e23dcc619ef62def4fe6b314ab4aae1ce6",
+    "dirty": true
+  },
+  "dataset": {
+    "manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "train_window_count": 4222
+  },
+  "progress": {
+    "next_update": 4,
+    "updates_per_epoch": 132,
+    "global_window_prefix_sha256": "14299f8d47b64353fb1b3f84f0c0124de7d3637c7d358652c2a6f46c767695e9"
+  },
+  "metrics": {
+    "initial_validation_loss": 10.921875,
+    "final_validation_loss": 9.109375,
+    "last_train_loss": 9.3125,
+    "updates_this_invocation": 2,
+    "elapsed_seconds_this_invocation": 0.9312647804617882,
+    "per_rank": [
+      {
+        "rank": 0,
+        "elapsed_seconds_this_invocation": 0.8683738708496094,
+        "peak_allocated_bytes": 3298766848,
+        "peak_reserved_bytes": 4586471424
+      },
+      {
+        "rank": 1,
+        "elapsed_seconds_this_invocation": 0.8654977679252625,
+        "peak_allocated_bytes": 3298766848,
+        "peak_reserved_bytes": 4586471424
+      },
+      {
+        "rank": 2,
+        "elapsed_seconds_this_invocation": 0.8775356635451317,
+        "peak_allocated_bytes": 3298766848,
+        "peak_reserved_bytes": 4586471424
+      },
+      {
+        "rank": 3,
+        "elapsed_seconds_this_invocation": 0.9312647804617882,
+        "peak_allocated_bytes": 3298766848,
+        "peak_reserved_bytes": 4586471424
+      }
+    ],
+    "tokens_per_second_this_invocation": 35186.55562572791,
+    "peak_allocated_bytes": 3298766848,
+    "peak_reserved_bytes": 4586471424
+  },
+  "artifacts": {
+    "resolved_config": "results/c6_deepspeed/zero2_4gpu_smoke/resolved_deepspeed_config.json",
+    "checkpoint_dir": "results/c6_deepspeed/zero2_4gpu_smoke/checkpoints",
+    "checkpoint_tag": "update-00000004"
+  }
+}

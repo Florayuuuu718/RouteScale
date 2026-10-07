@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-10-07T06:55:03.547583+00:00",
+  "status": "capacity_failure",
+  "variant": "deepspeed_zero2",
+  "run_id": "L32_D2304",
+  "configuration": {
+    "world_size": 4,
+    "n_layer": 32,
+    "n_head": 36,
+    "n_embd": 2304,
+    "model_parameter_count": 2155553280,
+    "batch_size_per_rank": 8,
+    "block_size": 512,
+    "dtype": "bfloat16",
+    "offload": false
+  },
+  "failure": {
+    "type": "cuda_oom",
+    "phase": "backward gradient bucket flatten/allreduce-scatter",
+    "elapsed_seconds": null,
+    "resource_snapshot": {
+      "gpu_index": 3,
+      "gpu_memory_used_bytes": null,
+      "gpu_memory_total_bytes": null,
+      "torch_allocated_bytes": 19606274048,
+      "torch_reserved_unallocated_bytes": 4938792960,
+      "requested_allocation_bytes": 966787072,
+      "max_rank_process_rss_bytes": null
+    }
+  },
+  "artifacts": {
+    "log": "results/c_capacity/logs/zero2_L32_D2304.log",
+    "log_sha256": "44211d277d9d50441863a0a8fb04528f3dcdc5f5c2fe1c9a3824da114e8f4646"
+  }
+}

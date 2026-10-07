@@ -169,9 +169,10 @@ ms/update**, or **47,287 tokens/s**, with 3,906.9 MiB peak allocated and 4,910.0
 MiB peak reserved memory. All losses were finite, runtime window hashes matched
 the plan, and each run used the same 3,200 unique measured windows.
 
-Full commands, raw JSON, scope limits, and the remaining multi-GPU work are in
-[`c_ddp/README.md`](c_ddp/README.md). These laptop results validate the harness
-only; they are not the denominator for target-server 2/4-GPU scaling.
+Full commands, raw JSON and scope limits are in
+[`c_ddp/README.md`](c_ddp/README.md). These laptop results validated the harness
+only and were not used as the denominator for the completed target-server
+2/4-GPU scaling experiment.
 
 ## C5: deterministic coverage and checkpoint recovery
 
@@ -189,7 +190,7 @@ check compared `2 updates + save + new-process resume to 4` against four
 uninterrupted updates. Model SHA256, loss history, next update and consumed
 window hash all matched. See [`c5_coverage/README.md`](c5_coverage/README.md).
 
-## C6/C7: local DeepSpeed and FSDP2 scaffolding
+## C6/C7: local DeepSpeed and FSDP2 scaffolding (historical precursor)
 
 DeepSpeed 0.19.7 ZeRO stages 0/1/2/3 each completed a one-GPU update,
 sharded-format save, and new-process recovery. ZeRO-0 and native PyTorch used
@@ -207,3 +208,31 @@ smoke timings are deliberately not treated as performance results. Details are
 in [`c6_deepspeed/README.md`](c6_deepspeed/README.md),
 [`c7_fsdp2/README.md`](c7_fsdp2/README.md), and
 [`c_distributed_smoke/trajectory_comparison.json`](c_distributed_smoke/trajectory_comparison.json).
+
+## C target-server completion
+
+The four-GPU target-server campaign is complete. The formal 51.17M-parameter
+matrix covered native DDP, DeepSpeed ZeRO-0/1/2/3 and FSDP2 at 1/2/4 GPUs,
+with three independent no-Profiler runs per point. DDP strong scaling reached
+320,468 tokens/s on four GPUs (1.694x, 42.3% efficiency); weak scaling reached
+570,219 tokens/s (3.014x, 75.3% efficiency). ZeRO-0 delivered the highest
+four-GPU small-model throughput at 357,031 tokens/s, while native PyTorch was
+the fastest single-GPU path.
+
+Capacity probes bracketed native DDP at 694.2M success / 984.1M OOM,
+ZeRO-2 at 2.041B success / 2.156B OOM, and ZeRO-3 at 2.274B success / 2.395B
+OOM. FSDP2 successfully trained the 984.1M DDP-OOM configuration; its upper
+failure boundary was not searched. Four-GPU checkpoint save/resume was
+verified for ZeRO-2, ZeRO-3 and FSDP2, and ZeRO-2/3 were consolidated to
+ordinary FP32 state dictionaries and strictly loaded by the native model.
+At the same reopened-instance topology and 984.1M configuration, ZeRO-3
+reached 33,805 tokens/s with 14.020/17.436 GiB allocated/reserved, while
+FSDP2 reached 22,481 tokens/s with 12.091/13.898 GiB. This is a throughput
+versus GPU-memory tradeoff, not a universal winner.
+
+The committed, hash-verified server evidence lives under
+[`../artifacts/c_stage_autodl/`](../artifacts/c_stage_autodl/), rather than
+being duplicated into this historical local-results tree. See
+[`../docs/c_stage_results.md`](../docs/c_stage_results.md) for the complete
+tables, communication interpretation, topology caveat and backend decision
+guide.

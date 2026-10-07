@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "stage": "C0",
+  "created_at_utc": "2026-10-06T10:04:19.951729+00:00",
+  "status": "warn",
+  "expected_gpus": 1,
+  "required_checks": {
+    "expected_gpu_count": true,
+    "torch_cuda_available": true,
+    "torch_sees_expected_gpus": true,
+    "homogeneous_gpu_model": true,
+    "homogeneous_gpu_memory": true,
+    "bf16_supported": true,
+    "nccl_available": true,
+    "train_data_hash_matches": true,
+    "validation_data_hash_matches": true,
+    "deepspeed_installed": true,
+    "fsdp2_available": true,
+    "collective_world_size": true,
+    "nccl_all_reduce_correct": true
+  },
+  "warnings": {
+    "cuda_toolkit_nvcc_available": false,
+    "at_least_50_gib_free_disk": true,
+    "launched_distributed_collective": true,
+    "git_worktree_clean": false
+  },
+  "failed_required_checks": [],
+  "active_warnings": [
+    "cuda_toolkit_nvcc_available",
+    "git_worktree_clean"
+  ],
+  "system": {
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "python": "3.11.16",
+    "cpu_count": 16,
+    "memory_total_bytes": 16300802048,
+    "disk_total_bytes": 1081101176832,
+    "disk_free_bytes": 973916360704
+  },
+  "software": {
+    "torch": "2.12.1+cu129",
+    "torch_cuda_runtime": "12.9",
+    "cudnn": 92000,
+    "nccl": [
+      2,
+      29,
+      7
+    ],
+    "deepspeed": "0.19.7",
+    "numpy": "2.4.6",
+    "fsdp2_available": true,
+    "fsdp2_error": null
+  },
+  "gpus": [
+    {
+      "index": 0,
+      "uuid": "GPU-671542d2-9771-b702-6575-44359011812d",
+      "name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "memory_total_mib": 8151,
+      "driver_version": "610.88"
+    }
+  ],
+  "nvidia_smi_topology": {
+    "command": [
+      "nvidia-smi",
+      "topo",
+      "-m"
+    ],
+    "returncode": 0,
+    "output": "\u001b[4mGPU0\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \t\t\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks"
+  },
+  "nvcc": {
+    "command": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": null,
+    "output": "[Errno 2] No such file or directory: 'nvcc'"
+  },
+  "collective": {
+    "backend": "nccl",
+    "world_size": 1,
+    "payload_mib": 4,
+    "iterations": 3,
+    "values_correct": true,
+    "worst_rank_total_seconds": 0.14904171228408813,
+    "worst_rank_mean_milliseconds": 49.68057076136271
+  },
+  "dataset": {
+    "data_dir": "data/tinystories_debug",
+    "manifest_exists": true,
+    "files": {
+      "train": {
+        "path": "data/tinystories_debug/train.bin",
+        "exists": true,
+        "bytes": 4324156,
+        "expected_sha256": "5f76f6d0018cc41bcec8e445c53f6586b4f340ec2736812d3b77fe40066c8223",
+        "actual_sha256": "5f76f6d0018cc41bcec8e445c53f6586b4f340ec2736812d3b77fe40066c8223",
+        "sha256_matches": true
+      },
+      "validation": {
+        "path": "data/tinystories_debug/val.bin",
+        "exists": true,
+        "bytes": 389118,
+        "expected_sha256": "5f2d5a7972a450f23d4fcb6a3f94dfc4c40ed5cf5a0ce616b895ae5308f4fd85",
+        "actual_sha256": "5f2d5a7972a450f23d4fcb6a3f94dfc4c40ed5cf5a0ce616b895ae5308f4fd85",
+        "sha256_matches": true
+      }
+    },
+    "manifest_sha256": "a78483466860d1b5e149b74678458056e0dd87151df69610c4923fec75aad8a3",
+    "dataset_id": "roneneldan/TinyStories",
+    "dataset_revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64"
+  },
+  "git": {
+    "commit": "abbcd9f82b97faf62a03cf6288d15ca2505c32fc",
+    "dirty": true
+  }
+}

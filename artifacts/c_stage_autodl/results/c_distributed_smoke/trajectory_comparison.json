@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-10-06T10:03:27.092838+00:00",
+  "status": "pass",
+  "updates_compared": 4,
+  "absolute_tolerance": 0.0,
+  "parameter_absolute_tolerance": 1e-07,
+  "loss_histories": {
+    "native_ddp": [
+      10.81082820892334,
+      10.800662994384766,
+      10.809271812438965,
+      10.797658920288086
+    ],
+    "deepspeed_zero0": [
+      10.81082820892334,
+      10.800662994384766,
+      10.809271812438965,
+      10.797658920288086
+    ],
+    "fsdp2": [
+      10.81082820892334,
+      10.800662994384766,
+      10.809271812438965,
+      10.797658920288086
+    ]
+  },
+  "max_absolute_loss_difference_vs_native": {
+    "native_ddp": 0.0,
+    "deepspeed_zero0": 0.0,
+    "fsdp2": 0.0
+  },
+  "deepspeed_zero0_parameter_update_vs_native": {
+    "max_absolute_difference": 7.450580596923828e-09,
+    "worst_parameter": "transformer.wte.weight",
+    "within_tolerance": true
+  },
+  "global_window_prefix_sha256": {
+    "native_ddp": "781f285a44ad814929aa3c3a946885cdcf5621fd3de83a01fcbf744e544716e8",
+    "deepspeed_zero0": "781f285a44ad814929aa3c3a946885cdcf5621fd3de83a01fcbf744e544716e8",
+    "fsdp2": "781f285a44ad814929aa3c3a946885cdcf5621fd3de83a01fcbf744e544716e8"
+  }
+}

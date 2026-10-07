@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "stage": "C0",
+  "created_at_utc": "2026-10-07T06:54:20.397858+00:00",
+  "status": "warn",
+  "expected_gpus": 4,
+  "required_checks": {
+    "expected_gpu_count": true,
+    "torch_cuda_available": true,
+    "torch_sees_expected_gpus": true,
+    "homogeneous_gpu_model": true,
+    "homogeneous_gpu_memory": true,
+    "bf16_supported": true,
+    "nccl_available": true,
+    "train_data_hash_matches": true,
+    "validation_data_hash_matches": true,
+    "deepspeed_installed": true,
+    "fsdp2_available": true,
+    "collective_world_size": true,
+    "nccl_all_reduce_correct": true
+  },
+  "warnings": {
+    "cuda_toolkit_nvcc_available": true,
+    "at_least_50_gib_free_disk": true,
+    "launched_distributed_collective": true,
+    "git_worktree_clean": false
+  },
+  "failed_required_checks": [],
+  "active_warnings": [
+    "git_worktree_clean"
+  ],
+  "system": {
+    "platform": "Linux-5.15.0-94-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "cpu_count": 192,
+    "memory_total_bytes": 1081835024384,
+    "disk_total_bytes": 107374182400,
+    "disk_free_bytes": 91995176960
+  },
+  "software": {
+    "torch": "2.12.1+cu130",
+    "torch_cuda_runtime": "13.0",
+    "cudnn": 92000,
+    "nccl": [
+      2,
+      29,
+      7
+    ],
+    "deepspeed": "0.19.7",
+    "numpy": "2.4.6",
+    "fsdp2_available": true,
+    "fsdp2_error": null
+  },
+  "gpus": [
+    {
+      "index": 0,
+      "uuid": "GPU-d8280419-2f2a-b45c-37a1-9a6ed1b6a205",
+      "name": "NVIDIA GeForce RTX 4090 D",
+      "memory_total_mib": 24564,
+      "driver_version": "580.76.05"
+    },
+    {
+      "index": 1,
+      "uuid": "GPU-a90ff639-b415-d658-e78c-dc4051d8ff93",
+      "name": "NVIDIA GeForce RTX 4090 D",
+      "memory_total_mib": 24564,
+      "driver_version": "580.76.05"
+    },
+    {
+      "index": 2,
+      "uuid": "GPU-edc47a87-5ca8-1d54-4fce-5146183fe680",
+      "name": "NVIDIA GeForce RTX 4090 D",
+      "memory_total_mib": 24564,
+      "driver_version": "580.76.05"
+    },
+    {
+      "index": 3,
+      "uuid": "GPU-40ab5798-3cc1-ecf2-59cc-44c2ec30a13e",
+      "name": "NVIDIA GeForce RTX 4090 D",
+      "memory_total_mib": 24564,
+      "driver_version": "580.76.05"
+    }
+  ],
+  "nvidia_smi_topology": {
+    "command": [
+      "nvidia-smi",
+      "topo",
+      "-m"
+    ],
+    "returncode": 0,
+    "output": "\u001b[4mGPU0\tGPU1\tGPU2\tGPU3\tNIC0\tNIC1\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \tSYS\tSYS\tSYS\tSYS\tSYS\t0-47,96-143\t0\t\tN/A\nGPU1\tSYS\t X \tPHB\tNODE\tNODE\tNODE\t48-95,144-191\t1\t\tN/A\nGPU2\tSYS\tPHB\t X \tNODE\tNODE\tNODE\t48-95,144-191\t1\t\tN/A\nGPU3\tSYS\tNODE\tNODE\t X \tNODE\tNODE\t48-95,144-191\t1\t\tN/A\nNIC0\tSYS\tNODE\tNODE\tNODE\t X \tPIX\t\t\t\t\nNIC1\tSYS\tNODE\tNODE\tNODE\tPIX\t X \t\t\t\t\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks\n\nNIC Legend:\n\n  NIC0: mlx5_0\n  NIC1: mlx5_1"
+  },
+  "nvcc": {
+    "command": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "output": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Wed_Aug_20_01:58:59_PM_PDT_2025\nCuda compilation tools, release 13.0, V13.0.88\nBuild cuda_13.0.r13.0/compiler.36424714_0"
+  },
+  "collective": {
+    "backend": "nccl",
+    "world_size": 4,
+    "payload_mib": 64,
+    "iterations": 10,
+    "values_correct": true,
+    "worst_rank_total_seconds": 0.1288457214832306,
+    "worst_rank_mean_milliseconds": 12.884572148323059
+  },
+  "dataset": {
+    "data_dir": "data/tinystories_full",
+    "manifest_exists": true,
+    "files": {
+      "train": {
+        "path": "data/tinystories_full/train.bin",
+        "exists": true,
+        "bytes": 947984472,
+        "expected_sha256": "66c5c49a38ebcab576854f2f58fad55e06b2bb29ecbc34fa421910e4beb37500",
+        "actual_sha256": "66c5c49a38ebcab576854f2f58fad55e06b2bb29ecbc34fa421910e4beb37500",
+        "sha256_matches": true
+      },
+      "validation": {
+        "path": "data/tinystories_full/val.bin",
+        "exists": true,
+        "bytes": 9531836,
+        "expected_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+        "actual_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+        "sha256_matches": true
+      }
+    },
+    "manifest_sha256": "90c9423afbafaff827f2433592c36834e0927b92ee26587260f635cd419543a7",
+    "dataset_id": "roneneldan/TinyStories",
+    "dataset_revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64"
+  },
+  "git": {
+    "commit": "931f5a3f6d1cba2b75d26e0a3ca6b02324a6ef85",
+    "dirty": true
+  }
+}

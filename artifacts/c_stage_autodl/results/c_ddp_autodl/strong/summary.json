@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "benchmark": "C deterministic DDP no-Profiler benchmark summary",
+  "scaling_mode": "strong",
+  "expected_runs_per_world_size": 3,
+  "world_sizes": [
+    1,
+    2,
+    4
+  ],
+  "world_size_results": [
+    {
+      "world_size": 1,
+      "run_files": [
+        "1gpu/run1.json",
+        "1gpu/run2.json",
+        "1gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 16384,
+      "local_tokens_per_update": 16384,
+      "median_slowest_rank_step_ms_by_run": [
+        86.60633850097656,
+        86.59715270996094,
+        86.56793975830078
+      ],
+      "median_of_run_medians_ms": 86.59715270996094,
+      "global_tokens_per_second": 189197.90648169213,
+      "per_gpu_tokens_per_second": 189197.90648169213,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          3851.04296875
+        ],
+        [
+          3851.04296875
+        ],
+        [
+          3851.04296875
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          4882.0
+        ],
+        [
+          4882.0
+        ],
+        [
+          4882.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.0,
+      "scaling_efficiency": 1.0
+    },
+    {
+      "world_size": 2,
+      "run_files": [
+        "2gpu/run1.json",
+        "2gpu/run2.json",
+        "2gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 16384,
+      "local_tokens_per_update": 8192,
+      "median_slowest_rank_step_ms_by_run": [
+        66.88418960571289,
+        66.8144645690918,
+        66.91328048706055
+      ],
+      "median_of_run_medians_ms": 66.88418960571289,
+      "global_tokens_per_second": 244960.73132656398,
+      "per_gpu_tokens_per_second": 122480.36566328199,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          4047.7138671875,
+          4047.7138671875
+        ],
+        [
+          4047.7138671875,
+          4047.7138671875
+        ],
+        [
+          4047.7138671875,
+          4047.7138671875
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0
+        ],
+        [
+          5078.0,
+          5078.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.294732779457408,
+      "scaling_efficiency": 0.647366389728704
+    },
+    {
+      "world_size": 4,
+      "run_files": [
+        "4gpu/run1.json",
+        "4gpu/run2.json",
+        "4gpu/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "global_tokens_per_update": 16384,
+      "local_tokens_per_update": 4096,
+      "median_slowest_rank_step_ms_by_run": [
+        51.20256042480469,
+        51.08428764343262,
+        51.125247955322266
+      ],
+      "median_of_run_medians_ms": 51.125247955322266,
+      "global_tokens_per_second": 320467.88338939263,
+      "per_gpu_tokens_per_second": 80116.97084734816,
+      "peak_allocated_mib_by_run_and_rank": [
+        [
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125
+        ],
+        [
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125
+        ],
+        [
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125,
+          3847.30908203125
+        ]
+      ],
+      "peak_reserved_mib_by_run_and_rank": [
+        [
+          4288.0,
+          4288.0,
+          4288.0,
+          4288.0
+        ],
+        [
+          4288.0,
+          4288.0,
+          4288.0,
+          4288.0
+        ],
+        [
+          4288.0,
+          4288.0,
+          4288.0,
+          4288.0
+        ]
+      ],
+      "speedup_vs_1gpu": 1.6938236228338126,
+      "scaling_efficiency": 0.42345590570845315
+    }
+  ],
+  "all_losses_finite": true,
+  "all_window_hashes_match_plan": true
+}

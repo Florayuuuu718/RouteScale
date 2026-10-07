@@ -212,6 +212,17 @@ AllGather 的出现位置；wrapper 和 NCCL kernel 是同一通信工作的不�
 不能把二者时间直接相加。是否与 backward 重叠仍需打开 Chrome trace 检查。
 Profiler 结果不得替代正式无 Profiler 吞吐。
 
+原始 Chrome trace 仍在服务器时，可统一计算 NCCL kernel 与非 NCCL GPU
+kernel 的时间区间交集：
+
+```bash
+bash scripts/run_c_trace_overlap.sh
+```
+
+结果写入 `results/c_trace_overlap/summary.json`。`direct overlap` 可在后端间
+对照；`within backward scope` 只有入口实际写入同名 `record_function` 时才
+有意义，scope 缺失得到的 0 不能解释成“通信不在 backward”。
+
 ## C6/C7 checkpoint 定量记录
 
 下面的脚本在 50.91M debug 数据上为 ZeRO-2、ZeRO-3 和 FSDP2 分别执行
@@ -294,3 +305,7 @@ sha256sum /root/autodl-tmp/routescale_c_evidence.tar.gz
 ## 什么时候开始正式矩阵
 
 四卡 preflight、2/4 卡 DDP 更新、C5 恢复、ZeRO-0、ZeRO-1/2/3、FSDP2 smoke 全部通过后，再冻结 commit、数据 SHA256、模型、BF16、全局 tokens/update 和 optimizer。正式性能矩阵使用“20 次预热、100 次测量、3 个独立进程”的 `--benchmark` 模式，并把 Profiler、checkpoint 和 validation 排除在稳态计时外。smoke 的 `elapsed_seconds_this_invocation` 仍不能作为正式 benchmark 裁决值。
+
+本轮四卡实验已于 2026-10-07 完成，本手册保留为复现流程。最终数值、两次
+实例拓扑差异、容量夹逼和后端选择见 [`c_stage_results.md`](c_stage_results.md)；
+经过 SHA256 清单校验的小型证据见 `artifacts/c_stage_autodl/`。
