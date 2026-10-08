@@ -292,3 +292,25 @@ and changing routed-token shapes trigger recompilation. Compilation removes
 many copy calls but leaves CUDA compute essentially unchanged. Full commands,
 raw benchmarks, reviewable Profiler summaries and limitations are in
 [`d4_moe_compile/README.md`](d4_moe_compile/README.md).
+
+## E: fixed-capacity dispatch and Triton Grouped GEMM
+
+E-stage replaced the ragged `bincount/nonzero` expert loop with a
+deterministic fixed-capacity buffer, then compared `torch.bmm` and a
+custom Triton Grouped GEMM. The isolated Triton kernels were 1.50x and 1.32x
+faster than the Python expert GEMM loop for the two formal projection shapes.
+
+Across three complete-update runs per variant, eager padded Triton improved
+throughput by 8.33% over eager loop. Under `torch.compile`, padded
+Triton reached 65,945 tokens/s at 248.451 ms/update, 60.63% higher throughput
+than compiled loop and 96.92% of compiled Dense. Compiled padded
+`torch.bmm` reached 65,917 tokens/s, so the custom kernel's full-model
+advantage was only 0.042%.
+
+Profiler evidence shows that fixed-capacity dispatch, rather than the GEMM
+kernel alone, is the decisive change: launch calls fell 28.5%, copy calls
+77.4%, and `nonzero`, `bincount`,
+`index_select` and `index_copy` disappeared. Compiler
+diagnostics emitted no graph-break or recompile record for the padded path.
+See [`e_triton_moe/README.md`](e_triton_moe/README.md) for the
+protocol, all eight formal variants, limitations and raw evidence map.

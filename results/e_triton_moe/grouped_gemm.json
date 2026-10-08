@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "experiment": "E-stage fixed-capacity Grouped GEMM microbenchmark",
+  "created_at_utc": "2026-10-08T10:32:36.895038+00:00",
+  "environment": {
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "pytorch": "2.12.1+cu129",
+    "triton": "3.7.1",
+    "cuda_runtime": "12.9",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "compute_capability": [
+      12,
+      0
+    ],
+    "sm_count": 26,
+    "driver": "610.88"
+  },
+  "protocol": {
+    "warmup_ms": 100,
+    "repetition_ms": 300,
+    "timing": "triton.testing.do_bench",
+    "scope": "forward GEMM only; excludes routing, packing, activation, and backward"
+  },
+  "source_sha256": {
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/benchmark_e_grouped_gemm.py": "099651ffd5e88746a6737f1147c905c2b678ec13c0564c06795e622456c123b9"
+  },
+  "shapes": [
+    {
+      "groups": 4,
+      "M": 1280,
+      "N": 2048,
+      "K": 512,
+      "dtype": "bfloat16",
+      "methods": {
+        "python_loop": {
+          "median_ms": 0.4729920029640198,
+          "p20_ms": 0.47097599506378174,
+          "p80_ms": 0.48054400086402893,
+          "tflops": 22.70105661980249
+        },
+        "torch_bmm": {
+          "median_ms": 0.7085440158843994,
+          "p20_ms": 0.7076735854148865,
+          "p80_ms": 0.7093759775161743,
+          "tflops": 15.154200726115276
+        },
+        "triton_grouped": {
+          "median_ms": 0.31491199135780334,
+          "p20_ms": 0.31436800956726074,
+          "p80_ms": 0.3155840039253235,
+          "tflops": 34.096568357729296,
+          "max_absolute_error": 0.0
+        }
+      },
+      "triton_vs_python_loop_speedup": 1.5019815565759316,
+      "triton_vs_torch_bmm_speedup": 2.2499747082649226
+    },
+    {
+      "groups": 4,
+      "M": 1280,
+      "N": 512,
+      "K": 2048,
+      "dtype": "bfloat16",
+      "methods": {
+        "python_loop": {
+          "median_ms": 0.4229760020971298,
+          "p20_ms": 0.4214400053024292,
+          "p80_ms": 0.4307520091533661,
+          "tflops": 25.385407651411676
+        },
+        "torch_bmm": {
+          "median_ms": 0.32419198751449585,
+          "p20_ms": 0.3235839903354645,
+          "p80_ms": 0.3247680068016052,
+          "tflops": 33.120554034420394
+        },
+        "triton_grouped": {
+          "median_ms": 0.32017600536346436,
+          "p20_ms": 0.31968000531196594,
+          "p80_ms": 0.32067200541496277,
+          "tflops": 33.53598664525427,
+          "max_absolute_error": 0.0
+        }
+      },
+      "triton_vs_python_loop_speedup": 1.3210733940445247,
+      "triton_vs_torch_bmm_speedup": 1.0125430453368063
+    }
+  ]
+}

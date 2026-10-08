@@ -9,6 +9,8 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
+from triton_grouped_gemm import grouped_gemm
+
 
 class ExpertMLP(nn.Module):
     """The same two-layer GELU MLP used by the dense Transformer block."""
@@ -115,6 +117,7 @@ class Top1MoE(nn.Module):
         dropout: float,
         capacity_factor: float = 0.0,
         drop_tokens: bool = False,
+        dispatch_backend: str = "loop",
     ) -> None:
         super().__init__()
         if num_experts < 1:
@@ -125,8 +128,20 @@ class Top1MoE(nn.Module):
             raise ValueError("capacity_factor cannot be negative")
         if drop_tokens and capacity_factor <= 0.0:
             raise ValueError("drop_tokens requires a positive capacity_factor")
+        if dispatch_backend not in {"loop", "padded_torch", "padded_triton"}:
+            raise ValueError(
+                "dispatch_backend must be loop, padded_torch, or padded_triton"
+            )
+        if dispatch_backend != "loop" and (
+            capacity_factor <= 0.0 or not drop_tokens
+        ):
+            raise ValueError(
+                "padded dispatch requires token drop and positive capacity"
+            )
         self.capacity_factor = capacity_factor
         self.drop_tokens = drop_tokens
+        self.dispatch_backend = dispatch_backend
+        self.dropout_probability = dropout
         self.router = Top1Router(n_embd, num_experts, bias=bias)
         self.experts = nn.ModuleList(
             [
@@ -136,41 +151,19 @@ class Top1MoE(nn.Module):
         )
         self.last_routing: Top1Routing | None = None
 
-    def forward(
+    def _forward_loop(
         self,
-        x: torch.Tensor,
-        *,
-        return_routing: bool = False,
-    ) -> torch.Tensor | tuple[torch.Tensor, Top1Routing]:
-        if x.ndim < 2 or x.shape[-1] != self.n_embd:
-            raise ValueError(
-                f"expected input ending in {self.n_embd}, got {tuple(x.shape)}"
-            )
-
-        original_shape = x.shape
-        flat_input = x.reshape(-1, self.n_embd)
-        probabilities, expert_weights, expert_indices = self.router(flat_input)
-        expert_counts = torch.bincount(
-            expert_indices, minlength=self.num_experts
-        )
-        token_count = flat_input.shape[0]
-        capacity = None
-        if self.capacity_factor > 0.0:
-            capacity = math.ceil(
-                self.capacity_factor * token_count / self.num_experts
-            )
-        overflow_counts = (
-            torch.clamp(expert_counts - capacity, min=0)
-            if capacity is not None
-            else torch.zeros_like(expert_counts)
-        )
+        flat_input: torch.Tensor,
+        expert_weights: torch.Tensor,
+        expert_indices: torch.Tensor,
+        capacity: int | None,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         dropped_mask = torch.zeros(
-            token_count, dtype=torch.bool, device=flat_input.device
+            flat_input.shape[0],
+            dtype=torch.bool,
+            device=flat_input.device,
         )
         processed_counts = []
-
-        # Functional index_copy keeps gradients from every expert branch while
-        # writing each token back to its original flattened position.
         flat_output = None
         for expert_index, expert in enumerate(self.experts):
             token_indices = torch.nonzero(
@@ -191,8 +184,7 @@ class Top1MoE(nn.Module):
             weighted_output = expert_output * selected_weights.unsqueeze(-1)
             if flat_output is None:
                 # Under autocast the normalized block input can be FP32 while
-                # expert Linear outputs are BF16. Match the dense MLP's output
-                # dtype instead of assuming it is the input dtype.
+                # expert Linear outputs are BF16. Match the result dtype.
                 flat_output = torch.zeros(
                     flat_input.shape,
                     dtype=expert_output.dtype,
@@ -204,16 +196,199 @@ class Top1MoE(nn.Module):
 
         if flat_output is None:
             flat_output = torch.zeros_like(flat_input)
+        return (
+            flat_output,
+            torch.tensor(
+                processed_counts,
+                dtype=expert_indices.dtype,
+                device=expert_indices.device,
+            ),
+            dropped_mask,
+        )
+
+    def _stacked_expert_parameters(
+        self,
+    ) -> tuple[
+        torch.Tensor,
+        torch.Tensor | None,
+        torch.Tensor,
+        torch.Tensor | None,
+    ]:
+        if not all(isinstance(expert, ExpertMLP) for expert in self.experts):
+            raise TypeError("padded dispatch requires ExpertMLP experts")
+        fc_weight = torch.stack(
+            [expert.c_fc.weight for expert in self.experts]
+        )
+        proj_weight = torch.stack(
+            [expert.c_proj.weight for expert in self.experts]
+        )
+        fc_bias = None
+        proj_bias = None
+        if self.experts[0].c_fc.bias is not None:
+            fc_bias = torch.stack(
+                [expert.c_fc.bias for expert in self.experts]
+            )
+            proj_bias = torch.stack(
+                [expert.c_proj.bias for expert in self.experts]
+            )
+        return fc_weight, fc_bias, proj_weight, proj_bias
+
+    def _expert_grouped_mlp(self, packed_input: torch.Tensor) -> torch.Tensor:
+        fc_weight, fc_bias, proj_weight, proj_bias = (
+            self._stacked_expert_parameters()
+        )
+        if self.dispatch_backend == "padded_triton":
+            if not packed_input.is_cuda:
+                raise ValueError("padded_triton dispatch requires CUDA")
+            if torch.is_autocast_enabled("cuda"):
+                compute_dtype = torch.get_autocast_dtype("cuda")
+            else:
+                compute_dtype = packed_input.dtype
+            packed_input = packed_input.to(compute_dtype)
+            fc_weight = fc_weight.to(compute_dtype)
+            proj_weight = proj_weight.to(compute_dtype)
+            hidden = grouped_gemm(
+                packed_input,
+                fc_weight.transpose(1, 2),
+            )
+        else:
+            hidden = torch.bmm(
+                packed_input,
+                fc_weight.transpose(1, 2),
+            )
+        if fc_bias is not None:
+            hidden = hidden + fc_bias[:, None, :].to(hidden.dtype)
+        hidden = F.gelu(hidden)
+        if self.dispatch_backend == "padded_triton":
+            expert_output = grouped_gemm(
+                hidden,
+                proj_weight.transpose(1, 2),
+            )
+        else:
+            expert_output = torch.bmm(
+                hidden,
+                proj_weight.transpose(1, 2),
+            )
+        if proj_bias is not None:
+            expert_output = (
+                expert_output + proj_bias[:, None, :].to(expert_output.dtype)
+            )
+        return F.dropout(
+            expert_output,
+            p=self.dropout_probability,
+            training=self.training,
+        )
+
+    def _forward_padded(
+        self,
+        flat_input: torch.Tensor,
+        expert_weights: torch.Tensor,
+        expert_indices: torch.Tensor,
+        capacity: int,
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        assignments = F.one_hot(
+            expert_indices, num_classes=self.num_experts
+        )
+        expert_counts = assignments.sum(dim=0)
+        positions = assignments.cumsum(dim=0) - 1
+        token_positions = positions.gather(
+            1, expert_indices[:, None]
+        ).squeeze(1)
+        accepted = token_positions < capacity
+        sentinel = self.num_experts * capacity
+        destinations = expert_indices * capacity + token_positions
+        destinations = torch.where(
+            accepted,
+            destinations,
+            torch.full_like(destinations, sentinel),
+        )
+
+        packed_with_sentinel = torch.zeros(
+            (sentinel + 1, self.n_embd),
+            dtype=flat_input.dtype,
+            device=flat_input.device,
+        ).index_add(
+            0,
+            destinations,
+            flat_input * accepted[:, None],
+        )
+        packed_input = packed_with_sentinel[:sentinel].reshape(
+            self.num_experts, capacity, self.n_embd
+        )
+        packed_output = self._expert_grouped_mlp(packed_input)
+        output_with_sentinel = torch.cat(
+            (
+                packed_output.reshape(sentinel, self.n_embd),
+                torch.zeros(
+                    (1, self.n_embd),
+                    dtype=packed_output.dtype,
+                    device=packed_output.device,
+                ),
+            ),
+            dim=0,
+        )
+        flat_output = output_with_sentinel.index_select(0, destinations)
+        flat_output = flat_output * expert_weights.to(
+            flat_output.dtype
+        ).unsqueeze(-1)
+        processed_counts = torch.clamp(expert_counts, max=capacity)
+        return flat_output, expert_counts, processed_counts, ~accepted
+
+    def forward(
+        self,
+        x: torch.Tensor,
+        *,
+        return_routing: bool = False,
+    ) -> torch.Tensor | tuple[torch.Tensor, Top1Routing]:
+        if x.ndim < 2 or x.shape[-1] != self.n_embd:
+            raise ValueError(
+                f"expected input ending in {self.n_embd}, got {tuple(x.shape)}"
+            )
+
+        original_shape = x.shape
+        flat_input = x.reshape(-1, self.n_embd)
+        probabilities, expert_weights, expert_indices = self.router(flat_input)
+        token_count = flat_input.shape[0]
+        capacity = None
+        if self.capacity_factor > 0.0:
+            capacity = math.ceil(
+                self.capacity_factor * token_count / self.num_experts
+            )
+        if self.dispatch_backend == "loop":
+            expert_counts = torch.bincount(
+                expert_indices, minlength=self.num_experts
+            )
+            flat_output, processed_counts, dropped_mask = self._forward_loop(
+                flat_input,
+                expert_weights,
+                expert_indices,
+                capacity,
+            )
+        else:
+            if capacity is None:
+                raise RuntimeError("padded dispatch capacity is missing")
+            (
+                flat_output,
+                expert_counts,
+                processed_counts,
+                dropped_mask,
+            ) = self._forward_padded(
+                flat_input,
+                expert_weights,
+                expert_indices,
+                capacity,
+            )
+        overflow_counts = (
+            torch.clamp(expert_counts - capacity, min=0)
+            if capacity is not None
+            else torch.zeros_like(expert_counts)
+        )
         output = flat_output.reshape(original_shape)
         routing = Top1Routing(
             expert_indices=expert_indices.reshape(original_shape[:-1]),
             expert_weights=expert_weights.reshape(original_shape[:-1]),
             expert_counts=expert_counts,
-            processed_counts=torch.tensor(
-                processed_counts,
-                dtype=expert_counts.dtype,
-                device=expert_counts.device,
-            ),
+            processed_counts=processed_counts,
             overflow_counts=overflow_counts,
             dropped_mask=dropped_mask.reshape(original_shape[:-1]),
             router_probability_sums=probabilities.sum(dim=0),

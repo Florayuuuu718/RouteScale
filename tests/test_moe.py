@@ -145,6 +145,100 @@ class Top1MoETests(unittest.TestCase):
         self.assertEqual(routing.dropped_mask.tolist(), [[False, True, True, True]])
         self.assertEqual(routing.dropped_token_count, 3)
 
+    def test_padded_dispatch_matches_loop_output_and_gradients(self) -> None:
+        common = dict(
+            n_embd=8,
+            num_experts=2,
+            bias=True,
+            dropout=0.0,
+            capacity_factor=1.0,
+            drop_tokens=True,
+        )
+        torch.manual_seed(29)
+        loop = Top1MoE(**common, dispatch_backend="loop")
+        padded = Top1MoE(**common, dispatch_backend="padded_torch")
+        padded.load_state_dict(loop.state_dict())
+        with torch.no_grad():
+            for module in (loop, padded):
+                module.router.proj.weight.copy_(
+                    torch.tensor(
+                        [
+                            [2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                            [-2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                        ]
+                    )
+                )
+                module.router.proj.bias.zero_()
+        loop_input = torch.randn(2, 4, 8, requires_grad=True)
+        loop_input.data[:, :2, 0].abs_().add_(0.5)
+        loop_input.data[:, 2:, 0].abs_().add_(0.5).neg_()
+        padded_input = loop_input.detach().clone().requires_grad_(True)
+
+        loop_output, loop_routing = loop(loop_input, return_routing=True)
+        padded_output, padded_routing = padded(
+            padded_input, return_routing=True
+        )
+
+        torch.testing.assert_close(padded_output, loop_output)
+        torch.testing.assert_close(
+            padded_routing.expert_counts, loop_routing.expert_counts
+        )
+        torch.testing.assert_close(
+            padded_routing.processed_counts, loop_routing.processed_counts
+        )
+        torch.testing.assert_close(
+            padded_routing.dropped_mask, loop_routing.dropped_mask
+        )
+        gradient = torch.randn_like(loop_output)
+        loop_output.backward(gradient)
+        padded_output.backward(gradient)
+        torch.testing.assert_close(padded_input.grad, loop_input.grad)
+        for loop_parameter, padded_parameter in zip(
+            loop.parameters(), padded.parameters(), strict=True
+        ):
+            torch.testing.assert_close(
+                padded_parameter.grad, loop_parameter.grad
+            )
+
+    def test_padded_dispatch_matches_drop_order(self) -> None:
+        common = dict(
+            n_embd=4,
+            num_experts=2,
+            bias=False,
+            dropout=0.0,
+            capacity_factor=0.5,
+            drop_tokens=True,
+        )
+        loop = Top1MoE(**common, dispatch_backend="loop")
+        padded = Top1MoE(**common, dispatch_backend="padded_torch")
+        padded.load_state_dict(loop.state_dict())
+        with torch.no_grad():
+            loop.router.proj.weight.zero_()
+            padded.router.proj.weight.zero_()
+        inputs = torch.randn(2, 4, 4)
+
+        loop_output, loop_routing = loop(inputs, return_routing=True)
+        padded_output, padded_routing = padded(inputs, return_routing=True)
+
+        torch.testing.assert_close(padded_output, loop_output)
+        self.assertEqual(loop_routing.processed_counts.tolist(), [2, 0])
+        self.assertEqual(
+            padded_routing.dropped_mask.tolist(),
+            loop_routing.dropped_mask.tolist(),
+        )
+
+    def test_padded_dispatch_requires_enforced_capacity(self) -> None:
+        with self.assertRaisesRegex(ValueError, "padded dispatch"):
+            Top1MoE(
+                8,
+                2,
+                bias=False,
+                dropout=0.0,
+                capacity_factor=1.25,
+                drop_tokens=False,
+                dispatch_backend="padded_torch",
+            )
+
     def test_balance_loss_is_lower_for_balanced_routing(self) -> None:
         collapsed_probabilities = torch.tensor(
             [[0.9, 0.1], [0.8, 0.2], [0.7, 0.3], [0.6, 0.4]],

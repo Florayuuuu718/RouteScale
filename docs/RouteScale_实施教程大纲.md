@@ -373,6 +373,13 @@ FSDP2 与 ZeRO-3 在同条件下都能正确训练和恢复；能用实测证据
 
 forward/backward 正确；能够分别报告算子收益和完整训练收益；明确适用的 shape、dtype、硬件和限制。
 
+截至 2026-10-08，E 阶段已完成。固定容量 dispatch 消除了 D4 的
+`bincount/nonzero` 动态边界，compiled Triton MoE 达到 65,945
+token/s，是 compiled Dense 的 96.92%。但 compiled
+`torch.bmm` 也达到 65,917 token/s，说明端到端提升主要来自稳定数据
+布局，而不是手写 GEMM 本身。完整协议与证据见
+`docs/e_stage_protocol.md` 和 `results/e_triton_moe/README.md`。
+
 ---
 
 ## F. Expert Parallel，可选

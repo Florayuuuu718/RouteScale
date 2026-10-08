@@ -121,6 +121,7 @@ class GPTConfig:
     moe_capacity_factor: float = 0.0 # 0 observes unbounded routing
     moe_drop_tokens: bool = False
     moe_balance_loss_weight: float = 0.0
+    moe_dispatch_backend: str = "loop"
 
 class GPT(nn.Module):
 
@@ -193,6 +194,7 @@ class GPT(nn.Module):
             dropout=config.dropout,
             capacity_factor=config.moe_capacity_factor,
             drop_tokens=config.moe_drop_tokens,
+            dispatch_backend=config.moe_dispatch_backend,
         )
         moe.apply(self._init_weights)
         for expert in moe.experts:

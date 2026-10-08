@@ -72,6 +72,7 @@ moe_layer_index = 4
 moe_capacity_factor = 0.0
 moe_drop_tokens = False
 moe_balance_loss_weight = 0.0
+moe_dispatch_backend = 'loop'
 moe_metrics_path = ''
 moe_data_seed = 20260920
 metrics_experiment_name = 'D2 single-GPU Top-1 MoE routing mechanisms'
@@ -256,6 +257,7 @@ model_args = dict(
     moe_capacity_factor=moe_capacity_factor,
     moe_drop_tokens=moe_drop_tokens,
     moe_balance_loss_weight=moe_balance_loss_weight,
+    moe_dispatch_backend=moe_dispatch_backend,
 ) # start with model_args from command line
 if init_from == 'scratch':
     # init a new model from scratch
@@ -291,6 +293,9 @@ elif init_from == 'resume':
     )
     model_args['moe_balance_loss_weight'] = checkpoint_model_args.get(
         'moe_balance_loss_weight', 0.0
+    )
+    model_args['moe_dispatch_backend'] = checkpoint_model_args.get(
+        'moe_dispatch_backend', 'loop'
     )
     # create the model
     gptconf = GPTConfig(**model_args)
@@ -582,6 +587,7 @@ def run_b1_benchmark():
     tracked_files = ['train.py', 'model.py']
     if moe_num_experts > 0:
         tracked_files.append('moe.py')
+        tracked_files.append('triton_grouped_gemm.py')
     config_path = Path(benchmark_config_path)
     if config_path.exists():
         tracked_files.append(str(config_path))
@@ -1397,6 +1403,7 @@ if master_process and moe_metrics_path:
                 'train.py',
                 'model.py',
                 'moe.py',
+                'triton_grouped_gemm.py',
                 metrics_config_path,
             ]
             if Path(path).exists()

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "experiment": "E-stage compiled loop versus padded Triton profiler",
+  "warning": "Profiler totals include instrumentation overhead; formal performance comes from the no-Profiler benchmark.",
+  "invariants": {
+    "same_workload_except_dispatch_backend": true,
+    "active_steps": 10,
+    "all_losses_finite": true
+  },
+  "loop_compiled": {
+    "run_id": "loop_compiled",
+    "dispatch_backend": "loop",
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 6841.0,
+    "self_cuda_time_total_ms": 3453.0,
+    "peak_allocated_mib": 4822.4013671875,
+    "peak_reserved_mib": 5720.0,
+    "combined_launch_api_count": 21977,
+    "grouped_gemm_event_count": 0,
+    "grouped_gemm_event_names": [],
+    "operations": {
+      "aten::mm": {
+        "count": 4800,
+        "self_cpu_time_ms": 323.34896799998535,
+        "self_device_time_ms": 2196.8225079999957,
+        "device_time_total_ms": 2196.8225079999957
+      },
+      "aten::bmm": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      },
+      "aten::copy_": {
+        "count": 1240,
+        "self_cpu_time_ms": 25.23583099997374,
+        "self_device_time_ms": 354.1356250000076,
+        "device_time_total_ms": 354.1356250000076
+      },
+      "aten::nonzero": {
+        "count": 160,
+        "self_cpu_time_ms": 16.36738300000415,
+        "self_device_time_ms": 1.0018389999989594,
+        "device_time_total_ms": 1.0018389999989594
+      },
+      "aten::bincount": {
+        "count": 40,
+        "self_cpu_time_ms": 5.000807000002351,
+        "self_device_time_ms": 0.30593799999990007,
+        "device_time_total_ms": 0.5970239999987971
+      },
+      "aten::index_select": {
+        "count": 560,
+        "self_cpu_time_ms": 28.535147999982016,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 3.4180820000017555
+      },
+      "aten::index_copy": {
+        "count": 160,
+        "self_cpu_time_ms": 8.663012000009832,
+        "self_device_time_ms": 0.8900169999956852,
+        "device_time_total_ms": 2.456410999996391
+      },
+      "aten::index_add": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      }
+    },
+    "workload": {
+      "dataset": "tinystories_full",
+      "batch_size": 8,
+      "block_size": 512,
+      "gradient_accumulation_steps": 4,
+      "n_layer": 8,
+      "n_head": 8,
+      "n_embd": 512,
+      "dtype": "bfloat16",
+      "moe_num_experts": 4,
+      "moe_layer_index": 4,
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.01,
+      "compile": true,
+      "profiler_data_seed": 20260920
+    }
+  },
+  "padded_triton_compiled": {
+    "run_id": "padded_triton_compiled",
+    "dispatch_backend": "padded_triton",
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 4301.0,
+    "self_cuda_time_total_ms": 2544.0,
+    "peak_allocated_mib": 3273.27490234375,
+    "peak_reserved_mib": 3472.0,
+    "combined_launch_api_count": 15710,
+    "grouped_gemm_event_count": 164,
+    "grouped_gemm_event_names": [
+      "_fixed_grouped_gemm_kernel",
+      "_fixed_grouped_gemm_kernel_0",
+      "_fixed_grouped_gemm_kernel_1"
+    ],
+    "operations": {
+      "aten::mm": {
+        "count": 3840,
+        "self_cpu_time_ms": 152.00090500000277,
+        "self_device_time_ms": 1432.1378689999979,
+        "device_time_total_ms": 1433.802123999998
+      },
+      "aten::bmm": {
+        "count": 160,
+        "self_cpu_time_ms": 7.7997169999992035,
+        "self_device_time_ms": 58.21380599999969,
+        "device_time_total_ms": 58.21380599999969
+      },
+      "aten::copy_": {
+        "count": 280,
+        "self_cpu_time_ms": 5.4805569999996875,
+        "self_device_time_ms": 4.7235369999989345,
+        "device_time_total_ms": 4.7235369999989345
+      },
+      "aten::nonzero": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      },
+      "aten::bincount": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      },
+      "aten::index_select": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      },
+      "aten::index_copy": {
+        "count": 0,
+        "self_cpu_time_ms": 0.0,
+        "self_device_time_ms": 0.0,
+        "device_time_total_ms": 0.0
+      },
+      "aten::index_add": {
+        "count": 40,
+        "self_cpu_time_ms": 2.2709440000000103,
+        "self_device_time_ms": 1.9907579999985174,
+        "device_time_total_ms": 3.266710999998206
+      }
+    },
+    "workload": {
+      "dataset": "tinystories_full",
+      "batch_size": 8,
+      "block_size": 512,
+      "gradient_accumulation_steps": 4,
+      "n_layer": 8,
+      "n_head": 8,
+      "n_embd": 512,
+      "dtype": "bfloat16",
+      "moe_num_experts": 4,
+      "moe_layer_index": 4,
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.01,
+      "compile": true,
+      "profiler_data_seed": 20260920
+    }
+  },
+  "comparison": {
+    "self_cpu_time_change_percent": -37.129074696681776,
+    "self_cuda_time_change_percent": -26.3249348392702,
+    "launch_api_count_change_percent": -28.516176002184103,
+    "operation_count_change_percent": {
+      "aten::mm": -19.999999999999996,
+      "aten::bmm": null,
+      "aten::copy_": -77.41935483870968,
+      "aten::nonzero": -100.0,
+      "aten::bincount": -100.0,
+      "aten::index_select": -100.0,
+      "aten::index_copy": -100.0,
+      "aten::index_add": null
+    }
+  }
+}
