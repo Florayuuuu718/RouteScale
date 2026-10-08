@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "experiment": "D4 Dense/MoE eager versus torch.compile",
+  "changed_variable": {
+    "compile": {
+      "eager": false,
+      "compiled": true
+    }
+  },
+  "variants": {
+    "dense": {
+      "invariants": {
+        "same_configuration_except_compile_and_artifact_paths": true,
+        "same_warmup_windows": true,
+        "same_measurement_windows": true,
+        "same_training_sources": true,
+        "max_absolute_measured_lm_loss_difference": 0.07216358184814453
+      },
+      "eager": {
+        "run_median_step_ms": [
+          347.28106689453125,
+          347.1652526855469,
+          347.1896667480469
+        ],
+        "median_of_run_medians_ms": 347.1896667480469,
+        "tokens_per_second": 47190.3445556453,
+        "run_median_range_ms": 0.115814208984375,
+        "median_peak_allocated_mib": 3907.013671875,
+        "median_peak_reserved_mib": 4912.0
+      },
+      "compiled": {
+        "run_median_step_ms": [
+          240.43211364746094,
+          240.73683166503906,
+          240.01284790039062
+        ],
+        "median_of_run_medians_ms": 240.43211364746094,
+        "tokens_per_second": 68143.97524293869,
+        "run_median_range_ms": 0.7239837646484375,
+        "median_peak_allocated_mib": 3128.66064453125,
+        "median_peak_reserved_mib": 3384.0
+      },
+      "comparison": {
+        "speedup": 1.4440236850270411,
+        "step_time_change_percent": -30.74905831746979,
+        "throughput_change_percent": 44.40236850270409,
+        "peak_allocated_change_mib": -778.35302734375,
+        "peak_reserved_change_mib": -1528.0
+      }
+    },
+    "moe": {
+      "invariants": {
+        "same_configuration_except_compile_and_artifact_paths": true,
+        "same_warmup_windows": true,
+        "same_measurement_windows": true,
+        "same_training_sources": true,
+        "max_absolute_measured_lm_loss_difference": 0.09257316589355469
+      },
+      "eager": {
+        "run_median_step_ms": [
+          391.0697326660156,
+          384.4111022949219,
+          391.0471496582031
+        ],
+        "median_of_run_medians_ms": 391.0471496582031,
+        "tokens_per_second": 41897.76095880132,
+        "run_median_range_ms": 6.65863037109375,
+        "median_peak_allocated_mib": 4032.8291015625,
+        "median_peak_reserved_mib": 4962.0
+      },
+      "compiled": {
+        "run_median_step_ms": [
+          395.57994079589844,
+          393.249267578125,
+          397.919677734375
+        ],
+        "median_of_run_medians_ms": 395.57994079589844,
+        "tokens_per_second": 41417.67139920124,
+        "run_median_range_ms": 4.67041015625,
+        "median_peak_allocated_mib": 4012.56982421875,
+        "median_peak_reserved_mib": 4930.0
+      },
+      "comparison": {
+        "speedup": 0.9885414029625076,
+        "step_time_change_percent": 1.1591418430379141,
+        "throughput_change_percent": -1.1458597037492413,
+        "peak_allocated_change_mib": -20.25927734375,
+        "peak_reserved_change_mib": -32.0
+      }
+    }
+  },
+  "compiled_moe_vs_dense": {
+    "throughput_ratio": 0.6077965256876188,
+    "step_time_change_percent": 64.52874567992465
+  }
+}

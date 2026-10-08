@@ -1,0 +1,20 @@
+D4 torch.compile graph-break diagnostic
+Date: 2026-10-08
+
+Command shape:
+TORCH_LOGS=graph_breaks,recompiles uv run python train.py \
+  config/benchmark_d4_moe_compile.py \
+  --benchmark_warmup_steps=1 --benchmark_measure_steps=1 --max_iters=2
+
+Observed boundaries:
+- moe.py:153: torch.bincount was reported as a dynamic-shape graph break.
+- moe.py:176: aten.nonzero has a data-dependent output shape.
+- The nonzero break occurs inside the expert loop, so Dynamo reported loop
+  fallback to eager execution.
+- ExpertMLP forward recompiled when the routed token dimension changed; the
+  diagnostic included an expected batch of 1280 versus an observed batch of
+  924, followed by a further dynamic-size specialization.
+
+This file is a concise derived record, not the complete verbose TORCH_LOGS
+stream. The formal performance decision comes from the no-Profiler three-run
+benchmark; profiler and compiler logs only explain that result.

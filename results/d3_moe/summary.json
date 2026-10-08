@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "experiment": "D3 formal Dense versus Top-1 MoE comparison",
+  "benchmark_invariants": {
+    "same_warmup_windows": true,
+    "same_measurement_windows": true,
+    "warmup_offsets_sha256": "dd63f9cea96065dbbd1382cb13f4244452ab93f63f3262e37340d1ef49acb91b",
+    "measurement_offsets_sha256": "b920fdb1d2364511a3673bebce3395fa739d8b25c6340cc4d544a0ea7ea91157",
+    "same_workload_precision_hardware": true,
+    "same_common_source": true,
+    "independent_runs_per_variant": 3
+  },
+  "benchmark": {
+    "dense": {
+      "run_median_step_ms": [
+        347.28106689453125,
+        347.1652526855469,
+        347.1896667480469
+      ],
+      "run_tokens_per_second": [
+        47177.92463179629,
+        47193.66317123965,
+        47190.3445556453
+      ],
+      "median_of_run_medians_ms": 347.1896667480469,
+      "tokens_per_second": 47190.3445556453,
+      "run_median_range_ms": 0.115814208984375,
+      "median_peak_allocated_mib": 3907.013671875,
+      "median_peak_reserved_mib": 4912.0,
+      "model_parameter_count": 51168256,
+      "active_parameter_count": 51168256,
+      "non_position_embedding_parameter_count": 50906112,
+      "active_non_position_embedding_parameter_count": 50906112,
+      "all_losses_finite": true
+    },
+    "moe": {
+      "run_median_step_ms": [
+        391.0697326660156,
+        384.4111022949219,
+        391.0471496582031
+      ],
+      "run_tokens_per_second": [
+        41895.34149908857,
+        42621.03748353793,
+        41897.76095880132
+      ],
+      "median_of_run_medians_ms": 391.0471496582031,
+      "tokens_per_second": 41897.76095880132,
+      "run_median_range_ms": 6.65863037109375,
+      "median_peak_allocated_mib": 4032.8291015625,
+      "median_peak_reserved_mib": 4962.0,
+      "model_parameter_count": 57461760,
+      "active_parameter_count": 51170304,
+      "non_position_embedding_parameter_count": 57199616,
+      "active_non_position_embedding_parameter_count": 50908160,
+      "all_losses_finite": true
+    },
+    "comparison": {
+      "moe_to_dense_throughput_ratio": 0.8878460488754614,
+      "moe_throughput_change_percent": -11.215395112453862,
+      "moe_step_time_change_percent": 12.632139464560543,
+      "peak_allocated_change_mib": 125.8154296875,
+      "peak_reserved_change_mib": 50.0,
+      "total_parameter_change": 6293504,
+      "active_parameter_change": 2048
+    }
+  },
+  "stability": {
+    "invariants": {
+      "same_data_windows": true,
+      "dataset": "tinystories_full",
+      "data_seed": 20260920,
+      "window_count": 9600,
+      "window_offsets_sha256": "89ef35fae4ae3a7a741b7bdc4c76e5420edcdfbe63be9ba8cb64e5e254a5445e",
+      "all_training_lm_losses_finite": true
+    },
+    "validation_lm_loss": [
+      {
+        "update": 0,
+        "dense_val_lm_loss": 10.911463737487793,
+        "moe_val_lm_loss": 10.929481506347656,
+        "moe_minus_dense": 0.01801776885986328
+      },
+      {
+        "update": 100,
+        "dense_val_lm_loss": 4.155600547790527,
+        "moe_val_lm_loss": 4.146300315856934,
+        "moe_minus_dense": -0.00930023193359375
+      },
+      {
+        "update": 200,
+        "dense_val_lm_loss": 3.76416277885437,
+        "moe_val_lm_loss": 3.748511552810669,
+        "moe_minus_dense": -0.015651226043701172
+      },
+      {
+        "update": 300,
+        "dense_val_lm_loss": 3.6435558795928955,
+        "moe_val_lm_loss": 3.6250030994415283,
+        "moe_minus_dense": -0.018552780151367188
+      }
+    ],
+    "dense_parameter_count": 51168256,
+    "moe_parameter_count": 57461760,
+    "moe_routing_all_updates": {
+      "update_count": 300,
+      "expert_counts": [
+        1162616,
+        1214102,
+        1269281,
+        1269201
+      ],
+      "max_to_mean_load": 1.0329435221354166,
+      "load_coefficient_of_variation": 0.03609123982264662,
+      "normalized_load_entropy": 0.9995274240072765,
+      "drop_rate": 0.0187982177734375,
+      "max_update_drop_rate": 0.39593505859375,
+      "mean_update_drop_rate": 0.0187982177734375,
+      "last_update_expert_counts": [
+        3877,
+        3770,
+        4388,
+        4349
+      ],
+      "last_update_drop_rate": 0.0
+    },
+    "moe_routing_last_100_updates": {
+      "update_count": 100,
+      "expert_counts": [
+        400577,
+        379928,
+        431698,
+        426197
+      ],
+      "max_to_mean_load": 1.0539501953125,
+      "load_coefficient_of_variation": 0.050708779576635915,
+      "normalized_load_entropy": 0.9990669433373744,
+      "drop_rate": 0.0,
+      "max_update_drop_rate": 0.0,
+      "mean_update_drop_rate": 0.0,
+      "last_update_expert_counts": [
+        3877,
+        3770,
+        4388,
+        4349
+      ],
+      "last_update_drop_rate": 0.0
+    }
+  }
+}

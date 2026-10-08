@@ -15,6 +15,8 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
+from moe import Top1MoE
+
 class LayerNorm(nn.Module):
     """ LayerNorm but with an optional bias. PyTorch doesn't support simply bias=False """
 
@@ -114,6 +116,11 @@ class GPTConfig:
     n_embd: int = 768
     dropout: float = 0.0
     bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
+    moe_num_experts: int = 0 # 0 keeps every Transformer block dense
+    moe_layer_index: int = 4 # zero-based block index replaced when MoE is enabled
+    moe_capacity_factor: float = 0.0 # 0 observes unbounded routing
+    moe_drop_tokens: bool = False
+    moe_balance_loss_weight: float = 0.0
 
 class GPT(nn.Module):
 
@@ -121,7 +128,25 @@ class GPT(nn.Module):
         super().__init__()
         assert config.vocab_size is not None
         assert config.block_size is not None
+        if config.moe_num_experts < 0:
+            raise ValueError("moe_num_experts cannot be negative")
+        if config.moe_capacity_factor < 0.0:
+            raise ValueError("moe_capacity_factor cannot be negative")
+        if config.moe_drop_tokens and config.moe_capacity_factor <= 0.0:
+            raise ValueError(
+                "moe_drop_tokens requires a positive moe_capacity_factor"
+            )
+        if config.moe_balance_loss_weight < 0.0:
+            raise ValueError("moe_balance_loss_weight cannot be negative")
+        if config.moe_num_experts > 0 and not (
+            0 <= config.moe_layer_index < config.n_layer
+        ):
+            raise ValueError(
+                "moe_layer_index must identify an existing Transformer block"
+            )
         self.config = config
+        self._last_lm_loss = None
+        self._last_total_loss = None
 
         self.transformer = nn.ModuleDict(dict(
             wte = nn.Embedding(config.vocab_size, config.n_embd),
@@ -144,8 +169,40 @@ class GPT(nn.Module):
             if pn.endswith('c_proj.weight'):
                 torch.nn.init.normal_(p, mean=0.0, std=0.02/math.sqrt(2 * config.n_layer))
 
+        if config.moe_num_experts > 0:
+            self._replace_mlp_with_moe()
+
         # report number of parameters
         print("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
+
+    def _replace_mlp_with_moe(self):
+        """Replace one initialized dense MLP without perturbing shared weights.
+
+        The complete dense model is initialized first, so a dense model and an
+        MoE model created with the same seed have identical shared parameters.
+        Expert zero receives the replaced dense MLP weights; additional experts
+        and the router use deterministic continuation of the same RNG stream.
+        """
+        config = self.config
+        block = self.transformer.h[config.moe_layer_index]
+        dense_mlp = block.mlp
+        moe = Top1MoE(
+            config.n_embd,
+            config.moe_num_experts,
+            bias=config.bias,
+            dropout=config.dropout,
+            capacity_factor=config.moe_capacity_factor,
+            drop_tokens=config.moe_drop_tokens,
+        )
+        moe.apply(self._init_weights)
+        for expert in moe.experts:
+            torch.nn.init.normal_(
+                expert.c_proj.weight,
+                mean=0.0,
+                std=0.02/math.sqrt(2 * config.n_layer),
+            )
+        moe.experts[0].load_state_dict(dense_mlp.state_dict())
+        block.mlp = moe
 
     def get_num_params(self, non_embedding=True):
         """
@@ -158,6 +215,15 @@ class GPT(nn.Module):
         if non_embedding:
             n_params -= self.transformer.wpe.weight.numel()
         return n_params
+
+    def get_num_active_params(self, non_embedding=True):
+        """Count parameters used by one token's Top-1 forward path."""
+        n_params = self.get_num_params(non_embedding=non_embedding)
+        if self.config.moe_num_experts == 0:
+            return n_params
+        moe = self.transformer.h[self.config.moe_layer_index].mlp
+        expert_params = sum(p.numel() for p in moe.experts[0].parameters())
+        return n_params - (self.config.moe_num_experts - 1) * expert_params
 
     def _init_weights(self, module):
         if isinstance(module, nn.Linear):
@@ -184,13 +250,67 @@ class GPT(nn.Module):
         if targets is not None:
             # if we are given some desired targets also calculate the loss
             logits = self.lm_head(x)
-            loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=-1)
+            lm_loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=-1)
+            loss = lm_loss
+            if self.config.moe_num_experts > 0:
+                routing = self.transformer.h[
+                    self.config.moe_layer_index
+                ].mlp.last_routing
+                if routing is None:
+                    raise RuntimeError("MoE routing evidence is missing")
+                loss = loss + (
+                    self.config.moe_balance_loss_weight
+                    * routing.balance_loss
+                )
+            self._last_lm_loss = lm_loss.detach()
+            self._last_total_loss = loss.detach()
         else:
             # inference-time mini-optimization: only forward the lm_head on the very last position
             logits = self.lm_head(x[:, [-1], :]) # note: using list [-1] to preserve the time dim
             loss = None
+            self._last_lm_loss = None
+            self._last_total_loss = None
 
         return logits, loss
+
+    def get_last_moe_metrics(self):
+        """Return detached raw metrics for the most recent MoE forward."""
+        if self.config.moe_num_experts == 0:
+            return None
+        moe = self.transformer.h[self.config.moe_layer_index].mlp
+        routing = moe.last_routing
+        if routing is None:
+            return None
+        return {
+            'expert_counts': routing.expert_counts.detach(),
+            'processed_counts': routing.processed_counts.detach(),
+            'overflow_counts': routing.overflow_counts.detach(),
+            'router_probability_sums': (
+                routing.router_probability_sums.detach()
+            ),
+            'token_count': routing.token_count,
+            'dropped_token_count': routing.dropped_token_count,
+            'capacity': routing.capacity,
+            'balance_loss': routing.balance_loss.detach(),
+            'lm_loss': self._last_lm_loss,
+            'total_loss': self._last_total_loss,
+        }
+
+    def get_last_loss_components(self):
+        """Return detached loss components without synchronizing CUDA."""
+        if self._last_lm_loss is None or self._last_total_loss is None:
+            return None
+        balance_loss = torch.zeros_like(self._last_lm_loss)
+        if self.config.moe_num_experts > 0:
+            moe = self.transformer.h[self.config.moe_layer_index].mlp
+            if moe.last_routing is None:
+                raise RuntimeError("MoE routing evidence is missing")
+            balance_loss = moe.last_routing.balance_loss.detach()
+        return {
+            'lm_loss': self._last_lm_loss,
+            'balance_loss': balance_loss,
+            'total_loss': self._last_total_loss,
+        }
 
     def crop_block_size(self, block_size):
         # model surgery to decrease the block size if necessary

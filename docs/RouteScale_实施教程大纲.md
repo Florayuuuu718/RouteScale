@@ -332,9 +332,16 @@ FSDP2 与 ZeRO-3 在同条件下都能正确训练和恢复；能用实测证据
 3. 至少重复 3 次，比较 tokens/s、step 时间、显存和 loss。
 4. 运行较长稳定性实验，观察 expert 负载和 validation loss。
 
+### D4. 编译兼容性与动态路由边界
+
+1. 保持 D3 工作量和数据窗口不变，只切换 `torch.compile`。
+2. Dense/MoE 各重复三次无 Profiler 正式计时。
+3. 用短 trace 和 graph-break/recompile 日志解释编译收益。
+4. 如果 MoE 没有收益，保留负结果，并把优化目标指向 dispatch 表示而不是泛化的“继续编译”。
+
 ### D 阶段验收
 
-路由、输出和梯度正确；有 TinyStories 正式窗口上的 Dense/MoE 对照；能根据路由指标解释负载情况。
+路由、输出和梯度正确；有 TinyStories 正式窗口上的 Dense/MoE 对照；能根据路由指标解释负载情况；能用无 Profiler A/B、trace 和 graph-break 证据说明编译为什么对 Dense 有效、对当前 MoE 无效。
 
 ---
 

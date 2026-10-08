@@ -1,0 +1,2234 @@
+{
+  "schema_version": 1,
+  "experiment": "D3 Dense 300-update stability",
+  "created_at_utc": "2026-10-07T13:55:18.172788+00:00",
+  "status": "complete",
+  "configuration": {
+    "out_dir": "out-d3-dense-stability",
+    "eval_interval": 100,
+    "log_interval": 10,
+    "eval_iters": 20,
+    "eval_only": false,
+    "always_save_checkpoint": false,
+    "save_checkpoint": false,
+    "init_from": "scratch",
+    "wandb_log": false,
+    "wandb_project": "owt",
+    "wandb_run_name": "gpt2",
+    "dataset": "tinystories_full",
+    "gradient_accumulation_steps": 4,
+    "batch_size": 8,
+    "block_size": 512,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "moe_num_experts": 0,
+    "moe_layer_index": 4,
+    "moe_capacity_factor": 0.0,
+    "moe_drop_tokens": false,
+    "moe_balance_loss_weight": 0.0,
+    "moe_metrics_path": "results/d3_moe/stability_dense.json",
+    "moe_data_seed": 20260920,
+    "metrics_experiment_name": "D3 Dense 300-update stability",
+    "metrics_config_path": "config/train_d3_dense_stability.py",
+    "learning_rate": 0.0003,
+    "max_iters": 300,
+    "weight_decay": 0.1,
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "grad_clip": 1.0,
+    "decay_lr": true,
+    "warmup_iters": 20,
+    "lr_decay_iters": 300,
+    "min_lr": 3e-05,
+    "backend": "nccl",
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "compile": false,
+    "benchmark": false,
+    "benchmark_warmup_steps": 20,
+    "benchmark_measure_steps": 100,
+    "benchmark_data_seed": 20260920,
+    "benchmark_results_dir": "results/b1_single_gpu",
+    "benchmark_run_id": "run1",
+    "benchmark_name": "B1 single-GPU no-Profiler baseline",
+    "benchmark_config_path": "config/benchmark_tinystories.py",
+    "ddp_benchmark": false,
+    "ddp_scaling_mode": "strong",
+    "ddp_benchmark_warmup_steps": 20,
+    "ddp_benchmark_measure_steps": 100,
+    "ddp_data_seed": 20260920,
+    "ddp_tail_policy": "drop",
+    "ddp_results_dir": "results/c_ddp",
+    "ddp_run_id": "run1",
+    "profiler": false,
+    "profiler_startup_warmup_steps": 20,
+    "profiler_wait_steps": 2,
+    "profiler_warmup_steps": 2,
+    "profiler_active_steps": 10,
+    "profiler_data_seed": 20260920,
+    "profiler_trace_dir": "logs/b2_profiler",
+    "profiler_results_dir": "results/b2_profiler",
+    "profiler_run_id": "baseline",
+    "profiler_distributed": false,
+    "profiler_tail_policy": "drop"
+  },
+  "model_parameter_count": 51168256,
+  "active_parameter_count": 51168256,
+  "non_position_embedding_parameter_count": 50906112,
+  "active_non_position_embedding_parameter_count": 50906112,
+  "data": {
+    "dataset": "tinystories_full",
+    "seed": 20260920,
+    "window_count": 9600,
+    "window_offsets_sha256": "89ef35fae4ae3a7a741b7bdc4c76e5420edcdfbe63be9ba8cb64e5e254a5445e"
+  },
+  "updates": [
+    {
+      "mean_lm_loss": 10.921463012695312,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 10.921463012695312,
+      "update": 0,
+      "cumulative_window_offsets_sha256": "21c1bb2cb03abb5cacf5b75df2ed4069689482ee9b49619bae98cfbd6bb59ef6"
+    },
+    {
+      "mean_lm_loss": 10.5341796875,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 10.5341796875,
+      "update": 1,
+      "cumulative_window_offsets_sha256": "c85354a6b43d1607bdfdcb5dde5dc4d645f09e68f7c553199119888f0e4cd849"
+    },
+    {
+      "mean_lm_loss": 10.136573791503906,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 10.136573791503906,
+      "update": 2,
+      "cumulative_window_offsets_sha256": "f88b853c51c41c62d35f1b5dcfddbbbf4be721b1f909e34c389fda98cf15f86c"
+    },
+    {
+      "mean_lm_loss": 9.839225769042969,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.839225769042969,
+      "update": 3,
+      "cumulative_window_offsets_sha256": "10e4216692fdd965f1d03ad1352737da5211fe9a3949f0f3e8a836c8ada4b4d4"
+    },
+    {
+      "mean_lm_loss": 9.695892333984375,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.695892333984375,
+      "update": 4,
+      "cumulative_window_offsets_sha256": "816b21c02d1507ee53230aa22412ced73b581f7f9c3b3c78d0beeb4edb6b63d5"
+    },
+    {
+      "mean_lm_loss": 9.484222412109375,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.484222412109375,
+      "update": 5,
+      "cumulative_window_offsets_sha256": "f4baa586b32b8ba9945d5e5a588d08eb4ef42589b423037bb09fb77f194fc2ef"
+    },
+    {
+      "mean_lm_loss": 9.519599914550781,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.519599914550781,
+      "update": 6,
+      "cumulative_window_offsets_sha256": "0ed0f5f38ff9cd208bb0e85f9800f73b15df25030c47dbc4519a12cd97b6e84d"
+    },
+    {
+      "mean_lm_loss": 9.244022369384766,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.244022369384766,
+      "update": 7,
+      "cumulative_window_offsets_sha256": "41e36353785c5f1b69eb01a17eb7a3b26fd003f1302721f354f9bb8367ee85f2"
+    },
+    {
+      "mean_lm_loss": 9.194137573242188,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.194137573242188,
+      "update": 8,
+      "cumulative_window_offsets_sha256": "0a60b46058b94fbc078b71999a1ae10021d91e738253377e47cc0252c0f64721"
+    },
+    {
+      "mean_lm_loss": 9.120695114135742,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 9.120695114135742,
+      "update": 9,
+      "cumulative_window_offsets_sha256": "5079ecf3bacc5552e078a4c8829fdf84d2cbd8fcf461ce7691fd8e32faf86e0f"
+    },
+    {
+      "mean_lm_loss": 8.878057479858398,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.878057479858398,
+      "update": 10,
+      "cumulative_window_offsets_sha256": "c001de63262749e659bc74cffe76cc9011911c728582cc5c2a85e2e12889e0cc"
+    },
+    {
+      "mean_lm_loss": 8.738283157348633,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.738283157348633,
+      "update": 11,
+      "cumulative_window_offsets_sha256": "7b24e99dca7b3085b4675c9ab5e07da7b41b7679ff9774c2a2350e0f842a2657"
+    },
+    {
+      "mean_lm_loss": 8.701454162597656,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.701454162597656,
+      "update": 12,
+      "cumulative_window_offsets_sha256": "5226fe2814590fa032ce71282e6e36f8d3259ff4f59f5991e36f0eae71a603d0"
+    },
+    {
+      "mean_lm_loss": 8.53962516784668,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.53962516784668,
+      "update": 13,
+      "cumulative_window_offsets_sha256": "40b7000967bc3fe2931d4f1fc7c687dac6d626e1ed6a3e0c04c065017f6a3c61"
+    },
+    {
+      "mean_lm_loss": 8.417404174804688,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.417404174804688,
+      "update": 14,
+      "cumulative_window_offsets_sha256": "027f6e3a17c2995d6d179fbf67d4ae13aa0fa4ad09ea8337404883dab2f31b60"
+    },
+    {
+      "mean_lm_loss": 8.266246795654297,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.266246795654297,
+      "update": 15,
+      "cumulative_window_offsets_sha256": "59e1a1dd37a214b36b3ac34ae16ac66feab7bc6e8ac2e048cd6ee55bdb43b07f"
+    },
+    {
+      "mean_lm_loss": 8.128124237060547,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 8.128124237060547,
+      "update": 16,
+      "cumulative_window_offsets_sha256": "a850f096309f5027b4b75be7aa660b82640193858476d0eacfc3566379c794a0"
+    },
+    {
+      "mean_lm_loss": 7.961705207824707,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 7.961705207824707,
+      "update": 17,
+      "cumulative_window_offsets_sha256": "5fde055bc5c810467b0966eb45a8ff6c01c4158a7b43fbe18fb4018cd9d37d80"
+    },
+    {
+      "mean_lm_loss": 7.776586532592773,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 7.776586532592773,
+      "update": 18,
+      "cumulative_window_offsets_sha256": "50057c628c0f58c047cb737c9fa638d2fab43702da0bb364bf785ce09ffdbc70"
+    },
+    {
+      "mean_lm_loss": 7.496874809265137,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 7.496874809265137,
+      "update": 19,
+      "cumulative_window_offsets_sha256": "447e2066e4dff9bfeebecb853c832873436cd80fdc2f5558a0d797a37d3cf814"
+    },
+    {
+      "mean_lm_loss": 7.39863395690918,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 7.39863395690918,
+      "update": 20,
+      "cumulative_window_offsets_sha256": "6edabed7974ef4002a7e53848828e3f4f205851601d8b37617c24dfc0ee5eee5"
+    },
+    {
+      "mean_lm_loss": 7.220602035522461,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 7.220602035522461,
+      "update": 21,
+      "cumulative_window_offsets_sha256": "604a000d645cd3fcad7acdffd4b1e20b969ce910a914e0a2951e14437548d9ea"
+    },
+    {
+      "mean_lm_loss": 6.916511535644531,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.916511535644531,
+      "update": 22,
+      "cumulative_window_offsets_sha256": "32a9704b7d02e7e43156e4fdfb5eb6c23d03e21d81baa6043cab37c91b3f99d0"
+    },
+    {
+      "mean_lm_loss": 6.788173675537109,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.788173675537109,
+      "update": 23,
+      "cumulative_window_offsets_sha256": "2154a763d61a091795000ea935b689aedbcd043cfc8ee860eb8f9a1c3af230d8"
+    },
+    {
+      "mean_lm_loss": 6.660866737365723,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.660866737365723,
+      "update": 24,
+      "cumulative_window_offsets_sha256": "8c58d49db38c926df3d1c54cb8469133b3dc628be75de6013ff86cd13b26a305"
+    },
+    {
+      "mean_lm_loss": 6.4740447998046875,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.4740447998046875,
+      "update": 25,
+      "cumulative_window_offsets_sha256": "a51129ce3d0ff9ecf56879fde2a632f1f678528712291adf7f586cc59beebc68"
+    },
+    {
+      "mean_lm_loss": 6.461036682128906,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.461036682128906,
+      "update": 26,
+      "cumulative_window_offsets_sha256": "06afb1890c91db24895256a49e5c513b99bea78fac3f513d54e036f53b77627e"
+    },
+    {
+      "mean_lm_loss": 6.147558212280273,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.147558212280273,
+      "update": 27,
+      "cumulative_window_offsets_sha256": "0d5abf0f9158153d1355c24ede096e61d9ea1c28a74d73190041feafb289398d"
+    },
+    {
+      "mean_lm_loss": 5.866997241973877,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.866997241973877,
+      "update": 28,
+      "cumulative_window_offsets_sha256": "99145ae6c0fba695bff16ce58c845be4867057b4a36662d3ba4f693c1054f6c6"
+    },
+    {
+      "mean_lm_loss": 6.008683204650879,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 6.008683204650879,
+      "update": 29,
+      "cumulative_window_offsets_sha256": "f5d0a17ed438ac7b049eb7063306eb92eb9a76674ee691183c24ac5419f7fdcb"
+    },
+    {
+      "mean_lm_loss": 5.818176746368408,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.818176746368408,
+      "update": 30,
+      "cumulative_window_offsets_sha256": "ff84d6c7288bf7345938e613721e178c8a7e9873c0de2e9bde2bcfbe33670a2c"
+    },
+    {
+      "mean_lm_loss": 5.711243629455566,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.711243629455566,
+      "update": 31,
+      "cumulative_window_offsets_sha256": "16ae3fa359dd26f83bb1ea05d2551bfa166f1fb7ead4b8238d671f805ed438df"
+    },
+    {
+      "mean_lm_loss": 5.696237564086914,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.696237564086914,
+      "update": 32,
+      "cumulative_window_offsets_sha256": "3ea51c4d0405f8a9f57110c77a77d5e80cfeddce671f361e977a7fb1acd41109"
+    },
+    {
+      "mean_lm_loss": 5.57565975189209,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.57565975189209,
+      "update": 33,
+      "cumulative_window_offsets_sha256": "3dfdaf7626b34497df65ba5f5735d1c29ddd1946abc6092828bfff2af7aa9b6e"
+    },
+    {
+      "mean_lm_loss": 5.3848490715026855,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.3848490715026855,
+      "update": 34,
+      "cumulative_window_offsets_sha256": "cae0021e524bb4a6e9e745d621b5e3f3bb3ff23cb1e8b20f974f61a86951770b"
+    },
+    {
+      "mean_lm_loss": 5.445696830749512,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.445696830749512,
+      "update": 35,
+      "cumulative_window_offsets_sha256": "a42c5335dd2c5fb2c01b2204a6a9f2622c462912f8b376c7649bd0ea290e2807"
+    },
+    {
+      "mean_lm_loss": 5.388940334320068,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.388940334320068,
+      "update": 36,
+      "cumulative_window_offsets_sha256": "f8d9094a984bb9b69b6306e7f336332aeebc7be4c28e4aa9d98c4e2236b067b6"
+    },
+    {
+      "mean_lm_loss": 5.299896240234375,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.299896240234375,
+      "update": 37,
+      "cumulative_window_offsets_sha256": "9c1535854a440021cb1bf32875afca5054dc7a45878ca123b49b16591844d8d5"
+    },
+    {
+      "mean_lm_loss": 5.1559600830078125,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.1559600830078125,
+      "update": 38,
+      "cumulative_window_offsets_sha256": "dca5e3f26fd1fa86dcd809f8e1f2f3421beffa4f4d392c4c30115adf37f886ad"
+    },
+    {
+      "mean_lm_loss": 5.102993965148926,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.102993965148926,
+      "update": 39,
+      "cumulative_window_offsets_sha256": "5be182239cffb596f131d0587402e1e678d339928e054e0b4bd2d706cd78d81d"
+    },
+    {
+      "mean_lm_loss": 5.356567859649658,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.356567859649658,
+      "update": 40,
+      "cumulative_window_offsets_sha256": "74ed88eb2d2e7feed6570d1b3743db6b26a404608e688cdb11973eeb3280362c"
+    },
+    {
+      "mean_lm_loss": 4.908621788024902,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.908621788024902,
+      "update": 41,
+      "cumulative_window_offsets_sha256": "996fe7c8f3fc2174401281666e2735a0c981ef8e4c50a8366b6c7079677ce2c4"
+    },
+    {
+      "mean_lm_loss": 4.932369232177734,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.932369232177734,
+      "update": 42,
+      "cumulative_window_offsets_sha256": "a377a45f3ae3393ff4097a06ea0c06ed6615bf2b1aa878dbb6b7a4ae1898e1f4"
+    },
+    {
+      "mean_lm_loss": 5.054986000061035,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.054986000061035,
+      "update": 43,
+      "cumulative_window_offsets_sha256": "880ec2cfc24b03e5f0d4a4c79915b31218a684a323788298bd9719cfdb25ccac"
+    },
+    {
+      "mean_lm_loss": 4.892839431762695,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.892839431762695,
+      "update": 44,
+      "cumulative_window_offsets_sha256": "8bf455813e3272f562e9435b6954b94607c8f31c9d94d274f9ebf1c0492cc42b"
+    },
+    {
+      "mean_lm_loss": 5.000865936279297,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 5.000865936279297,
+      "update": 45,
+      "cumulative_window_offsets_sha256": "c2befc313421ef61f7ce3e4fc57bf5aa0287dd1e729e60e81536b59ac019a1e1"
+    },
+    {
+      "mean_lm_loss": 4.872681617736816,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.872681617736816,
+      "update": 46,
+      "cumulative_window_offsets_sha256": "99e9c18e2d8f0b7d3df3a313fcb78726c848d7be6d7dfb7976e782892027de05"
+    },
+    {
+      "mean_lm_loss": 4.821888446807861,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.821888446807861,
+      "update": 47,
+      "cumulative_window_offsets_sha256": "a49378e2bab511522fb9759d31dc4ec9f455204c0a65d26bf76bc647361ff3fb"
+    },
+    {
+      "mean_lm_loss": 4.970824241638184,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.970824241638184,
+      "update": 48,
+      "cumulative_window_offsets_sha256": "196311913ad3b81a2ce3ddbd3d02737e14126d9742b083e75742446ef3f65424"
+    },
+    {
+      "mean_lm_loss": 4.730234146118164,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.730234146118164,
+      "update": 49,
+      "cumulative_window_offsets_sha256": "85d02730e08be5745d1887c7e81e26389a889208b896db0c5984197cbbc6c126"
+    },
+    {
+      "mean_lm_loss": 4.595108985900879,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.595108985900879,
+      "update": 50,
+      "cumulative_window_offsets_sha256": "dc784680590049885c2805ffd88a80eabb05db8192a0a50167fbe7fa94a01c05"
+    },
+    {
+      "mean_lm_loss": 4.7597246170043945,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.7597246170043945,
+      "update": 51,
+      "cumulative_window_offsets_sha256": "c05c90efbc24be4ed2dbc6c26acf39e08fee3a20cd290a244e24f2e9eb5d09a8"
+    },
+    {
+      "mean_lm_loss": 4.530739784240723,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.530739784240723,
+      "update": 52,
+      "cumulative_window_offsets_sha256": "49650d3d225aacf6f0cce2f8745d5655200e0f9a41cdf831e0358c3ddbe1433b"
+    },
+    {
+      "mean_lm_loss": 4.845059394836426,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.845059394836426,
+      "update": 53,
+      "cumulative_window_offsets_sha256": "8350f8d1799b419ab1f9a1bd37a87b9aafc12bef19b6bc15d5137da7983081e4"
+    },
+    {
+      "mean_lm_loss": 4.577359676361084,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.577359676361084,
+      "update": 54,
+      "cumulative_window_offsets_sha256": "82b82b03efbb0c3813a3c6b8a5812806177eaeeb9073bf143d0b89ad4045b2fb"
+    },
+    {
+      "mean_lm_loss": 4.587530136108398,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.587530136108398,
+      "update": 55,
+      "cumulative_window_offsets_sha256": "f23009296eec7b9bb4007d88866de7a00f2cbbcc0ed917761ac7250873e84e1b"
+    },
+    {
+      "mean_lm_loss": 4.542025566101074,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.542025566101074,
+      "update": 56,
+      "cumulative_window_offsets_sha256": "7bf38c50b2197ce43b894af0c66e624fcaaba5e0f03ed1ad5e72eccd78dbe45c"
+    },
+    {
+      "mean_lm_loss": 4.500156879425049,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.500156879425049,
+      "update": 57,
+      "cumulative_window_offsets_sha256": "587b377c362a55429656a4a41c5a9a7cbcfbc52c8e085f355f789206003874c7"
+    },
+    {
+      "mean_lm_loss": 4.4738640785217285,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.4738640785217285,
+      "update": 58,
+      "cumulative_window_offsets_sha256": "22388cfb6f38859c7dbf0b647c2fe398d4eb73fd23394a4aacf3636fc2b4cfdd"
+    },
+    {
+      "mean_lm_loss": 4.45121955871582,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.45121955871582,
+      "update": 59,
+      "cumulative_window_offsets_sha256": "00d6c9c74b2c0582372da897064b022f5a149251fd9b47b51d28bf61260db239"
+    },
+    {
+      "mean_lm_loss": 4.758157730102539,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.758157730102539,
+      "update": 60,
+      "cumulative_window_offsets_sha256": "47cc2b4dd65693d4c174365a9b15132dfaf9aeb6b23ee8f27e26a46cfe171714"
+    },
+    {
+      "mean_lm_loss": 4.53196907043457,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.53196907043457,
+      "update": 61,
+      "cumulative_window_offsets_sha256": "c7c04eaeffa8aa46c26ce53cca144dd08060324c9e9253b334dbf3d714630f0d"
+    },
+    {
+      "mean_lm_loss": 4.507693290710449,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.507693290710449,
+      "update": 62,
+      "cumulative_window_offsets_sha256": "1c467f6ac1b81c04ddcad93213ebe72f1fd7252ebda5d0094fe58da8b614e90e"
+    },
+    {
+      "mean_lm_loss": 4.471853256225586,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.471853256225586,
+      "update": 63,
+      "cumulative_window_offsets_sha256": "8cab2f4aa33065b45872560cab6f6e3b8dd78b4fa9262ef778518fa311d07abd"
+    },
+    {
+      "mean_lm_loss": 4.48136043548584,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.48136043548584,
+      "update": 64,
+      "cumulative_window_offsets_sha256": "c134ac96dd35afbf7c73cf827dd878d70494a37ea3cf84aff885640e8f0dd277"
+    },
+    {
+      "mean_lm_loss": 4.555123329162598,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.555123329162598,
+      "update": 65,
+      "cumulative_window_offsets_sha256": "745b86bb2640674cb222e6cb50d7f2eed2da0635af2ab117265eb863c9fc950a"
+    },
+    {
+      "mean_lm_loss": 4.478427410125732,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.478427410125732,
+      "update": 66,
+      "cumulative_window_offsets_sha256": "f7743d5eb36654d66cb056fa14d241855ce686f594c054720f6b8a0460397b51"
+    },
+    {
+      "mean_lm_loss": 4.522631645202637,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.522631645202637,
+      "update": 67,
+      "cumulative_window_offsets_sha256": "457459b8c7736eebf71e5dcf94e8cf3d5c23609833c318af9bf74da209823469"
+    },
+    {
+      "mean_lm_loss": 4.385829925537109,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.385829925537109,
+      "update": 68,
+      "cumulative_window_offsets_sha256": "f12d98cb13708d8e9241a65516b96b78e75bbf0a24af14d6983d828c8eb57f78"
+    },
+    {
+      "mean_lm_loss": 4.317501068115234,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.317501068115234,
+      "update": 69,
+      "cumulative_window_offsets_sha256": "c7fdf5647b6aa290b3257d6ad639fa33ad21808d35708e245c808296c4e7a9ca"
+    },
+    {
+      "mean_lm_loss": 4.493658065795898,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.493658065795898,
+      "update": 70,
+      "cumulative_window_offsets_sha256": "98c23b159fbf4cb60ccd87068240708b48a2a7a8418bc02ef79592c16d51500c"
+    },
+    {
+      "mean_lm_loss": 4.25235652923584,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.25235652923584,
+      "update": 71,
+      "cumulative_window_offsets_sha256": "d9689d0697c63863ed700fef01b4ee0628dfcbb25e4c1fa428279b3849be784b"
+    },
+    {
+      "mean_lm_loss": 4.206646919250488,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.206646919250488,
+      "update": 72,
+      "cumulative_window_offsets_sha256": "b13ce389d65824b7217ac1bc84db52ff1c970b087de7e59e09ae215665c10ccf"
+    },
+    {
+      "mean_lm_loss": 4.427207946777344,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.427207946777344,
+      "update": 73,
+      "cumulative_window_offsets_sha256": "bde5e9af32160da2c8b7dc91000aa61a830e50c38386531bec263e04ed5e2cc3"
+    },
+    {
+      "mean_lm_loss": 4.198739051818848,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.198739051818848,
+      "update": 74,
+      "cumulative_window_offsets_sha256": "290fb661acefbc749519a6af6c5d6769b93ca83224babaabda60d774f2a0c562"
+    },
+    {
+      "mean_lm_loss": 4.424513339996338,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.424513339996338,
+      "update": 75,
+      "cumulative_window_offsets_sha256": "2ab357230402b2aeba6cc273303bf5669169fc131c18cef4ae0522d75a7b557d"
+    },
+    {
+      "mean_lm_loss": 4.246227264404297,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.246227264404297,
+      "update": 76,
+      "cumulative_window_offsets_sha256": "2ad906626aefe3284b042a869a773602bdac5cead2be9b635a84f7e56656ddc0"
+    },
+    {
+      "mean_lm_loss": 4.286725044250488,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.286725044250488,
+      "update": 77,
+      "cumulative_window_offsets_sha256": "cc937a64e824bf14e69bdf4c40ac6499d7ff1f796bce71738dbc7c8f32f82511"
+    },
+    {
+      "mean_lm_loss": 4.354169845581055,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.354169845581055,
+      "update": 78,
+      "cumulative_window_offsets_sha256": "2da2dca82b1e24cac022a1ef9d5cbb9d80f72d7b695299d72a14f4353d8925ef"
+    },
+    {
+      "mean_lm_loss": 4.321910858154297,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.321910858154297,
+      "update": 79,
+      "cumulative_window_offsets_sha256": "4ef862d6bafc2d989ff105d26301e385b5942b51ac5b957bd54a22ca3f216bdb"
+    },
+    {
+      "mean_lm_loss": 4.178020000457764,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.178020000457764,
+      "update": 80,
+      "cumulative_window_offsets_sha256": "76691fd0a89033b9910c88bb252bed19a2036a40e3c2e0c28cb5b28e1aba7ac6"
+    },
+    {
+      "mean_lm_loss": 4.238968849182129,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.238968849182129,
+      "update": 81,
+      "cumulative_window_offsets_sha256": "5f2101ab2bd3a5b9eff87216f73820c7d1bf0ff573333d977d48f3b6c7322602"
+    },
+    {
+      "mean_lm_loss": 4.4092206954956055,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.4092206954956055,
+      "update": 82,
+      "cumulative_window_offsets_sha256": "050f3487b4cdf7f1567458020af9cd3ed0e28349b5119cf9b2bcbf93feb89f45"
+    },
+    {
+      "mean_lm_loss": 4.279757976531982,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.279757976531982,
+      "update": 83,
+      "cumulative_window_offsets_sha256": "7a1d02c192c381b824e1e35403a96ef841155c35c7d710d9d12c54a9f54f6cc0"
+    },
+    {
+      "mean_lm_loss": 4.227902412414551,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.227902412414551,
+      "update": 84,
+      "cumulative_window_offsets_sha256": "3a15d70641cf4f1cabf8a32d96655f58cf038ddedcdec7917238c908b4961022"
+    },
+    {
+      "mean_lm_loss": 4.199715614318848,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.199715614318848,
+      "update": 85,
+      "cumulative_window_offsets_sha256": "e489c9c82a4bf75ace48463ce6f6a8f6b5d2f689d5846d43b330a1d55cb0a59d"
+    },
+    {
+      "mean_lm_loss": 4.215695381164551,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.215695381164551,
+      "update": 86,
+      "cumulative_window_offsets_sha256": "f770535d36ed101f4b2b49ab4aa2acd6d2bcdf1718b87855d9e58fed230f90ac"
+    },
+    {
+      "mean_lm_loss": 4.262064456939697,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.262064456939697,
+      "update": 87,
+      "cumulative_window_offsets_sha256": "94ba919f949b8222ce5071e2f61234d1711b65e5b09aee8376ac31303cc9ad0c"
+    },
+    {
+      "mean_lm_loss": 4.324302673339844,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.324302673339844,
+      "update": 88,
+      "cumulative_window_offsets_sha256": "a0962d9900fe8f6a44996eb6a18d8be203c8007cf180db97b71bd1880005342d"
+    },
+    {
+      "mean_lm_loss": 4.135053634643555,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.135053634643555,
+      "update": 89,
+      "cumulative_window_offsets_sha256": "c38699ca0b4b5adb96cdf1ae6bfec54735b7a52bb289e606c017a97ce6b9ec81"
+    },
+    {
+      "mean_lm_loss": 3.949927806854248,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.949927806854248,
+      "update": 90,
+      "cumulative_window_offsets_sha256": "aabd3e0a2ea7c80d50e5a77556c49bc7c10bdfb9ab01a68da395f652616a1038"
+    },
+    {
+      "mean_lm_loss": 4.103902816772461,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.103902816772461,
+      "update": 91,
+      "cumulative_window_offsets_sha256": "a89468db71ab78796ce6bae2f3d870cf36b0bf3aa66d416aeec50fd7069919e0"
+    },
+    {
+      "mean_lm_loss": 4.232491493225098,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.232491493225098,
+      "update": 92,
+      "cumulative_window_offsets_sha256": "27275adff7ec4b5bfebbf47cc1d19838002098a0637ea08b6e52c975dc6d9c51"
+    },
+    {
+      "mean_lm_loss": 4.076685428619385,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.076685428619385,
+      "update": 93,
+      "cumulative_window_offsets_sha256": "d6f6c5b2176c9012b4b0bd5e361e4c037f7c297b428084ea1b371f522b03564a"
+    },
+    {
+      "mean_lm_loss": 4.085956573486328,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.085956573486328,
+      "update": 94,
+      "cumulative_window_offsets_sha256": "e7e6ab3a3dca912887adf2aec55af8ec2e9058f42dba590483b265b81b77aae8"
+    },
+    {
+      "mean_lm_loss": 4.202373504638672,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.202373504638672,
+      "update": 95,
+      "cumulative_window_offsets_sha256": "9d5819713cd981719a2d08be74c86b59124cf20823cc7e0f21fa2bd7dc52825d"
+    },
+    {
+      "mean_lm_loss": 4.056431770324707,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.056431770324707,
+      "update": 96,
+      "cumulative_window_offsets_sha256": "2ebfcda756a2ddc5efc6a0477794b86cdc0bbac1b8f32cadb70a64324d1260cb"
+    },
+    {
+      "mean_lm_loss": 4.1562957763671875,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.1562957763671875,
+      "update": 97,
+      "cumulative_window_offsets_sha256": "388b660b14c2347c8c466adeba80500619eaf6d24c0d7b5546e5de8e9b1271b0"
+    },
+    {
+      "mean_lm_loss": 4.194687843322754,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.194687843322754,
+      "update": 98,
+      "cumulative_window_offsets_sha256": "160e5c12ef45c6cfe3a0a2572cfafff3142989387b20233e418c1688c363cbcb"
+    },
+    {
+      "mean_lm_loss": 4.322101593017578,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.322101593017578,
+      "update": 99,
+      "cumulative_window_offsets_sha256": "b0ad7ea7ebb4b1c940da1b4b6650249d866d72b332a87b17d31fa3514075cee3"
+    },
+    {
+      "mean_lm_loss": 4.106864929199219,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.106864929199219,
+      "update": 100,
+      "cumulative_window_offsets_sha256": "7e9b1928ad78994dcd277a29a7f0964fa21b19d73adf16ad4c12a28317640bb5"
+    },
+    {
+      "mean_lm_loss": 4.169719696044922,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.169719696044922,
+      "update": 101,
+      "cumulative_window_offsets_sha256": "32d6ed5b0e89233a1be0add18ebc8e45f0867ab27584055b00ce48151a3acd5e"
+    },
+    {
+      "mean_lm_loss": 4.006856918334961,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.006856918334961,
+      "update": 102,
+      "cumulative_window_offsets_sha256": "dcb1d4b6232931b6fb3102606613ac2da3ac46d6880e00536c725307af1c79a8"
+    },
+    {
+      "mean_lm_loss": 4.04912805557251,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.04912805557251,
+      "update": 103,
+      "cumulative_window_offsets_sha256": "bfdaa20cd5b39a9a94e919520406ac0ee6c7a015454db4cba744cfbd171a2331"
+    },
+    {
+      "mean_lm_loss": 3.9797310829162598,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9797310829162598,
+      "update": 104,
+      "cumulative_window_offsets_sha256": "ac046ff7473f6719b477415a86f9fdda8aced40747f94b79bc36e17f41c1f5e6"
+    },
+    {
+      "mean_lm_loss": 4.093975067138672,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.093975067138672,
+      "update": 105,
+      "cumulative_window_offsets_sha256": "9d1d2db897d44e1a95e08119e35dc350738f89fd4fc4ccebf56869edd06eb212"
+    },
+    {
+      "mean_lm_loss": 4.067681789398193,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.067681789398193,
+      "update": 106,
+      "cumulative_window_offsets_sha256": "99018dfe9e1b965a8ef105add928429c593770ef87bb4d665e95bb5e1194836e"
+    },
+    {
+      "mean_lm_loss": 4.017977714538574,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.017977714538574,
+      "update": 107,
+      "cumulative_window_offsets_sha256": "217a7083312d08d52ff4523efc44c755766a48106f49be9d75ed7a27fe27a7fe"
+    },
+    {
+      "mean_lm_loss": 4.01981258392334,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.01981258392334,
+      "update": 108,
+      "cumulative_window_offsets_sha256": "70544242eb2156946b7513d525ad1c5152cea74723c139a0792baec86288fd7c"
+    },
+    {
+      "mean_lm_loss": 4.126994609832764,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.126994609832764,
+      "update": 109,
+      "cumulative_window_offsets_sha256": "44e038f7101e6141ffbb85bf19f0bdc707d82289efba59072d79b4372d60b35b"
+    },
+    {
+      "mean_lm_loss": 3.8826918601989746,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8826918601989746,
+      "update": 110,
+      "cumulative_window_offsets_sha256": "661bf5359d0ef697413fa6948ee2be03acb98ce865b17f50cb14a155b2fd1d64"
+    },
+    {
+      "mean_lm_loss": 4.082870960235596,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.082870960235596,
+      "update": 111,
+      "cumulative_window_offsets_sha256": "bb7a1140599091de2e488c085db5faad6b46157322f981762b9e4d8b2d72d895"
+    },
+    {
+      "mean_lm_loss": 4.050676345825195,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.050676345825195,
+      "update": 112,
+      "cumulative_window_offsets_sha256": "557997aef68e4980765a865983a36811ad6172a9c02378bb43728053dd932981"
+    },
+    {
+      "mean_lm_loss": 3.947721004486084,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.947721004486084,
+      "update": 113,
+      "cumulative_window_offsets_sha256": "2b664f26d99b189446fff6f1d7f193965d3d85989e933eced6328c57d334bae9"
+    },
+    {
+      "mean_lm_loss": 3.969797134399414,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.969797134399414,
+      "update": 114,
+      "cumulative_window_offsets_sha256": "a6ee33dbc6f398997e1b5f8dad4c94bb6f944c2c37a4e44bc2b054e47ec899cb"
+    },
+    {
+      "mean_lm_loss": 4.019807815551758,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.019807815551758,
+      "update": 115,
+      "cumulative_window_offsets_sha256": "4130edc32bdb9d4eb0f4c3424e87b5e41a5979c5ecb08526541621012fe9264e"
+    },
+    {
+      "mean_lm_loss": 4.107918739318848,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.107918739318848,
+      "update": 116,
+      "cumulative_window_offsets_sha256": "013fac47e12f6c1646e3c167a12dcee5337a494881c8f22d123c990696b3802a"
+    },
+    {
+      "mean_lm_loss": 4.004788398742676,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.004788398742676,
+      "update": 117,
+      "cumulative_window_offsets_sha256": "cab51282af13c3fc9f887da2346e388821156aa16659972aa40a5d4c3264ac92"
+    },
+    {
+      "mean_lm_loss": 4.073400020599365,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.073400020599365,
+      "update": 118,
+      "cumulative_window_offsets_sha256": "65bf0943600451ab59fac324e8f99a769cc4d2978e12f5540acaaa1d9af9f08a"
+    },
+    {
+      "mean_lm_loss": 4.094907760620117,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.094907760620117,
+      "update": 119,
+      "cumulative_window_offsets_sha256": "cdded00a2bcba2997a07f3745f9077f3a57e5fc94a38dddb9438710cbc2e31ce"
+    },
+    {
+      "mean_lm_loss": 4.199277877807617,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.199277877807617,
+      "update": 120,
+      "cumulative_window_offsets_sha256": "b3354407e281c0feb818ee4470eef6d67ea11d661c1362d7103c8eb27dfe0000"
+    },
+    {
+      "mean_lm_loss": 4.028251647949219,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.028251647949219,
+      "update": 121,
+      "cumulative_window_offsets_sha256": "1970facb2c37c6a919078195e23a6178b5cd29ddafa5948ecc95f58dd2fe0903"
+    },
+    {
+      "mean_lm_loss": 3.9223928451538086,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9223928451538086,
+      "update": 122,
+      "cumulative_window_offsets_sha256": "d95614ac9c0192c79569799e4f1f7a078d7b0d5c3292c547578da6039e45f98f"
+    },
+    {
+      "mean_lm_loss": 4.09512996673584,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.09512996673584,
+      "update": 123,
+      "cumulative_window_offsets_sha256": "a2c436203bcbd5935de495b5d675867f139c9f41f16b53fdf1b85fa8281f786a"
+    },
+    {
+      "mean_lm_loss": 4.041660308837891,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.041660308837891,
+      "update": 124,
+      "cumulative_window_offsets_sha256": "9a45238f4096f4bf30ddb2c54920031e08ad7edd6914815c3abb844e2bec273b"
+    },
+    {
+      "mean_lm_loss": 4.129508018493652,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.129508018493652,
+      "update": 125,
+      "cumulative_window_offsets_sha256": "f1e8d4f1ad19c802d16fac5554238858bdfb4a20c516197d10b94a3f63ebaf1a"
+    },
+    {
+      "mean_lm_loss": 4.015040397644043,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.015040397644043,
+      "update": 126,
+      "cumulative_window_offsets_sha256": "b45e1711c797a31bd213eddf22226252c838a46ae3df47127255badb8c61544c"
+    },
+    {
+      "mean_lm_loss": 3.99107027053833,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.99107027053833,
+      "update": 127,
+      "cumulative_window_offsets_sha256": "6f216fa3f4484353b057ffc607a0103372fb5ea13280224ef46c11a9de5593a4"
+    },
+    {
+      "mean_lm_loss": 3.958448648452759,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.958448648452759,
+      "update": 128,
+      "cumulative_window_offsets_sha256": "89db8322b96c8a60aade4fca6d84d559f9bf3d4693fbe53c7fd0f2996e4617b1"
+    },
+    {
+      "mean_lm_loss": 3.9517440795898438,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9517440795898438,
+      "update": 129,
+      "cumulative_window_offsets_sha256": "92890f6214227734576a065aba6ec3ba043cca29e5290d7882ca798d34516e63"
+    },
+    {
+      "mean_lm_loss": 3.8781566619873047,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8781566619873047,
+      "update": 130,
+      "cumulative_window_offsets_sha256": "fe72bac6cb44dbe993e0722aece21b9a5cf682437c1545d8cae85daf7d3108ad"
+    },
+    {
+      "mean_lm_loss": 3.83042049407959,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.83042049407959,
+      "update": 131,
+      "cumulative_window_offsets_sha256": "a4e5e91d287b1729e81ad76e0cafc86cdd600c937214dab8012375785fa8693d"
+    },
+    {
+      "mean_lm_loss": 3.889989137649536,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.889989137649536,
+      "update": 132,
+      "cumulative_window_offsets_sha256": "e8c72488a66ea8a2795c61f05fb59b1d47f915b9c6de09bf34e8d9b74f4fab55"
+    },
+    {
+      "mean_lm_loss": 3.921233654022217,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.921233654022217,
+      "update": 133,
+      "cumulative_window_offsets_sha256": "9527e01c8d89085b9468dd7d61faa6aeaf8f1b2d44112a0bbf9fbf11b88851ba"
+    },
+    {
+      "mean_lm_loss": 4.045011520385742,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.045011520385742,
+      "update": 134,
+      "cumulative_window_offsets_sha256": "e5f339420de39b996b5db1b3d2e2003b0a891951720a5b2a262631c9b9aa79e6"
+    },
+    {
+      "mean_lm_loss": 3.9328954219818115,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9328954219818115,
+      "update": 135,
+      "cumulative_window_offsets_sha256": "fcd6d5f3732e7557bec20983ce7f731dc1af582856c4ca8368b9353568c262e7"
+    },
+    {
+      "mean_lm_loss": 3.970843553543091,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.970843553543091,
+      "update": 136,
+      "cumulative_window_offsets_sha256": "5c6d01e326bfd9f6504e7bc1b0764c2621169f147e906774c4e45cfe57c7622d"
+    },
+    {
+      "mean_lm_loss": 3.8816723823547363,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8816723823547363,
+      "update": 137,
+      "cumulative_window_offsets_sha256": "de8b35fd6ba836c340af24584ae5864dfecade46a29550394e4cdc1384235132"
+    },
+    {
+      "mean_lm_loss": 3.910341501235962,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.910341501235962,
+      "update": 138,
+      "cumulative_window_offsets_sha256": "b8c498e4968e2b1f0e4660550c8e215d6bd9bc871241772634b414841144e112"
+    },
+    {
+      "mean_lm_loss": 3.9695091247558594,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9695091247558594,
+      "update": 139,
+      "cumulative_window_offsets_sha256": "fa0eb1bc88d4419e03ec78769f8bfb7e38d1efe0efb43b3d64ba449c25fa12b3"
+    },
+    {
+      "mean_lm_loss": 3.854802131652832,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.854802131652832,
+      "update": 140,
+      "cumulative_window_offsets_sha256": "cf1a57814de27ae179c726f6cd00556c5a4d60265217cebf20c1f5024d0aedd6"
+    },
+    {
+      "mean_lm_loss": 4.010605812072754,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.010605812072754,
+      "update": 141,
+      "cumulative_window_offsets_sha256": "3cdd635bf1fda42926f29d1e1eb7a2725a426008899071872b4241979c669748"
+    },
+    {
+      "mean_lm_loss": 3.9621872901916504,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9621872901916504,
+      "update": 142,
+      "cumulative_window_offsets_sha256": "bd82c9c4394d557f5442ee31e0051de1a434693fd68e0713e11b6deee85e92cf"
+    },
+    {
+      "mean_lm_loss": 3.920124053955078,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.920124053955078,
+      "update": 143,
+      "cumulative_window_offsets_sha256": "214aa02fe47595f16bffe55e7935a9e4bc24558fa9938697111480bb903477e9"
+    },
+    {
+      "mean_lm_loss": 4.23236083984375,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.23236083984375,
+      "update": 144,
+      "cumulative_window_offsets_sha256": "85cf97b6d07f574f83dc9c1701dea9a94aa1089cddf6758065cb06d236cb3bd9"
+    },
+    {
+      "mean_lm_loss": 3.8729491233825684,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8729491233825684,
+      "update": 145,
+      "cumulative_window_offsets_sha256": "c889a903cad23155fe345a8923a0684aa1f80bbe56a03ea13bac29879f579354"
+    },
+    {
+      "mean_lm_loss": 4.028335094451904,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.028335094451904,
+      "update": 146,
+      "cumulative_window_offsets_sha256": "6625778b2d77eb3f2146d86adec2ad9aefa592a32bf431991ea8487552009462"
+    },
+    {
+      "mean_lm_loss": 3.9017863273620605,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9017863273620605,
+      "update": 147,
+      "cumulative_window_offsets_sha256": "be5b0487ad7222dfc8c7dcb461e5f036bd61503b7d34c08b2d4a4f4abc59eaf7"
+    },
+    {
+      "mean_lm_loss": 3.894057273864746,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.894057273864746,
+      "update": 148,
+      "cumulative_window_offsets_sha256": "d674eac29d14ef867ef7ff751fc4670f8a327c87e01bbc501eefed5a7718e604"
+    },
+    {
+      "mean_lm_loss": 4.116139888763428,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.116139888763428,
+      "update": 149,
+      "cumulative_window_offsets_sha256": "55be65e077c88d2fe257a733c47b85d6fab3b883b433e57f8d752ffb01308ce4"
+    },
+    {
+      "mean_lm_loss": 3.8354413509368896,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8354413509368896,
+      "update": 150,
+      "cumulative_window_offsets_sha256": "2bed4460b2f75b9261b235c7b9f3bfc10c74fd676276d26dada5efc786ba273e"
+    },
+    {
+      "mean_lm_loss": 3.783985137939453,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.783985137939453,
+      "update": 151,
+      "cumulative_window_offsets_sha256": "1c81a9bf49734fb984fc4a6fffb7a20ae0b278f6753bc9dbe3a388d84aec3c87"
+    },
+    {
+      "mean_lm_loss": 3.757413387298584,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.757413387298584,
+      "update": 152,
+      "cumulative_window_offsets_sha256": "5880b8b3d63ae37c1468d65ca473f0091739a19e3a9d57746931662db2c54e8c"
+    },
+    {
+      "mean_lm_loss": 3.9405922889709473,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9405922889709473,
+      "update": 153,
+      "cumulative_window_offsets_sha256": "a3918513efa9b2688b5ddf14ab7d978ffb90b24ca9b840c968389e57e9af5442"
+    },
+    {
+      "mean_lm_loss": 3.8730883598327637,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8730883598327637,
+      "update": 154,
+      "cumulative_window_offsets_sha256": "8c2564123053e791a6910e8a2d3ec72a450de7046abab11648eb74364ae2c282"
+    },
+    {
+      "mean_lm_loss": 4.072956085205078,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.072956085205078,
+      "update": 155,
+      "cumulative_window_offsets_sha256": "29fc0195d6f86fc9d473992d33035bb529f0885778bbebc0b662a63c4696f3c6"
+    },
+    {
+      "mean_lm_loss": 4.063172340393066,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.063172340393066,
+      "update": 156,
+      "cumulative_window_offsets_sha256": "fbf885c2c86dda6c30c5bee0220bbbea2f9ee06466c037ce4e2b4f6abb85d4be"
+    },
+    {
+      "mean_lm_loss": 3.927950143814087,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.927950143814087,
+      "update": 157,
+      "cumulative_window_offsets_sha256": "b6a63a069f5dd3f46c66fbf844b6ba2e5327c7c6e782eaf378514058276a50fd"
+    },
+    {
+      "mean_lm_loss": 3.8675012588500977,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8675012588500977,
+      "update": 158,
+      "cumulative_window_offsets_sha256": "ef10fa0e3468a772d5fb1317bf0a48121e2b59f6364561bbb96637d31c7ed47c"
+    },
+    {
+      "mean_lm_loss": 3.9743752479553223,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9743752479553223,
+      "update": 159,
+      "cumulative_window_offsets_sha256": "028d9ec4c88c95fe10e2d867361856f65ea583c1ee6f82f02d8e2970cd9ea9c0"
+    },
+    {
+      "mean_lm_loss": 3.895355224609375,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.895355224609375,
+      "update": 160,
+      "cumulative_window_offsets_sha256": "a9a34fcea8376564fd9114bc73db756cfdcb6278c4f94ebf27b379e1565af98c"
+    },
+    {
+      "mean_lm_loss": 3.8508448600769043,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8508448600769043,
+      "update": 161,
+      "cumulative_window_offsets_sha256": "672c83682f694531329e1b25a04aefedbe44ea0945778192961023220b2ea999"
+    },
+    {
+      "mean_lm_loss": 4.005733966827393,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.005733966827393,
+      "update": 162,
+      "cumulative_window_offsets_sha256": "446c05d76463195fdae0ac54862474839a985499b7a5736a9a30daffa6bcac8f"
+    },
+    {
+      "mean_lm_loss": 3.7990198135375977,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7990198135375977,
+      "update": 163,
+      "cumulative_window_offsets_sha256": "d66eff4da4df7667bb6422157f2b62b7bdd19bfbac2502d2733252088aaf0a7f"
+    },
+    {
+      "mean_lm_loss": 3.893131971359253,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.893131971359253,
+      "update": 164,
+      "cumulative_window_offsets_sha256": "1a5340a74cfcf62f3419fe4827f238a5770ff11e80905cd14badb77b697c507d"
+    },
+    {
+      "mean_lm_loss": 4.116754055023193,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.116754055023193,
+      "update": 165,
+      "cumulative_window_offsets_sha256": "388d42037f9215b6dc190edafccbf88e36ee6f296fd6957c8d5366fcbc2db712"
+    },
+    {
+      "mean_lm_loss": 4.004137992858887,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 4.004137992858887,
+      "update": 166,
+      "cumulative_window_offsets_sha256": "64328177e7242edc8d949fd6c60f39e6082d15d93e14b21b28b2975b84d57177"
+    },
+    {
+      "mean_lm_loss": 3.7773804664611816,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7773804664611816,
+      "update": 167,
+      "cumulative_window_offsets_sha256": "2ec11937389bac797c513493e65686edbf91c3f88abc02b3815fd1ff3dc845b3"
+    },
+    {
+      "mean_lm_loss": 3.757802724838257,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.757802724838257,
+      "update": 168,
+      "cumulative_window_offsets_sha256": "6d45563d2fde5a424df7be1c62eb82d00af30483a6ad44937dcb477649a94eb9"
+    },
+    {
+      "mean_lm_loss": 3.81179141998291,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.81179141998291,
+      "update": 169,
+      "cumulative_window_offsets_sha256": "23fc1b6756d5e40f88288bbacc151df0263d9009fd01046f9ccdb07e90636c42"
+    },
+    {
+      "mean_lm_loss": 3.8041365146636963,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8041365146636963,
+      "update": 170,
+      "cumulative_window_offsets_sha256": "bad1cbc2da09a84628a951b98b43b8280e5b677f3f5959cb9e204de8e89b5aac"
+    },
+    {
+      "mean_lm_loss": 3.8770570755004883,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8770570755004883,
+      "update": 171,
+      "cumulative_window_offsets_sha256": "f7493ef8a3eda887208a284752ce4aa75f5c5281de16408f8e8e5bb9416fbd0c"
+    },
+    {
+      "mean_lm_loss": 3.60961651802063,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.60961651802063,
+      "update": 172,
+      "cumulative_window_offsets_sha256": "e1cf333cc60602f05c6491e8e7180dbbb231b4c3288d12817c6eb545dc3e7e4b"
+    },
+    {
+      "mean_lm_loss": 3.9079060554504395,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9079060554504395,
+      "update": 173,
+      "cumulative_window_offsets_sha256": "223bfd6d4bb2a25cda304b9462f1d08de7ec31fa08ea61d18cf274252e688d5c"
+    },
+    {
+      "mean_lm_loss": 3.9287185668945312,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9287185668945312,
+      "update": 174,
+      "cumulative_window_offsets_sha256": "b7cb9cb88e50fddd80628fdc67a06412f7d2a886e8ca2b2ecba9a376d44aa8b0"
+    },
+    {
+      "mean_lm_loss": 3.8287904262542725,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8287904262542725,
+      "update": 175,
+      "cumulative_window_offsets_sha256": "06e8c4e3f7de861171758335733f53fe79719b8d83b66f6ee6d6e4e030ec6284"
+    },
+    {
+      "mean_lm_loss": 3.8239893913269043,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8239893913269043,
+      "update": 176,
+      "cumulative_window_offsets_sha256": "a26bb67c0c4da679f5f0713594c19c28671bbe17191e01a81ecfddb840898eb8"
+    },
+    {
+      "mean_lm_loss": 3.7486462593078613,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7486462593078613,
+      "update": 177,
+      "cumulative_window_offsets_sha256": "02304ed5996f56a944666824775ec367af1890eba5438de68299fbb42be5cb8a"
+    },
+    {
+      "mean_lm_loss": 3.7460031509399414,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7460031509399414,
+      "update": 178,
+      "cumulative_window_offsets_sha256": "38fa45d69b128dc7fb279dfb54a99c2c80295480e127236f0977ad3a0b2e8598"
+    },
+    {
+      "mean_lm_loss": 3.8956685066223145,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8956685066223145,
+      "update": 179,
+      "cumulative_window_offsets_sha256": "dc755e4dc16bf7cf8964d2fe105537e68efb8a594fd26555086da1151cba1173"
+    },
+    {
+      "mean_lm_loss": 3.985523223876953,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.985523223876953,
+      "update": 180,
+      "cumulative_window_offsets_sha256": "b9e5f8b29c0d402f3674d1feb0fa9b55d1fdade42ee145604a1750fbad04cd6b"
+    },
+    {
+      "mean_lm_loss": 3.8345417976379395,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8345417976379395,
+      "update": 181,
+      "cumulative_window_offsets_sha256": "a11ac37de1639d476fea29f74086a8d68de7f5af28c87d70663033c9bc50412c"
+    },
+    {
+      "mean_lm_loss": 3.8214101791381836,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8214101791381836,
+      "update": 182,
+      "cumulative_window_offsets_sha256": "d6e2a407fb50571109a082c716ad4ddf89e7ac299614c48f1f48ce5c5cef0755"
+    },
+    {
+      "mean_lm_loss": 3.711003303527832,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.711003303527832,
+      "update": 183,
+      "cumulative_window_offsets_sha256": "e25afb862c8c9e9e832a744a2750aa97a81aa126f8e327af647d72112ec338b1"
+    },
+    {
+      "mean_lm_loss": 3.7751846313476562,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7751846313476562,
+      "update": 184,
+      "cumulative_window_offsets_sha256": "fa39ce01a9064c8cc3cdada89482775748bb60f05aef9d39013decd32f00a0b9"
+    },
+    {
+      "mean_lm_loss": 3.7419071197509766,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7419071197509766,
+      "update": 185,
+      "cumulative_window_offsets_sha256": "2cbefaaa2ad89de56016e545a33786698a937072a4d8468b81dc958b8b3982a9"
+    },
+    {
+      "mean_lm_loss": 3.7160000801086426,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7160000801086426,
+      "update": 186,
+      "cumulative_window_offsets_sha256": "400fa548da5649e4eee39ba5d72b12baee4a933d258ba4e3d30bc115d421302b"
+    },
+    {
+      "mean_lm_loss": 3.6693310737609863,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6693310737609863,
+      "update": 187,
+      "cumulative_window_offsets_sha256": "43274556d2783f7b09fdb31dc1a111195fdceeee79d3cedeecb8530d1bd4d815"
+    },
+    {
+      "mean_lm_loss": 3.7035162448883057,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7035162448883057,
+      "update": 188,
+      "cumulative_window_offsets_sha256": "e21af4f52ad806797e501ef8d3af1a42623192bb29b3f8d21d19a8a5c8876d8a"
+    },
+    {
+      "mean_lm_loss": 3.7836804389953613,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7836804389953613,
+      "update": 189,
+      "cumulative_window_offsets_sha256": "670cb597f2e77955f89dc035e5c13f68df533eeccd3955662cc5125bdb9a9991"
+    },
+    {
+      "mean_lm_loss": 3.4944992065429688,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.4944992065429688,
+      "update": 190,
+      "cumulative_window_offsets_sha256": "5f5e6b6524bc22084909bec1b91cf04ceae5f9e94a393e485e7d1537c47f7975"
+    },
+    {
+      "mean_lm_loss": 3.793163299560547,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.793163299560547,
+      "update": 191,
+      "cumulative_window_offsets_sha256": "ce95bc03fb2b8857e793b80a584ba62fb2abc8f167dabc52e8eff24a0560f492"
+    },
+    {
+      "mean_lm_loss": 3.731433391571045,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.731433391571045,
+      "update": 192,
+      "cumulative_window_offsets_sha256": "006ed4cb6cf24f7124fdaf03362ac24358fc19714c67f154c7fe69ebcf66645d"
+    },
+    {
+      "mean_lm_loss": 3.62432861328125,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.62432861328125,
+      "update": 193,
+      "cumulative_window_offsets_sha256": "f2e603d70a4efce2fd98e11cbb85fa8ae18b647afd5c592da92ff6abdbe2346d"
+    },
+    {
+      "mean_lm_loss": 3.7594547271728516,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7594547271728516,
+      "update": 194,
+      "cumulative_window_offsets_sha256": "48738a76598fa712d20ff5112b184e3061aabda0fe532eda48e5588c956e7a66"
+    },
+    {
+      "mean_lm_loss": 3.705533266067505,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.705533266067505,
+      "update": 195,
+      "cumulative_window_offsets_sha256": "3b3f37f465f106a5709130b70ac67cb23598c2adb1bc91e9be880c2aef665bf8"
+    },
+    {
+      "mean_lm_loss": 3.885364055633545,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.885364055633545,
+      "update": 196,
+      "cumulative_window_offsets_sha256": "f27e6456dca796871f2d1a9735b7086502d084ffc39a694ea89ab37706da8e3a"
+    },
+    {
+      "mean_lm_loss": 3.610914945602417,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.610914945602417,
+      "update": 197,
+      "cumulative_window_offsets_sha256": "7cef2c6de4716ee47c15f92ce602756f9c027c7897475eb66e60e5c6c7ef161c"
+    },
+    {
+      "mean_lm_loss": 3.752974510192871,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.752974510192871,
+      "update": 198,
+      "cumulative_window_offsets_sha256": "616ca3a16c06116fa6fdc2c47b1453f92938123db794318cc252840ca2f49f79"
+    },
+    {
+      "mean_lm_loss": 3.6614770889282227,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6614770889282227,
+      "update": 199,
+      "cumulative_window_offsets_sha256": "822f9715edcf5f9706531dc599035e684cd71522017502717d16e54f212edb74"
+    },
+    {
+      "mean_lm_loss": 3.864043712615967,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.864043712615967,
+      "update": 200,
+      "cumulative_window_offsets_sha256": "6edc6c56cbf73be52d6d66b2a357e29026ad96f9664835d1497697930ec2e51f"
+    },
+    {
+      "mean_lm_loss": 3.656738758087158,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.656738758087158,
+      "update": 201,
+      "cumulative_window_offsets_sha256": "dd75f5fb7086f2d15c45b6c3ffc6e16e9fe20d91677e936406721e87d56d8c2b"
+    },
+    {
+      "mean_lm_loss": 3.6739799976348877,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6739799976348877,
+      "update": 202,
+      "cumulative_window_offsets_sha256": "f937e5f9dbb320b8409001b2920018626a05f6c17053dec0489e6c8dc7ff28b9"
+    },
+    {
+      "mean_lm_loss": 3.739187240600586,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.739187240600586,
+      "update": 203,
+      "cumulative_window_offsets_sha256": "46e068fd6ad8c1decde5e43c524a0f93fae9dfb8f44a747241a5f66129f82dae"
+    },
+    {
+      "mean_lm_loss": 3.9114317893981934,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.9114317893981934,
+      "update": 204,
+      "cumulative_window_offsets_sha256": "2d8869f8b3d54a22f63f62392578dc84fb2817460e95fd55941f7f8446d63784"
+    },
+    {
+      "mean_lm_loss": 3.7596487998962402,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7596487998962402,
+      "update": 205,
+      "cumulative_window_offsets_sha256": "277b36fd9edde628c2f868945861ed97a21c7ae15eea3baafa624fc50e83ec92"
+    },
+    {
+      "mean_lm_loss": 3.819423198699951,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.819423198699951,
+      "update": 206,
+      "cumulative_window_offsets_sha256": "a749731fd53aaaf9b354fcfc2dd67f17253574e0ee040ac6b906ac869f73c7fe"
+    },
+    {
+      "mean_lm_loss": 3.538614273071289,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.538614273071289,
+      "update": 207,
+      "cumulative_window_offsets_sha256": "a8159c679c1cd3b424b9a55be1078696c65299e2bb3c9027df9cdd712541bbd9"
+    },
+    {
+      "mean_lm_loss": 3.7254533767700195,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7254533767700195,
+      "update": 208,
+      "cumulative_window_offsets_sha256": "be7db508231764de05812be9788321b42c5231a8e0c5b50f507d41c4be1c52e5"
+    },
+    {
+      "mean_lm_loss": 3.803506374359131,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.803506374359131,
+      "update": 209,
+      "cumulative_window_offsets_sha256": "ffb6288d3ec0d6f59693b30251cc145c4e4c3c6f6195528d2db405cf6be08567"
+    },
+    {
+      "mean_lm_loss": 3.7802515029907227,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7802515029907227,
+      "update": 210,
+      "cumulative_window_offsets_sha256": "be9a6bdf7827344dbce19162fc2591ea3f1bd717a489a9ae5c9e4e76806a6b42"
+    },
+    {
+      "mean_lm_loss": 3.822840690612793,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.822840690612793,
+      "update": 211,
+      "cumulative_window_offsets_sha256": "55f4b6af0522ce56b8df7383ae713aff1ab91b5f560e29cb721eed86c15dda2f"
+    },
+    {
+      "mean_lm_loss": 3.675083637237549,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.675083637237549,
+      "update": 212,
+      "cumulative_window_offsets_sha256": "d54b9761e8924a8f92bb22fcb18de906e9bd44ba81d388fb175a9e901047b42a"
+    },
+    {
+      "mean_lm_loss": 3.7067956924438477,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7067956924438477,
+      "update": 213,
+      "cumulative_window_offsets_sha256": "b741f10eab13e58c462efbc0504542fca2ed01e46f9c4cc670656c96e3556a45"
+    },
+    {
+      "mean_lm_loss": 3.6447336673736572,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6447336673736572,
+      "update": 214,
+      "cumulative_window_offsets_sha256": "0d856ba728b5ecbf6a135fe1fa9c92f6450111482eb3ef37d400920ae364b1a7"
+    },
+    {
+      "mean_lm_loss": 3.675544023513794,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.675544023513794,
+      "update": 215,
+      "cumulative_window_offsets_sha256": "af428c50fea10bb5e08ba9217bcac1caea27f0c6774490315d036df51ded5db7"
+    },
+    {
+      "mean_lm_loss": 3.6514973640441895,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6514973640441895,
+      "update": 216,
+      "cumulative_window_offsets_sha256": "a5945a8bf9dc344b6d99909a940509d3c8c63e61de6f36c4e532f9626a050a81"
+    },
+    {
+      "mean_lm_loss": 3.722135543823242,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.722135543823242,
+      "update": 217,
+      "cumulative_window_offsets_sha256": "5f89d0d18da8931f346197312c787c3daee6711dc3f907fb0455e0fdcb87ad16"
+    },
+    {
+      "mean_lm_loss": 3.491356134414673,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.491356134414673,
+      "update": 218,
+      "cumulative_window_offsets_sha256": "6f60a20de9b1760ab866471bc1b569ec767e84c38607c7fe6ef16278901a1c6f"
+    },
+    {
+      "mean_lm_loss": 3.8454806804656982,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8454806804656982,
+      "update": 219,
+      "cumulative_window_offsets_sha256": "5c51513371b824636021149181f4857d0f538dbd53767439247c0b793bca05d8"
+    },
+    {
+      "mean_lm_loss": 3.59476900100708,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.59476900100708,
+      "update": 220,
+      "cumulative_window_offsets_sha256": "2f807863ea805c341d0324c31b311b768d0c77abe66d9d0aa87be6aa98d89154"
+    },
+    {
+      "mean_lm_loss": 3.62519907951355,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.62519907951355,
+      "update": 221,
+      "cumulative_window_offsets_sha256": "39567e5cf3e96d7c0098b241182d6a84e88780cd89897ea883f4f542644f3422"
+    },
+    {
+      "mean_lm_loss": 3.527531385421753,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.527531385421753,
+      "update": 222,
+      "cumulative_window_offsets_sha256": "a013059fdf9e28b3a034ee805bb81220c528ca3daa6fadb7e0a9ab44f400b54d"
+    },
+    {
+      "mean_lm_loss": 3.7834784984588623,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7834784984588623,
+      "update": 223,
+      "cumulative_window_offsets_sha256": "94369172d328348e7737cec6708a558ec1e8ccd9cf1b68102407d372f185c875"
+    },
+    {
+      "mean_lm_loss": 3.488006114959717,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.488006114959717,
+      "update": 224,
+      "cumulative_window_offsets_sha256": "b3b39160cae509f64d10bfa6a975fe6ca858708235c67d8be9f1d3a08a1522ce"
+    },
+    {
+      "mean_lm_loss": 3.520082712173462,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.520082712173462,
+      "update": 225,
+      "cumulative_window_offsets_sha256": "dd051882c8a9a6def1e18505b34c862d8c36db1aa223e6e52d266c69d810fa01"
+    },
+    {
+      "mean_lm_loss": 3.589771270751953,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.589771270751953,
+      "update": 226,
+      "cumulative_window_offsets_sha256": "2e8f6e3ee83950aeaaff833b4b9c52be48fc231e70d36478e4551888f2687c5b"
+    },
+    {
+      "mean_lm_loss": 3.543208122253418,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.543208122253418,
+      "update": 227,
+      "cumulative_window_offsets_sha256": "dc8ae18a2ae09e066d1103082fd261eb0c1c88dd6f7a864b90d6af10ba43902f"
+    },
+    {
+      "mean_lm_loss": 3.7334461212158203,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7334461212158203,
+      "update": 228,
+      "cumulative_window_offsets_sha256": "4d044f6f4e292b946221613c40dc1036818935b357b3d8fa5bac21716214f435"
+    },
+    {
+      "mean_lm_loss": 3.731616497039795,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.731616497039795,
+      "update": 229,
+      "cumulative_window_offsets_sha256": "92c1a502dfa09780a1d7fa6a773eb4dd2a60bbe04f9d3a0f106215452087ecc6"
+    },
+    {
+      "mean_lm_loss": 3.718205451965332,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.718205451965332,
+      "update": 230,
+      "cumulative_window_offsets_sha256": "448b65689d10e3e165e8a422299603a26a2d68e9eb05fc6e386907ca4eb31b71"
+    },
+    {
+      "mean_lm_loss": 3.707282304763794,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.707282304763794,
+      "update": 231,
+      "cumulative_window_offsets_sha256": "bd1977d105ae518f09f64f67854e20e1016cad799b8b4eab389e57c097a13124"
+    },
+    {
+      "mean_lm_loss": 3.885430335998535,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.885430335998535,
+      "update": 232,
+      "cumulative_window_offsets_sha256": "ff89fb2ea8c6aa49733c5e3b0d3b2b110d2caacaa8a9758e9239bc1d664a71dc"
+    },
+    {
+      "mean_lm_loss": 3.738717794418335,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.738717794418335,
+      "update": 233,
+      "cumulative_window_offsets_sha256": "492b9bf0ec14f70f25fdfb457c48878ece75ca132248eb3200c089459725dc91"
+    },
+    {
+      "mean_lm_loss": 3.687955379486084,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.687955379486084,
+      "update": 234,
+      "cumulative_window_offsets_sha256": "a680aa5a79e7635f36b50015f114ef4680eb6a101d819ee942b338432e9a28f9"
+    },
+    {
+      "mean_lm_loss": 3.5895252227783203,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5895252227783203,
+      "update": 235,
+      "cumulative_window_offsets_sha256": "379f750787836e9582f8921d4f9a09a4ccf4ea2f9c991291ca5670b10d702568"
+    },
+    {
+      "mean_lm_loss": 3.6086924076080322,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6086924076080322,
+      "update": 236,
+      "cumulative_window_offsets_sha256": "840f041d218178a0a5b1a01c008fd9c876f283d2d9481522c359714e95b6d684"
+    },
+    {
+      "mean_lm_loss": 3.677625894546509,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.677625894546509,
+      "update": 237,
+      "cumulative_window_offsets_sha256": "e6c65b28dc20d588dea9abcd806e9b3531dfa9e3469de16b9e1e8bcc651a8c35"
+    },
+    {
+      "mean_lm_loss": 3.551279067993164,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.551279067993164,
+      "update": 238,
+      "cumulative_window_offsets_sha256": "41591fcf39eaaa0443d94e80591c1fc2a281a21b26d3681a42f2d7e3001a9d85"
+    },
+    {
+      "mean_lm_loss": 3.678926944732666,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.678926944732666,
+      "update": 239,
+      "cumulative_window_offsets_sha256": "c0edaef15603d9a475aea54710b2d8420574c265a34c369b9e9c7ae4e2974f95"
+    },
+    {
+      "mean_lm_loss": 3.795647144317627,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.795647144317627,
+      "update": 240,
+      "cumulative_window_offsets_sha256": "68b32322b5bfec718f7b8f7720601bc9efac09d56ad1e4e1dbe136e041d642c4"
+    },
+    {
+      "mean_lm_loss": 3.6305601596832275,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6305601596832275,
+      "update": 241,
+      "cumulative_window_offsets_sha256": "35300ce6d41f74b77f10fcccddb1df31cec27d5a9b450949f06fb81a849e2c15"
+    },
+    {
+      "mean_lm_loss": 3.5937376022338867,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5937376022338867,
+      "update": 242,
+      "cumulative_window_offsets_sha256": "f21a2e5538cb0f38896efac3ead6a4a1cdacdfe5cee6658044b8f09218e409f4"
+    },
+    {
+      "mean_lm_loss": 3.7109618186950684,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7109618186950684,
+      "update": 243,
+      "cumulative_window_offsets_sha256": "11252ecda8a0c19d868eea252909501576c0b9b3498eb03bb357cd61c1889903"
+    },
+    {
+      "mean_lm_loss": 3.7604708671569824,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7604708671569824,
+      "update": 244,
+      "cumulative_window_offsets_sha256": "86fe8d82b0aa4fe183d09f970b3d7c6afdeea1bdcfa64febb6a27040d29c9db3"
+    },
+    {
+      "mean_lm_loss": 3.5766899585723877,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5766899585723877,
+      "update": 245,
+      "cumulative_window_offsets_sha256": "6dcee5eeca72045e351203f9f231e30dea98c9013cb530c79ef86b7dbb0add3f"
+    },
+    {
+      "mean_lm_loss": 3.636073112487793,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.636073112487793,
+      "update": 246,
+      "cumulative_window_offsets_sha256": "174a53a469814cd48c599451d58e747eb517b88adfd90462362323f688a763a7"
+    },
+    {
+      "mean_lm_loss": 3.866408586502075,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.866408586502075,
+      "update": 247,
+      "cumulative_window_offsets_sha256": "4c0c82a6d59c0b73da10455d123aef4f849ba8872e0d72b976d09086bce38163"
+    },
+    {
+      "mean_lm_loss": 3.684964656829834,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.684964656829834,
+      "update": 248,
+      "cumulative_window_offsets_sha256": "bb18914470a08f357307864eead5da6bb0f3f42e317eff4782df583103d72b75"
+    },
+    {
+      "mean_lm_loss": 3.5722315311431885,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5722315311431885,
+      "update": 249,
+      "cumulative_window_offsets_sha256": "b2ff523477bb8b9c75540e05ddd22b805f35b6221595457eb517f6490a59bb70"
+    },
+    {
+      "mean_lm_loss": 3.5179805755615234,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5179805755615234,
+      "update": 250,
+      "cumulative_window_offsets_sha256": "35f90e1a529e8e5232dd633b22d4e42ca1e4fdfe30ad70b4b9d127777118d6cb"
+    },
+    {
+      "mean_lm_loss": 3.6866626739501953,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6866626739501953,
+      "update": 251,
+      "cumulative_window_offsets_sha256": "662adb2f838215d34918ce4555d1b180f5089927e6fb67d1d0b55b88cef316b2"
+    },
+    {
+      "mean_lm_loss": 3.5609638690948486,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5609638690948486,
+      "update": 252,
+      "cumulative_window_offsets_sha256": "7e78adff82ac8de7f07d4c0acd65e25d4fbdea7a7a444dbe0a4700f32cacaf9f"
+    },
+    {
+      "mean_lm_loss": 3.567723035812378,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.567723035812378,
+      "update": 253,
+      "cumulative_window_offsets_sha256": "2dca7f11680cd70819eb3427312f08aab0ab1eca709c8df16d4a0a95674e6a4c"
+    },
+    {
+      "mean_lm_loss": 3.645052433013916,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.645052433013916,
+      "update": 254,
+      "cumulative_window_offsets_sha256": "5681d1a1f798872495e8461c4aeb7f2fca2268e4b7722569cccf755496679580"
+    },
+    {
+      "mean_lm_loss": 3.613792657852173,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.613792657852173,
+      "update": 255,
+      "cumulative_window_offsets_sha256": "c4ba9e8e209938aaa56428b124dec008b56c2945b02468d8af0df866649bbfb5"
+    },
+    {
+      "mean_lm_loss": 3.5424141883850098,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5424141883850098,
+      "update": 256,
+      "cumulative_window_offsets_sha256": "01ebb324cc28317fa59d9b4bf4b13e4231c54e4b515e9e1221d61eb0a61ddbe3"
+    },
+    {
+      "mean_lm_loss": 3.7100629806518555,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7100629806518555,
+      "update": 257,
+      "cumulative_window_offsets_sha256": "f3b0fb6c35453202ebe068077e33108f26bd795e14e780621b9003474f436b25"
+    },
+    {
+      "mean_lm_loss": 3.711674213409424,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.711674213409424,
+      "update": 258,
+      "cumulative_window_offsets_sha256": "2fed4cc898c30452f6e5b09c3f4b7f2be8819df3d6ea452181d1e25f2f01b847"
+    },
+    {
+      "mean_lm_loss": 3.6683664321899414,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6683664321899414,
+      "update": 259,
+      "cumulative_window_offsets_sha256": "311cacc675d6030a3e85d48354b99eae9f5fec3e44fff50c64f98b6ad6a35ec1"
+    },
+    {
+      "mean_lm_loss": 3.670382499694824,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.670382499694824,
+      "update": 260,
+      "cumulative_window_offsets_sha256": "ae32bcfba0f317d3dc59635fe5624825052864a6b76dfebfec28a4f224732530"
+    },
+    {
+      "mean_lm_loss": 3.672192335128784,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.672192335128784,
+      "update": 261,
+      "cumulative_window_offsets_sha256": "d15d99603cc7ee354f995342b67a5c47dfaf77794c0960e7adc1baccaf110574"
+    },
+    {
+      "mean_lm_loss": 3.5913643836975098,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5913643836975098,
+      "update": 262,
+      "cumulative_window_offsets_sha256": "99bf2849dd50a2c63b928261ad1c3e5d4e22237cc414c85df07d814c7bf377a7"
+    },
+    {
+      "mean_lm_loss": 3.8158063888549805,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.8158063888549805,
+      "update": 263,
+      "cumulative_window_offsets_sha256": "957b0d43a49ab96a9e32d8a14571cefb2389a1c9a633a6fe6c49200bedc21e24"
+    },
+    {
+      "mean_lm_loss": 3.643888235092163,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.643888235092163,
+      "update": 264,
+      "cumulative_window_offsets_sha256": "b32ae949feeac3cbc631aba93df5b67d9b232010f07e8760fd27e8c3d3d8b9fd"
+    },
+    {
+      "mean_lm_loss": 3.799149990081787,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.799149990081787,
+      "update": 265,
+      "cumulative_window_offsets_sha256": "baa41be1ab96bcf0f8e08832ec5df69941e3ea203d5c61807c655b01b7148192"
+    },
+    {
+      "mean_lm_loss": 3.5809874534606934,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5809874534606934,
+      "update": 266,
+      "cumulative_window_offsets_sha256": "e757e30f6fcad1b650d447546069f2ad3fd98882cec0d5d3939175512ba56b93"
+    },
+    {
+      "mean_lm_loss": 3.5498123168945312,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5498123168945312,
+      "update": 267,
+      "cumulative_window_offsets_sha256": "438103c048f05ca3dbc9e610e06e52e722e402be76db1af0521b203cc924a8a8"
+    },
+    {
+      "mean_lm_loss": 3.6804065704345703,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6804065704345703,
+      "update": 268,
+      "cumulative_window_offsets_sha256": "3098256e690c6a7b74fcd128839f47144a3b7c104da29cbfda94b37ffdbd9c3f"
+    },
+    {
+      "mean_lm_loss": 3.4864256381988525,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.4864256381988525,
+      "update": 269,
+      "cumulative_window_offsets_sha256": "fee28a0e5628c17ebc28f6677792297084f40525593dedcc58fcf18273bb9abc"
+    },
+    {
+      "mean_lm_loss": 3.416078567504883,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.416078567504883,
+      "update": 270,
+      "cumulative_window_offsets_sha256": "cee44b16d6f92b66fa8fddb646b9e9f53ef5b7ed027710b5d21d3148d7fb0626"
+    },
+    {
+      "mean_lm_loss": 3.599210262298584,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.599210262298584,
+      "update": 271,
+      "cumulative_window_offsets_sha256": "06d637b1cc97e7059563e77ce10e51255396e287c49b93106e411dff60d04e3c"
+    },
+    {
+      "mean_lm_loss": 3.775247573852539,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.775247573852539,
+      "update": 272,
+      "cumulative_window_offsets_sha256": "e020526205568fb33fa1099df7e857d9eb0b579458c508beb2a57311c1a43478"
+    },
+    {
+      "mean_lm_loss": 3.7935807704925537,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7935807704925537,
+      "update": 273,
+      "cumulative_window_offsets_sha256": "2c472a1bc03079c714521848e372b8685ddef993df34d9cbece790f8465e0a94"
+    },
+    {
+      "mean_lm_loss": 3.5750648975372314,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5750648975372314,
+      "update": 274,
+      "cumulative_window_offsets_sha256": "655f604bc035f3678b655fb6e17365855fb130c3345de007cf562ae96af335e0"
+    },
+    {
+      "mean_lm_loss": 3.754169464111328,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.754169464111328,
+      "update": 275,
+      "cumulative_window_offsets_sha256": "9c11718e9cfa0bca9f9fa7279a39f068dd36446ec6ffc1fca69a90fb49fd96c2"
+    },
+    {
+      "mean_lm_loss": 3.563406467437744,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.563406467437744,
+      "update": 276,
+      "cumulative_window_offsets_sha256": "f35f2701beadbfa2b74549b9c891f256a010b06ada87eda96f64d387233a0b5f"
+    },
+    {
+      "mean_lm_loss": 3.6880571842193604,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6880571842193604,
+      "update": 277,
+      "cumulative_window_offsets_sha256": "0ce682a3b3c250a0e7bdb5ca21c0865e3c1ee8ccf3af54ad5b7f1b0e71fcac0b"
+    },
+    {
+      "mean_lm_loss": 3.3772168159484863,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.3772168159484863,
+      "update": 278,
+      "cumulative_window_offsets_sha256": "1effc397bee3d2dcf87c046d0a65ea58bc7a69a4ed9f9adb3b61ec73dce5f0c1"
+    },
+    {
+      "mean_lm_loss": 3.7025694847106934,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7025694847106934,
+      "update": 279,
+      "cumulative_window_offsets_sha256": "510f1409eba46ddddd45cda02183757963b496c8fb9dc2d1111168dfc777255b"
+    },
+    {
+      "mean_lm_loss": 3.728576421737671,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.728576421737671,
+      "update": 280,
+      "cumulative_window_offsets_sha256": "4d735168c5ac8a273e209d5a4a41e483b87faefb53aa50151ae5f7febc14fb63"
+    },
+    {
+      "mean_lm_loss": 3.379258394241333,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.379258394241333,
+      "update": 281,
+      "cumulative_window_offsets_sha256": "72627af1f2cc3d04145cd8f93674cc3af5c91221b67c617fcef28e54dbf0b1f7"
+    },
+    {
+      "mean_lm_loss": 3.86041259765625,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.86041259765625,
+      "update": 282,
+      "cumulative_window_offsets_sha256": "b97009eb8efac91c30acf369f268cdb66120e7842fd8bb1dfe8f7b449ba0b667"
+    },
+    {
+      "mean_lm_loss": 3.723987579345703,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.723987579345703,
+      "update": 283,
+      "cumulative_window_offsets_sha256": "2f658f54952a9eb359b89827123398245ffdf1d03d7630d3ca13f2d172f32d03"
+    },
+    {
+      "mean_lm_loss": 3.549205780029297,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.549205780029297,
+      "update": 284,
+      "cumulative_window_offsets_sha256": "656b27fa0055dc7a63d94e2816000dcc11b38beb91275317e2a29c055b274532"
+    },
+    {
+      "mean_lm_loss": 3.706660509109497,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.706660509109497,
+      "update": 285,
+      "cumulative_window_offsets_sha256": "07fe4a1a515a8c54a7b0feea2856a21b1fba33994720b0d79721b8481ee8cd4b"
+    },
+    {
+      "mean_lm_loss": 3.7641971111297607,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7641971111297607,
+      "update": 286,
+      "cumulative_window_offsets_sha256": "6670990053ee531938856846f220f46d902a74e491076570d50ecd9716f12f31"
+    },
+    {
+      "mean_lm_loss": 3.3131766319274902,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.3131766319274902,
+      "update": 287,
+      "cumulative_window_offsets_sha256": "30a1ab987ef2b7f8133949027b166ac5a3becd82cab281da6948143b859fb436"
+    },
+    {
+      "mean_lm_loss": 3.89066743850708,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.89066743850708,
+      "update": 288,
+      "cumulative_window_offsets_sha256": "6ea8910b301a9cdbc9c1bcbeb65037821076246e871ac6832dc550b7439997d0"
+    },
+    {
+      "mean_lm_loss": 3.4968667030334473,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.4968667030334473,
+      "update": 289,
+      "cumulative_window_offsets_sha256": "3effa035446f3a4f4a627bfd53af34cc986bda980c37fb31e8effa8c52ddd0ad"
+    },
+    {
+      "mean_lm_loss": 3.6605472564697266,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6605472564697266,
+      "update": 290,
+      "cumulative_window_offsets_sha256": "bbf8ea3bacb973bdf99c6fd972bce3ff6a58313f4e192cd264ea64c35122a072"
+    },
+    {
+      "mean_lm_loss": 3.667175531387329,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.667175531387329,
+      "update": 291,
+      "cumulative_window_offsets_sha256": "ba71f2043ca425099c39349ea6a36829af4a95c3285d2a051de5c1498d8c1457"
+    },
+    {
+      "mean_lm_loss": 3.6006569862365723,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6006569862365723,
+      "update": 292,
+      "cumulative_window_offsets_sha256": "7e4d5431af8f3fd086272bb194e31551f5b1cc3643738639c21e74ac1e419f6b"
+    },
+    {
+      "mean_lm_loss": 3.5664544105529785,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.5664544105529785,
+      "update": 293,
+      "cumulative_window_offsets_sha256": "d2557ba7e2db8374c81bfa096ae44cc6ce3eb0fb90adac0319c2994bc5e8cdd9"
+    },
+    {
+      "mean_lm_loss": 3.6307339668273926,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.6307339668273926,
+      "update": 294,
+      "cumulative_window_offsets_sha256": "1d66f014f5a7bd3befca766bc07f512de7c68537c146359392446531a463811a"
+    },
+    {
+      "mean_lm_loss": 3.557124137878418,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.557124137878418,
+      "update": 295,
+      "cumulative_window_offsets_sha256": "4eb661a2b11d21ae9a103fe9ead5891c386b45322620ce09a5f90ab2f527b919"
+    },
+    {
+      "mean_lm_loss": 3.7510616779327393,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7510616779327393,
+      "update": 296,
+      "cumulative_window_offsets_sha256": "abf8354c9ec6642d1f472dbc3cbbe78765c8e6b7be065465f018db4925d3627b"
+    },
+    {
+      "mean_lm_loss": 3.7246217727661133,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7246217727661133,
+      "update": 297,
+      "cumulative_window_offsets_sha256": "dcde6b8fc6d251fcbd8e2a3b2e7a7d2ef0fb1cc6635eb63724b60cab4adc01e3"
+    },
+    {
+      "mean_lm_loss": 3.4557290077209473,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.4557290077209473,
+      "update": 298,
+      "cumulative_window_offsets_sha256": "f436669f2fb6de304ddb3884650d75634b6e737b13e411bc07852a582bc21d63"
+    },
+    {
+      "mean_lm_loss": 3.7545530796051025,
+      "mean_balance_loss": 0.0,
+      "mean_total_loss": 3.7545530796051025,
+      "update": 299,
+      "cumulative_window_offsets_sha256": "89ef35fae4ae3a7a741b7bdc4c76e5420edcdfbe63be9ba8cb64e5e254a5445e"
+    }
+  ],
+  "evaluations": [
+    {
+      "update": 0,
+      "train": 10.912162780761719,
+      "train_lm": 10.912162780761719,
+      "train_balance": 0.0,
+      "val": 10.911463737487793,
+      "val_lm": 10.911463737487793,
+      "val_balance": 0.0
+    },
+    {
+      "update": 100,
+      "train": 4.131064414978027,
+      "train_lm": 4.131064414978027,
+      "train_balance": 0.0,
+      "val": 4.155600547790527,
+      "val_lm": 4.155600547790527,
+      "val_balance": 0.0
+    },
+    {
+      "update": 200,
+      "train": 3.765491008758545,
+      "train_lm": 3.765491008758545,
+      "train_balance": 0.0,
+      "val": 3.76416277885437,
+      "val_lm": 3.76416277885437,
+      "val_balance": 0.0
+    },
+    {
+      "update": 300,
+      "train": 3.6017537117004395,
+      "train_lm": 3.6017537117004395,
+      "train_balance": 0.0,
+      "val": 3.6435558795928955,
+      "val_lm": 3.6435558795928955,
+      "val_balance": 0.0
+    }
+  ],
+  "source_sha256": {
+    "train.py": "b1f5ba806f160043e38d58c4a28daed39c04ba1c9876f3ca91a495d05079af7e",
+    "model.py": "734d44c8a4f426a7b369ac72d148a29868452e2d16bdb0e2412fe0579730d84a",
+    "moe.py": "3750201807002709b5719ba82a9ff80f43b90c96eca2f51c387dbec36841d4ee",
+    "config/train_d3_dense_stability.py": "ab7977989a3b0b2b08d0ba3d7813cd986bb088ae85a771736badddcfb69f43cc"
+  }
+}

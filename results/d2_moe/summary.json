@@ -1,0 +1,518 @@
+{
+  "schema_version": 1,
+  "experiment": "D2 Top-1 MoE mechanism isolation summary",
+  "invariants": {
+    "same_data_windows": true,
+    "same_source": true,
+    "same_model_parameter_count": true,
+    "model_parameter_count": 17653248,
+    "only_declared_mechanisms_changed": true,
+    "dataset": "tinystories_debug",
+    "data_seed": 20260920,
+    "window_count": 80,
+    "window_offsets_sha256": "f9cba2a564a65514bd1d19eb0d38a660231a8987c7d06224d64974a63063121b",
+    "capacity_observation_is_non_mutating": true
+  },
+  "changed_variable_sequence": [
+    {
+      "variant": "unbounded",
+      "moe_capacity_factor": 0.0,
+      "moe_drop_tokens": false,
+      "moe_balance_loss_weight": 0.0
+    },
+    {
+      "variant": "capacity_observe",
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": false,
+      "moe_balance_loss_weight": 0.0
+    },
+    {
+      "variant": "capacity_drop",
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.0
+    },
+    {
+      "variant": "balance_loss",
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.01
+    }
+  ],
+  "variants": {
+    "unbounded": {
+      "update_count": 20,
+      "total_tokens": 20480,
+      "aggregate_expert_counts": [
+        8326,
+        3669,
+        2586,
+        5899
+      ],
+      "aggregate_processed_counts": [
+        8326,
+        3669,
+        2586,
+        5899
+      ],
+      "max_to_mean_load": 1.626171875,
+      "load_coefficient_of_variation": 0.43026233300326905,
+      "normalized_load_entropy": 0.9332606002292624,
+      "mean_update_max_to_mean_load": 2.4107421875,
+      "mean_update_load_coefficient_of_variation": 0.9114832013845444,
+      "total_overflow_tokens": 0,
+      "overflow_rate": 0.0,
+      "total_dropped_tokens": 0,
+      "drop_rate": 0.0,
+      "mean_lm_loss": 9.189009094238282,
+      "mean_balance_loss": 1.1031943142414093,
+      "mean_total_loss": 9.189009094238282,
+      "first_update": {
+        "expert_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "processed_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 0,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 318.0,
+        "max_to_mean_load": 1.2421875,
+        "load_coefficient_of_variation": 0.18000566959381104,
+        "normalized_load_entropy": 0.9881322979927063,
+        "mean_router_probabilities": [
+          0.2464878112077713,
+          0.2616177201271057,
+          0.2541055679321289,
+          0.23778890073299408
+        ],
+        "capacity_per_micro_batch": [
+          null
+        ],
+        "mean_lm_loss": 10.8104248046875,
+        "mean_balance_loss": 1.0063490867614746,
+        "mean_total_loss": 10.8104248046875,
+        "update": 0,
+        "cumulative_window_offsets_sha256": "cd8d8100c568f7db6adb47be7fd386ce01bc0135c3d81c722c75282068446b27"
+      },
+      "last_update": {
+        "expert_counts": [
+          716,
+          158,
+          0,
+          150
+        ],
+        "processed_counts": [
+          716,
+          158,
+          0,
+          150
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 0,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 716.0,
+        "max_to_mean_load": 2.796875,
+        "load_coefficient_of_variation": 1.0661557912826538,
+        "normalized_load_entropy": 0.5914393067359924,
+        "mean_router_probabilities": [
+          0.28861668705940247,
+          0.27472588419914246,
+          0.21334722638130188,
+          0.2233101725578308
+        ],
+        "capacity_per_micro_batch": [
+          null
+        ],
+        "mean_lm_loss": 8.263214111328125,
+        "mean_balance_loss": 1.1076279878616333,
+        "mean_total_loss": 8.263214111328125,
+        "update": 19,
+        "cumulative_window_offsets_sha256": "f9cba2a564a65514bd1d19eb0d38a660231a8987c7d06224d64974a63063121b"
+      }
+    },
+    "capacity_observe": {
+      "update_count": 20,
+      "total_tokens": 20480,
+      "aggregate_expert_counts": [
+        8326,
+        3669,
+        2586,
+        5899
+      ],
+      "aggregate_processed_counts": [
+        8326,
+        3669,
+        2586,
+        5899
+      ],
+      "max_to_mean_load": 1.626171875,
+      "load_coefficient_of_variation": 0.43026233300326905,
+      "normalized_load_entropy": 0.9332606002292624,
+      "mean_update_max_to_mean_load": 2.4107421875,
+      "mean_update_load_coefficient_of_variation": 0.9114832013845444,
+      "total_overflow_tokens": 6297,
+      "overflow_rate": 0.307470703125,
+      "total_dropped_tokens": 0,
+      "drop_rate": 0.0,
+      "mean_lm_loss": 9.189009094238282,
+      "mean_balance_loss": 1.1031943142414093,
+      "mean_total_loss": 9.189009094238282,
+      "first_update": {
+        "expert_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "processed_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 0,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 318.0,
+        "max_to_mean_load": 1.2421875,
+        "load_coefficient_of_variation": 0.18000566959381104,
+        "normalized_load_entropy": 0.9881322979927063,
+        "mean_router_probabilities": [
+          0.2464878112077713,
+          0.2616177201271057,
+          0.2541055679321289,
+          0.23778890073299408
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 10.8104248046875,
+        "mean_balance_loss": 1.0063490867614746,
+        "mean_total_loss": 10.8104248046875,
+        "update": 0,
+        "cumulative_window_offsets_sha256": "cd8d8100c568f7db6adb47be7fd386ce01bc0135c3d81c722c75282068446b27"
+      },
+      "last_update": {
+        "expert_counts": [
+          716,
+          158,
+          0,
+          150
+        ],
+        "processed_counts": [
+          716,
+          158,
+          0,
+          150
+        ],
+        "overflow_counts": [
+          396,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 396,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 716.0,
+        "max_to_mean_load": 2.796875,
+        "load_coefficient_of_variation": 1.0661557912826538,
+        "normalized_load_entropy": 0.5914393067359924,
+        "mean_router_probabilities": [
+          0.28861668705940247,
+          0.27472588419914246,
+          0.21334722638130188,
+          0.2233101725578308
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 8.263214111328125,
+        "mean_balance_loss": 1.1076279878616333,
+        "mean_total_loss": 8.263214111328125,
+        "update": 19,
+        "cumulative_window_offsets_sha256": "f9cba2a564a65514bd1d19eb0d38a660231a8987c7d06224d64974a63063121b"
+      }
+    },
+    "capacity_drop": {
+      "update_count": 20,
+      "total_tokens": 20480,
+      "aggregate_expert_counts": [
+        7436,
+        5354,
+        2043,
+        5647
+      ],
+      "aggregate_processed_counts": [
+        4483,
+        4299,
+        1598,
+        3586
+      ],
+      "max_to_mean_load": 1.45234375,
+      "load_coefficient_of_variation": 0.3802864029392821,
+      "normalized_load_entropy": 0.9404576721364957,
+      "mean_update_max_to_mean_load": 2.4830078125,
+      "mean_update_load_coefficient_of_variation": 0.9364353597164154,
+      "total_overflow_tokens": 6514,
+      "overflow_rate": 0.31806640625,
+      "total_dropped_tokens": 6514,
+      "drop_rate": 0.31806640625,
+      "mean_lm_loss": 9.190591430664062,
+      "mean_balance_loss": 1.0914851367473601,
+      "mean_total_loss": 9.190591430664062,
+      "first_update": {
+        "expert_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "processed_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 0,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 318.0,
+        "max_to_mean_load": 1.2421875,
+        "load_coefficient_of_variation": 0.18000566959381104,
+        "normalized_load_entropy": 0.9881322979927063,
+        "mean_router_probabilities": [
+          0.2464878112077713,
+          0.2616177201271057,
+          0.2541055679321289,
+          0.23778890073299408
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 10.8104248046875,
+        "mean_balance_loss": 1.0063490867614746,
+        "mean_total_loss": 10.8104248046875,
+        "update": 0,
+        "cumulative_window_offsets_sha256": "cd8d8100c568f7db6adb47be7fd386ce01bc0135c3d81c722c75282068446b27"
+      },
+      "last_update": {
+        "expert_counts": [
+          752,
+          134,
+          16,
+          122
+        ],
+        "processed_counts": [
+          320,
+          134,
+          16,
+          122
+        ],
+        "overflow_counts": [
+          432,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 592,
+        "overflow_token_count": 432,
+        "dropped_token_count": 432,
+        "drop_rate": 0.421875,
+        "mean_load": 256.0,
+        "max_load": 752.0,
+        "max_to_mean_load": 2.9375,
+        "load_coefficient_of_variation": 1.1329067945480347,
+        "normalized_load_entropy": 0.5852261781692505,
+        "mean_router_probabilities": [
+          0.281205415725708,
+          0.25834786891937256,
+          0.24852034449577332,
+          0.2119263857603073
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 8.265838623046875,
+        "mean_balance_loss": 1.07779860496521,
+        "mean_total_loss": 8.265838623046875,
+        "update": 19,
+        "cumulative_window_offsets_sha256": "f9cba2a564a65514bd1d19eb0d38a660231a8987c7d06224d64974a63063121b"
+      }
+    },
+    "balance_loss": {
+      "update_count": 20,
+      "total_tokens": 20480,
+      "aggregate_expert_counts": [
+        5589,
+        4819,
+        5628,
+        4444
+      ],
+      "aggregate_processed_counts": [
+        4401,
+        3903,
+        4515,
+        3674
+      ],
+      "max_to_mean_load": 1.09921875,
+      "load_coefficient_of_variation": 0.09889844722010972,
+      "normalized_load_entropy": 0.9964419314255002,
+      "mean_update_max_to_mean_load": 1.9740234375,
+      "mean_update_load_coefficient_of_variation": 0.6705510824918747,
+      "total_overflow_tokens": 3987,
+      "overflow_rate": 0.194677734375,
+      "total_dropped_tokens": 3987,
+      "drop_rate": 0.194677734375,
+      "mean_lm_loss": 9.189018249511719,
+      "mean_balance_loss": 1.0516860425472259,
+      "mean_total_loss": 9.199535131454468,
+      "first_update": {
+        "expert_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "processed_counts": [
+          243,
+          318,
+          272,
+          191
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1024,
+        "overflow_token_count": 0,
+        "dropped_token_count": 0,
+        "drop_rate": 0.0,
+        "mean_load": 256.0,
+        "max_load": 318.0,
+        "max_to_mean_load": 1.2421875,
+        "load_coefficient_of_variation": 0.18000566959381104,
+        "normalized_load_entropy": 0.9881322979927063,
+        "mean_router_probabilities": [
+          0.2464878112077713,
+          0.2616177201271057,
+          0.2541055679321289,
+          0.23778890073299408
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 10.8104248046875,
+        "mean_balance_loss": 1.0063490867614746,
+        "mean_total_loss": 10.820487976074219,
+        "update": 0,
+        "cumulative_window_offsets_sha256": "cd8d8100c568f7db6adb47be7fd386ce01bc0135c3d81c722c75282068446b27"
+      },
+      "last_update": {
+        "expert_counts": [
+          305,
+          238,
+          337,
+          144
+        ],
+        "processed_counts": [
+          305,
+          238,
+          320,
+          144
+        ],
+        "overflow_counts": [
+          0,
+          0,
+          17,
+          0
+        ],
+        "token_count": 1024,
+        "processed_token_count": 1007,
+        "overflow_token_count": 17,
+        "dropped_token_count": 17,
+        "drop_rate": 0.0166015625,
+        "mean_load": 256.0,
+        "max_load": 337.0,
+        "max_to_mean_load": 1.31640625,
+        "load_coefficient_of_variation": 0.2885738015174866,
+        "normalized_load_entropy": 0.9676979780197144,
+        "mean_router_probabilities": [
+          0.254987895488739,
+          0.2602144479751587,
+          0.25620323419570923,
+          0.22859442234039307
+        ],
+        "capacity_per_micro_batch": [
+          320
+        ],
+        "mean_lm_loss": 8.263214111328125,
+        "mean_balance_loss": 1.0115642547607422,
+        "mean_total_loss": 8.273329734802246,
+        "update": 19,
+        "cumulative_window_offsets_sha256": "f9cba2a564a65514bd1d19eb0d38a660231a8987c7d06224d64974a63063121b"
+      }
+    }
+  },
+  "last_update_balance_effect": {
+    "max_to_mean_before": 2.9375,
+    "max_to_mean_after": 1.31640625,
+    "load_cv_before": 1.1329067945480347,
+    "load_cv_after": 0.2885738015174866,
+    "drop_rate_before": 0.421875,
+    "drop_rate_after": 0.0166015625,
+    "lm_loss_before": 8.265838623046875,
+    "lm_loss_after": 8.263214111328125
+  }
+}

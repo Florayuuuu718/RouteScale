@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "experiment": "D4 Top-1 MoE eager/compiled profiler diagnosis",
+  "warning": "Profiler totals contain instrumentation overhead and overlapping scope rows; formal performance comes from the no-Profiler benchmark.",
+  "invariants": {
+    "same_workload_except_compile": true,
+    "active_steps": 10,
+    "all_losses_finite": true
+  },
+  "eager": {
+    "run_id": "moe_eager",
+    "compile": false,
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 5534.0,
+    "self_cuda_time_total_ms": 3456.0,
+    "peak_allocated_mib": 4026.880859375,
+    "peak_reserved_mib": 4958.0,
+    "combined_launch_api_count": 24271,
+    "aten_mm": {
+      "count": 4776,
+      "self_cpu_time_ms": 252.07451000000293,
+      "self_device_time_ms": 2180.415288,
+      "device_time_total_ms": 2180.628865
+    },
+    "aten_copy": {
+      "count": 6680,
+      "self_cpu_time_ms": 78.84849500001414,
+      "self_device_time_ms": 404.6863269999932,
+      "device_time_total_ms": 404.6908069999932
+    },
+    "routing_operations": {
+      "aten::nonzero": {
+        "count": 160,
+        "self_cpu_time_ms": 11.32995799999412,
+        "self_device_time_ms": 0.9489460000026011,
+        "device_time_total_ms": 0.9489460000026011
+      },
+      "aten::bincount": {
+        "count": 40,
+        "self_cpu_time_ms": 4.31631300000126,
+        "self_device_time_ms": 0.36733999999910155,
+        "device_time_total_ms": 0.6431229999966672
+      },
+      "aten::index_select": {
+        "count": 548,
+        "self_cpu_time_ms": 19.552347000008748,
+        "self_device_time_ms": 0.21204400000031456,
+        "device_time_total_ms": 3.1941240000028337
+      },
+      "aten::index_copy": {
+        "count": 156,
+        "self_cpu_time_ms": 7.2053469999973165,
+        "self_device_time_ms": 0.787488999999332,
+        "device_time_total_ms": 1.9869819999987959
+      }
+    },
+    "compiled_fx_graph_event_names": 0,
+    "triton_kernel_event_names": 0,
+    "configuration": {
+      "dataset": "tinystories_full",
+      "batch_size": 8,
+      "block_size": 512,
+      "gradient_accumulation_steps": 4,
+      "n_layer": 8,
+      "n_head": 8,
+      "n_embd": 512,
+      "dtype": "bfloat16",
+      "moe_num_experts": 4,
+      "moe_layer_index": 4,
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.01,
+      "profiler_data_seed": 20260920
+    }
+  },
+  "compiled": {
+    "run_id": "moe_compiled",
+    "compile": true,
+    "active_steps": 10,
+    "all_losses_finite": true,
+    "self_cpu_time_total_ms": 5811.0,
+    "self_cuda_time_total_ms": 3432.0,
+    "peak_allocated_mib": 4003.7744140625,
+    "peak_reserved_mib": 4926.0,
+    "combined_launch_api_count": 21960,
+    "aten_mm": {
+      "count": 4794,
+      "self_cpu_time_ms": 233.23401899998632,
+      "self_device_time_ms": 2186.0468149999856,
+      "device_time_total_ms": 2186.098304999986
+    },
+    "aten_copy": {
+      "count": 1236,
+      "self_cpu_time_ms": 21.109299000004853,
+      "self_device_time_ms": 350.26590400000015,
+      "device_time_total_ms": 350.26590400000015
+    },
+    "routing_operations": {
+      "aten::nonzero": {
+        "count": 160,
+        "self_cpu_time_ms": 13.506007999992653,
+        "self_device_time_ms": 0.9460000000013824,
+        "device_time_total_ms": 0.9460000000013824
+      },
+      "aten::bincount": {
+        "count": 40,
+        "self_cpu_time_ms": 5.4405900000026595,
+        "self_device_time_ms": 0.35124899999867193,
+        "device_time_total_ms": 0.6285520000019679
+      },
+      "aten::index_select": {
+        "count": 557,
+        "self_cpu_time_ms": 25.52112200000134,
+        "self_device_time_ms": 0.11418100000056439,
+        "device_time_total_ms": 3.16881800000582
+      },
+      "aten::index_copy": {
+        "count": 159,
+        "self_cpu_time_ms": 8.048791000001147,
+        "self_device_time_ms": 0.7692480000001888,
+        "device_time_total_ms": 2.1244450000020514
+      }
+    },
+    "compiled_fx_graph_event_names": 14,
+    "triton_kernel_event_names": 46,
+    "configuration": {
+      "dataset": "tinystories_full",
+      "batch_size": 8,
+      "block_size": 512,
+      "gradient_accumulation_steps": 4,
+      "n_layer": 8,
+      "n_head": 8,
+      "n_embd": 512,
+      "dtype": "bfloat16",
+      "moe_num_experts": 4,
+      "moe_layer_index": 4,
+      "moe_capacity_factor": 1.25,
+      "moe_drop_tokens": true,
+      "moe_balance_loss_weight": 0.01,
+      "profiler_data_seed": 20260920
+    }
+  },
+  "comparison": {
+    "self_cpu_time_change_percent": 5.005421033610413,
+    "self_cuda_time_change_percent": -0.694444444444442,
+    "combined_launch_api_count_change_percent": -9.521651353467098,
+    "aten_copy_call_change_percent": -81.49700598802396,
+    "aten_mm_self_device_time_change_percent": 0.2582777249351853,
+    "routing_operation_count_change_percent": {
+      "aten::nonzero": 0.0,
+      "aten::bincount": 0.0,
+      "aten::index_select": 1.642335766423364,
+      "aten::index_copy": 1.9230769230769162
+    }
+  }
+}

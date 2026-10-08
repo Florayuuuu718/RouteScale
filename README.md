@@ -36,8 +36,19 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - [x] FSDP2 `fully_shard` and DCP single-GPU checkpoint smoke test
 - [x] 1/2/4-GPU DDP strong/weak scaling and communication trace
 - [x] Four-GPU DeepSpeed/FSDP2 performance, capacity and checkpoint matrix
-- [ ] Top-1 Mixture-of-Experts
+- [x] Top-1 Mixture-of-Experts
 - [ ] Triton kernel evaluation
+
+The frozen D-stage single-GPU experiment contract and D1/D2 mechanism boundaries
+are recorded in [`docs/d_stage_protocol.md`](docs/d_stage_protocol.md). D1
+correctness and CUDA smoke evidence is in
+[`results/d1_moe/README.md`](results/d1_moe/README.md); capacity, token-drop and
+balance-loss evidence is in
+[`results/d2_moe/README.md`](results/d2_moe/README.md). The formal Dense/MoE
+benchmark and 300-update stability comparison are in
+[`results/d3_moe/README.md`](results/d3_moe/README.md). The D4 compile A/B and
+dynamic-routing graph-break diagnosis are in
+[`results/d4_moe_compile/README.md`](results/d4_moe_compile/README.md).
 
 The completed C-stage findings, decision guide, limitations and evidence map
 are documented in [`docs/c_stage_results.md`](docs/c_stage_results.md). The
@@ -52,6 +63,7 @@ verified AutoDL evidence snapshot is stored under
 - `train_fsdp2.py`: PyTorch FSDP2 entry point
 - `distributed_common.py`: shared model/data/optimizer semantics
 - `distributed_benchmark.py`: shared C6/C7 no-Profiler timing and rank aggregation
+- `moe.py`: single-GPU Top-1 router and local experts
 - `scripts/preflight_multigpu.py`: target-host admission report and NCCL check
 - `scripts/summarize_c4_profiler.py`: per-rank collective trace summary
 - `scripts/summarize_c_backends.py`: DeepSpeed/FSDP2 formal benchmark summary

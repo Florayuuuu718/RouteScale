@@ -236,3 +236,59 @@ being duplicated into this historical local-results tree. See
 [`../docs/c_stage_results.md`](../docs/c_stage_results.md) for the complete
 tables, communication interpretation, topology caveat and backend decision
 guide.
+
+## D1: minimal single-GPU Top-1 MoE
+
+The initial D-stage implementation now routes every token to one local expert,
+restores token order, preserves the public GPT interface, and remains disabled
+by default for Dense checkpoints. Seven focused correctness tests, the full
+26-test regression suite, a BF16 CUDA training smoke, MoE checkpoint recovery,
+and legacy Dense checkpoint loading passed. This is correctness evidence only;
+capacity, token dropping, balance loss, routing telemetry, and formal
+Dense/MoE performance results remain later D-stage work. See
+[`d1_moe/README.md`](d1_moe/README.md).
+
+## D2: capacity, token drop and balance loss
+
+Four 20-update TinyStories debug runs changed one routing mechanism at a time
+while preserving initialization and all 80 sampled windows. Capacity observation
+at factor 1.25 reported 30.75% aggregate overflow without changing routing or
+loss. Enforcing the limit dropped 31.81% of tokens across the short run. Adding
+a balance-loss weight of 0.01 reduced aggregate load CV from 0.380 to 0.099 and
+aggregate drop rate from 31.81% to 19.47%. On the final update, max/mean load
+fell from 2.938 to 1.316 and drop rate from 42.19% to 1.66%.
+
+These runs validate mechanism behavior, not convergence or throughput. Raw
+per-update metrics, the validated summary, commands and limitations are in
+[`d2_moe/README.md`](d2_moe/README.md).
+
+## D3: formal Dense/MoE comparison and stability
+
+Dense and the selected four-expert Top-1 MoE each completed three independent
+single-GPU no-Profiler runs on identical TinyStories full windows. Dense reached
+47,190 tokens/s at 347.190 ms/update; MoE reached 41,898 tokens/s at 391.047
+ms/update. MoE therefore delivered 88.78% of Dense throughput while adding
+6,293,504 total parameters but only 2,048 active parameters per token. Median
+peak allocated memory increased by 125.8 MiB.
+
+Both variants then completed deterministic 300-update stability runs over the
+same 9,600 windows. Final validation LM loss was 3.6436 for Dense and 3.6250
+for MoE. MoE aggregate load CV was 0.0361, aggregate drop rate was 1.88%, and
+the final 100 updates had no dropped tokens. This one-run quality observation
+is not evidence that MoE converges better. Full results and limitations are in
+[`d3_moe/README.md`](d3_moe/README.md).
+
+## D4: `torch.compile` compatibility and routing boundaries
+
+Using the same D3 workload and raw eager baselines, three compiled runs per
+variant show a sharp split. Dense improves from 347.190 to 240.432 ms/update
+(1.444x, +44.40% throughput), while Top-1 MoE changes from 391.047 to 395.580
+ms/update (0.989x, -1.15% throughput). All losses remain finite and the formal
+window/source invariants pass.
+
+The diagnostic trace and compiler logs explain the negative MoE result:
+`bincount` and data-dependent `nonzero` break the graph inside the expert loop,
+and changing routed-token shapes trigger recompilation. Compilation removes
+many copy calls but leaves CUDA compute essentially unchanged. Full commands,
+raw benchmarks, reviewable Profiler summaries and limitations are in
+[`d4_moe_compile/README.md`](d4_moe_compile/README.md).
