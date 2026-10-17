@@ -30,6 +30,7 @@ def add_benchmark_arguments(
     *,
     default_results_dir: str,
     default_profiler_dir: str = "results/c_backend_profiler",
+    default_profiler_trace_dir: str = "runs/traces/c_backend_profiler",
 ) -> None:
     parser.add_argument(
         "--benchmark",
@@ -53,7 +54,7 @@ def add_benchmark_arguments(
     parser.add_argument("--profiler-results-dir", default=default_profiler_dir)
     parser.add_argument(
         "--profiler-trace-dir",
-        default=f"{default_profiler_dir}/traces",
+        default=default_profiler_trace_dir,
     )
 
 

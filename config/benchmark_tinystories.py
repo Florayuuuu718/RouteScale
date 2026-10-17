@@ -1,6 +1,6 @@
 # B1: reproducible single-GPU baseline without PyTorch Profiler.
 
-out_dir = "out-b1-tinystories"
+out_dir = "runs/checkpoints/b1_single_gpu"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

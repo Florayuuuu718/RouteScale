@@ -3,7 +3,7 @@
 # Strong scaling keeps this configured global accumulation count fixed; train.py
 # divides it across ranks. Weak scaling keeps all four micro-steps on every rank.
 
-out_dir = "out-c-ddp-tinystories"
+out_dir = "runs/checkpoints/c_ddp_tinystories"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

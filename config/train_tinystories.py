@@ -1,7 +1,7 @@
 # Local single-GPU candidate for the formal TinyStories experiments.
 # Re-check and freeze the final batch size on the target four-GPU machine.
 
-out_dir = "out-tinystories"
+out_dir = "runs/checkpoints/a2_tinystories"
 eval_interval = 100
 eval_iters = 20
 log_interval = 10

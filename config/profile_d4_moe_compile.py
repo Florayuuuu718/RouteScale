@@ -1,6 +1,6 @@
 # D4 diagnostic trace for the selected torch.compile Top-1 MoE.
 
-out_dir = "out-d4-moe-profile"
+out_dir = "runs/checkpoints/d4_moe/profile"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000
@@ -49,6 +49,6 @@ profiler_wait_steps = 2
 profiler_warmup_steps = 2
 profiler_active_steps = 10
 profiler_data_seed = 20260920
-profiler_trace_dir = "logs/d4_moe_compile"
+profiler_trace_dir = "runs/traces/d4_moe_compile"
 profiler_results_dir = "results/d4_moe_compile/profiler"
 profiler_run_id = "moe_compiled"

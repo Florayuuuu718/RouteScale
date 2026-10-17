@@ -64,6 +64,12 @@ verified AutoDL evidence snapshot is stored under
 ## Repository Structure
 
 - `config/`: reproducible training configurations
+- `data/`: dataset preparation code and local tokenized datasets
+- `docs/`: protocols, runbooks, reports and the project roadmap
+- `notebooks/`: sizing and scaling-law notebooks
+- `results/`: small, reviewable experiment metrics and reports committed to Git
+- `artifacts/`: frozen evidence snapshots imported from completed remote runs
+- `runs/`: ignored machine-local checkpoints, profiler traces, logs and archives
 - `train_coverage.py`: deterministic C5 coverage/checkpoint entry point
 - `train_deepspeed.py`: DeepSpeed ZeRO entry point
 - `train_fsdp2.py`: PyTorch FSDP2 entry point
@@ -74,9 +80,10 @@ verified AutoDL evidence snapshot is stored under
 - `scripts/preflight_multigpu.py`: target-host admission report and NCCL check
 - `scripts/summarize_c4_profiler.py`: per-rank collective trace summary
 - `scripts/summarize_c_backends.py`: DeepSpeed/FSDP2 formal benchmark summary
-- `data/tinystories/`: TinyStories preparation scripts
-- `results/`: experiment configurations and results
-- `docs/`: environment records, project plan and upstream documentation
+
+Generated files follow one output contract: lightweight JSON/TXT/Markdown
+evidence goes to `results/`; large mutable runtime state goes to `runs/`; a
+curated immutable evidence package goes to `artifacts/`.
 
 ## Attribution
 

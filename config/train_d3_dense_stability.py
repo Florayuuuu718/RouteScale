@@ -1,6 +1,6 @@
 # D3 deterministic 300-update Dense stability run.
 
-out_dir = "out-d3-dense-stability"
+out_dir = "runs/checkpoints/d3_moe/dense_stability"
 eval_interval = 100
 eval_iters = 20
 log_interval = 10

@@ -9,7 +9,7 @@ PyTorch Profiler runs:
 
 Both runs used 20 unprofiled startup updates followed by a Profiler schedule of
 `wait=2, warmup=2, active=10`. Shapes and memory were recorded. The full Chrome
-traces are intentionally kept in ignored `logs/b2_profiler/` because they are
+traces are intentionally kept in ignored `runs/traces/b2_profiler/` because they are
 109 MiB and 55 MiB.
 
 Regenerate the traces:

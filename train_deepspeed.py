@@ -41,7 +41,15 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--deepspeed-config", default="config/deepspeed/zero0.json")
     parser.add_argument("--data-dir", default="data/tinystories_debug")
-    parser.add_argument("--out-dir", default="results/c6_deepspeed/zero0_single_gpu")
+    parser.add_argument(
+        "--run-dir", default="runs/checkpoints/c6_deepspeed/zero0_single_gpu",
+        help="mutable distributed checkpoint directory",
+    )
+    parser.add_argument(
+        "--result-path",
+        default="results/c6_deepspeed/zero0_single_gpu/result.json",
+        help="lightweight JSON result intended for results/",
+    )
     parser.add_argument("--max-updates", type=int, default=5)
     parser.add_argument("--checkpoint-every", type=int, default=0)
     parser.add_argument("--resume-dir", default=None)
@@ -192,9 +200,11 @@ def main() -> None:
         )
         stage = int(resolved_config["zero_optimization"]["stage"])
         run_signature = signature(args, dataset, scheduler, stage, env.world_size)
-        out_dir = Path(args.out_dir)
-        if env.master:
-            atomic_json_dump(resolved_config, out_dir / "resolved_deepspeed_config.json")
+        run_dir = Path(args.run_dir)
+        result_path = Path(args.result_path)
+        resolved_config_path = result_path.parent / "resolved_deepspeed_config.json"
+        if env.master and not special_mode:
+            atomic_json_dump(resolved_config, resolved_config_path)
         barrier()
 
         init_context = (
@@ -349,7 +359,7 @@ def main() -> None:
                 )
             if args.checkpoint_every and next_update % args.checkpoint_every == 0:
                 engine.save_checkpoint(
-                    str(out_dir / "checkpoints"),
+                    str(run_dir / "checkpoints"),
                     tag=f"update-{next_update:08d}",
                     client_state={
                         "signature": run_signature,
@@ -376,7 +386,7 @@ def main() -> None:
         barrier()
         checkpoint_save_started = time.perf_counter()
         engine.save_checkpoint(
-            str(out_dir / "checkpoints"),
+            str(run_dir / "checkpoints"),
             tag=checkpoint_tag,
             client_state={
                 "signature": run_signature,
@@ -463,16 +473,16 @@ def main() -> None:
                     ),
                 },
                 "artifacts": {
-                    "resolved_config": str(out_dir / "resolved_deepspeed_config.json"),
-                    "checkpoint_dir": str(out_dir / "checkpoints"),
+                    "resolved_config": str(resolved_config_path),
+                    "checkpoint_dir": str(run_dir / "checkpoints"),
                     "checkpoint_tag": checkpoint_tag,
                     "checkpoint": directory_artifact_stats(
-                        out_dir / "checkpoints" / checkpoint_tag
+                        run_dir / "checkpoints" / checkpoint_tag
                     ),
                 },
             }
-            atomic_json_dump(result, out_dir / "result.json")
-            print(f"saved {out_dir / 'result.json'}", flush=True)
+            atomic_json_dump(result, result_path)
+            print(f"saved {result_path}", flush=True)
     finally:
         destroy_distributed()
 

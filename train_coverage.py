@@ -39,7 +39,14 @@ from distributed_common import (
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", default="data/tinystories_debug")
-    parser.add_argument("--out-dir", default="results/c5_coverage/single_gpu")
+    parser.add_argument(
+        "--run-dir", default="runs/checkpoints/c5_coverage/single_gpu",
+        help="mutable checkpoint directory (kept outside committed results)",
+    )
+    parser.add_argument(
+        "--result-path", default="results/c5_coverage/single_gpu/result.json",
+        help="lightweight JSON result intended for results/",
+    )
     parser.add_argument("--resume-from", default=None)
     parser.add_argument("--max-updates", type=int, default=0,
                         help="absolute update target; 0 means one complete epoch")
@@ -135,6 +142,8 @@ def save_checkpoint(
 
 def main() -> None:
     args = parse_args()
+    run_dir = Path(args.run_dir)
+    result_path = Path(args.result_path)
     if args.max_updates < 0 or args.checkpoint_every < 0:
         raise ValueError("update counts must be non-negative")
     env = initialize_distributed(device=args.device, backend=args.backend)
@@ -278,7 +287,7 @@ def main() -> None:
                 )
             if args.checkpoint_every and next_update % args.checkpoint_every == 0:
                 save_checkpoint(
-                    path=Path(args.out_dir) / "checkpoint.pt",
+                    path=run_dir / "checkpoint.pt",
                     raw_model=raw_model,
                     optimizer=optimizer,
                     scaler=scaler,
@@ -312,7 +321,7 @@ def main() -> None:
                 device_type=env.device_type,
                 dtype=args.dtype,
             )
-        checkpoint_path = Path(args.out_dir) / "checkpoint.pt"
+        checkpoint_path = run_dir / "checkpoint.pt"
         model_hash = save_checkpoint(
             path=checkpoint_path,
             raw_model=raw_model,
@@ -422,9 +431,9 @@ def main() -> None:
                 if slowest_elapsed > 0
                 else math.nan
             )
-            atomic_json_dump(result, Path(args.out_dir) / "result.json")
+            atomic_json_dump(result, result_path)
             print(
-                f"saved {checkpoint_path} and {Path(args.out_dir) / 'result.json'}",
+                f"saved {checkpoint_path} and {result_path}",
                 flush=True,
             )
     finally:

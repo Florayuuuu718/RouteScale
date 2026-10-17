@@ -3,6 +3,8 @@ set -euo pipefail
 
 PYTHON_BIN=${PYTHON_BIN:-python3}
 RESULTS_DIR=${RESULTS_DIR:-results/c_backend_profiler}
+RUNS_DIR=${RUNS_DIR:-runs/tmp/c_backend_profiler}
+TRACES_DIR=${TRACES_DIR:-runs/traces/c_backend_profiler}
 RUN_ID=${RUN_ID:-4gpu_autodl}
 export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0,1,2,3}
 export NCCL_DEBUG=${NCCL_DEBUG:-WARN}
@@ -14,13 +16,13 @@ for stage in 0 1 2 3; do
     train_deepspeed.py \
     --deepspeed-config="config/deepspeed/zero${stage}.json" \
     --data-dir=data/tinystories_full \
-    --out-dir="$RESULTS_DIR/runtime/deepspeed_zero${stage}" \
+    --run-dir="$RUNS_DIR/deepspeed_zero${stage}" \
     --tail-policy=drop \
     --fused-optimizer \
     --profiler \
     --profiler-run-id="$RUN_ID" \
     --profiler-results-dir="$RESULTS_DIR" \
-    --profiler-trace-dir="$RESULTS_DIR/traces"
+    --profiler-trace-dir="$TRACES_DIR"
 done
 
 "$PYTHON_BIN" -m torch.distributed.run \
@@ -28,13 +30,13 @@ done
   --nproc_per_node=4 \
   train_fsdp2.py \
   --data-dir=data/tinystories_full \
-  --out-dir="$RESULTS_DIR/runtime/fsdp2" \
+  --run-dir="$RUNS_DIR/fsdp2" \
   --tail-policy=drop \
   --fused-optimizer \
   --profiler \
   --profiler-run-id="$RUN_ID" \
   --profiler-results-dir="$RESULTS_DIR" \
-  --profiler-trace-dir="$RESULTS_DIR/traces"
+  --profiler-trace-dir="$TRACES_DIR"
 
 "$PYTHON_BIN" scripts/summarize_c_backend_profiler.py \
   --results-dir="$RESULTS_DIR" \

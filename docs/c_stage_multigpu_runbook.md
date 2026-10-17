@@ -46,13 +46,15 @@ uv run torchrun --standalone --nproc_per_node=4 scripts/check_ddp_update.py \
 ```bash
 uv run torchrun --standalone --nproc_per_node=4 train_coverage.py \
   --data-dir=data/tinystories_debug \
-  --out-dir=results/c5_coverage/4gpu_smoke \
+  --run-dir=runs/checkpoints/c5_coverage/4gpu_smoke \
+  --result-path=results/c5_coverage/4gpu_smoke/result.json \
   --max-updates=5 --checkpoint-every=2
 
 uv run torchrun --standalone --nproc_per_node=4 train_coverage.py \
   --data-dir=data/tinystories_debug \
-  --out-dir=results/c5_coverage/4gpu_smoke \
-  --resume-from=results/c5_coverage/4gpu_smoke/checkpoint.pt \
+  --run-dir=runs/checkpoints/c5_coverage/4gpu_smoke \
+  --result-path=results/c5_coverage/4gpu_smoke/result.json \
+  --resume-from=runs/checkpoints/c5_coverage/4gpu_smoke/checkpoint.pt \
   --max-updates=8 --checkpoint-every=2
 ```
 
@@ -70,7 +72,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
 python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
   train.py config/profile_ddp_tinystories.py \
   --profiler_run_id=4gpu_autodl \
-  --profiler_trace_dir=logs/c_ddp_autodl_profiler \
+  --profiler_trace_dir=runs/traces/c_ddp_autodl_profiler \
   --profiler_results_dir=results/c_ddp_autodl/profiler
 
 python3 scripts/summarize_c4_profiler.py \
@@ -92,7 +94,8 @@ for stage in 0 1 2 3; do
   uv run torchrun --standalone --nproc_per_node=4 train_deepspeed.py \
     --deepspeed-config="config/deepspeed/zero${stage}.json" \
     --data-dir=data/tinystories_debug \
-    --out-dir="results/c6_deepspeed/zero${stage}_4gpu_smoke" \
+    --run-dir="runs/checkpoints/c6_deepspeed/zero${stage}_4gpu_smoke" \
+    --result-path="results/c6_deepspeed/zero${stage}_4gpu_smoke/result.json" \
     --max-updates=5 --checkpoint-every=2
 done
 ```
@@ -103,8 +106,9 @@ done
 uv run torchrun --standalone --nproc_per_node=4 train_deepspeed.py \
   --deepspeed-config=config/deepspeed/zero3.json \
   --data-dir=data/tinystories_debug \
-  --out-dir=results/c6_deepspeed/zero3_4gpu_smoke \
-  --resume-dir=results/c6_deepspeed/zero3_4gpu_smoke/checkpoints \
+  --run-dir=runs/checkpoints/c6_deepspeed/zero3_4gpu_smoke \
+  --result-path=results/c6_deepspeed/zero3_4gpu_smoke/result.json \
+  --resume-dir=runs/checkpoints/c6_deepspeed/zero3_4gpu_smoke/checkpoints \
   --resume-tag=update-00000004 --max-updates=8
 ```
 
@@ -116,10 +120,10 @@ ZeRO-2/3 保存后还要验证合并权重能离开 DeepSpeed Engine 使用：
 
 ```bash
 uv run python scripts/verify_deepspeed_fp32.py \
-  --checkpoint-dir=results/c6_deepspeed/zero3_4gpu_smoke/checkpoints \
+  --checkpoint-dir=runs/checkpoints/c6_deepspeed/zero3_4gpu_smoke/checkpoints \
   --tag=update-00000004 \
   --result-json=results/c6_deepspeed/zero3_4gpu_smoke/result.json \
-  --merged-output=results/c6_deepspeed/zero3_4gpu_smoke/merged_fp32.pt \
+  --merged-output=runs/checkpoints/c6_deepspeed/zero3_4gpu_smoke/merged_fp32.pt \
   --output=results/c6_deepspeed/zero3_4gpu_smoke/fp32_verification.json
 ```
 
@@ -128,13 +132,15 @@ uv run python scripts/verify_deepspeed_fp32.py \
 ```bash
 uv run torchrun --standalone --nproc_per_node=4 train_fsdp2.py \
   --data-dir=data/tinystories_debug \
-  --out-dir=results/c7_fsdp2/4gpu_smoke \
+  --run-dir=runs/checkpoints/c7_fsdp2/4gpu_smoke \
+  --result-path=results/c7_fsdp2/4gpu_smoke/result.json \
   --max-updates=5 --checkpoint-every=2
 
 uv run torchrun --standalone --nproc_per_node=4 train_fsdp2.py \
   --data-dir=data/tinystories_debug \
-  --out-dir=results/c7_fsdp2/4gpu_smoke \
-  --resume-from=results/c7_fsdp2/4gpu_smoke/checkpoints/update-00000004 \
+  --run-dir=runs/checkpoints/c7_fsdp2/4gpu_smoke \
+  --result-path=results/c7_fsdp2/4gpu_smoke/result.json \
+  --resume-from=runs/checkpoints/c7_fsdp2/4gpu_smoke/checkpoints/update-00000004 \
   --max-updates=8
 ```
 
@@ -254,7 +260,7 @@ python3 scripts/record_capacity_failure.py \
   --torch-allocated-mib=18698 \
   --torch-reserved-unallocated-mib=4710 \
   --requested-allocation-mib=922 \
-  --log=results/c_capacity/logs/zero2_L32_D2304.log \
+  --log=runs/traces/c_capacity/zero2_L32_D2304.log \
   --output=results/c_capacity/failures/zero2_L32_D2304.json
 ```
 
@@ -264,6 +270,7 @@ summary 会保留为 `null`，不得用邻近成功点代填。
 FSDP2 在 DDP OOM 的 9.84 亿参数点使用相同短容量协议：
 
 ```bash
+mkdir -p runs/traces/c_capacity
 set +e
 CUDA_VISIBLE_DEVICES=0,1,2,3 NCCL_DEBUG=WARN \
 timeout --signal=INT --kill-after=30s 300s \
@@ -278,7 +285,7 @@ python3 -m torch.distributed.run --standalone --nproc_per_node=4 \
   --benchmark-measure-updates=5 \
   --benchmark-results-dir=results/c_capacity/backend \
   --benchmark-run-id=L32_D1536 \
-  2>&1 | tee results/c_capacity/logs/fsdp2_L32_D1536.log
+  2>&1 | tee runs/traces/c_capacity/fsdp2_L32_D1536.log
 echo "FSDP2_L32_D1536_EXIT=${PIPESTATUS[0]}"
 set -e
 

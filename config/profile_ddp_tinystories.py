@@ -3,7 +3,7 @@
 # This trace explains collective/compute behavior. It is deliberately separate
 # from the no-Profiler C2/C3 throughput benchmark.
 
-out_dir = "out-c4-ddp-profiler"
+out_dir = "runs/checkpoints/c4_ddp_profiler"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000
@@ -50,6 +50,6 @@ profiler_warmup_steps = 2
 profiler_active_steps = 10
 profiler_data_seed = 20260920
 profiler_tail_policy = "drop"
-profiler_trace_dir = "logs/c_ddp_profiler"
+profiler_trace_dir = "runs/traces/c_ddp_profiler"
 profiler_results_dir = "results/c_ddp/profiler"
 profiler_run_id = "4gpu"

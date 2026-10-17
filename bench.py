@@ -72,7 +72,9 @@ if profile:
     with torch.profiler.profile(
         activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA],
         schedule=torch.profiler.schedule(wait=wait, warmup=warmup, active=active, repeat=1),
-        on_trace_ready=torch.profiler.tensorboard_trace_handler('./bench_log'),
+        on_trace_ready=torch.profiler.tensorboard_trace_handler(
+            'runs/traces/bench'
+        ),
         record_shapes=False,
         profile_memory=False,
         with_stack=False, # incurs an additional overhead, disable if not needed

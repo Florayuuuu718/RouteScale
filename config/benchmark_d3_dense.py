@@ -1,6 +1,6 @@
 # D3 formal Dense baseline: single GPU, no Profiler, eager mode.
 
-out_dir = "out-d3-dense-benchmark"
+out_dir = "runs/checkpoints/d3_moe/dense_benchmark"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

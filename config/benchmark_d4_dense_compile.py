@@ -1,6 +1,6 @@
 # D4 formal Dense torch.compile benchmark: only compile changes from D3 Dense.
 
-out_dir = "out-d4-dense-compile-benchmark"
+out_dir = "runs/checkpoints/d4_moe/dense_compile_benchmark"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

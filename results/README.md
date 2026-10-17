@@ -39,7 +39,8 @@ Configuration: `config/train_tinystories.py`; exactly 300 optimizer updates.
   step 100, 3.7706 at step 200, and 3.5545 at step 300.
 - No NaN or CUDA OOM occurred.
 - Peak CUDA memory: 3899.2 MiB allocated, 5148.0 MiB reserved.
-- Checkpoint: `out-tinystories/ckpt.pt`, 585.6 MiB, `iter_num=300`.
+- Checkpoint: `runs/checkpoints/legacy/out-tinystories/ckpt.pt`, 585.6 MiB,
+  `iter_num=300`.
 - Loading the checkpoint and continuing with updates 301 and 302 succeeded.
 
 The fixed `max_iters` boundary now treats `max_iters` as the exact number of
@@ -142,7 +143,7 @@ across abstraction levels; these percentages explain the trace but do not
 replace the no-Profiler result above.
 
 Raw summaries are in `results/b2_profiler/` and `results/b2_compile_ab/`. The
-large Chrome traces remain under ignored `logs/b2_profiler/` (109 MiB eager and
+large Chrome traces remain under ignored `runs/traces/b2_profiler/` (109 MiB eager and
 55 MiB compiled) and are not committed.
 
 ### Limits

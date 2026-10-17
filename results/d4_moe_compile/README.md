@@ -88,7 +88,7 @@ uv run python scripts/summarize_d4_moe_profiler.py
 ```
 
 The complete Chrome traces are intentionally stored under ignored
-`logs/d4_moe_compile/` because they total roughly 233 MiB. Reviewable metadata,
+`runs/traces/d4_moe_compile/` because they total roughly 233 MiB. Reviewable metadata,
 key averages, the generated profiler summary, and a concise compiler-log record
 are retained here.
 

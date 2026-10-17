@@ -1,7 +1,7 @@
 # D2 mechanism-isolation experiment on TinyStories debug data.
 # This configuration records routing evidence; it is not a throughput benchmark.
 
-out_dir = "out-d2-moe-debug"
+out_dir = "runs/checkpoints/d2_moe/debug"
 eval_interval = 1000
 eval_iters = 2
 log_interval = 1

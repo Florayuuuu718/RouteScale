@@ -1,6 +1,6 @@
 # D3 deterministic 300-update selected-MoE stability run.
 
-out_dir = "out-d3-moe-stability"
+out_dir = "runs/checkpoints/d3_moe/moe_stability"
 eval_interval = 100
 eval_iters = 20
 log_interval = 10

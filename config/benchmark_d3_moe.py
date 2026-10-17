@@ -1,6 +1,6 @@
 # D3 formal selected MoE: single GPU, no Profiler, eager mode.
 
-out_dir = "out-d3-moe-benchmark"
+out_dir = "runs/checkpoints/d3_moe/moe_benchmark"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

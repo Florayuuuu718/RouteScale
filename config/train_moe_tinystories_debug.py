@@ -1,6 +1,6 @@
 # D1 local correctness smoke test. This is not a formal performance result.
 
-out_dir = "out-d1-moe-debug"
+out_dir = "runs/checkpoints/d1_moe/debug"
 eval_interval = 5
 eval_iters = 2
 log_interval = 1

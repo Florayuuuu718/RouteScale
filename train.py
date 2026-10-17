@@ -43,7 +43,7 @@ from moe import aggregate_moe_metrics
 # -----------------------------------------------------------------------------
 # default config values designed to train a gpt2 (124M) on OpenWebText
 # I/O
-out_dir = 'out'
+out_dir = 'runs/checkpoints/default'
 eval_interval = 2000
 log_interval = 1
 eval_iters = 200
@@ -120,7 +120,7 @@ profiler_wait_steps = 2
 profiler_warmup_steps = 2
 profiler_active_steps = 10
 profiler_data_seed = 20260920
-profiler_trace_dir = 'logs/b2_profiler'
+profiler_trace_dir = 'runs/traces/b2_profiler'
 profiler_results_dir = 'results/b2_profiler'
 profiler_run_id = 'baseline'
 profiler_distributed = False

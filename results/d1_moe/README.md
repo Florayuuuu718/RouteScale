@@ -45,7 +45,8 @@ not a quality or performance comparison.
 
 The run saved a 4-expert checkpoint, and a new process strictly loaded its
 model and optimizer state and completed update 11 with finite loss.
-The pre-D-stage Dense checkpoint in `out-tinystories` also loaded with the new
+The pre-D-stage Dense checkpoint now stored in
+`runs/checkpoints/legacy/out-tinystories` also loaded with the new
 code and completed validation, confirming compatibility with checkpoints that
 do not contain MoE configuration fields.
 

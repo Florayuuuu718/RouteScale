@@ -1,6 +1,6 @@
 # D4 formal Top-1 MoE torch.compile benchmark: only compile changes from D3 MoE.
 
-out_dir = "out-d4-moe-compile-benchmark"
+out_dir = "runs/checkpoints/d4_moe/moe_compile_benchmark"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

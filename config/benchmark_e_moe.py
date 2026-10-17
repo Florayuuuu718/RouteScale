@@ -5,7 +5,7 @@
 #   compile = False | True
 #   benchmark_results_dir, benchmark_run_id, and benchmark_name
 
-out_dir = "out-e-moe-benchmark"
+out_dir = "runs/checkpoints/e_triton_moe/benchmark"
 eval_interval = 1000000
 eval_iters = 20
 log_interval = 1000000

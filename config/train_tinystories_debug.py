@@ -1,7 +1,7 @@
 # Small local configuration for validating the TinyStories data and training path.
 # It is not a formal performance benchmark configuration.
 
-out_dir = "out-tinystories-debug"
+out_dir = "runs/checkpoints/a2_tinystories_debug"
 eval_interval = 50
 eval_iters = 20
 log_interval = 10

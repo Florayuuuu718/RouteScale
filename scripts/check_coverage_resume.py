@@ -39,8 +39,10 @@ def main() -> None:
     dtype = "float32"
     with tempfile.TemporaryDirectory(prefix="routescale-c5-resume-") as temporary:
         root = Path(temporary)
-        split_dir = root / "split"
-        reference_dir = root / "reference"
+        split_run_dir = root / "split" / "run"
+        split_result_path = root / "split" / "result.json"
+        reference_run_dir = root / "reference" / "run"
+        reference_result_path = root / "reference" / "result.json"
         common = [
             f"--device={args.device}",
             f"--dtype={dtype}",
@@ -54,18 +56,21 @@ def main() -> None:
             "--eval-windows=4",
         ]
         run([*common, "--max-updates=2", "--checkpoint-every=1",
-             f"--out-dir={split_dir}"])
+             f"--run-dir={split_run_dir}",
+             f"--result-path={split_result_path}"])
         run([*common, "--max-updates=4", "--checkpoint-every=1",
-             f"--resume-from={split_dir / 'checkpoint.pt'}",
-             f"--out-dir={split_dir}"])
+             f"--resume-from={split_run_dir / 'checkpoint.pt'}",
+             f"--run-dir={split_run_dir}",
+             f"--result-path={split_result_path}"])
         run([*common, "--max-updates=4", "--checkpoint-every=0",
-             f"--out-dir={reference_dir}"])
+             f"--run-dir={reference_run_dir}",
+             f"--result-path={reference_result_path}"])
 
         split = torch.load(
-            split_dir / "checkpoint.pt", map_location="cpu", weights_only=False
+            split_run_dir / "checkpoint.pt", map_location="cpu", weights_only=False
         )
         reference = torch.load(
-            reference_dir / "checkpoint.pt", map_location="cpu", weights_only=False
+            reference_run_dir / "checkpoint.pt", map_location="cpu", weights_only=False
         )
         checks = {
             "model_state_sha256_equal": (

@@ -50,7 +50,14 @@ from distributed_common import (
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", default="data/tinystories_debug")
-    parser.add_argument("--out-dir", default="results/c7_fsdp2/single_gpu")
+    parser.add_argument(
+        "--run-dir", default="runs/checkpoints/c7_fsdp2/single_gpu",
+        help="mutable distributed checkpoint directory",
+    )
+    parser.add_argument(
+        "--result-path", default="results/c7_fsdp2/single_gpu/result.json",
+        help="lightweight JSON result intended for results/",
+    )
     parser.add_argument("--max-updates", type=int, default=5)
     parser.add_argument("--checkpoint-every", type=int, default=0)
     parser.add_argument("--resume-from", default=None,
@@ -343,7 +350,8 @@ def main() -> None:
         if args.max_updates > scheduler.updates_per_epoch:
             raise ValueError("this entry point currently accepts at most one epoch")
 
-        out_dir = Path(args.out_dir)
+        run_dir = Path(args.run_dir)
+        result_path = Path(args.result_path)
         invocation_start = next_update
         torch.cuda.reset_peak_memory_stats(env.device)
         torch.cuda.synchronize(env.device)
@@ -361,7 +369,7 @@ def main() -> None:
                     flush=True,
                 )
             if args.checkpoint_every and next_update % args.checkpoint_every == 0:
-                checkpoint_dir = out_dir / "checkpoints" / f"update-{next_update:08d}"
+                checkpoint_dir = run_dir / "checkpoints" / f"update-{next_update:08d}"
                 checkpoint_save_seconds = save_dcp_checkpoint(
                     model=model,
                     optimizer=optimizer,
@@ -390,7 +398,7 @@ def main() -> None:
             device_type=env.device_type,
             dtype=args.dtype,
         )
-        checkpoint_dir = out_dir / "checkpoints" / f"update-{next_update:08d}"
+        checkpoint_dir = run_dir / "checkpoints" / f"update-{next_update:08d}"
         if last_checkpoint_update != next_update:
             checkpoint_save_seconds = save_dcp_checkpoint(
                 model=model,
@@ -484,8 +492,8 @@ def main() -> None:
                     "checkpoint": directory_artifact_stats(checkpoint_dir),
                 },
             }
-            atomic_json_dump(result, out_dir / "result.json")
-            print(f"saved {out_dir / 'result.json'}", flush=True)
+            atomic_json_dump(result, result_path)
+            print(f"saved {result_path}", flush=True)
     finally:
         destroy_distributed()
 

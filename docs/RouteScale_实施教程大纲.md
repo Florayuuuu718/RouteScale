@@ -1,6 +1,6 @@
 # RouteScale：Transformer 训练系统项目实施大纲
 
-> 版本：2026-10-06
+> 版本：2026-10-17
 > 本文只记录项目路线、实施任务和阶段验收条件，不记录学习问答、完成进度或具体实验结果。
 
 相关文档：
@@ -21,6 +21,9 @@
 3. DeepSpeed ZeRO 如何改变模型状态分布、显存占用、通信和吞吐，与 DDP/FSDP2 有什么差异？
 4. 将部分 Dense MLP 替换为 MoE 后，路由、负载和训练性能怎样变化？
 5. 根据 trace 选择一个真实热点后，Triton 实现能否改善完整训练？
+6. 训练完成的 checkpoint 怎样变成带 KV Cache、连续批处理和请求调度的推理引擎？
+7. nano-vLLM 与 Mini-SGLang 的推理机制在什么负载下改善吞吐、延迟和显存效率？
+8. 训练阶段有效的静态布局、MoE dispatch 和并行策略，在 Prefill 与 Decode 阶段是否仍然成立？
 
 ### 固定实验对象
 
@@ -30,6 +33,8 @@
 - TinyStories 调试子集只用于排错，不进入正式性能对照。
 - 正式 1/2/4 卡结果来自同一台四卡服务器。
 - 项目重点是训练系统证据，不以最终生成质量作为主要验收目标。
+- 推理阶段先以 Dense checkpoint 建立等价性，再研究 MoE；不把训练与服务变量混在同一轮实验中。
+- nano-vLLM 与 Mini-SGLang 作为固定 commit 的参考实现和对照后端，不直接复制进 RouteScale 核心源码。
 
 ### 最终交付物
 
@@ -42,6 +47,9 @@
 - 可选的 PyTorch FSDP2 与 DeepSpeed ZeRO-3 同条件对照；
 - 单卡 Top-1 MoE 与 Dense 对照；
 - 一个 Triton 前反向正确性和完整训练性能对照；
+- 一条从训练 checkpoint 到可验证推理产物的导出与等价性链路；
+- nano-vLLM 机制实验和 Mini-SGLang 在线服务实验；
+- Prefill/Decode、KV Cache、连续批处理、前缀复用、调度与 TP 的消融结果；
 - 项目 README、图表、结论、失败记录和简历要点。
 
 ---
@@ -398,7 +406,7 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 
 ---
 
-## G. 项目报告与求职材料
+## G. 训练阶段报告与求职材料
 
 1. README 顶部说明训练任务、个人修改和核心实测结论。
 2. 提供环境检查、数据准备、单卡和多卡的最短复现命令。
@@ -414,6 +422,172 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 
 ---
 
+## H. 从训练 checkpoint 到增量推理
+
+H 阶段先建立 RouteScale 自身的推理基线，不直接从完整 serving 框架开始。Dense
+checkpoint 是首个正式对象；MoE 必须等 Dense 的导出、logits 等价和 KV Cache
+正确性全部通过后再进入。
+
+### H1. 推理产物契约
+
+1. 从训练 checkpoint 导出权重、`GPTConfig`、tokenizer 名称与版本、特殊 token、
+   dtype 和源文件 SHA256；训练恢复所需的 optimizer/RNG/数据窗口状态不进入推理产物。
+2. 清理 `torch.compile` 产生的参数名前缀，验证 tied embedding，并用新进程 strict load。
+3. 固定一组短、中、长 prompt，在 FP32 和正式推理 dtype 下保存 reference logits。
+4. 使用 greedy decoding 对照训练模型和导出模型；先定位首个不一致 token，再允许测性能。
+
+### H2. 朴素生成与 KV Cache
+
+1. 将当前每步重算完整上下文的 `GPT.generate` 作为朴素基线。
+2. 为每层 attention 增加增量 Prefill/Decode 接口、position offset 和连续 KV Cache。
+3. 分别验证一次性 Prefill、逐 token Decode、超过 block size 和多 batch 请求。
+4. 对照完整重算与 cached decode 的 logits、greedy token 和结束条件。
+5. 分开报告 Prefill latency、TTFT、Decode tokens/s、每 token latency 和 KV Cache 显存。
+
+### H3. 推理正式协议
+
+正式 workload 至少覆盖：
+
+- batch/concurrency 为 1、8 和 32；
+- prompt 长度为 128 和 512，输出长度为 64 和 256；
+- 无共享前缀和高共享前缀两类请求；
+- 预热后的稳态时间，以及单独记录的加载、编译和 CUDA Graph capture 时间。
+
+每组至少三个独立进程。除 output tokens/s 外，同时记录 TTFT、ITL/TPOT、E2E
+latency p50/p95/p99、峰值显存和成功请求数。发生 OOM 时必须记录请求形状、并发、
+KV Cache 大小和失败阶段。
+
+### H 阶段验收
+
+训练 checkpoint 能在新进程中作为独立推理产物加载；朴素与 cached 路径在容差内
+logits 等价且 greedy token 一致；能解释 Prefill 与 Decode 的计算/显存差异，并用
+正式结果量化 KV Cache 的收益和代价。
+
+---
+
+## I. nano-vLLM：推理执行核心
+
+nano-vLLM 用作“机制显微镜”。其上游源码保留在独立环境或 fork 中，RouteScale
+只保存固定 commit、环境、必要 patch、统一 workload 和结果，不把上游包加入训练
+环境的默认依赖。
+
+### I1. 上游复现与源码路径
+
+1. 固定 `GeeeekExplorer/nano-vllm` commit、许可证、Python/PyTorch/CUDA 和模型 revision。
+2. 使用其原生支持的 Qwen3-0.6B 跑通官方离线生成，先复现功能，再测本机结果。
+3. 按 `LLMEngine → Scheduler → Sequence → BlockManager → ModelRunner → Attention`
+   顺序阅读并画出 Prefill、Decode、抢占、block 分配和释放的数据流。
+4. 为 block 分配、引用计数、释放、Prefix Cache 命中和 cache exhaustion 写最小状态测试。
+
+### I2. 单变量消融
+
+依次对照：
+
+1. eager 与 `torch.compile`/CUDA Graph；
+2. Prefix Cache 关闭与开启；
+3. 固定 batch 与连续批处理；
+4. contiguous KV 与 paged/block KV 的占用、碎片和可服务并发；
+5. 在多卡机器上对照 TP=1/2/4，并记录 collective 与计算时间。
+
+不得把上游 README 的数字当作本项目结果。所有结论必须来自相同硬件、模型 revision、
+请求集合、采样参数和测量边界。
+
+### I3. RouteScale 模型接入
+
+1. 在隔离 fork 或可重放 patch 中增加 Dense `RouteScaleGPT`，处理 learned positional
+   embedding、LayerNorm、GELU、MHA、tied embedding 和 RouteScale 权重命名。
+2. 先加载 H 阶段导出的 Dense 权重，不同时加入 MoE、量化或 speculative decoding。
+3. 用 H 阶段 reference logits 和 greedy token 验证模型层、KV 写入和采样语义。
+4. 对照 RouteScale native cached path 与 nano-vLLM 的吞吐、TTFT、显存和并发能力。
+
+### I 阶段验收
+
+能够脱离文档解释 Scheduler、BlockManager、ModelRunner 和 Paged KV Cache 的职责；
+所有 block 生命周期测试通过；至少完成两项正式消融；RouteScale Dense checkpoint
+在 nano-vLLM 接入路径上与 H 阶段 reference 等价，或保留定位清楚、可复现的阻塞记录。
+
+---
+
+## J. Mini-SGLang：在线 Serving 系统
+
+Mini-SGLang 用作“系统放大镜”。本阶段研究从 HTTP 请求到流式输出的完整控制面，
+不重复实现 I 阶段已经证明的基础 KV Cache。
+
+### J1. 服务链路与进程边界
+
+1. 固定 `sgl-project/mini-sglang` commit、环境和 Qwen3-0.6B revision，使用独立
+   `uv` 环境或容器启动 OpenAI-compatible server。
+2. 画出 `API Server → Tokenizer → Scheduler → Engine → Detokenizer → Client`
+   链路，标明 ZMQ 控制消息、GPU tensor 和多卡 NCCL 通信。
+3. 区分请求排队、Prefill、Decode、detokenize 和网络返回时间，不只记录总 wall time。
+4. 验证客户端断开、EOS、最大输出长度、服务关闭和请求资源释放。
+
+### J2. 调度与缓存消融
+
+1. Naive Cache 对照 Radix Cache，分别使用无共享前缀和高共享前缀 workload；
+2. Chunked Prefill 开关及不同 chunk size，观察长 prompt 对短请求 TTFT 的影响；
+3. Overlap Scheduling 开关，检查吞吐收益是否伴随尾延迟变化；
+4. CUDA Graph 开关和不同 capture batch bucket；
+5. Attention backend 只在目标硬件实际支持时比较，不能用后端不可用时的 fallback
+   结果声称性能差异；
+6. 多卡对照 TP=1/2/4，并用 NCCL trace 解释小模型和较大模型的通信/计算比。
+
+### J3. 在线负载协议
+
+正式在线实验至少包含低请求率、接近饱和点和超过饱和点三档流量；报告 request
+throughput、input/output token throughput、TTFT、ITL/TPOT、E2E p50/p95/p99、
+排队时间、cache hit rate、抢占/重算和满足延迟目标的 goodput。离线吞吐与在线延迟
+使用不同结果表，不互相替代。
+
+### J 阶段验收
+
+能够解释控制面与执行面的边界；有 Radix Cache、Chunked Prefill 和 Overlap
+Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什么可能朝不同方向变化；
+多卡结果包含拓扑、NCCL 和每 rank 显存证据。
+
+---
+
+## K. 训练—推理联合复盘
+
+### K1. 统一对照边界
+
+1. 使用 Qwen3-0.6B 作为 nano-vLLM 与 Mini-SGLang 的共同原生模型，只比较双方都
+   支持且语义一致的功能。
+2. 使用 RouteScale Dense checkpoint 对照朴素生成、native KV Cache 和 nano-vLLM
+   接入路径；Mini-SGLang 的 RouteScale 模型支持为可选扩展，不作为理解在线系统的
+   前置条件。
+3. 所有来源记录模型 revision、框架 commit、请求哈希、采样参数、warmup、测量时间、
+   GPU 拓扑和环境；不同 GPU 或不同模型的绝对数字不进入同一排名。
+
+### K2. MoE 的 train/serve gap
+
+1. 比较训练阶段大量 token 的固定容量 dispatch 与 Decode 阶段每请求一个新 token
+   的动态 batch，量化 expert 利用率和 padding 浪费。
+2. 检查 Continuous Batching 是否让 Decode token batch 足以摊薄 router、pack/unpack
+   和 grouped expert GEMM 开销。
+3. Prefill 与 Decode 分开选择 dispatch/kernel，不默认复用 E 阶段的正式 shape。
+4. 推理路径首先保证不因 capacity/drop 改变输出语义，再讨论静态 bucket、CUDA Graph
+   或新的 grouped kernel。
+5. 只有 Dense serving 已稳定且 Profiler 证明 MoE compute 是热点，才接入 RouteScale MoE。
+
+### K3. 最终决策
+
+最终报告必须回答：
+
+- 哪些训练基础设施结论会随工作负载规模变化？
+- nano-vLLM 的收益来自 KV 复用、调度、内存管理还是执行图？
+- Mini-SGLang 的 Radix Cache、Chunked Prefill 和 Overlap Scheduling 分别改善哪类负载？
+- 训练侧 fixed shape 与服务侧 batch bucket 的共同点和语义差异是什么？
+- 对本地单卡、四卡实验机和在线服务，分别推荐哪条最简单且证据充分的路径？
+
+### K 阶段验收
+
+形成从训练、导出、离线推理到在线服务的完整证据链；共同模型和共同 workload 的
+对照可复现；结论同时包含收益、负结果、适用规模、硬件限制和下一步决策。最终更新
+README、学习笔记、结果索引、五分钟讲解和简历表述。
+
+---
+
 ## 项目文件职责
 
 | 路径 | 职责 |
@@ -422,6 +596,12 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 | `docs/RouteScale_学习笔记.md` | 概念、问答、易错点、判断方法和复习题 |
 | `docs/environment.md` | 环境和硬件版本 |
 | `results/README.md` | 已完成实验的配置、原始值和结论 |
+| `results/` | 可审查、适合提交 Git 的 JSON/TXT/Markdown 指标与报告，不保存 checkpoint 或大型 trace |
+| `artifacts/` | 已完成远端实验的冻结证据快照和 manifest |
+| `runs/checkpoints/` | 本机可变 checkpoint、optimizer state 和分布式分片，不提交 Git |
+| `runs/traces/` | 本机 Profiler trace 与运行日志，不提交 Git |
+| `runs/archives/` | 本机证据压缩包和 Git bundle，不提交 Git |
+| `notebooks/` | 模型 sizing 与 scaling-law notebook |
 | `data/tinystories/prepare.py` | debug/full 数据转换 |
 | `data/tinystories_debug/manifest.json` | 调试数据清单 |
 | `data/tinystories_full/manifest.json` | 完整数据清单 |
@@ -437,6 +617,16 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 | `scripts/preflight_multigpu.py` | 目标机器 GPU/软件/数据/NCCL collective 准入检查 |
 | `docs/c_stage_multigpu_runbook.md` | 四卡租用规格、准入顺序和 smoke 命令 |
 | `results/c5_coverage/` | C5 覆盖率、完整 validation 与恢复正确性结果 |
-| `results/c6_deepspeed/` | C6 DeepSpeed 正确性、性能、容量、通信与 checkpoint 结果 |
+| `results/c6_deepspeed/` | C6 DeepSpeed 正确性、性能、容量、通信与 checkpoint 指标 |
 | `results/c7_fsdp2/` | C7 FSDP2 正确性、性能、通信与 DCP 结果 |
 | `moe.py` | D 阶段建立的 Top-1 MoE |
+| `serving/export_checkpoint.py` | H 阶段训练 checkpoint 到推理产物的导出与校验 |
+| `serving/native/` | RouteScale 朴素生成、增量模型、KV Cache 与最小调度实现 |
+| `serving/backends/` | nano-vLLM 离线 adapter 与 Mini-SGLang HTTP adapter |
+| `serving/workloads.py` | 离线/在线请求集合、共享前缀比例和 workload 哈希 |
+| `serving/metrics.py` | TTFT、ITL/TPOT、E2E、goodput、显存与 cache 指标 |
+| `config/serving/` | H–K 阶段固定的模型、请求、缓存、调度和并行配置 |
+| `scripts/benchmark_offline_serving.py` | RouteScale/nano-vLLM 离线统一测量入口 |
+| `scripts/benchmark_online_serving.py` | Mini-SGLang 在线请求回放与延迟统计入口 |
+| `third_party/serving_sources.lock` | 上游 URL、commit、模型 revision、许可证和隔离环境记录 |
+| `results/h_serving/` | H–K 阶段的正确性、离线/在线性能指标和结论；原始 trace 写入 `runs/traces/` |
