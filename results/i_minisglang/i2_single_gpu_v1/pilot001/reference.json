@@ -1,0 +1,41 @@
+{
+  "stage": "I2",
+  "mode": "reference",
+  "variant": null,
+  "run_id": 0,
+  "status": "pass",
+  "config_sha256": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+  "workload_sha256": "cc71f0b16b8d9e24d65537167dc1a9d7e79e6fbd97b9809d1435bb5cee6cbaed",
+  "patched_tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+  "runtime_dir": "runs/logs/i_minisglang/i2_single_gpu_v1/pilot001/reference",
+  "gpu_before": "NVIDIA GeForce RTX 5060 Laptop GPU, 0 MiB, 37, 795 MHz, 12101 MHz, 8.88 W, P0, 0 %, 610.88",
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "transformers": "4.57.3",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "source_sha256": {
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_runtime.py": "a05e27639b39f8d3be28838a8042fb9a27c3634ac22936442334aa62e8c7baea",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e"
+  },
+  "precision": {
+    "bf16_reduced_reduction": false,
+    "tf32": false
+  },
+  "reference": {
+    "vectors": 1024,
+    "tensor_file": "runs/validation/i2_single_gpu_v1/pilot001/reference.pt",
+    "tensor_sha256": "2fc4f73637707d24a76ab478b2464fdd0cb5ad83c85fa819ae8d87fa46cfec23",
+    "policy": {
+      "reference": "bf16_weights_fp32_math_hf_eager",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    }
+  },
+  "peak_allocated_bytes": 2564694528,
+  "gpu_end_of_worker": "NVIDIA GeForce RTX 5060 Laptop GPU, 2592 MiB, 52, 225 MHz, 9001 MHz, 7.21 W, P4, 0 %, 610.88"
+}

@@ -1,0 +1,152 @@
+{
+  "config": {
+    "stage": "I2",
+    "scope": "single_gpu_fixed_token_scheduler_replay_v1",
+    "i1_config": "config/serving/i1_repaired.json",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "seed": 20261031,
+    "batch_sizes": [
+      1,
+      3
+    ],
+    "prompt_tokens": 512,
+    "output_tokens": 64,
+    "shared_prefix_tokens": 384,
+    "workload_path": "runs/workloads/i2_single_gpu_v1/workload.json",
+    "validation_dir": "runs/validation/i2_single_gpu_v1",
+    "results_dir": "results/i_minisglang/i2_single_gpu_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i2_single_gpu_v1",
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi",
+      "dtype": "bfloat16"
+    },
+    "numerics": {
+      "reference": "bf16_weights_fp32_math_hf_eager",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    },
+    "variants": {
+      "naive_full": {
+        "cache": "naive",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_full": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk256": {
+        "cache": "radix",
+        "chunk": 256,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk128": {
+        "cache": "radix",
+        "chunk": 128,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      },
+      "radix_graph13": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          3
+        ]
+      },
+      "radix_overlap": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": true,
+        "graph_bs": []
+      }
+    },
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "subprocess_timeout_s": 900,
+    "cleanup_s": 5,
+    "shutdown_s": 10,
+    "performance_boundary": "scheduler cohort submission through host terminal; includes forced-token controller and host result processing; excludes HTTP/tokenizer/startup/JIT; no online SLO claim",
+    "paid_resources_used": false
+  },
+  "source_sha256": {
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "scripts/audit_i2_numerics.py": "26062e0d9ae65d999f8567120610e2e85686f2bd8ea7a5b7e0646c7307a1de82",
+    "scripts/audit_i2_single_gpu.py": "0aec21c88ffd7b2a42f7ba0b450950c206c3269a24c1f161ce5c26f66845fb10",
+    "scripts/launch_i2_service.py": "94a2d87efe5869825724d4cb00b4841302caeadb51ce210b934edb416d552d15",
+    "scripts/prepare_i2_minisglang.py": "276285172d5533e0814ddae7ccb0cb1f35c4e35d76f8f176f7a96bff1b678dc7",
+    "scripts/run_i2_service_gate.py": "bd865632594dbfa5efc1c7e001c158d6ebdb63afb56b8f4ff665edf913dc5ee5",
+    "scripts/run_i2_single_gpu.py": "7adc800db6416c3232e9d931c3757bb1948edf17165ec07beddc7882f6e84c49",
+    "tests/test_i2_single_gpu.py": "9c476197532d6c65a7cf890a854f5959de5f59933370fdb4c2d24d17e327de72",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "patches/minisgl-i2/0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+    "patches/minisgl-i2/0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1",
+    "patches/minisgl-i2/series.json": "f949b8fe3da9baf8aa298e2622a3ccf13db865083bfe78a202c7f8a858c59956",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "serving/minisgl_observer.py": "5020157f739af8fb057e29ef9e2f0f05b81b8257c5fadc7e77a64885f3b1bb76",
+    "scripts/run_i1_repaired.py": "83e8b21a65e4c261266658e9b52376c62a9063600d002755009cecce25409309",
+    "scripts/run_i1_lifecycle.py": "cbd3cbe396b94699eb209684ee2fb62f976cb8bffc26f04e2964d13f25e77287",
+    "scripts/prepare_i1_lifecycle.py": "5d301f3887028d95b57dab4f77d37d651e43579c9547ebe26fe6cdc41a33b6ee",
+    "config/serving/i1_repaired.json": "536baf4016c7c16c2f78f9655d928da598dd8f38ae541a255ef7fea46777941a",
+    "config/serving/i1_requirements.txt": "e431557741c7e8263934d5ae78a68311f15352d70f208a6c260b3536ed3cb921",
+    "docs/i2_single_gpu_protocol.md": "853de00abc46770d682fc1645914a7e62f5fa13553ef558ab27a5104fcdfbd40",
+    "patches/minisgl-i1/0005-fix-health-track-worker-readiness-and-propagate-exit.patch": "60d3692c1ad9445d03dee4122159a0e74174cd1ea76c0e94972ad4f9231e4408",
+    "patches/minisgl-i1/0004-fix-validation-return-explicit-over-context-errors-b.patch": "2f185792514f05a331692880a9cd50a9bffff32e444ca6df41d796b1e21e53c4",
+    "patches/minisgl-i1/0003-fix-protocol-carry-stop-and-length-from-scheduler-to.patch": "3e93dd88129f18f5966712ab91e128f8f69f69d51c4e6df17aa6f94fcaf9cbd9",
+    "patches/minisgl-i1/README.md": "d3d72109db489e7f9aac903c32e6d4f3b7261f2cc7486b576ecaa8f1e2826123",
+    "patches/minisgl-i1/0001-fix-frontend-close-response-iterators-and-release-re.patch": "7cd6137c5079c59a681d5400ae4e64dc9b80d6f4960922f291e028e0f78f34b3",
+    "patches/minisgl-i1/0007-feat-admission-bound-pending-and-active-requests-unt.patch": "d012095f1bf19f9998d741a9c6a59f3e6a1f7b0c9c72098c046cee7563e56d36",
+    "patches/minisgl-i1/series.json": "0f24dc6f788c342c21aa18b7160e16ba458394ba2f4010929b5039653a74ee3f",
+    "patches/minisgl-i1/0002-fix-cancel-acknowledge-backend-release-on-the-ordere.patch": "75f0014c3702726579f8af8797cc75841d7067e726807c9611fbbb35298d0fc8",
+    "patches/minisgl-i1/0006-fix-shutdown-cancel-listeners-close-zero-linger-sock.patch": "9f5369607a3d762e824d840e312c7ce6120efb29e7e80adebb977964f518257b"
+  },
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "model_sha256": {
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "1ab64a26fcb3b461423b89a433a8c858f1bf8d4086f979cbb3ff878d47cf20e9",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    ".gitattributes": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+  },
+  "workload_sha256": "cc71f0b16b8d9e24d65537167dc1a9d7e79e6fbd97b9809d1435bb5cee6cbaed",
+  "upstream_commit": "9a91cfafe754aa85daee49998176275667eb58f2",
+  "paid_resources_used": false
+}

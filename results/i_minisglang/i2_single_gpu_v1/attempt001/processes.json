@@ -1,0 +1,48 @@
+[
+  {
+    "label": "reference",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "-m",
+      "serving.i2_worker",
+      "--attempt",
+      "attempt001",
+      "--mode",
+      "reference",
+      "--run",
+      "0"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793420147042269084,
+    "pid": 52436,
+    "returncode": 0,
+    "seconds": 92.64674219399967,
+    "log": "runs/logs/i_minisglang/i2_single_gpu_v1/attempt001/reference.log",
+    "log_sha256": "0c7563118aef4e83a40ecb929fb26e1a492983594f3625e8ce70b50294912b54",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "numeric_naive_full_run0",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "-m",
+      "serving.i2_worker",
+      "--attempt",
+      "attempt001",
+      "--mode",
+      "numeric",
+      "--run",
+      "0",
+      "--variant",
+      "naive_full"
+    ],
+    "status": "fail",
+    "wall_started_ns": 1793420240187681087,
+    "pid": 52715,
+    "returncode": 1,
+    "seconds": 71.09477910500027,
+    "log": "runs/logs/i_minisglang/i2_single_gpu_v1/attempt001/numeric_naive_full_run0.log",
+    "log_sha256": "dbaeb3ff483337a4fa8edbaf7dd9de78aad7b6b16dafb2147199c29de2bcea91",
+    "gpu_after": "0 MiB"
+  }
+]

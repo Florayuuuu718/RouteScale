@@ -1,0 +1,116 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:59:20 +0800
+Subject: [PATCH] fix(overlap): retire speculative results only after in-flight
+ completion
+
+---
+ python/minisgl/scheduler/scheduler.py | 32 ++++++++++++++++++++++++++-
+ python/minisgl/server/launch.py       |  4 ++--
+ 2 files changed, 33 insertions(+), 3 deletions(-)
+
+diff --git a/python/minisgl/scheduler/scheduler.py b/python/minisgl/scheduler/scheduler.py
+index 00e064d..73dcb5d 100644
+--- a/python/minisgl/scheduler/scheduler.py
++++ b/python/minisgl/scheduler/scheduler.py
+@@ -67,6 +67,8 @@ class Scheduler(SchedulerIOMixin):
+ 
+         # some alias for easy access
+         self.finished_reqs: Set[Req] = set()
++        self._overlap_data: ForwardData | None = None
++        self._retired_uids: Set[int] = set()
+         self.tokenizer = load_tokenizer(config.model_path)
+         self.eos_token_id = self.tokenizer.eos_token_id
+         self.token_pool = self.table_manager.token_pool
+@@ -88,6 +90,7 @@ class Scheduler(SchedulerIOMixin):
+         It will overlap the execution of current batch and processing of last batch's results,
+         which can effectively hide CPU latency and improve GPU utilization.
+         """
++        self._overlap_data = last_data
+         blocking = not (
+             last_data is not None  # don't block if we have a batch to be processed
+             or self.prefill_manager.runnable
+@@ -103,9 +106,21 @@ class Scheduler(SchedulerIOMixin):
+                 self.engine.stream.wait_stream(self.stream)
+                 ongoing_data = (forward_input, self._forward(forward_input))
+ 
++        self._overlap_data = ongoing_data
+         self._process_last_data(last_data)
++        live = {r.uid for r in ongoing_data[0].batch.reqs} if ongoing_data else set()
++        self._retired_uids.intersection_update(live)
+         return ongoing_data
+ 
++    def _wait_inflight(self, uid: int) -> None:
++        data = self._overlap_data
++        if data is not None and any(r.uid == uid for r in data[0].batch.reqs):
++            data[1].copy_done_event.synchronize()
++
++    def _retire_uid(self, uid: int) -> None:
++        if self._overlap_data is not None and any(r.uid == uid for r in self._overlap_data[0].batch.reqs):
++            self._retired_uids.add(uid)
++
+     def normal_loop(self) -> None:
+         blocking = not (self.prefill_manager.runnable or self.decode_manager.runnable)
+         for msg in self.receive_msg(blocking=blocking):
+@@ -149,21 +164,27 @@ class Scheduler(SchedulerIOMixin):
+         new_finished_reqs: Set[Req] = set()
+         with self.cache_manager.lazy_free_region():
+             for i, req in enumerate(batch.reqs):
++                if req.uid in self._retired_uids:
++                    continue  # discard speculative results after EOS or abort
+                 if isinstance(req, ChunkedReq):
+                     continue
+                 next_token = next_tokens_cpu[i]
+                 req.append_host(next_token.unsqueeze(0))
+                 next_token = int(next_token.item())
+                 is_eos = not req.sampling_params.ignore_eos and next_token == self.eos_token_id
+-                finish_reason = "stop" if is_eos else "length" if not req.can_decode else None
++                # device_len may already include the next speculative forward.
++                host_finished = len(req.input_ids) >= req.max_device_len
++                finish_reason = "stop" if is_eos else "length" if host_finished else None
+                 finished = finish_reason is not None
+                 reply.append(DetokenizeMsg(uid=req.uid, next_token=next_token, finished=finished,
+                                           finish_reason=finish_reason))
+ 
+                 # NOTE: overlap scheduling may make the request freed twice, skip second free
+                 if finished and req not in self.finished_reqs:
++                    self._wait_inflight(req.uid)
+                     self.decode_manager.remove_req(req)
+                     self._free_req_resources(req)
++                    self._retire_uid(req.uid)
+                     new_finished_reqs.add(req)
+                 elif batch.is_prefill:  # for prefill, non-chunk req, cache the prefix
+                     self.cache_manager.cache_req(req, finished=False)
+@@ -195,8 +216,17 @@ class Scheduler(SchedulerIOMixin):
+             logger.debug_rank0("Aborting request %d", msg.uid)
+             req_to_free = self.prefill_manager.abort_req(msg.uid)
+             req_to_free = req_to_free or self.decode_manager.abort_req(msg.uid)
++            self._wait_inflight(msg.uid)
++            # A final scheduled step may already have left running_reqs while
++            # its host result is still outstanding.
++            if req_to_free is None and self._overlap_data is not None:
++                req_to_free = next((r for r in self._overlap_data[0].batch.reqs
++                                    if r.uid == msg.uid), None)
++            if msg.uid in self._retired_uids:
++                req_to_free = None
+             if req_to_free is not None:
+                 self._free_req_resources(req_to_free)
++                self._retire_uid(msg.uid)
+             self.send_result([RequestEndMsg(uid=msg.uid)])
+         else:
+             logger.error(f"Unknown message type: {type(msg)}")
+diff --git a/python/minisgl/server/launch.py b/python/minisgl/server/launch.py
+index 2dc03e0..03c81c3 100644
+--- a/python/minisgl/server/launch.py
++++ b/python/minisgl/server/launch.py
+@@ -46,8 +46,8 @@ def launch_server(run_shell: bool = False) -> None:
+     server_args, run_shell = parse_args(sys.argv[1:], run_shell)
+     # This repair series relies on a single ordered request/abort producer and
+     # no in-flight overlap results. Other modes require their own acceptance.
+-    if server_args.num_tokenizer != 0 or not ENV.DISABLE_OVERLAP_SCHEDULING:
+-        raise ValueError("I1 lifecycle patches require num_tokenizer=0 and MINISGL_DISABLE_OVERLAP_SCHEDULING=1")
++    if server_args.num_tokenizer != 0:
++        raise ValueError("Lifecycle patches require the shared ordered tokenizer")
+     if min(server_args.request_timeout_s, server_args.startup_timeout_s) <= 0:
+         raise ValueError("Lifecycle timeouts must be positive")
+     if server_args.max_total_requests < 1:

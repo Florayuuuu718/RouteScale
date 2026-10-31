@@ -516,7 +516,7 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 2026-10-31：本机 TP1、共享 tokenizer、Graph/Overlap 关闭的 I1 生命周期验收通过；
 七个可重放补丁、四个真实 GPU 场景、130 项场景检查和 40 项本机测试见
 [修复报告](../results/i_minisglang/i1_repaired/README.md)及
-[源码说明与运行手册](i1_lifecycle_repairs.md)。I2/I3 与 TP2/4 仍待执行。
+[源码说明与运行手册](i1_lifecycle_repairs.md)。I2 已开展；I3 与 TP2/4 仍待执行。
 
 ### I2. 调度与缓存消融
 
@@ -527,6 +527,12 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 5. Attention backend 只在目标硬件实际支持时比较，不能用后端不可用时的 fallback
    结果声称性能差异；
 6. 多卡对照 TP=1/2/4，并用 NCCL trace 解释小模型和较大模型的通信/计算比。
+
+2026-10-31：I2 v1 的七配置 HTTP 生命周期检查通过（84 请求、280 项检查，另有
+12 项 CPU 测试），含 Overlap 的在途取消扩展。首项全模型数值门槛未通过，
+1024 个 Naive 向量全部有限但均超出冻结门槛，正式性能进程为 0/21。
+[失败、隔离诊断与后续定位](../results/i_minisglang/i2_single_gpu_v1/README.md)保持可审计；
+I2 尚未验收，不能把 HTTP 检查或诊断当成数值/性能通过。
 
 ### I3. 在线负载协议
 

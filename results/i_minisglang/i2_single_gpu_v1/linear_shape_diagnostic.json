@@ -1,0 +1,178 @@
+{
+  "evidence_class": "common_row_shape_intervention_diagnostic_only",
+  "performance_allowed": false,
+  "policy_unchanged": {
+    "reference": "bf16_weights_fp32_math_hf_eager",
+    "atol": 0.125,
+    "rtol": 0.02,
+    "max_relative_rmse": 0.005,
+    "allow_bf16_reduced_precision_reduction": false
+  },
+  "rows": [
+    {
+      "request_id": "b1_shared_cold_0",
+      "vectors": 64,
+      "passed": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "max_relative_rmse": 0.0
+    },
+    {
+      "request_id": "b1_shared_warm_0",
+      "vectors": 64,
+      "passed": false,
+      "exact": false,
+      "max_abs": 0.2890625,
+      "max_relative_rmse": 0.02772284485399723
+    }
+  ],
+  "processes": [
+    {
+      "variant": "naive_full",
+      "returncode": 0,
+      "log_sha256": "b3005511ca2182f2b24a7043bedc14261823c9ccbfe56df57d225c7a037e84a7",
+      "gpu_after": "0 MiB"
+    },
+    {
+      "variant": "radix_full",
+      "returncode": 0,
+      "log_sha256": "021400564fd1ab3535d623f1a12574dc52612a4514962e6a4f3696ab910d8008",
+      "gpu_after": "0 MiB"
+    }
+  ],
+  "sources": {
+    "scripts/diagnose_i2_linear_shape.py": "1019dbeb0273735cd928b6b37c659cf9a557880913635cf6d894b2e88639e99e"
+  },
+  "child_evidence": {
+    "naive_full": {
+      "variant": "naive_full",
+      "rows": [
+        {
+          "phase": "cold",
+          "requests": [
+            {
+              "request_id": "b1_shared_cold_0",
+              "uid": 0,
+              "cached_tokens": 0,
+              "output_tokens": 64,
+              "output_sha256": "bbc9a1ebe85db5ddee43ec948a8dac251b2f3afcfe3f8f1dde8557238e89e28d",
+              "first_result_ms": 2591.790608,
+              "terminal_ms": 4252.088562,
+              "reason": "length",
+              "free_count": 1
+            }
+          ],
+          "released": {
+            "pending": [],
+            "running": [],
+            "tables": 4,
+            "free_pages": 2048,
+            "prefix_total": 0,
+            "prefix_protected": 0,
+            "num_pages": 2048,
+            "retired": [],
+            "table_slots_unique": true,
+            "page_indices_unique": true,
+            "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+          }
+        },
+        {
+          "phase": "warm",
+          "requests": [
+            {
+              "request_id": "b1_shared_warm_0",
+              "uid": 1,
+              "cached_tokens": 0,
+              "output_tokens": 64,
+              "output_sha256": "09e93e0ed2f01157810163102a63f9d3ac7027fa7b7dd6a79e6a6bb991fa8a47",
+              "first_result_ms": 49.768428,
+              "terminal_ms": 1668.963337,
+              "reason": "length",
+              "free_count": 1
+            }
+          ],
+          "released": {
+            "pending": [],
+            "running": [],
+            "tables": 4,
+            "free_pages": 2048,
+            "prefix_total": 0,
+            "prefix_protected": 0,
+            "num_pages": 2048,
+            "retired": [],
+            "table_slots_unique": true,
+            "page_indices_unique": true,
+            "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+          }
+        }
+      ],
+      "intervention": "all_prefill_F_linear_BF16_tile512_both_sides",
+      "tensor_sha256": "99cb43f4b2776755c44c61fb5b9ff183e6d2d3ca3c5689cc30491e06fb8f116c"
+    },
+    "radix_full": {
+      "variant": "radix_full",
+      "rows": [
+        {
+          "phase": "cold",
+          "requests": [
+            {
+              "request_id": "b1_shared_cold_0",
+              "uid": 0,
+              "cached_tokens": 0,
+              "output_tokens": 64,
+              "output_sha256": "bbc9a1ebe85db5ddee43ec948a8dac251b2f3afcfe3f8f1dde8557238e89e28d",
+              "first_result_ms": 2503.226086,
+              "terminal_ms": 3969.965357,
+              "reason": "length",
+              "free_count": 1
+            }
+          ],
+          "released": {
+            "pending": [],
+            "running": [],
+            "tables": 4,
+            "free_pages": 1473,
+            "prefix_total": 575,
+            "prefix_protected": 0,
+            "num_pages": 2048,
+            "retired": [],
+            "table_slots_unique": true,
+            "page_indices_unique": true,
+            "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+          }
+        },
+        {
+          "phase": "warm",
+          "requests": [
+            {
+              "request_id": "b1_shared_warm_0",
+              "uid": 1,
+              "cached_tokens": 384,
+              "output_tokens": 64,
+              "output_sha256": "09e93e0ed2f01157810163102a63f9d3ac7027fa7b7dd6a79e6a6bb991fa8a47",
+              "first_result_ms": 69.263658,
+              "terminal_ms": 1452.821788,
+              "reason": "length",
+              "free_count": 1
+            }
+          ],
+          "released": {
+            "pending": [],
+            "running": [],
+            "tables": 4,
+            "free_pages": 1282,
+            "prefix_total": 766,
+            "prefix_protected": 0,
+            "num_pages": 2048,
+            "retired": [],
+            "table_slots_unique": true,
+            "page_indices_unique": true,
+            "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+          }
+        }
+      ],
+      "intervention": "all_prefill_F_linear_BF16_tile512_both_sides",
+      "tensor_sha256": "e2f2ad9c3e708d8a492bb21c042595afb3d9fd9448c1819116c0608b5a2ea6b8"
+    }
+  }
+}

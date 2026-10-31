@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:59:20 +0800
+Subject: [PATCH] feat(config): expose explicit CUDA Graph bucket lists
+
+---
+ python/minisgl/server/args.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/python/minisgl/server/args.py b/python/minisgl/server/args.py
+index 3b35ff2..757b7c1 100644
+--- a/python/minisgl/server/args.py
++++ b/python/minisgl/server/args.py
+@@ -69,6 +69,8 @@ def parse_args(args: List[str], run_shell: bool = False) -> Tuple[ServerArgs, bo
+     from minisgl.moe import SUPPORTED_MOE_BACKENDS
+ 
+     parser = argparse.ArgumentParser(description="MiniSGL Server Arguments")
++    parser.add_argument("--cuda-graph-bs", type=int, nargs="+", default=None,
++                        help="Explicit positive, unique CUDA Graph batch buckets.")
+     parser.add_argument("--request-timeout-s", type=float, default=ServerArgs.request_timeout_s)
+     parser.add_argument("--startup-timeout-s", type=float, default=ServerArgs.startup_timeout_s)
+     parser.add_argument("--max-total-requests", type=int, default=ServerArgs.max_total_requests,
+@@ -232,6 +234,10 @@ def parse_args(args: List[str], run_shell: bool = False) -> Tuple[ServerArgs, bo
+ 
+     # Parse arguments
+     kwargs = parser.parse_args(args).__dict__.copy()
++    if kwargs["cuda_graph_bs"] is not None:
++        buckets = kwargs["cuda_graph_bs"]
++        if not buckets or min(buckets) < 1 or len(set(buckets)) != len(buckets):
++            parser.error("cuda-graph-bs must contain unique positive sizes")
+ 
+     # resolve some arguments
+     run_shell |= kwargs.pop("shell_mode")

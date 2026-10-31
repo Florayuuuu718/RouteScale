@@ -62,6 +62,7 @@ JSON stage labels use the current numbering; see the
 - [x] Mini-SGLang pinned single-GPU HTTP/SSE baseline (15 requests, 463 finite-logit checks; six lifecycle acceptance gaps retained in the [I1 report](results/i_minisglang/i1_lifecycle/README.md))
 - [x] I1: lifecycle cleanup, bounded admission, validation, health and shutdown acceptance (TP1, shared tokenizer, Graph/Overlap off; four real-GPU scenarios, 130 audit checks and 40 local tests; [report](results/i_minisglang/i1_repaired/README.md))
 - [ ] I2/I3: single-GPU scheduling ablations and online load experiments; TP=2/4 deferred to the later rental session
+- I2 v1 progress: seven HTTP lifecycle profiles passed (84 requests, 280 checks; 12 CPU tests), but the first full-model numerical gate failed. Formal performance runs remain 0/21; see [the preserved failure and diagnostics](results/i_minisglang/i2_single_gpu_v1/README.md).
 
 The native-weight integration, architecture mapping and remaining measurement
 boundaries are documented in

@@ -1,0 +1,188 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:16:49 +0800
+Subject: [PATCH 2/7] fix(cancel): acknowledge backend release on the ordered
+ detokenizer channel
+
+---
+ python/minisgl/message/__init__.py     |  3 +-
+ python/minisgl/message/tokenizer.py    |  7 +++
+ python/minisgl/scheduler/io.py         |  6 +--
+ python/minisgl/scheduler/scheduler.py  |  2 +
+ python/minisgl/tokenizer/detokenize.py |  5 +++
+ python/minisgl/tokenizer/server.py     | 60 ++++++++------------------
+ 6 files changed, 37 insertions(+), 46 deletions(-)
+
+diff --git a/python/minisgl/message/__init__.py b/python/minisgl/message/__init__.py
+index 073bec2..0cc7630 100644
+--- a/python/minisgl/message/__init__.py
++++ b/python/minisgl/message/__init__.py
+@@ -1,9 +1,10 @@
+ from .backend import AbortBackendMsg, BaseBackendMsg, BatchBackendMsg, ExitMsg, UserMsg
+ from .frontend import BaseFrontendMsg, BatchFrontendMsg, UserReply
+-from .tokenizer import AbortMsg, BaseTokenizerMsg, BatchTokenizerMsg, DetokenizeMsg, TokenizeMsg
++from .tokenizer import AbortMsg, BaseTokenizerMsg, BatchTokenizerMsg, DetokenizeMsg, RequestEndMsg, TokenizeMsg
+ 
+ __all__ = [
+     "AbortMsg",
++    "RequestEndMsg",
+     "AbortBackendMsg",
+     "BaseBackendMsg",
+     "BatchBackendMsg",
+diff --git a/python/minisgl/message/tokenizer.py b/python/minisgl/message/tokenizer.py
+index 221eb32..e2d94f1 100644
+--- a/python/minisgl/message/tokenizer.py
++++ b/python/minisgl/message/tokenizer.py
+@@ -41,3 +41,10 @@ class TokenizeMsg(BaseTokenizerMsg):
+ @dataclass
+ class AbortMsg(BaseTokenizerMsg):
+     uid: int
++
++
++@dataclass
++class RequestEndMsg(BaseTokenizerMsg):
++    """Ordered scheduler acknowledgment, after all output and resource release."""
++
++    uid: int
+diff --git a/python/minisgl/scheduler/io.py b/python/minisgl/scheduler/io.py
+index 11b07b1..3c0a827 100644
+--- a/python/minisgl/scheduler/io.py
++++ b/python/minisgl/scheduler/io.py
+@@ -70,7 +70,7 @@ class SchedulerIOMixin:
+     def offline_receive_msg(self, blocking: bool = False) -> List[BaseBackendMsg]:
+         raise NotImplementedError("should be implemented")
+ 
+-    def offline_send_result(self, reply: List[DetokenizeMsg]) -> None:
++    def offline_send_result(self, reply: List[BaseTokenizerMsg]) -> None:
+         raise NotImplementedError("should be implemented")
+ 
+     def sync_all_ranks(self) -> None:
+@@ -121,7 +121,7 @@ class SchedulerIOMixin:
+             pending_msgs.append(self._recv_from_rank0.get())
+         return pending_msgs
+ 
+-    def _reply_tokenizer_rank0(self, reply: List[DetokenizeMsg]) -> None:
++    def _reply_tokenizer_rank0(self, reply: List[BaseTokenizerMsg]) -> None:
+         num_reply = len(reply)
+         logger.debug_rank0(f"Replying to tokenizer: {num_reply} messages")
+         if num_reply == 1:
+@@ -129,5 +129,5 @@ class SchedulerIOMixin:
+         elif num_reply > 1:
+             self._send_into_tokenizer.put(BatchTokenizerMsg(data=reply))  # type: ignore
+ 
+-    def _reply_tokenizer_rank1(self, reply: List[DetokenizeMsg]) -> None:
++    def _reply_tokenizer_rank1(self, reply: List[BaseTokenizerMsg]) -> None:
+         _ = reply  # do nothing for non-primary ranks
+diff --git a/python/minisgl/scheduler/scheduler.py b/python/minisgl/scheduler/scheduler.py
+index d0c08d8..be4a27f 100644
+--- a/python/minisgl/scheduler/scheduler.py
++++ b/python/minisgl/scheduler/scheduler.py
+@@ -11,6 +11,7 @@ from minisgl.message import (
+     BatchBackendMsg,
+     DetokenizeMsg,
+     ExitMsg,
++    RequestEndMsg,
+     UserMsg,
+ )
+ from minisgl.utils import init_logger, load_tokenizer
+@@ -193,6 +194,7 @@ class Scheduler(SchedulerIOMixin):
+             req_to_free = req_to_free or self.decode_manager.abort_req(msg.uid)
+             if req_to_free is not None:
+                 self._free_req_resources(req_to_free)
++            self.send_result([RequestEndMsg(uid=msg.uid)])
+         else:
+             logger.error(f"Unknown message type: {type(msg)}")
+             raise NotImplementedError
+diff --git a/python/minisgl/tokenizer/detokenize.py b/python/minisgl/tokenizer/detokenize.py
+index 9a7c006..6ad6efb 100644
+--- a/python/minisgl/tokenizer/detokenize.py
++++ b/python/minisgl/tokenizer/detokenize.py
+@@ -67,6 +67,11 @@ class DetokenizeManager:
+         self.tokenizer = tokenizer
+         self.eos_token_id = self.tokenizer.eos_token_id
+ 
++    def forget(self, uid: int) -> None:
++        # Called on the scheduler's ordered end acknowledgment. The token and end
++        # messages share one PUSH socket, so no cancelled UID tombstone is needed.
++        self.decode_map.pop(uid, None)
++
+     def detokenize(self, msgs: List[DetokenizeMsg]) -> List[str]:
+         read_ids: List[List[int]] = []
+         surr_ids: List[List[int]] = []
+diff --git a/python/minisgl/tokenizer/server.py b/python/minisgl/tokenizer/server.py
+index c2d0e57..88d428f 100644
+--- a/python/minisgl/tokenizer/server.py
++++ b/python/minisgl/tokenizer/server.py
+@@ -14,6 +14,7 @@ from minisgl.message import (
+     BatchFrontendMsg,
+     BatchTokenizerMsg,
+     DetokenizeMsg,
++    RequestEndMsg,
+     TokenizeMsg,
+     UserMsg,
+     UserReply,
+@@ -64,47 +65,22 @@ def tokenize_worker(
+ 
+             logger.debug(f"Received {len(pending_msg)} messages")
+ 
+-            detokenize_msg = [m for m in pending_msg if isinstance(m, DetokenizeMsg)]
+-            tokenize_msg = [m for m in pending_msg if isinstance(m, TokenizeMsg)]
+-            abort_msg = [m for m in pending_msg if isinstance(m, AbortMsg)]
+-            assert len(detokenize_msg) + len(tokenize_msg) + len(abort_msg) == len(pending_msg)
+-            if len(detokenize_msg) > 0:
+-                replies = detokenize_manager.detokenize(detokenize_msg)
+-                batch_output = BatchFrontendMsg(
+-                    data=[
+-                        UserReply(
+-                            uid=msg.uid,
+-                            incremental_output=reply,
+-                            finished=msg.finished,
+-                        )
+-                        for msg, reply in zip(detokenize_msg, replies, strict=True)
+-                    ]
+-                )
+-                if len(batch_output.data) == 1:
+-                    batch_output = batch_output.data[0]
+-                send_frontend.put(batch_output)
+-
+-            if len(tokenize_msg) > 0:
+-                tensors = tokenize_manager.tokenize(tokenize_msg)
+-                batch_output = BatchBackendMsg(
+-                    data=[
+-                        UserMsg(
+-                            uid=msg.uid,
+-                            input_ids=t,
+-                            sampling_params=msg.sampling_params,
+-                        )
+-                        for msg, t in zip(tokenize_msg, tensors, strict=True)
+-                    ]
+-                )
+-                if len(batch_output.data) == 1:
+-                    batch_output = batch_output.data[0]
+-                send_backend.put(batch_output)
+-            if len(abort_msg) > 0:
+-                batch_output = BatchBackendMsg(
+-                    data=[AbortBackendMsg(uid=msg.uid) for msg in abort_msg]
+-                )
+-                if len(batch_output.data) == 1:
+-                    batch_output = batch_output.data[0]
+-                send_backend.put(batch_output)
++            # Preserve wire order, including end acknowledgments in mixed batches.
++            for msg in pending_msg:
++                if isinstance(msg, DetokenizeMsg):
++                    reply, = detokenize_manager.detokenize([msg])
++                    send_frontend.put(UserReply(msg.uid, reply, msg.finished))
++                elif isinstance(msg, RequestEndMsg):
++                    detokenize_manager.forget(msg.uid)
++                    send_frontend.put(UserReply(msg.uid, "", True))
++                elif isinstance(msg, TokenizeMsg):
++                    ids, = tokenize_manager.tokenize([msg])
++                    send_backend.put(UserMsg(msg.uid, ids, msg.sampling_params))
++                elif isinstance(msg, AbortMsg):
++                    # Cleanup must wait for the scheduler's ordered acknowledgment;
++                    # a local delete here could be undone by an in-flight token.
++                    send_backend.put(AbortBackendMsg(uid=msg.uid))
++                else:
++                    raise TypeError(f"Unexpected tokenizer message: {type(msg)}")
+     except KeyboardInterrupt:
+         pass

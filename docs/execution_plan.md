@@ -8,8 +8,16 @@ Progress on 2026-10-31: **I1 accepted** for TP1, shared tokenizer and
 Graph/Overlap off, with seven replayable patches, bounded admission, 40 local
 tests and four independently audited real-GPU scenarios (130 checks).
 See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
-and [runbook](i1_lifecycle_repairs.md). I2 is next; I2/I3, H3 replication and
+and [runbook](i1_lifecycle_repairs.md). I2/I3, H3 replication and
 delivery preparation below remain pending. No paid resources have been used.
+
+I2 v1 has now started. Two replayable I2 patches, 12 CPU tests and seven real
+HTTP lifecycle profiles passed (84 requests, 280 checks, including overlap
+cancellation). The first full-model numerical gate failed: all 1024 Naive
+vectors are finite, but none meet the frozen tolerance against the FP32
+reference. Independent diagnostics and the failure are preserved in the
+[I2 report](../results/i_minisglang/i2_single_gpu_v1/README.md). Formal performance
+processes: **0/21**. I2 remains incomplete; numerical localization precedes I3.
 
 ## Local work before renting GPUs
 

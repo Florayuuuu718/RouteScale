@@ -1,0 +1,3172 @@
+{
+  "stage": "I2",
+  "evidence_class": "operator_rounding_diagnostic_only",
+  "performance_allowed": false,
+  "source_sha256": "27ecaf31b45865f95e91d8614bf5012fadfae265d0fc3a4d720ab7993f5e04b5",
+  "rows": [
+    {
+      "name": "0.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 1.234299907082459e-05,
+      "finite": true
+    },
+    {
+      "name": "0.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "0.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.2969768249604385e-05,
+      "finite": true
+    },
+    {
+      "name": "0.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 3.4770541788020637e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 5.224524670666142e-07,
+      "finite": true
+    },
+    {
+      "name": "0.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 0.0006771080079488456,
+      "finite": true
+    },
+    {
+      "name": "0.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 3.668506451504072e-06,
+      "finite": true
+    },
+    {
+      "name": "0.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "0.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "1.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 1.2682764463534113e-05,
+      "finite": true
+    },
+    {
+      "name": "1.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "1.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 7.800786079315003e-06,
+      "finite": true
+    },
+    {
+      "name": "1.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.951253352672211e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 2.0428520656423643e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 3.902766820829129e-06,
+      "finite": true
+    },
+    {
+      "name": "1.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 0.0011435827473178506,
+      "finite": true
+    },
+    {
+      "name": "1.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 8.36475010146387e-06,
+      "finite": true
+    },
+    {
+      "name": "1.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "1.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "2.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.6127311027958058e-05,
+      "finite": true
+    },
+    {
+      "name": "2.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "2.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 4.314500529289944e-06,
+      "finite": true
+    },
+    {
+      "name": "2.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 7.471489311683399e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 2.0270870209060377e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.0566175205894979e-06,
+      "finite": true
+    },
+    {
+      "name": "2.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 0.0010915599996224046,
+      "finite": true
+    },
+    {
+      "name": "2.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 7.978474968695082e-06,
+      "finite": true
+    },
+    {
+      "name": "2.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "2.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "3.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.1915823961317074e-05,
+      "finite": true
+    },
+    {
+      "name": "3.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "3.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 1.7424914403818548e-05,
+      "finite": true
+    },
+    {
+      "name": "3.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.658548045379575e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 3.0517578125e-05,
+      "relative_rmse": 7.76547537384431e-09,
+      "finite": true
+    },
+    {
+      "name": "3.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 0.001348158810287714,
+      "finite": true
+    },
+    {
+      "name": "3.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.0804041266965214e-05,
+      "finite": true
+    },
+    {
+      "name": "3.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "3.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "4.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 7.0803716880618595e-06,
+      "finite": true
+    },
+    {
+      "name": "4.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "4.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 4.456550959730521e-05,
+      "finite": true
+    },
+    {
+      "name": "4.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 2.578602789071738e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.196326467033941e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 2.8826743800891563e-06,
+      "finite": true
+    },
+    {
+      "name": "4.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 0.001235973322764039,
+      "finite": true
+    },
+    {
+      "name": "4.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.768310529674636e-06,
+      "finite": true
+    },
+    {
+      "name": "4.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "4.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "5.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 4.369707767182263e-06,
+      "finite": true
+    },
+    {
+      "name": "5.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "5.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 6.980941179790534e-06,
+      "finite": true
+    },
+    {
+      "name": "5.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.0814228517119773e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.0234362889605109e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.0859251915462664e-06,
+      "finite": true
+    },
+    {
+      "name": "5.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 0.0014768888941034675,
+      "finite": true
+    },
+    {
+      "name": "5.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 3.321330950711854e-06,
+      "finite": true
+    },
+    {
+      "name": "5.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "5.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "6.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.1588515008043032e-05,
+      "finite": true
+    },
+    {
+      "name": "6.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "6.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.6953556496446254e-06,
+      "finite": true
+    },
+    {
+      "name": "6.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.5,
+      "relative_rmse": 0.00012106401845812798,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.19881178761716e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 4.729636202682741e-07,
+      "finite": true
+    },
+    {
+      "name": "6.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 0.0009663508390076458,
+      "finite": true
+    },
+    {
+      "name": "6.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 3.4235747534694383e-06,
+      "finite": true
+    },
+    {
+      "name": "6.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "6.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "7.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "7.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "7.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 8.048788913583849e-06,
+      "finite": true
+    },
+    {
+      "name": "7.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.338281309581362e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.1184519053131226e-06,
+      "finite": true
+    },
+    {
+      "name": "7.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 0.0013427279191091657,
+      "finite": true
+    },
+    {
+      "name": "7.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.750343461841112e-06,
+      "finite": true
+    },
+    {
+      "name": "7.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "7.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "8.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 3.7502748000406427e-06,
+      "finite": true
+    },
+    {
+      "name": "8.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "8.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "8.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.3341892705939244e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 2.2991564492258476e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.2398360164952464e-06,
+      "finite": true
+    },
+    {
+      "name": "8.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.0010782777098938823,
+      "finite": true
+    },
+    {
+      "name": "8.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.5592280760756694e-05,
+      "finite": true
+    },
+    {
+      "name": "8.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "8.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "9.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "9.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "9.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.3982506970933173e-05,
+      "finite": true
+    },
+    {
+      "name": "9.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.3763403785560513e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 7.124420335458126e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 6.103515625e-05,
+      "relative_rmse": 2.2167640167936042e-08,
+      "finite": true
+    },
+    {
+      "name": "9.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 0.001117302686907351,
+      "finite": true
+    },
+    {
+      "name": "9.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 1.3606344282379723e-06,
+      "finite": true
+    },
+    {
+      "name": "9.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "9.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "10.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.6307344493689016e-06,
+      "finite": true
+    },
+    {
+      "name": "10.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "10.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 7.412617378577124e-06,
+      "finite": true
+    },
+    {
+      "name": "10.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 4.5555700012300804e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 9.15094517495163e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0001220703125,
+      "relative_rmse": 2.8532701534800253e-08,
+      "finite": true
+    },
+    {
+      "name": "10.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 0.001337630907073617,
+      "finite": true
+    },
+    {
+      "name": "10.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00048828125,
+      "relative_rmse": 6.972998676246789e-07,
+      "finite": true
+    },
+    {
+      "name": "10.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "10.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "11.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.8959055978484685e-06,
+      "finite": true
+    },
+    {
+      "name": "11.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "11.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 7.164139219639765e-07,
+      "finite": true
+    },
+    {
+      "name": "11.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.1574244126677513e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.09530833469762e-06,
+      "finite": true
+    },
+    {
+      "name": "11.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.0009243186796084046,
+      "finite": true
+    },
+    {
+      "name": "11.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.3037902135693002e-05,
+      "finite": true
+    },
+    {
+      "name": "11.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "11.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "12.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 4.635017830878496e-06,
+      "finite": true
+    },
+    {
+      "name": "12.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "12.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 2.885988124035066e-06,
+      "finite": true
+    },
+    {
+      "name": "12.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.470116891752696e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 2.1884070520172827e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 1.1920928955078125e-07,
+      "relative_rmse": 4.547579326996676e-11,
+      "finite": true
+    },
+    {
+      "name": "12.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.001213121460750699,
+      "finite": true
+    },
+    {
+      "name": "12.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 9.329431122750975e-06,
+      "finite": true
+    },
+    {
+      "name": "12.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "12.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "13.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.044551471655723e-06,
+      "finite": true
+    },
+    {
+      "name": "13.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "13.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.341935659293085e-06,
+      "finite": true
+    },
+    {
+      "name": "13.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.712609774695011e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0001220703125,
+      "relative_rmse": 1.285019237684537e-07,
+      "finite": true
+    },
+    {
+      "name": "13.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.001050587510690093,
+      "finite": true
+    },
+    {
+      "name": "13.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.8947093748429324e-06,
+      "finite": true
+    },
+    {
+      "name": "13.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "13.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "14.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.106168257247191e-06,
+      "finite": true
+    },
+    {
+      "name": "14.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "14.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 1.8196658857050352e-05,
+      "finite": true
+    },
+    {
+      "name": "14.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 3.571870183805004e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.5798807453393238e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 9.129155841947068e-06,
+      "finite": true
+    },
+    {
+      "name": "14.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.0010931864380836487,
+      "finite": true
+    },
+    {
+      "name": "14.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 3.113402726739878e-06,
+      "finite": true
+    },
+    {
+      "name": "14.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "14.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "15.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.0286946235282812e-05,
+      "finite": true
+    },
+    {
+      "name": "15.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "15.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 7.62939453125e-06,
+      "relative_rmse": 6.0439999671757505e-09,
+      "finite": true
+    },
+    {
+      "name": "15.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 3.1329618650488555e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.6646431504341308e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00048828125,
+      "relative_rmse": 1.2432062135303568e-07,
+      "finite": true
+    },
+    {
+      "name": "15.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.0011772288708016276,
+      "finite": true
+    },
+    {
+      "name": "15.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 1.2359436368569732e-05,
+      "finite": true
+    },
+    {
+      "name": "15.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "15.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "16.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 2.0080663034605095e-06,
+      "finite": true
+    },
+    {
+      "name": "16.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "16.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 7.818066478648689e-06,
+      "finite": true
+    },
+    {
+      "name": "16.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 3.635929897427559e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.1273466447601095e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.096441224035516e-06,
+      "finite": true
+    },
+    {
+      "name": "16.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 0.0010689198970794678,
+      "finite": true
+    },
+    {
+      "name": "16.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 9.579788638802711e-06,
+      "finite": true
+    },
+    {
+      "name": "16.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "16.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "17.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 7.073321285133716e-06,
+      "finite": true
+    },
+    {
+      "name": "17.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "17.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.1102712960564531e-05,
+      "finite": true
+    },
+    {
+      "name": "17.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.8848965055440203e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00048828125,
+      "relative_rmse": 3.3747718930499104e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.6870177432792843e-06,
+      "finite": true
+    },
+    {
+      "name": "17.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.0011911605251953006,
+      "finite": true
+    },
+    {
+      "name": "17.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 6.731275334459497e-06,
+      "finite": true
+    },
+    {
+      "name": "17.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "17.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "18.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 1.1270637514826376e-05,
+      "finite": true
+    },
+    {
+      "name": "18.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "18.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.956195092134294e-06,
+      "finite": true
+    },
+    {
+      "name": "18.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.639112376025878e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 9.561337719787844e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.783917120221304e-06,
+      "finite": true
+    },
+    {
+      "name": "18.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.001200440339744091,
+      "finite": true
+    },
+    {
+      "name": "18.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.8673462136575836e-06,
+      "finite": true
+    },
+    {
+      "name": "18.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "18.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "19.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 4.3766094677266665e-06,
+      "finite": true
+    },
+    {
+      "name": "19.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "19.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 7.640645890205633e-06,
+      "finite": true
+    },
+    {
+      "name": "19.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 2.243392600576044e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.694696488310001e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 4.5302613216335885e-06,
+      "finite": true
+    },
+    {
+      "name": "19.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.0012261313386261463,
+      "finite": true
+    },
+    {
+      "name": "19.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.282616449316265e-05,
+      "finite": true
+    },
+    {
+      "name": "19.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "19.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "20.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 2.0225104435667163e-06,
+      "finite": true
+    },
+    {
+      "name": "20.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "20.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 8.526462806912605e-06,
+      "finite": true
+    },
+    {
+      "name": "20.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 8.55945563671412e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.1800575470697368e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0001220703125,
+      "relative_rmse": 6.891593784530414e-08,
+      "finite": true
+    },
+    {
+      "name": "20.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.0010507539846003056,
+      "finite": true
+    },
+    {
+      "name": "20.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.227933171321638e-05,
+      "finite": true
+    },
+    {
+      "name": "20.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "20.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "21.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 2.3356500605586916e-05,
+      "finite": true
+    },
+    {
+      "name": "21.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "21.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 5.404562671174062e-06,
+      "finite": true
+    },
+    {
+      "name": "21.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 2.0733191377075855e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 8.342047294718213e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 6.391854185494594e-06,
+      "finite": true
+    },
+    {
+      "name": "21.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.0010736089898273349,
+      "finite": true
+    },
+    {
+      "name": "21.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.000244140625,
+      "relative_rmse": 1.8668403356514318e-07,
+      "finite": true
+    },
+    {
+      "name": "21.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "21.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "22.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.25,
+      "relative_rmse": 3.955174906877801e-05,
+      "finite": true
+    },
+    {
+      "name": "22.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "22.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "22.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.6675298815680435e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 1.9370463633094914e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 5.798872734885663e-06,
+      "finite": true
+    },
+    {
+      "name": "22.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0625,
+      "relative_rmse": 0.001456535654142499,
+      "finite": true
+    },
+    {
+      "name": "22.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.3510510143532883e-05,
+      "finite": true
+    },
+    {
+      "name": "22.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "22.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "23.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 1.8767701476463117e-05,
+      "finite": true
+    },
+    {
+      "name": "23.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "23.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 7.089074188115774e-06,
+      "finite": true
+    },
+    {
+      "name": "23.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.8611890482134186e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 4.702576006820891e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 6.103515625e-05,
+      "relative_rmse": 2.9136760559822505e-08,
+      "finite": true
+    },
+    {
+      "name": "23.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 0.001293851644732058,
+      "finite": true
+    },
+    {
+      "name": "23.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.9107170373899862e-05,
+      "finite": true
+    },
+    {
+      "name": "23.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "23.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "24.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 5.687062184733804e-06,
+      "finite": true
+    },
+    {
+      "name": "24.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "24.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 9.522886102786288e-06,
+      "finite": true
+    },
+    {
+      "name": "24.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 1.3113217391946819e-05,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0001220703125,
+      "relative_rmse": 1.168453636068989e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 4.76837158203125e-07,
+      "relative_rmse": 2.0012883017450633e-10,
+      "finite": true
+    },
+    {
+      "name": "24.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 0.001327620237134397,
+      "finite": true
+    },
+    {
+      "name": "24.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 9.296696589444764e-06,
+      "finite": true
+    },
+    {
+      "name": "24.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "24.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "25.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 3.5214709441788727e-06,
+      "finite": true
+    },
+    {
+      "name": "25.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "25.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00048828125,
+      "relative_rmse": 4.625469500751933e-07,
+      "finite": true
+    },
+    {
+      "name": "25.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.869002062448999e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.959368314099265e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 1.8699332713367767e-06,
+      "finite": true
+    },
+    {
+      "name": "25.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 0.0016730454517528415,
+      "finite": true
+    },
+    {
+      "name": "25.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 1.470948427595431e-05,
+      "finite": true
+    },
+    {
+      "name": "25.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "25.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "26.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 5.226563644100679e-06,
+      "finite": true
+    },
+    {
+      "name": "26.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "26.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 8.715839612705167e-06,
+      "finite": true
+    },
+    {
+      "name": "26.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.0009765625,
+      "relative_rmse": 6.083786843191774e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.00390625,
+      "relative_rmse": 3.3733347208908526e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 7.62939453125e-06,
+      "relative_rmse": 4.75548711520446e-09,
+      "finite": true
+    },
+    {
+      "name": "26.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 0.0010473205475136638,
+      "finite": true
+    },
+    {
+      "name": "26.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 2.0876217604381964e-05,
+      "finite": true
+    },
+    {
+      "name": "26.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "26.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "27.input_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 4.219661605020519e-06,
+      "finite": true
+    },
+    {
+      "name": "27.input_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "27.q_norm",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.03125,
+      "relative_rmse": 1.379545392410364e-05,
+      "finite": true
+    },
+    {
+      "name": "27.k_norm",
+      "shape": [
+        512,
+        8,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.001953125,
+      "relative_rmse": 9.428642897546524e-07,
+      "finite": true
+    },
+    {
+      "name": "rope.q",
+      "shape": [
+        512,
+        2048
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 5.055653673480265e-06,
+      "finite": true
+    },
+    {
+      "name": "rope.k",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.015625,
+      "relative_rmse": 7.543375886598369e-06,
+      "finite": true
+    },
+    {
+      "name": "27.attention",
+      "shape": [
+        512,
+        16,
+        128
+      ],
+      "exact": false,
+      "max_abs": 0.125,
+      "relative_rmse": 0.0012972312979400158,
+      "finite": true
+    },
+    {
+      "name": "27.post_attention_layernorm",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": false,
+      "max_abs": 0.0078125,
+      "relative_rmse": 3.459771733105299e-06,
+      "finite": true
+    },
+    {
+      "name": "27.post_attention_layernorm.residual",
+      "shape": [
+        512,
+        1024
+      ],
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_rmse": 0.0,
+      "finite": true
+    },
+    {
+      "name": "27.silu_mul",
+      "shape": [
+        512,
+        3072
+      ],
+      "exact": false,
+      "max_abs": 1.1102230246251565e-16,
+      "relative_rmse": 1.3292589687541851e-20,
+      "finite": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "command": "CUDA_VISIBLE_DEVICES='' runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i2_single_gpu.py -v",
+  "returncode": 0,
+  "tests_passed": 12,
+  "log": "cpu_tests.log",
+  "log_sha256": "958396de5e14d9df396fea84c3bd409d0f3b5029c2c83b06f0dde7efe27e293d",
+  "source_sha256": {
+    "tests/test_i2_single_gpu.py": "1a910455ec7dfa95b6011a4518371ee791c58e7e4af8b804b7da5089c7082212",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "scripts/audit_i2_numerics.py": "637618b3b03db9840ca601246f26c2105a41be9bb384491fe97788730dadff97",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "patches/minisgl-i2/series.json": "f949b8fe3da9baf8aa298e2622a3ccf13db865083bfe78a202c7f8a858c59956"
+  },
+  "patched_tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061"
+}
