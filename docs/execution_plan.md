@@ -29,7 +29,17 @@ passed 280 checks. The separately frozen FI/TP1 performance scope completed
 Some process CVs reach 21.4%; small gains remain uncertain. The original HF FP32
 equivalence is still failed, and these results include the padding cost. FA4 and
 TRTLLM were explicitly probed and unavailable in the pinned stack; no fallback
-was ranked. TP2/4 remain deferred. **I3 is the next local stage.**
+was ranked. TP2/4 remain deferred.
+
+The user then prioritized external HF alignment before I3. The full original HF
+FP32 and native BF16 outputs reproduce exactly. The first external divergence is
+the layer0 RMSNorm rounding boundary; HF BF16 itself also fails all 1024 vectors
+against the original FP32 threshold. See the [precision follow-up](../results/i_minisglang/i2_external_alignment_v1/README.md).
+An explicit FP16 main path with FP32 residual and layer/final norm passed all
+2048 Naive/Radix vectors at the original threshold (worst relative RMSE 0.322%).
+Keep original BF16 failures and scoped performance acceptance separate. Before I3,
+freeze the selected precision policy and qualify its scheduling variants and HTTP
+lifecycle; a numerical precision candidate alone does not authorize performance.
 
 ## Local work before renting GPUs
 

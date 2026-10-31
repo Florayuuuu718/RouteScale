@@ -1,0 +1,148 @@
+{
+  "stage": "I2",
+  "scope": "full",
+  "variant": "radix_full",
+  "modes": [
+    "native_fp16",
+    "fp32_math"
+  ],
+  "config": {
+    "stage": "I2",
+    "scope": "single_gpu_fixed_token_scheduler_replay_v1",
+    "i1_config": "config/serving/i1_repaired.json",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "seed": 20261031,
+    "batch_sizes": [
+      1,
+      3
+    ],
+    "prompt_tokens": 512,
+    "output_tokens": 64,
+    "shared_prefix_tokens": 384,
+    "workload_path": "runs/workloads/i2_single_gpu_v1/workload.json",
+    "validation_dir": "runs/validation/i2_single_gpu_v1",
+    "results_dir": "results/i_minisglang/i2_single_gpu_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i2_single_gpu_v1",
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi",
+      "dtype": "bfloat16"
+    },
+    "numerics": {
+      "reference": "bf16_weights_fp32_math_hf_eager",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    },
+    "variants": {
+      "naive_full": {
+        "cache": "naive",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_full": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk256": {
+        "cache": "radix",
+        "chunk": 256,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk128": {
+        "cache": "radix",
+        "chunk": 128,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      },
+      "radix_graph13": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          3
+        ]
+      },
+      "radix_overlap": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": true,
+        "graph_bs": []
+      }
+    },
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "subprocess_timeout_s": 900,
+    "cleanup_s": 5,
+    "shutdown_s": 10,
+    "performance_boundary": "scheduler cohort submission through host terminal; includes forced-token controller and host result processing; excludes HTTP/tokenizer/startup/JIT; no online SLO claim",
+    "paid_resources_used": false
+  },
+  "source_sha256": {
+    "scripts/diagnose_i2_external_alignment.py": "eed31c585178912a87ea65a27026923bb4b2caf0f45291c18196295ce8019d7c",
+    "serving/i2_external_alignment.py": "957099839342161695261dc31cbfe8c1464a04992e0b35c9f0d1c6bab6669cac",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_layer_trace.py": "c6df4adfbff530354116dcbc956ba61617392cf213a9428ce188ff3c7bbfe7a1",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "scripts/run_i2_single_gpu.py": "6dc64e309c02b03d264349247cd446319ae982b543e7492299e43a1bab69659d",
+    "scripts/audit_i2_external_alignment.py": "89c274a05e6a6facaa119123c6ec4981da63fdde81ece5d69fd0522863682fac",
+    "tests/test_i2_external_alignment.py": "4e9411f1a5c6ed22e0592757f288867c5b18582b6d031234f0e2f85868aef85f",
+    "docs/i2_external_alignment_protocol.md": "d86e637f29db010020de21ade54b768ee59a95371a8e8393fba1c2670cde3d36",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1"
+  },
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "checkpoint_dtypes": [
+    "BF16"
+  ],
+  "hf_source_sha256": "d96eeea4c000abaa70a7c0277437d0843b5b2d005ab233e0ffcaf860a357f1aa",
+  "model_sha256": {
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "1ab64a26fcb3b461423b89a433a8c858f1bf8d4086f979cbb3ff878d47cf20e9",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    ".gitattributes": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+  },
+  "reference": {
+    "path": "runs/validation/i2_single_gpu_v1/attempt001/reference.pt",
+    "sha256": "2fc4f73637707d24a76ab478b2464fdd0cb5ad83c85fa819ae8d87fa46cfec23"
+  },
+  "workload_sha256": "cc71f0b16b8d9e24d65537167dc1a9d7e79e6fbd97b9809d1435bb5cee6cbaed",
+  "validation_dir": "runs/validation/i2_external_alignment_v1/full_radix001",
+  "performance_allowed": false,
+  "paid_resources_used": false
+}

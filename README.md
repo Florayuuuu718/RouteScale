@@ -63,7 +63,7 @@ JSON stage labels use the current numbering; see the
 - [x] I1: lifecycle cleanup, bounded admission, validation, health and shutdown acceptance (TP1, shared tokenizer, Graph/Overlap off; four real-GPU scenarios, 130 audit checks and 40 local tests; [report](results/i_minisglang/i1_repaired/README.md))
 - [ ] I3: online load experiments; I2 TP=2/4 deferred to the later rental session
 - I2 v1 progress: seven HTTP lifecycle profiles passed (84 requests, 280 checks; 12 CPU tests), but the first full-model numerical gate failed. Formal performance runs remain 0/21; see [the preserved failure and diagnostics](results/i_minisglang/i2_single_gpu_v1/README.md).
-- [x] I2 bounded FI/TP1 shape-controlled scope: two successive numerical divergences localized; 12,544 exact vectors, seven HTTP profiles and 21/21 formal processes accepted. Original HF FP32 equivalence remains failed; padding cost and uncertainty are explicit in [the scoped report](results/i_minisglang/i2_shape_performance_v1/README.md). I3 is next; TP=2/4 remains deferred.
+- [x] I2 bounded FI/TP1 shape-controlled scope: two successive numerical divergences localized; 12,544 exact vectors, seven HTTP profiles and 21/21 formal processes accepted. Original BF16-to-HF-FP32 equivalence remains failed; padding cost and uncertainty are explicit in [the scoped report](results/i_minisglang/i2_shape_performance_v1/README.md). The [external HF precision follow-up](results/i_minisglang/i2_external_alignment_v1/README.md) is prioritized before I3; TP=2/4 remains deferred.
 
 The native-weight integration, architecture mapping and remaining measurement
 boundaries are documented in

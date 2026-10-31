@@ -1,0 +1,216 @@
+{
+  "mode": "hf_fp32",
+  "variant": "naive_full",
+  "status": "completed",
+  "performance_allowed": false,
+  "evidence_class": "external_reference_precision_diagnostic",
+  "rows": [
+    {
+      "request_id": "b1_zero_cold_0",
+      "case_id": "b1_zero",
+      "phase": "cold",
+      "errors": [
+        {
+          "step": 0,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 1,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 2,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 3,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        }
+      ],
+      "released": null
+    },
+    {
+      "request_id": "b1_shared_cold_0",
+      "case_id": "b1_shared",
+      "phase": "cold",
+      "errors": [
+        {
+          "step": 0,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 1,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 2,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 3,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        }
+      ],
+      "released": null
+    },
+    {
+      "request_id": "b3_zero_cold_0",
+      "case_id": "b3_zero",
+      "phase": "cold",
+      "errors": [
+        {
+          "step": 0,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 1,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 2,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 3,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        }
+      ],
+      "released": null
+    },
+    {
+      "request_id": "b3_shared_cold_0",
+      "case_id": "b3_shared",
+      "phase": "cold",
+      "errors": [
+        {
+          "step": 0,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 1,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 2,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        },
+        {
+          "step": 3,
+          "finite": true,
+          "max_abs": 0.0,
+          "relative_rmse": 0.0,
+          "tolerance_violations": 0,
+          "top1_equal": true,
+          "passed": true
+        }
+      ],
+      "released": null
+    }
+  ],
+  "tensors": {
+    "logits": {
+      "path": "runs/validation/i2_external_alignment_v1/pilot001/hf_fp32.pt",
+      "sha256": "406364f0bf3be557e9596d5f8e27d1b213d23ac47fe27e241ace7deb913a8200"
+    },
+    "trace": {
+      "path": "runs/validation/i2_external_alignment_v1/pilot001/hf_fp32_trace.pt",
+      "sha256": "fe67d7c7ccb7cd89642fea733806076bce5f1766123a607a9929630dad45b22b"
+    }
+  },
+  "traced_request": "b1_zero_cold_0",
+  "trace_rows": 128,
+  "trace_scope": "first_cold_prefill",
+  "vectors": 16,
+  "passed_vectors": 16,
+  "max_relative_rmse": 0.0,
+  "max_abs": 0.0,
+  "numerical_passed": true,
+  "peak_allocated_bytes": 3019121152,
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "transformers": "4.57.3",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "precision": {
+    "tf32": false,
+    "bf16_reduced_reduction": false,
+    "fp16_reduced_reduction": false
+  },
+  "gpu_end": "NVIDIA GeForce RTX 5060 Laptop GPU, 3161 MiB, 41, 225 MHz, 9001 MHz, 6.68 W, P4, 0 %, 610.88"
+}

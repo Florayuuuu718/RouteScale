@@ -1,0 +1,95 @@
+{
+  "evidence_class": "same_input_first_norm_diagnostic",
+  "performance_allowed": false,
+  "checks": {
+    "same_input": true,
+    "native_reproduced": true,
+    "hf_bf16_reproduced": true,
+    "hf_fp32_reproduced": true
+  },
+  "passed": true,
+  "comparisons": {
+    "flashinfer_reproduces_native_trace": {
+      "exact": true,
+      "finite": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0,
+      "shape": [
+        128,
+        1024
+      ]
+    },
+    "hf_bf16_reproduces_hf_trace": {
+      "exact": true,
+      "finite": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0,
+      "shape": [
+        128,
+        1024
+      ]
+    },
+    "fp32_reproduces_hf_trace": {
+      "exact": true,
+      "finite": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "unequal_elements": 0,
+      "shape": [
+        128,
+        1024
+      ]
+    },
+    "native_vs_hf_bf16": {
+      "exact": false,
+      "finite": true,
+      "max_abs": 0.015625,
+      "relative_l2": 0.0028533905278891325,
+      "unequal_elements": 34124,
+      "shape": [
+        128,
+        1024
+      ]
+    },
+    "native_vs_fp32": {
+      "exact": false,
+      "finite": true,
+      "max_abs": 0.007698535919189453,
+      "relative_l2": 0.0016543008387088776,
+      "unequal_elements": 131070,
+      "shape": [
+        128,
+        1024
+      ]
+    },
+    "native_vs_single_rounding_math": {
+      "exact": false,
+      "finite": true,
+      "max_abs": 0.0009765625,
+      "relative_l2": 1.4239264601201285e-05,
+      "unequal_elements": 2,
+      "shape": [
+        128,
+        1024
+      ]
+    }
+  },
+  "bf16_checkpoint_to_fp16": {
+    "elements": 751632384,
+    "changed_elements": 120378,
+    "nonfinite_elements": 0,
+    "max_abs": 2.9802322387695312e-08
+  },
+  "tensor": {
+    "path": "runs/validation/i2_external_alignment_v1/pilot002/norm_probe.pt",
+    "sha256": "e7aec97fb790230742ebc01723813d0e3264f5f22fdb741ff1e5bc8d3988dfb3"
+  },
+  "source_sha256": {
+    "scripts/probe_i2_external_norm.py": "4dc3dab918a64e3234a23eabff1bbb4f767d0e1db25d91376e59040f91aacb77",
+    "scripts/audit_i2_external_alignment.py": "c265d0784237b80e136913e0529048316d6b68d7e4726a153fc0c96aba0b9a5d",
+    "serving/i2_external_alignment.py": "957099839342161695261dc31cbfe8c1464a04992e0b35c9f0d1c6bab6669cac"
+  },
+  "scope": "first cold prefill last128 rows, layer0 input norm only; not a full-model attribution"
+}

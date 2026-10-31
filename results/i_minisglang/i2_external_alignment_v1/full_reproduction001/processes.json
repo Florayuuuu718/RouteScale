@@ -1,0 +1,59 @@
+[
+  {
+    "label": "hf_fp32",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_reproduction001",
+      "--mode",
+      "hf_fp32"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793431035060647384,
+    "pid": 81639,
+    "returncode": 0,
+    "seconds": 102.56267738899987,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_reproduction001/hf_fp32.log",
+    "log_sha256": "5c405b5c87ab148df33e17af5794fa864e75298522d55157dae76b60c7f46d95",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "hf_bf16",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_reproduction001",
+      "--mode",
+      "hf_bf16"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793431138141836495,
+    "pid": 81931,
+    "returncode": 0,
+    "seconds": 116.6304796580007,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_reproduction001/hf_bf16.log",
+    "log_sha256": "480b015f4d78f6971b578ebe0f467d0f7521dafd19b04bc14b207311e06023bc",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "native_bf16",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_reproduction001",
+      "--mode",
+      "native_bf16"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793431255313747093,
+    "pid": 82255,
+    "returncode": 0,
+    "seconds": 47.49030082800164,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_reproduction001/native_bf16.log",
+    "log_sha256": "916c00e2df5c98a5f858a423c2c36f3ba2a9c08c6c2218a35777b22cc348bb3b",
+    "gpu_after": "0 MiB"
+  }
+]

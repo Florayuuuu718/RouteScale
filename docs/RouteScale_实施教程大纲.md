@@ -539,7 +539,14 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 向量全部 exact；同策略 HTTP 84请求/280检查、21/21正式进程与160项性能审计通过。
 见[根因说明](i2_numerical_findings.md)与[本机 FI/TP1 形状控制范围报告](../results/i_minisglang/i2_shape_performance_v1/README.md)。
 结果包含额外填充成本和不确定性；原HF FP32失败保持不变，FA4/TRTLLM在当前锁定栈中
-实际探针不可用，未使用fallback比较。TP2/4仍留待集中租卡；下一本机阶段为I3。
+实际探针不可用，未使用fallback比较。TP2/4仍留待集中租卡。
+
+用户追加优先核对原HF FP32门槛：[外部参考与精度方案验证](../results/i_minisglang/i2_external_alignment_v1/README.md)。
+完整原批次复现后，首个外部分叉定位到layer0 RMSNorm舍入；HF自身BF16也未满足原0.5%门槛。
+保持旧BF16失败，单独验证提高精度的候选方案；候选方案需补对应调度与HTTP验收后再进入I3，
+不得直接套用原BF16性能结果。
+FP16主路径配合FP32残差及层间/最终norm，已在Naive/Radix合计2048个向量上满足原阈值，
+最坏相对RMSE为0.322%；纯FP16在Radix仍有1个越界向量，其失败也保留。
 
 ### I3. 在线负载协议
 

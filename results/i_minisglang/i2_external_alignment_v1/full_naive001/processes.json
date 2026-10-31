@@ -1,0 +1,59 @@
+[
+  {
+    "label": "hf_bf16",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_naive001",
+      "--mode",
+      "hf_bf16"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793430765625114265,
+    "pid": 80775,
+    "returncode": 0,
+    "seconds": 109.98086382600013,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_naive001/hf_bf16.log",
+    "log_sha256": "480b015f4d78f6971b578ebe0f467d0f7521dafd19b04bc14b207311e06023bc",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "native_fp16",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_naive001",
+      "--mode",
+      "native_fp16"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793430876115006557,
+    "pid": 81060,
+    "returncode": 0,
+    "seconds": 38.89794427200104,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_naive001/native_fp16.log",
+    "log_sha256": "b123c351841d2c09fb6f26f7d29145239118091618101e4c9db8fd4b73511387",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "fp32_math",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_naive001",
+      "--mode",
+      "fp32_math"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793430915432534736,
+    "pid": 81238,
+    "returncode": 0,
+    "seconds": 85.16293419399881,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_naive001/fp32_math.log",
+    "log_sha256": "54479c24e0fb3d3ff7c49e0dda2fa9920f5556b0e38b5e3998ac3eee0ff6ae51",
+    "gpu_after": "0 MiB"
+  }
+]

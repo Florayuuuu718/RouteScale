@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "positive_audit_reproduced": true,
+  "negative_controls": [
+    {
+      "control": "threshold",
+      "rejected": true,
+      "reason": "Audit failed: unchanged_threshold"
+    },
+    {
+      "control": "metric",
+      "rejected": true,
+      "reason": "Audit failed: native_fp16:b1_zero_cold_0:0:metrics"
+    },
+    {
+      "control": "source",
+      "rejected": true,
+      "reason": "Audit failed: snapshot:serving/i2_external_alignment.py"
+    }
+  ],
+  "base_directory": "results/i_minisglang/i2_external_alignment_v1/full_naive001",
+  "base_audit_sha256": "350dd56dd1fa7e620cbe1614aebc31d50e457ffa2de946e52a576e79d8c5323b",
+  "source_sha256": {
+    "scripts/check_i2_external_audit.py": "b1f8cc28803cf662d88421c846efe2f0f0f9fbf3f56ea6985ca47901a3d878ef",
+    "scripts/audit_i2_external_alignment.py": "b020f85405efdb966ad6826e0f13f318ff6631ca21db3ac7027cc9c7588f63f4"
+  },
+  "performance_allowed": false
+}

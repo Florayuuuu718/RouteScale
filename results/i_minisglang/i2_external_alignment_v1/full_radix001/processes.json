@@ -1,0 +1,40 @@
+[
+  {
+    "label": "native_fp16",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_radix001",
+      "--mode",
+      "native_fp16"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793431423839286825,
+    "pid": 82783,
+    "returncode": 0,
+    "seconds": 44.58978854700035,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_radix001/native_fp16.log",
+    "log_sha256": "8194a1c3f951a3606a37c558efcbab5aba9c23d0ddd9a094061e96d0251af7d8",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "fp32_math",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "/home/shunzi/projects/RouteScale/scripts/diagnose_i2_external_alignment.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_external_alignment_v1/full_radix001",
+      "--mode",
+      "fp32_math"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793431469860593856,
+    "pid": 82992,
+    "returncode": 0,
+    "seconds": 86.90545202400244,
+    "log": "runs/logs/i_minisglang/i2_external_alignment_v1/full_radix001/fp32_math.log",
+    "log_sha256": "50a299f5c2e13e2b9c90c4014fde9b0f664309d3ba26d993682714fbc632c63c",
+    "gpu_after": "0 MiB"
+  }
+]

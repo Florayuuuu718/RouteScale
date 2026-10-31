@@ -87,3 +87,7 @@ runs/envs/mini-sglang/bin/python scripts/qualify_i2_shape_policy.py --attempt fr
 
 原始中间张量在忽略的 `runs/validation`。新运行必须使用新目录；源码改动后不能继续
 原有进程账本。已有失败、干预结果和 source snapshot 保持不变。
+
+用户随后优先要求解决外部HF参考差异，见[外部逐层对齐与精度验证](../results/i_minisglang/i2_external_alignment_v1/README.md)。
+它复现原完整BF16/HF FP32输出，并从layer0 RMSNorm开始验证不同舍入边界。
+该后续工作与本文的Naive/Radix形状控制各有范围，原BF16失败不追认通过。
