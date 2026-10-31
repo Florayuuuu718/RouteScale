@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "fail",
+  "evidence_class": "gpu_preflight_gate",
+  "gpu_execution_allowed": false,
+  "created_at_utc": "2026-10-23T09:20:16.111201+00:00",
+  "comparisons": [
+    {
+      "case_id": "b1_p128_o64_none",
+      "variant": "graph_no_prefix",
+      "phase": "cold",
+      "step": 0,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    }
+  ],
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/serving/verify_h2_preflight.py\", line 60, in main\n    torch.testing.assert_close(actual, expected, atol=pilot[\"correctness_atol\"], rtol=pilot[\"correctness_rtol\"])\n  File \"/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 4836 / 151936 (3.2%)\nGreatest absolute difference: 0.15625 at index (0, 16531) (up to 0.05 allowed)\nGreatest relative difference: 397.3179931640625 at index (0, 45224) (up to 0.02 allowed)\n"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "policy_id": "static_tables_paged_prefill_v1",
+  "base_pilot": "config/serving/h2_pilot.json",
+  "results_dir": "results/h_nanovllm/h2_numerics/validation_v1",
+  "policy": {
+    "static_tables": true,
+    "paged_prefill": true,
+    "recompile_limit": 64,
+    "fail_on_recompile_limit_hit": true
+  },
+  "variants": ["eager_no_prefix", "graph_no_prefix", "eager_prefix"],
+  "original_case_ids": ["b1_p128_o64_none", "b8_p128_o64_high", "b8_p512_o64_none", "b8_p512_o64_high"],
+  "additional_cases": [
+    {"batch": 1, "prompt": 256, "output": 64, "prefix_mode": "none", "seed": 20261024},
+    {"batch": 1, "prompt": 512, "output": 64, "prefix_mode": "high", "seed": 20261025},
+    {"batch": 8, "prompt": 384, "output": 64, "prefix_mode": "high", "seed": 20261026},
+    {"batch": 4, "prompt": 768, "output": 64, "prefix_mode": "high", "seed": 20261027}
+  ],
+  "forced_output_tokens": 64,
+  "comparison": "exact sha256 of BF16 full-vocabulary logits at every step; stricter than original tolerance",
+  "original_tolerances": {"atol": 0.05, "rtol": 0.02, "max_relative_rmse": 0.005},
+  "does_not_release_historical_native_gate": true
+}

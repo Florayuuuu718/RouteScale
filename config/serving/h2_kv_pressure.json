@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "base_capacity_config": "config/serving/h2_kv_capacity.json",
+  "base_capacity_audit_sha256": "b8568bb690473aa9d3322b93693faf970ab6593b21b358e3a211fcb247f4fb86",
+  "results_dir": "results/h_nanovllm/h2_kv_pressure",
+  "policies": ["static_window", "paged"],
+  "max_resident_requests": 8,
+  "requests_per_trace": 16,
+  "independent_runs": 3,
+  "warmup_traces": 1,
+  "measured_traces": 3,
+  "admission_policy": "fcfs_fixed_cohort_peak_kv_funded",
+  "require_exact_logits": true,
+  "cases": [
+    {"case_id": "tight_short", "num_blocks": 16, "output_tokens": 64},
+    {"case_id": "tight_growth", "num_blocks": 16, "output_tokens": 132},
+    {"case_id": "ample_short", "num_blocks": 32, "output_tokens": 64}
+  ],
+  "timing_policy": "host-visible local burst; all 16 arrivals at time zero; TTFT/E2E include pending wait; includes enqueue/scheduling/sampling/token-copy/postprocess and trace accounting; excludes initialization/capture/compile/workload warmup/cache reset/output hashing",
+  "limitations": "Both policies use identical paged attention, Decode Graph and BF16 tile512 Prefill. Only reservation/admission differs. Paged admission funds the known maximum output budget before starting a cohort. Not native contiguous versus paged kernel timing; no continuous refill, preemption, eviction, HTTP/SLO, unknown output-length or maximum-concurrency claim."
+}

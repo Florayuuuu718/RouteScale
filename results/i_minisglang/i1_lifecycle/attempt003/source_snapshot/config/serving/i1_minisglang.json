@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "stage": "I1",
+  "scope": "single_gpu_observed_upstream_lifecycle_baseline",
+  "upstream": {
+    "url": "https://github.com/sgl-project/mini-sglang.git",
+    "commit": "9a91cfafe754aa85daee49998176275667eb58f2",
+    "license": "MIT",
+    "path": "runs/vendor/mini-sglang"
+  },
+  "model": {
+    "repo_id": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "license": "Apache-2.0",
+    "path": "runs/models/Qwen3-0.6B"
+  },
+  "environment": {"path": "runs/envs/mini-sglang", "python": "3.11.16",
+    "cuda_toolkit": "runs/toolchains/cuda-13.0-i1", "requirements": "config/serving/i1_requirements.txt"},
+  "server": {
+    "host": "127.0.0.1",
+    "port": 1919,
+    "tensor_parallel_size": 1,
+    "dtype": "bfloat16",
+    "attention_backend": "fi",
+    "page_size": 1,
+    "num_pages": 2048,
+    "max_running_requests": 1,
+    "max_seq_len_override": 1024,
+    "max_prefill_length": 256,
+    "cuda_graph_max_bs": 0,
+    "cache_type": "radix",
+    "num_tokenizer": 0,
+    "overlap_scheduling": false
+  },
+  "client": {"concurrency": 4, "request_timeout_s": 30},
+  "budgets": {"startup_s": 600, "first_request_s": 120, "cleanup_s": 5, "shutdown_s": 10, "worker_failure_s": 3},
+  "workload": {"temperature": 0, "top_p": 1, "top_k": 1, "enable_thinking": false},
+  "results_dir": "results/i_minisglang/i1_lifecycle",
+  "runtime_dir": "runs/logs/i_minisglang/i1_lifecycle",
+  "multi_gpu": {"status": "deferred", "execution": "later_consolidated_rental_session_with_H2"}
+}

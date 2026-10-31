@@ -1,0 +1,1296 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "pass",
+  "scope": "routescale_bf16_full_reduction_math_reference_replay_v5",
+  "formal_processes": 36,
+  "independent_runs": 3,
+  "provenance": {
+    "config_sha256": "1f4e0c99f2b9fc67d661b8191334c9c755b209a5be52b2ea2cca27abf5ff08a9",
+    "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+    "allow_bf16_reduced_precision_reduction": false,
+    "reference_policy": "bf16_weights_fp32_math",
+    "protocol_sha256": "4d057c080c3f26f22e9dfd6129804d86f3be37f90959a9b409dbec5e45cd3aa0",
+    "historical_baseline_sha256": "a95302ae97e384db16c0fd19fbabbcdb5d34e0b93d8a7881533144ad22efa74f",
+    "manifest_sha256": "15d5b165ca1547a511263320952afbbacc253f3a6495695a41dab3b054c31fb1",
+    "preparation_sha256": "a6d76a445b37977ad31a0de636a8de4af21dae3ad90b413ff281e0fb513b8f3b",
+    "workload_sha256": "f9c4a50f85c544275187750b246b76ca4d2747318e1983efadc453a54593444d",
+    "data_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "tokenizer_sha256": "0667215793a970d7e7b816b3912e135fa1883d5af8876b61548d279c00891fa5",
+    "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+    "upstream_source_sha256": {
+      "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+    },
+    "source_sha256": {
+      "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+      "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+      "distributed_common.py": "04eff939c5139309fcc6604a4e7576224e01cf21a9d191a1b3be4377b3ab14b4",
+      "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+      "serving/h3_model.py": "319b705925775d5aef05906906b98f06bf246161e2469fd4df7d8768e95b276d",
+      "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+      "serving/backends/routescale_nanovllm.py": "2ce14a74f59710ee73b260520d70a6eb13c78eaf716d122a7244f744c88731e7",
+      "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+      "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+      "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+      "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+      "serving/h3_performance.py": "f567c8151cf9b44d8cc6c12cbc6ac69c27653409295533b8cf74f3bee7f769db",
+      "scripts/run_h3_performance.py": "a3c96fad76d64bb301979cecdfc4d6703e5fc8893628017364ea07fff2140b5a",
+      "scripts/summarize_h3_performance.py": "ae1c7d95110cb2183354e7dedd09f3fbb1c61b2ba8bb579fe9df3e29d61dc556",
+      "scripts/audit_h3_performance.py": "61cdd8a4db8275a7c614b881bec4fbe85afa623854a35f292165913942a56fc1",
+      "docs/h3_performance_protocol.md": "ed8678e166f63e07897e7996bcc91831782cd04854da4e27ff030d0f8bee4ffd"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "torch": "2.8.0+cu129",
+      "cuda": "12.9",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "capability": [
+        12,
+        0
+      ],
+      "total_memory_bytes": 8546484224,
+      "driver": "610.88",
+      "packages": [
+        {
+          "name": "certifi",
+          "version": "2026.10.19"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "cuda-bindings",
+          "version": "12.9.10"
+        },
+        {
+          "name": "cuda-pathfinder",
+          "version": "1.8.4"
+        },
+        {
+          "name": "cuda-toolkit",
+          "version": "12.9.1"
+        },
+        {
+          "name": "einops",
+          "version": "0.8.2"
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "name": "flash_attn",
+          "version": "2.8.3.post2"
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "name": "huggingface_hub",
+          "version": "0.36.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "name": "nano-vllm",
+          "version": "0.2.0",
+          "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "name": "ninja",
+          "version": "1.13.2"
+        },
+        {
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.9.1.4"
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21"
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.4.1.4"
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.14.1.1"
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.10.19"
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.5.82"
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.10.65"
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1"
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.3"
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.4.5"
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "name": "pip",
+          "version": "26.2.2"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.3"
+        },
+        {
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "name": "safetensors",
+          "version": "0.8.0"
+        },
+        {
+          "name": "setuptools",
+          "version": "81.0.0"
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.22.2"
+        },
+        {
+          "name": "torch",
+          "version": "2.8.0+cu129"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "transformers",
+          "version": "4.57.6"
+        },
+        {
+          "name": "triton",
+          "version": "3.4.0"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "name": "wheel",
+          "version": "0.48.0"
+        },
+        {
+          "name": "xxhash",
+          "version": "4.0.2"
+        }
+      ]
+    }
+  },
+  "qualification_gate_sha256": "19df1f9b370d3b3702c737000aa357b3708d1dd7a33773198832ff44df1d94e7",
+  "variants": [
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.152095794677734,
+      "median_tpot_ms": 6.767930954221695,
+      "median_wall_ms": 446.3890960032586,
+      "median_model_execution_ms": 437.7342691421509,
+      "output_tokens_per_second": 1169.6593940506218,
+      "itl_p50_ms": 5.9811201095581055,
+      "itl_p95_ms": 11.43287343978882,
+      "itl_p99_ms": 15.44283765792847,
+      "wall_cv": 0.06930608819798162,
+      "measurement_cv": 0.06846726209198561,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1169.6593940506218,
+        1182.6638298687783,
+        903.2202842328817
+      ],
+      "throughput_max_min_ratio": 1.3093858170747705,
+      "median_peak_allocated_bytes": 191391744,
+      "median_peak_reserved_bytes": 209715200,
+      "median_initialization_seconds": 2.916465212998446,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 8.172339999873657,
+      "median_tpot_ms": 8.003458031684175,
+      "median_wall_ms": 516.7194370005745,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 990.8665386617355,
+      "itl_p50_ms": 7.099392998497933,
+      "itl_p95_ms": 12.9882801003987,
+      "itl_p99_ms": 18.300032257975563,
+      "wall_cv": 0.14059676000273308,
+      "measurement_cv": 0.14059676000273308,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        990.8665386617355,
+        1075.062377501323,
+        985.358854932395
+      ],
+      "throughput_max_min_ratio": 1.0910363997034183,
+      "median_peak_allocated_bytes": 191391744,
+      "median_peak_reserved_bytes": 209715200,
+      "median_initialization_seconds": 2.916465212998446,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.195775985717773,
+      "median_tpot_ms": 7.498506651984321,
+      "median_wall_ms": 518.1154399979278,
+      "median_model_execution_ms": 483.34601497650146,
+      "output_tokens_per_second": 1059.2825514965539,
+      "itl_p50_ms": 6.441504001617432,
+      "itl_p95_ms": 11.971695995330814,
+      "itl_p99_ms": 18.874479293823264,
+      "wall_cv": 0.11723961902003589,
+      "measurement_cv": 0.11105064132621636,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1059.2825514965539,
+        1402.9063890979007,
+        995.0652275343483
+      ],
+      "throughput_max_min_ratio": 1.4098637458914465,
+      "median_peak_allocated_bytes": 194550272,
+      "median_peak_reserved_bytes": 213909504,
+      "median_initialization_seconds": 10.421296963999339,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 12.142325998866,
+      "median_tpot_ms": 7.564018507966669,
+      "median_wall_ms": 489.4484120013658,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 1046.0755157145577,
+      "itl_p50_ms": 7.2170060011558235,
+      "itl_p95_ms": 13.17589609825518,
+      "itl_p99_ms": 20.786322800995567,
+      "wall_cv": 0.06558733346145361,
+      "measurement_cv": 0.06558733346145361,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1046.0755157145577,
+        1092.7791340464519,
+        919.0920784058669
+      ],
+      "throughput_max_min_ratio": 1.1889767736240737,
+      "median_peak_allocated_bytes": 194550272,
+      "median_peak_reserved_bytes": 213909504,
+      "median_initialization_seconds": 10.421296963999339,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 12.674880027770996,
+      "median_tpot_ms": 1.038030727515145,
+      "median_wall_ms": 97.5856129953172,
+      "median_model_execution_ms": 76.28051173686981,
+      "output_tokens_per_second": 6712.068237902596,
+      "itl_p50_ms": 0.9388480186462402,
+      "itl_p95_ms": 1.4621183872222903,
+      "itl_p99_ms": 2.1372344732284545,
+      "wall_cv": 0.11335764020596421,
+      "measurement_cv": 0.08130781442518142,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        6712.068237902596,
+        6337.770684345877,
+        6724.036793122999
+      ],
+      "throughput_max_min_ratio": 1.060946684254637,
+      "median_peak_allocated_bytes": 203081728,
+      "median_peak_reserved_bytes": 239075328,
+      "median_initialization_seconds": 11.907639400997141,
+      "median_graph_capture_seconds": 1.5293924030047492,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 14.443542000663001,
+      "median_tpot_ms": 1.9201946983923248,
+      "median_wall_ms": 132.5423989983392,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 3862.914839849968,
+      "itl_p50_ms": 1.7645499974605627,
+      "itl_p95_ms": 3.499892998661381,
+      "itl_p99_ms": 4.547890461108185,
+      "wall_cv": 0.1153101603325169,
+      "measurement_cv": 0.1153101603325169,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        3479.540782626708,
+        3862.914839849968,
+        3892.0861937804175
+      ],
+      "throughput_max_min_ratio": 1.1185631774208662,
+      "median_peak_allocated_bytes": 203081728,
+      "median_peak_reserved_bytes": 239075328,
+      "median_initialization_seconds": 11.907639400997141,
+      "median_graph_capture_seconds": 1.5293924030047492,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/batch_short/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.220928192138672,
+      "median_tpot_ms": 6.2784185486455115,
+      "median_wall_ms": 206.28646200202638,
+      "median_model_execution_ms": 201.11734557151794,
+      "output_tokens_per_second": 159.11108964303978,
+      "itl_p50_ms": 5.85206413269043,
+      "itl_p95_ms": 12.311913585662824,
+      "itl_p99_ms": 17.11722034454346,
+      "wall_cv": 0.18871924658956796,
+      "measurement_cv": 0.18875977997243004,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        160.9314981180546,
+        159.11108964303978,
+        147.8063763864747
+      ],
+      "throughput_max_min_ratio": 1.0887994283633688,
+      "median_peak_allocated_bytes": 120571904,
+      "median_peak_reserved_bytes": 130023424,
+      "median_initialization_seconds": 2.801200540001446,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 8388608,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 7.74760600324953,
+      "median_tpot_ms": 6.321668903241986,
+      "median_wall_ms": 206.25305000430671,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 155.14922082040394,
+      "itl_p50_ms": 5.813415999000426,
+      "itl_p95_ms": 14.486975595355034,
+      "itl_p99_ms": 16.373721378186026,
+      "wall_cv": 0.146784144460215,
+      "measurement_cv": 0.146784144460215,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        155.14922082040394,
+        172.81799446641352,
+        145.6317110631024
+      ],
+      "throughput_max_min_ratio": 1.1866783216708297,
+      "median_peak_allocated_bytes": 120571904,
+      "median_peak_reserved_bytes": 130023424,
+      "median_initialization_seconds": 2.801200540001446,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 8388608,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.846015930175781,
+      "median_tpot_ms": 6.726849017604705,
+      "median_wall_ms": 231.72092500317376,
+      "median_model_execution_ms": 214.155903339386,
+      "output_tokens_per_second": 149.42385197426773,
+      "itl_p50_ms": 6.450911998748779,
+      "itl_p95_ms": 10.843161487579332,
+      "itl_p99_ms": 13.437849159240725,
+      "wall_cv": 0.14886629016970765,
+      "measurement_cv": 0.14455717236077348,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        149.42385197426773,
+        157.39145664547453,
+        139.59890463116514
+      ],
+      "throughput_max_min_ratio": 1.127454811062588,
+      "median_peak_allocated_bytes": 179392512,
+      "median_peak_reserved_bytes": 209715200,
+      "median_initialization_seconds": 10.536703630001284,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 9.859655001491774,
+      "median_tpot_ms": 6.9501376774203365,
+      "median_wall_ms": 222.7562289990601,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 143.65479315119407,
+      "itl_p50_ms": 6.6117660026066005,
+      "itl_p95_ms": 10.81686860270565,
+      "itl_p99_ms": 13.326266501826476,
+      "wall_cv": 0.1099305841244744,
+      "measurement_cv": 0.1099305841244744,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        145.6550343130761,
+        143.65479315119407,
+        137.7638959981927
+      ],
+      "throughput_max_min_ratio": 1.0572801622493815,
+      "median_peak_allocated_bytes": 179392512,
+      "median_peak_reserved_bytes": 209715200,
+      "median_initialization_seconds": 10.536703630001284,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 12.688096046447754,
+      "median_tpot_ms": 0.8987220660332711,
+      "median_wall_ms": 51.43164299806813,
+      "median_model_execution_ms": 39.55606400966644,
+      "output_tokens_per_second": 808.978365293879,
+      "itl_p50_ms": 0.8575999736785889,
+      "itl_p95_ms": 1.6066847681999181,
+      "itl_p99_ms": 2.0099667453765884,
+      "wall_cv": 0.1583773022745414,
+      "measurement_cv": 0.1154498971117849,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        808.978365293879,
+        740.0297566249485,
+        916.7911223827372
+      ],
+      "throughput_max_min_ratio": 1.2388571056438915,
+      "median_peak_allocated_bytes": 187923968,
+      "median_peak_reserved_bytes": 234881024,
+      "median_initialization_seconds": 11.980907848002971,
+      "median_graph_capture_seconds": 1.5890708779988927,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 13.338246004423127,
+      "median_tpot_ms": 1.7171147419796926,
+      "median_wall_ms": 68.49577400134876,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 467.1821067292397,
+      "itl_p50_ms": 1.6481599959661253,
+      "itl_p95_ms": 2.539767702546669,
+      "itl_p99_ms": 3.137298636720516,
+      "wall_cv": 0.0720256438033081,
+      "measurement_cv": 0.0720256438033081,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        519.7319398371523,
+        467.1821067292397,
+        428.00575400101394
+      ],
+      "throughput_max_min_ratio": 1.2143106371320442,
+      "median_peak_allocated_bytes": 187923968,
+      "median_peak_reserved_bytes": 234881024,
+      "median_initialization_seconds": 11.980907848002971,
+      "median_graph_capture_seconds": 1.5890708779988927,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/latency_short/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.543647766113281,
+      "median_tpot_ms": 7.432399719480484,
+      "median_wall_ms": 490.51466100354446,
+      "median_model_execution_ms": 478.71561431884766,
+      "output_tokens_per_second": 133.69106435156493,
+      "itl_p50_ms": 6.330207824707031,
+      "itl_p95_ms": 12.479146003723145,
+      "itl_p99_ms": 17.44563890457156,
+      "wall_cv": 0.08788155876321924,
+      "measurement_cv": 0.08668649887227751,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        133.69106435156493,
+        153.63040981819006,
+        133.08467858387587
+      ],
+      "throughput_max_min_ratio": 1.154380890820316,
+      "median_peak_allocated_bytes": 124541952,
+      "median_peak_reserved_bytes": 132120576,
+      "median_initialization_seconds": 2.7117498190054903,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 8388608,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 5.016455994336866,
+      "median_tpot_ms": 6.136449825366042,
+      "median_wall_ms": 391.09138799540233,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 163.6446159759273,
+      "itl_p50_ms": 5.65241100412095,
+      "itl_p95_ms": 9.779158801393352,
+      "itl_p99_ms": 12.203625878901226,
+      "wall_cv": 0.06150377360340329,
+      "measurement_cv": 0.06150377360340329,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        163.6446159759273,
+        322.73844376573004,
+        131.0811365684743
+      ],
+      "throughput_max_min_ratio": 2.4621272916499133,
+      "median_peak_allocated_bytes": 124541952,
+      "median_peak_reserved_bytes": 132120576,
+      "median_initialization_seconds": 2.7117498190054903,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 8388608,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 12.2192964553833,
+      "median_tpot_ms": 7.336204691538735,
+      "median_wall_ms": 503.5376300002099,
+      "median_model_execution_ms": 471.3082559108734,
+      "output_tokens_per_second": 135.79223193599796,
+      "itl_p50_ms": 6.9245758056640625,
+      "itl_p95_ms": 13.434306812286378,
+      "itl_p99_ms": 14.970310611724853,
+      "wall_cv": 0.14575480963856816,
+      "measurement_cv": 0.14276891051316587,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        109.48393091697278,
+        135.79223193599796,
+        168.35592205915825
+      ],
+      "throughput_max_min_ratio": 1.5377226653181741,
+      "median_peak_allocated_bytes": 184444928,
+      "median_peak_reserved_bytes": 211812352,
+      "median_initialization_seconds": 10.349219698000525,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 9.397950998391025,
+      "median_tpot_ms": 7.4576462221947235,
+      "median_wall_ms": 476.83213299751515,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 134.2191424845387,
+      "itl_p50_ms": 7.178355001087766,
+      "itl_p95_ms": 12.333669204235775,
+      "itl_p99_ms": 17.296501802047718,
+      "wall_cv": 0.0991021689638243,
+      "measurement_cv": 0.0991021689638243,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        129.93115902150168,
+        134.2191424845387,
+        135.78933725498194
+      ],
+      "throughput_max_min_ratio": 1.045086785014446,
+      "median_peak_allocated_bytes": 184444928,
+      "median_peak_reserved_bytes": 211812352,
+      "median_initialization_seconds": 10.349219698000525,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 12.811807632446289,
+      "median_tpot_ms": 0.9448924537688966,
+      "median_wall_ms": 91.96647600037977,
+      "median_model_execution_ms": 69.17299234867096,
+      "output_tokens_per_second": 925.2165885408549,
+      "itl_p50_ms": 0.8503360152244568,
+      "itl_p95_ms": 1.2238527894020084,
+      "itl_p99_ms": 1.8214636731147809,
+      "wall_cv": 0.13054890518785398,
+      "measurement_cv": 0.10454579509061422,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        925.2165885408549,
+        1056.8137766976026,
+        859.2135622198067
+      ],
+      "throughput_max_min_ratio": 1.2299779975158787,
+      "median_peak_allocated_bytes": 192976384,
+      "median_peak_reserved_bytes": 236978176,
+      "median_initialization_seconds": 12.056573721005407,
+      "median_graph_capture_seconds": 1.5783858729992062,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 13.832636002916843,
+      "median_tpot_ms": 1.7431096031999451,
+      "median_wall_ms": 127.41857899527531,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 502.2815393536379,
+      "itl_p50_ms": 1.5672369991079904,
+      "itl_p95_ms": 2.9240108000522036,
+      "itl_p99_ms": 3.851511077664333,
+      "wall_cv": 0.07737026369863169,
+      "measurement_cv": 0.07737026369863169,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        482.3434269582725,
+        524.4430877373763,
+        502.2815393536379
+      ],
+      "throughput_max_min_ratio": 1.0872815061347272,
+      "median_peak_allocated_bytes": 192976384,
+      "median_peak_reserved_bytes": 236978176,
+      "median_initialization_seconds": 12.056573721005407,
+      "median_graph_capture_seconds": 1.5783858729992062,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/long_prefill/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 6.217663764953613,
+      "median_tpot_ms": 7.303750222729098,
+      "median_wall_ms": 240.58750099356985,
+      "median_model_execution_ms": 235.18358516693115,
+      "output_tokens_per_second": 1088.5113423978698,
+      "itl_p50_ms": 6.9804158210754395,
+      "itl_p95_ms": 12.802095985412596,
+      "itl_p99_ms": 16.22216890335085,
+      "wall_cv": 0.0748067538347216,
+      "measurement_cv": 0.07565038123357118,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1377.7031837724194,
+        1021.1319480717161,
+        1088.5113423978698
+      ],
+      "throughput_max_min_ratio": 1.3491921258305988,
+      "median_peak_allocated_bytes": 201927680,
+      "median_peak_reserved_bytes": 228589568,
+      "median_initialization_seconds": 2.718916479003383,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 7.201221997092944,
+      "median_tpot_ms": 7.217549000004862,
+      "median_wall_ms": 233.51385600108188,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 1096.2946883923407,
+      "itl_p50_ms": 6.739529002516065,
+      "itl_p95_ms": 10.496092198445686,
+      "itl_p99_ms": 14.199016178899914,
+      "wall_cv": 0.09061026943124877,
+      "measurement_cv": 0.09061026943124877,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1096.2946883923407,
+        1086.102175469495,
+        1126.897288942661
+      ],
+      "throughput_max_min_ratio": 1.0375610273089926,
+      "median_peak_allocated_bytes": 201927680,
+      "median_peak_reserved_bytes": 228589568,
+      "median_initialization_seconds": 2.718916479003383,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/native_kv/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 7.701600074768066,
+      "median_tpot_ms": 6.557511198905207,
+      "median_wall_ms": 230.44616400147788,
+      "median_model_execution_ms": 217.70111918449402,
+      "output_tokens_per_second": 1175.9241337801716,
+      "itl_p50_ms": 6.353792190551758,
+      "itl_p95_ms": 11.387036705017087,
+      "itl_p99_ms": 14.404488372802751,
+      "wall_cv": 0.1196877287657504,
+      "measurement_cv": 0.11719764274801456,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        1175.9241337801716,
+        1052.8533834348998,
+        1321.5156829420193
+      ],
+      "throughput_max_min_ratio": 1.2551754154321255,
+      "median_peak_allocated_bytes": 208284160,
+      "median_peak_reserved_bytes": 232783872,
+      "median_initialization_seconds": 10.059437383999466,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 10.096824000356719,
+      "median_tpot_ms": 6.682763032234019,
+      "median_wall_ms": 215.98345800157404,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 1185.2759575602977,
+      "itl_p50_ms": 6.861620000563562,
+      "itl_p95_ms": 11.760472699097589,
+      "itl_p99_ms": 15.209094179881513,
+      "wall_cv": 0.19633157056647013,
+      "measurement_cv": 0.19633157056647013,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        850.9518000667601,
+        1185.2759575602977,
+        1247.7667959460848
+      ],
+      "throughput_max_min_ratio": 1.4663190040237215,
+      "median_peak_allocated_bytes": 208284160,
+      "median_peak_reserved_bytes": 232783872,
+      "median_initialization_seconds": 10.059437383999466,
+      "median_graph_capture_seconds": 0.0,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_eager/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "measurement_scope": "model_execution",
+      "median_ttft_ms": 10.611231803894043,
+      "median_tpot_ms": 1.088618322726219,
+      "median_wall_ms": 55.312689997663256,
+      "median_model_execution_ms": 43.88502365350723,
+      "output_tokens_per_second": 5833.425134306401,
+      "itl_p50_ms": 1.023136019706726,
+      "itl_p95_ms": 1.4548223733901962,
+      "itl_p99_ms": 1.880545866489411,
+      "wall_cv": 0.061244917582976045,
+      "measurement_cv": 0.05082198373493047,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        6503.927513986068,
+        5833.425134306401,
+        5698.184335026709
+      ],
+      "throughput_max_min_ratio": 1.1414034947950806,
+      "median_peak_allocated_bytes": 216815616,
+      "median_peak_reserved_bytes": 257949696,
+      "median_initialization_seconds": 11.723895148999873,
+      "median_graph_capture_seconds": 1.6434205490004388,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run3.json"
+      ]
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "measurement_scope": "replay_e2e",
+      "median_ttft_ms": 13.112923006701749,
+      "median_tpot_ms": 1.966585096764198,
+      "median_wall_ms": 73.99334300134797,
+      "median_model_execution_ms": null,
+      "output_tokens_per_second": 3459.770698498328,
+      "itl_p50_ms": 1.8535189956310205,
+      "itl_p95_ms": 2.844613297929754,
+      "itl_p99_ms": 3.4085017394681945,
+      "wall_cv": 0.0468735276972751,
+      "measurement_cv": 0.0468735276972751,
+      "independent_runs": 3,
+      "throughput_run_values": [
+        3331.5451003557896,
+        3524.9132401164497,
+        3459.770698498328
+      ],
+      "throughput_max_min_ratio": 1.0580415794881508,
+      "median_peak_allocated_bytes": 216815616,
+      "median_peak_reserved_bytes": 257949696,
+      "median_initialization_seconds": 11.723895148999873,
+      "median_graph_capture_seconds": 1.6434205490004388,
+      "actual_kv_bytes": 67108864,
+      "raw_files": [
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run1.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run2.json",
+        "results/h_nanovllm/h3_performance_v5/raw/page_growth/paged_graph/run3.json"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 0.9391165148167546,
+      "ttft_speedup": 0.920330554564257,
+      "tpot_speedup": 0.9333372180963755,
+      "extra_peak_allocated_bytes": 58820608
+    },
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "model_execution",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 5.413984143797826,
+      "ttft_speedup": 0.6183761457553283,
+      "tpot_speedup": 7.4849047017342,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 5.084361920396586,
+      "ttft_speedup": 0.5691104611523091,
+      "tpot_speedup": 6.985940132033079,
+      "extra_peak_allocated_bytes": 67352064
+    },
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 0.9259137260991116,
+      "ttft_speedup": 0.7857887524540473,
+      "tpot_speedup": 0.9095746295472499,
+      "extra_peak_allocated_bytes": 58820608
+    },
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.2521163859638085,
+      "ttft_speedup": 0.7392017659759904,
+      "tpot_speedup": 4.0475674149808984,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "latency_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.011179200635726,
+      "ttft_speedup": 0.5808564334981022,
+      "tpot_speedup": 3.68156463204877,
+      "extra_peak_allocated_bytes": 67352064
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 0.9056333466687048,
+      "ttft_speedup": 0.9939297455720223,
+      "tpot_speedup": 0.9025705074797401,
+      "extra_peak_allocated_bytes": 3158528
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "model_execution",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 6.336428584063609,
+      "ttft_speedup": 0.5677194553283059,
+      "tpot_speedup": 7.223781004955767,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 5.738481024512768,
+      "ttft_speedup": 0.5642732537907502,
+      "tpot_speedup": 6.519971687565434,
+      "extra_peak_allocated_bytes": 11689984
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 1.0557178741017812,
+      "ttft_speedup": 0.6730456751562173,
+      "tpot_speedup": 1.0580960402535604,
+      "extra_peak_allocated_bytes": 3158528
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.6927686212130406,
+      "ttft_speedup": 0.8406750919067242,
+      "tpot_speedup": 3.9391935173550956,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "batch_short",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.898521838336797,
+      "ttft_speedup": 0.5658127348193762,
+      "tpot_speedup": 4.168045062505921,
+      "extra_peak_allocated_bytes": 11689984
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 1.0803048971356983,
+      "ttft_speedup": 0.8073210377832892,
+      "tpot_speedup": 1.1137991230496835,
+      "extra_peak_allocated_bytes": 6356480
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "model_execution",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 4.960715548505705,
+      "ttft_speedup": 0.725796987296214,
+      "tpot_speedup": 6.023700926219282,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 5.359085300347915,
+      "ttft_speedup": 0.5859511770039643,
+      "tpot_speedup": 6.709192809136603,
+      "extra_peak_allocated_bytes": 14887936
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 1.0811654659190617,
+      "ttft_speedup": 0.7132165517432537,
+      "tpot_speedup": 1.0800246791920238,
+      "extra_peak_allocated_bytes": 6356480
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "replay_e2e",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 2.918957966227305,
+      "ttft_speedup": 0.7699903366470189,
+      "tpot_speedup": 3.3981560438090264,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "page_growth",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.155876549554301,
+      "ttft_speedup": 0.5491698527790139,
+      "tpot_speedup": 3.6700923910592804,
+      "extra_peak_allocated_bytes": 14887936
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 1.015716589546386,
+      "ttft_speedup": 0.6173553275884285,
+      "tpot_speedup": 1.0131123696770206,
+      "extra_peak_allocated_bytes": 59902976
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "model_execution",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 6.813472135703101,
+      "ttft_speedup": 0.953752726074154,
+      "tpot_speedup": 7.764063161132024,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "model_execution",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 6.920556680645685,
+      "ttft_speedup": 0.5888043266438661,
+      "tpot_speedup": 7.865868427496525,
+      "extra_peak_allocated_bytes": 68434432
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_eager",
+      "output_throughput_ratio": 0.820186730153608,
+      "ttft_speedup": 0.5337818844975578,
+      "tpot_speedup": 0.8228400278768031,
+      "extra_peak_allocated_bytes": 59902976
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "replay_e2e",
+      "baseline": "paged_eager",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.742249652738602,
+      "ttft_speedup": 0.6794042000678185,
+      "tpot_speedup": 4.278357602129099,
+      "extra_peak_allocated_bytes": 8531456
+    },
+    {
+      "case_id": "long_prefill",
+      "measurement_scope": "replay_e2e",
+      "baseline": "native_kv",
+      "candidate": "paged_graph",
+      "output_throughput_ratio": 3.069343506098149,
+      "ttft_speedup": 0.362653654247756,
+      "tpot_speedup": 3.520403888602841,
+      "extra_peak_allocated_bytes": 68434432
+    }
+  ],
+  "limitations": "Controlled offline fixed-token replay; native/paged changes kernels, layout and control. Not public generate/text/network timing, free-generation quality, online SLO or maximum capacity."
+}

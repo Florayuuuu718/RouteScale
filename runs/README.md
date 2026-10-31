@@ -7,6 +7,15 @@ except for this file.
 - `traces/`: profiler traces and runtime logs;
 - `archives/`: locally packaged evidence bundles;
 - `tmp/`: disposable intermediate files created by run scripts.
+- `vendor/`: pinned upstream source checkouts for isolated serving experiments;
+- `envs/`: serving-specific Python environments;
+- `toolchains/`: experiment-local compiler/SDK compatibility copies (I1 never edits system CUDA);
+- `models/`: downloaded pretrained model snapshots;
+- `downloads/`: verified third-party wheels and resumable download parts;
+- `cache/`: experiment-specific compiler caches;
+- `logs/`: experiment execution logs.
+- `workloads/`: reproducible request token arrays (hashes are kept in `results/`);
+- `validation/`: large numerical reference tensors used by correctness gates.
 
 Committed experiment metrics and reports belong in `results/`. Frozen evidence
 copied from another machine belongs in `artifacts/`. New code must not write

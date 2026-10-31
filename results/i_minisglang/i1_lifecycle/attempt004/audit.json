@@ -1,0 +1,361 @@
+{
+  "stage": "I1",
+  "status": "baseline_reproduced_with_lifecycle_gaps",
+  "lifecycle_complete": false,
+  "performance_claims_allowed": false,
+  "multi_gpu": "deferred_to_consolidated_rental_session",
+  "client_terminal_counts": {
+    "finished": 9,
+    "cancelled": 5,
+    "rejected": 1
+  },
+  "requests": {
+    "eos_short": {
+      "uid": 0,
+      "client_terminal": "finished",
+      "output_tokens": 2,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "max_tokens_32": {
+      "uid": 1,
+      "client_terminal": "finished",
+      "output_tokens": 32,
+      "backend_finished": true,
+      "backend_end_reason": "length",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "concurrent_0": {
+      "uid": 2,
+      "client_terminal": "finished",
+      "output_tokens": 9,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "concurrent_1": {
+      "uid": 3,
+      "client_terminal": "finished",
+      "output_tokens": 9,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "concurrent_2": {
+      "uid": 4,
+      "client_terminal": "finished",
+      "output_tokens": 9,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "queue_blocker": {
+      "uid": 5,
+      "client_terminal": "finished",
+      "output_tokens": 384,
+      "backend_finished": true,
+      "backend_end_reason": "length",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "queued_cancel": {
+      "uid": 6,
+      "client_terminal": "cancelled",
+      "output_tokens": 0,
+      "backend_finished": false,
+      "backend_end_reason": null,
+      "reported_finish_reason": null,
+      "input_ids_match": true,
+      "request_free_events": 0
+    },
+    "decode_disconnect": {
+      "uid": 7,
+      "client_terminal": "cancelled",
+      "output_tokens": 8,
+      "backend_finished": false,
+      "backend_end_reason": "other",
+      "reported_finish_reason": null,
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "decode_deadline": {
+      "uid": 8,
+      "client_terminal": "cancelled",
+      "output_tokens": 4,
+      "backend_finished": false,
+      "backend_end_reason": "other",
+      "reported_finish_reason": null,
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "post_cancel_probe": {
+      "uid": 9,
+      "client_terminal": "finished",
+      "output_tokens": 2,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "invalid_type": {
+      "uid": null,
+      "client_terminal": "rejected",
+      "output_tokens": 0,
+      "backend_finished": false,
+      "backend_end_reason": null,
+      "reported_finish_reason": null,
+      "input_ids_match": null,
+      "request_free_events": 0
+    },
+    "context_overflow": {
+      "uid": 10,
+      "client_terminal": "cancelled",
+      "output_tokens": 0,
+      "backend_finished": false,
+      "backend_end_reason": null,
+      "reported_finish_reason": null,
+      "input_ids_match": true,
+      "request_free_events": 0
+    },
+    "repeated_header_1": {
+      "uid": 11,
+      "client_terminal": "finished",
+      "output_tokens": 2,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "repeated_header_2": {
+      "uid": 12,
+      "client_terminal": "finished",
+      "output_tokens": 2,
+      "backend_finished": true,
+      "backend_end_reason": "eos",
+      "reported_finish_reason": "stop",
+      "input_ids_match": true,
+      "request_free_events": 1
+    },
+    "worker_failure": {
+      "uid": 13,
+      "client_terminal": "cancelled",
+      "output_tokens": 0,
+      "backend_finished": false,
+      "backend_end_reason": null,
+      "reported_finish_reason": null,
+      "input_ids_match": true,
+      "request_free_events": 0
+    }
+  },
+  "checks": {
+    "frozen_sources": {
+      "status": "pass"
+    },
+    "frozen_config": {
+      "status": "pass"
+    },
+    "raw_logs": {
+      "status": "pass"
+    },
+    "server_events_match_raw_logs": {
+      "status": "pass"
+    },
+    "client_events_match_raw_logs": {
+      "status": "pass"
+    },
+    "one_client_terminal_per_request": {
+      "status": "pass"
+    },
+    "client_payload_hashes": {
+      "status": "pass"
+    },
+    "tokenizer_matches_frozen_prompts": {
+      "status": "pass"
+    },
+    "real_kernel_finite_logits": {
+      "status": "pass",
+      "checked_batches": 463
+    },
+    "normal_stream_completion": {
+      "status": "pass"
+    },
+    "eos_respected": {
+      "status": "pass"
+    },
+    "output_budget_respected": {
+      "status": "pass"
+    },
+    "finish_reason_matches_backend": {
+      "status": "fail",
+      "note": "Upstream may always report stop, including length exhaustion"
+    },
+    "cancellation_reaches_scheduler": {
+      "status": "pass",
+      "requests": {
+        "queued_cancel": {
+          "uid": 6,
+          "abort_received": true,
+          "delay_seconds": 0.151880001,
+          "further_batches_after_abort": 0,
+          "output_tokens": 0
+        },
+        "decode_disconnect": {
+          "uid": 7,
+          "abort_received": true,
+          "delay_seconds": 0.110786543,
+          "further_batches_after_abort": 0,
+          "output_tokens": 8
+        },
+        "decode_deadline": {
+          "uid": 8,
+          "abort_received": true,
+          "delay_seconds": 0.211061952,
+          "further_batches_after_abort": 0,
+          "output_tokens": 4
+        }
+      }
+    },
+    "queued_cancel_never_executes": {
+      "status": "pass"
+    },
+    "idle_table_and_kv_refs_released": {
+      "status": "pass",
+      "last_idle": {
+        "event": "scheduler_idle",
+        "pid": 121861,
+        "monotonic_ns": 67952283125373,
+        "wall_time_ns": 1792832783713399163,
+        "integrity": "pass",
+        "pending_uids": [],
+        "running_uids": [],
+        "available_tables": 1,
+        "free_pages": 1483,
+        "num_pages": 2048,
+        "prefix_total_tokens": 565,
+        "prefix_evictable_tokens": 565
+      }
+    },
+    "frontend_refs_released": {
+      "status": "fail",
+      "snapshot": {
+        "label": "after_repeated_external_id",
+        "monotonic_ns": 67957307756983,
+        "pid": 121845,
+        "uid_counter": 13,
+        "ack_uids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          11,
+          12
+        ],
+        "event_uids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          9,
+          11,
+          12
+        ]
+      }
+    },
+    "detokenizer_refs_released": {
+      "status": "fail",
+      "snapshot": {
+        "event": "detokenizer_state",
+        "pid": 121862,
+        "monotonic_ns": 67952283496035,
+        "wall_time_ns": 1792832783713770105,
+        "uids": [
+          12
+        ],
+        "active_uids": [
+          7,
+          8
+        ]
+      }
+    },
+    "invalid_type_rejected": {
+      "status": "pass"
+    },
+    "over_context_rejected_with_error": {
+      "status": "fail"
+    },
+    "worker_fault_client_bounded": {
+      "status": "pass"
+    },
+    "worker_fault_health_propagates": {
+      "status": "fail",
+      "fault": {
+        "injected_signal": "SIGTERM",
+        "worker_pid": 121861,
+        "monotonic_ns": 67957336522865,
+        "frontend_health_status": 200,
+        "frontend_health_body": {
+          "status": "ok"
+        },
+        "automatic_recovery_tested": false
+      }
+    },
+    "bounded_admission": {
+      "status": "unavailable",
+      "reason": "max_running_requests bounds execution slots; upstream pending list has no configured admission limit"
+    },
+    "external_id_idempotence": {
+      "status": "unavailable",
+      "observed_uids": [
+        11,
+        12
+      ],
+      "reason": "No native external-ID deduplication contract"
+    },
+    "all_processes_reaped": {
+      "status": "pass"
+    },
+    "shutdown_without_forced_cleanup": {
+      "status": "fail"
+    }
+  },
+  "failed_checks": [
+    "finish_reason_matches_backend",
+    "frontend_refs_released",
+    "detokenizer_refs_released",
+    "over_context_rejected_with_error",
+    "worker_fault_health_propagates",
+    "shutdown_without_forced_cleanup"
+  ],
+  "unavailable_checks": [
+    "bounded_admission",
+    "external_id_idempotence"
+  ],
+  "evidence_sha256": {
+    "run.json": "e7e6a58dd29750c7eb53d3012026a61dd5d70ef7dfe45c99b4003377db8781a2",
+    "provenance.json": "75c6726bb0c0a5a2a0523f58d12d8bd36b39ed566f3b4e4d39c6ff4c0a257374",
+    "requests.json": "4f8a82123d47734d13d70f51e67c00f294feddaf74c9e528a2606f1566d1be02",
+    "workload.json": "a4fed49a90dba70fd3fe0d6c1d506bcb7cfab1b6e50404a846934f63783ce0ea",
+    "server_events.json": "6a4091e18906a986883f5a30d53c6eeddd10f4c16ced8d42b8b0db09926c2916",
+    "frontend_snapshots.json": "a8e58edec35f8c06a445b142e0f7fa427000bdc1bd8507af95f8c0649fee4f95",
+    "worker_failure.json": "2bb686fb2302f8755ee040c82307125a9b6ee687dc2c638d1aaa4e338316a88b"
+  }
+}

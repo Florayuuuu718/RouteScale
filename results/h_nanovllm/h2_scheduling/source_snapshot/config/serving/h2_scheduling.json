@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "base_validation": "config/serving/h2_corrected_validation.json",
+  "base_gate_sha256": "496eaf500e54c8c8a08489e33025a7ca5fff7757ace36b6346a50e1b4a532c06",
+  "results_dir": "results/h_nanovllm/h2_scheduling",
+  "prompt_case_id": "b8_p128_o64_none",
+  "max_active_requests": 8,
+  "policies": ["fixed_cohort", "continuous"],
+  "independent_runs": 3,
+  "measured_traces": 3,
+  "warmup_traces": 1,
+  "logical_validation_step_ms": 10,
+  "cases": [
+    {"case_id": "equal_burst", "output_pattern": [32], "second_wave_arrival_ms": 0},
+    {"case_id": "mixed_burst", "output_pattern": [8, 8, 8, 8, 64, 64, 64, 64], "second_wave_arrival_ms": 0},
+    {"case_id": "mixed_staggered", "output_pattern": [8, 8, 8, 8, 64, 64, 64, 64], "second_wave_arrival_ms": 160}
+  ],
+  "timing_policy": "open-loop local arrival replay; TTFT/E2E start at planned arrival, not admission; includes enqueue/scheduling/model/sampling/copy/postprocess and idle arrival waits; excludes initialization/capture/compile/warmup/cache reset/output hashing",
+  "limitations": "Admission-policy comparison, not padded fixed-shape execution or HTTP serving. Both use upstream compact Decode, Graph on, prefix off, BF16 and the same physical KV pool. No arbitrary continuous-arrival stream, chunking, eviction-pressure or TP claim."
+}

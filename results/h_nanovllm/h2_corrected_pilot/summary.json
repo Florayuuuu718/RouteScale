@@ -1,0 +1,4483 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "pass",
+  "benchmark": "nanovllm_ablation_summary",
+  "created_at_utc": "2026-10-23T11:37:22.215579+00:00",
+  "independent_runs": 3,
+  "scope": "cuda_graph_and_prefix_cache",
+  "aggregation": "median of independent run statistics, not pooled tail quantiles",
+  "variant_count": 12,
+  "comparisons": [
+    {
+      "case_id": "b1_p128_o64_none",
+      "mechanism": "cuda_graph",
+      "phase": "cold",
+      "output_throughput_ratio": 7.463707174870547,
+      "ttft_speedup": 0.9106090103108748,
+      "e2e_speedup": 7.182252525843743,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b1_p128_o64_none",
+      "mechanism": "cuda_graph",
+      "phase": "warm",
+      "output_throughput_ratio": 7.4703712985139274,
+      "ttft_speedup": 0.8767843306689524,
+      "e2e_speedup": 7.254276574981669,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b1_p128_o64_none",
+      "mechanism": "prefix_cache",
+      "phase": "cold",
+      "output_throughput_ratio": 1.0570197794527134,
+      "ttft_speedup": 1.0060524041792729,
+      "e2e_speedup": 1.0474883466567846,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b1_p128_o64_none",
+      "mechanism": "prefix_cache",
+      "phase": "warm",
+      "output_throughput_ratio": 1.0022742098195927,
+      "ttft_speedup": 1.1008916311818016,
+      "e2e_speedup": 1.0207911514878838,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "mechanism": "cuda_graph",
+      "phase": "cold",
+      "output_throughput_ratio": 7.380069948832227,
+      "ttft_speedup": 0.9146368948926331,
+      "e2e_speedup": 7.252212055759781,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "mechanism": "cuda_graph",
+      "phase": "warm",
+      "output_throughput_ratio": 7.210182430881193,
+      "ttft_speedup": 1.0097678759072597,
+      "e2e_speedup": 7.45705664717823,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "mechanism": "prefix_cache",
+      "phase": "cold",
+      "output_throughput_ratio": 0.921692708906859,
+      "ttft_speedup": 0.9262511774259282,
+      "e2e_speedup": 0.9213707486557978,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "mechanism": "prefix_cache",
+      "phase": "warm",
+      "output_throughput_ratio": 0.8989034319832099,
+      "ttft_speedup": 0.88503896096957,
+      "e2e_speedup": 0.901350347746703,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "mechanism": "cuda_graph",
+      "phase": "cold",
+      "output_throughput_ratio": 6.094706507706745,
+      "ttft_speedup": 1.0154949669709825,
+      "e2e_speedup": 6.231407538772653,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "mechanism": "cuda_graph",
+      "phase": "warm",
+      "output_throughput_ratio": 5.91283861027041,
+      "ttft_speedup": 0.9983727507409991,
+      "e2e_speedup": 6.14240132467399,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "mechanism": "prefix_cache",
+      "phase": "cold",
+      "output_throughput_ratio": 1.0219663493105473,
+      "ttft_speedup": 1.0152044512047578,
+      "e2e_speedup": 1.04393115362744,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "mechanism": "prefix_cache",
+      "phase": "warm",
+      "output_throughput_ratio": 0.9943189508977789,
+      "ttft_speedup": 1.9231331052124627,
+      "e2e_speedup": 1.0187964952965256,
+      "extra_peak_allocated_bytes": -58761216,
+      "prompt_token_hit_rate": 0.5
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "mechanism": "cuda_graph",
+      "phase": "cold",
+      "output_throughput_ratio": 5.913897526704052,
+      "ttft_speedup": 0.9990607119081609,
+      "e2e_speedup": 6.197690924033461,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "mechanism": "cuda_graph",
+      "phase": "warm",
+      "output_throughput_ratio": 5.895987609621874,
+      "ttft_speedup": 1.0007781925193928,
+      "e2e_speedup": 5.962518502850132,
+      "extra_peak_allocated_bytes": 8539648,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "mechanism": "prefix_cache",
+      "phase": "cold",
+      "output_throughput_ratio": 1.0407752825085137,
+      "ttft_speedup": 0.9987365946914005,
+      "e2e_speedup": 1.1481405401520877,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "mechanism": "prefix_cache",
+      "phase": "warm",
+      "output_throughput_ratio": 1.0636343889441464,
+      "ttft_speedup": 0.998228100316678,
+      "e2e_speedup": 1.0953902781929077,
+      "extra_peak_allocated_bytes": 0,
+      "prompt_token_hit_rate": 0.0
+    }
+  ],
+  "variants": [
+    {
+      "case_id": "b1_p128_o64_none",
+      "variant": "eager_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "39c73b357b49e9d881027aa8fca38f75fc31b0f23bcf2f6ad90fa5ab6c2116f5",
+        "batch_size": 1,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 61.94771199989191,
+          "ttft_p95_ms": 81.1983371997485,
+          "ttft_p99_ms": 82.3751370399259,
+          "tpot_p50_ms": 50.48287331746472,
+          "tpot_p95_ms": 58.294651209513496,
+          "tpot_p99_ms": 59.53291915617662,
+          "e2e_p50_ms": 3248.732915000801,
+          "e2e_p95_ms": 3726.2245651996636,
+          "e2e_p99_ms": 3801.252536239481,
+          "output_tokens_per_second": 18.905603686281427,
+          "peak_allocated_bytes": 2165328384,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 63.58254000042507,
+          "ttft_p95_ms": 86.18064199908986,
+          "ttft_p99_ms": 87.4281811992114,
+          "tpot_p50_ms": 51.155432650794246,
+          "tpot_p95_ms": 57.53706984444487,
+          "tpot_p99_ms": 57.576443873652366,
+          "e2e_p50_ms": 3286.3747970004624,
+          "e2e_p95_ms": 3699.8745979992236,
+          "e2e_p99_ms": 3703.030077999065,
+          "output_tokens_per_second": 19.148021512636156,
+          "peak_allocated_bytes": 2165328384,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b1_p128_o64_none",
+      "variant": "eager_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "39c73b357b49e9d881027aa8fca38f75fc31b0f23bcf2f6ad90fa5ab6c2116f5",
+        "batch_size": 1,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": true,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/eager_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 61.575035000714706,
+          "ttft_p95_ms": 67.1301363989187,
+          "ttft_p99_ms": 67.37615207835915,
+          "tpot_p50_ms": 48.38752246030795,
+          "tpot_p95_ms": 56.01356849207757,
+          "tpot_p99_ms": 56.199474231762,
+          "e2e_p50_ms": 3101.450173999183,
+          "e2e_p95_ms": 3615.729569801624,
+          "e2e_p99_ms": 3667.027614762337,
+          "output_tokens_per_second": 19.9835970388936,
+          "peak_allocated_bytes": 2165328384,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 57.7554940009577,
+          "ttft_p95_ms": 78.47674380027456,
+          "ttft_p99_ms": 81.88823756034253,
+          "tpot_p50_ms": 50.163310952369116,
+          "tpot_p95_ms": 56.50458344762372,
+          "tpot_p99_ms": 56.63487600381597,
+          "e2e_p50_ms": 3219.4389540018165,
+          "e2e_p95_ms": 3620.3327800005354,
+          "e2e_p99_ms": 3629.241412800402,
+          "output_tokens_per_second": 19.191568131185964,
+          "peak_allocated_bytes": 2165328384,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b1_p128_o64_none",
+      "variant": "graph_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "39c73b357b49e9d881027aa8fca38f75fc31b0f23bcf2f6ad90fa5ab6c2116f5",
+        "batch_size": 1,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": false,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/graph_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/graph_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b1_p128_o64_none/graph_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 68.02888099991833,
+          "ttft_p95_ms": 79.8254815999826,
+          "ttft_p99_ms": 81.94682752000517,
+          "tpot_p50_ms": 6.041094777780624,
+          "tpot_p95_ms": 6.350578984122313,
+          "tpot_p99_ms": 6.380335758735854,
+          "e2e_p50_ms": 452.327860000878,
+          "e2e_p95_ms": 469.8526085994672,
+          "e2e_p99_ms": 476.24160564053454,
+          "output_tokens_per_second": 141.10588987855775,
+          "peak_allocated_bytes": 2173868032,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 72.51787899986084,
+          "ttft_p95_ms": 101.79725280104321,
+          "ttft_p99_ms": 106.20031195954653,
+          "tpot_p50_ms": 6.039809031732609,
+          "tpot_p95_ms": 6.075103755568899,
+          "tpot_p99_ms": 6.079625297158297,
+          "e2e_p50_ms": 453.02584799901524,
+          "e2e_p95_ms": 464.55529799932265,
+          "e2e_p99_ms": 464.88641399904736,
+          "output_tokens_per_second": 143.04283033132438,
+          "peak_allocated_bytes": 2173868032,
+          "requests_completed": 5,
+          "prompt_tokens": 640,
+          "output_tokens": 320,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "variant": "eager_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "a9149c6a359a9b7e21740c1b402883b9daf51a8c6911dc73cb2bdab67897771e",
+        "batch_size": 8,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 57.385912998142885,
+          "ttft_p95_ms": 64.25101900094887,
+          "ttft_p99_ms": 64.25101900094887,
+          "tpot_p50_ms": 54.119737333311356,
+          "tpot_p95_ms": 55.797792634938745,
+          "tpot_p99_ms": 55.797792634938745,
+          "e2e_p50_ms": 3458.435225998983,
+          "e2e_p95_ms": 3579.51195500209,
+          "e2e_p99_ms": 3579.51195500209,
+          "output_tokens_per_second": 148.1475905370591,
+          "peak_allocated_bytes": 2190512128,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 58.31959100032691,
+          "ttft_p95_ms": 71.78677300180425,
+          "ttft_p99_ms": 71.78677300180425,
+          "tpot_p50_ms": 52.9506730634903,
+          "tpot_p95_ms": 55.01805111112296,
+          "tpot_p99_ms": 55.01805111112296,
+          "e2e_p50_ms": 3394.211994000216,
+          "e2e_p95_ms": 3517.47257200077,
+          "e2e_p99_ms": 3517.47257200077,
+          "output_tokens_per_second": 150.7315331115211,
+          "peak_allocated_bytes": 2190512128,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "variant": "eager_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "a9149c6a359a9b7e21740c1b402883b9daf51a8c6911dc73cb2bdab67897771e",
+        "batch_size": 8,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": true,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/eager_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 61.95502299669897,
+          "ttft_p95_ms": 80.25025599999935,
+          "ttft_p99_ms": 80.25025599999935,
+          "tpot_p50_ms": 58.3592699047239,
+          "tpot_p95_ms": 59.038523809523745,
+          "tpot_p99_ms": 59.038523809523745,
+          "e2e_p50_ms": 3753.5761049985013,
+          "e2e_p95_ms": 3781.382022996695,
+          "e2e_p99_ms": 3781.382022996695,
+          "output_tokens_per_second": 136.54655404012615,
+          "peak_allocated_bytes": 2190512128,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 65.89494199943147,
+          "ttft_p95_ms": 71.36355800321326,
+          "ttft_p99_ms": 71.36355800321326,
+          "tpot_p50_ms": 58.70429914284614,
+          "tpot_p95_ms": 59.85261798409665,
+          "tpot_p99_ms": 59.85261798409665,
+          "e2e_p50_ms": 3765.6966600006854,
+          "e2e_p95_ms": 3838.4929739986546,
+          "e2e_p99_ms": 3838.4929739986546,
+          "output_tokens_per_second": 135.49309242203714,
+          "peak_allocated_bytes": 2190512128,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p128_o64_high",
+      "variant": "graph_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "a9149c6a359a9b7e21740c1b402883b9daf51a8c6911dc73cb2bdab67897771e",
+        "batch_size": 8,
+        "prompt_length": 128,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": false,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/graph_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/graph_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p128_o64_high/graph_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 62.74174300051527,
+          "ttft_p95_ms": 71.06509900040692,
+          "ttft_p99_ms": 71.06509900040692,
+          "tpot_p50_ms": 6.297237158731958,
+          "tpot_p95_ms": 6.678759650798932,
+          "tpot_p99_ms": 6.678759650798932,
+          "e2e_p50_ms": 476.88004699921294,
+          "e2e_p95_ms": 491.1385249997693,
+          "e2e_p99_ms": 491.1385249997693,
+          "output_tokens_per_second": 1093.3395809144515,
+          "peak_allocated_bytes": 2199051776,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 57.7554430001328,
+          "ttft_p95_ms": 71.3655010004004,
+          "ttft_p99_ms": 71.3655010004004,
+          "tpot_p50_ms": 6.215771460321978,
+          "tpot_p95_ms": 6.9074489365159515,
+          "tpot_p99_ms": 6.9074489365159515,
+          "e2e_p50_ms": 455.1677899999049,
+          "e2e_p95_ms": 501.19767100113677,
+          "e2e_p99_ms": 501.19767100113677,
+          "output_tokens_per_second": 1086.801851820476,
+          "peak_allocated_bytes": 2199051776,
+          "requests_completed": 40,
+          "prompt_tokens": 5120,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "variant": "eager_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "06090ddf04b2bf47f0bf935ba4febe223b2b99cd1beaccf467d0e949f9db188b",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 139.74177699856227,
+          "ttft_p95_ms": 143.1922690007923,
+          "ttft_p99_ms": 143.1922690007923,
+          "tpot_p50_ms": 57.763079984123046,
+          "tpot_p95_ms": 59.208354698403994,
+          "tpot_p99_ms": 59.208354698403994,
+          "e2e_p50_ms": 3776.553966999927,
+          "e2e_p95_ms": 3867.3939580003207,
+          "e2e_p99_ms": 3867.3939580003207,
+          "output_tokens_per_second": 136.98241214831233,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 137.64267299848143,
+          "ttft_p95_ms": 141.25674900060403,
+          "ttft_p99_ms": 141.25674900060403,
+          "tpot_p50_ms": 57.384152174592366,
+          "tpot_p95_ms": 59.17574480952767,
+          "tpot_p99_ms": 59.17574480952767,
+          "e2e_p50_ms": 3756.4583359999233,
+          "e2e_p95_ms": 3866.833359999873,
+          "e2e_p99_ms": 3866.833359999873,
+          "output_tokens_per_second": 141.90943045397117,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "variant": "eager_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "06090ddf04b2bf47f0bf935ba4febe223b2b99cd1beaccf467d0e949f9db188b",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": true,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/eager_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 137.64890099992044,
+          "ttft_p95_ms": 140.0254860000132,
+          "ttft_p99_ms": 140.0254860000132,
+          "tpot_p50_ms": 55.20574696827911,
+          "tpot_p95_ms": 58.649502968234756,
+          "tpot_p99_ms": 58.649502968234756,
+          "e2e_p50_ms": 3617.627421001089,
+          "e2e_p95_ms": 3833.9851219989214,
+          "e2e_p99_ms": 3833.9851219989214,
+          "output_tokens_per_second": 139.99141566296353,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 71.57209900105954,
+          "ttft_p95_ms": 76.98378399800276,
+          "ttft_p99_ms": 76.98378399800276,
+          "tpot_p50_ms": 57.254242000006286,
+          "tpot_p95_ms": 58.5806161111072,
+          "tpot_p99_ms": 58.5806161111072,
+          "e2e_p50_ms": 3687.152786000297,
+          "e2e_p95_ms": 3762.772579000739,
+          "e2e_p99_ms": 3762.772579000739,
+          "output_tokens_per_second": 141.10323601149392,
+          "peak_allocated_bytes": 2219892736,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 10240,
+          "prompt_token_hit_rate": 0.5
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_high",
+      "variant": "graph_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "06090ddf04b2bf47f0bf935ba4febe223b2b99cd1beaccf467d0e949f9db188b",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "high",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": false,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/graph_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/graph_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_high/graph_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 137.60952200027532,
+          "ttft_p95_ms": 138.92129399937403,
+          "ttft_p99_ms": 138.92129399937403,
+          "tpot_p50_ms": 7.430738317496088,
+          "tpot_p95_ms": 7.866172920619156,
+          "tpot_p99_ms": 7.866172920619156,
+          "e2e_p50_ms": 606.0515130011481,
+          "e2e_p95_ms": 633.1872129994736,
+          "e2e_p99_ms": 633.1872129994736,
+          "output_tokens_per_second": 834.8675987616866,
+          "peak_allocated_bytes": 2287193600,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 137.86701699973491,
+          "ttft_p95_ms": 138.8120350020472,
+          "ttft_p99_ms": 138.8120350020472,
+          "tpot_p50_ms": 7.503965365079542,
+          "tpot_p95_ms": 7.701307825401374,
+          "tpot_p99_ms": 7.701307825401374,
+          "e2e_p50_ms": 611.5618530020583,
+          "e2e_p95_ms": 623.0494100000215,
+          "e2e_p99_ms": 623.0494100000215,
+          "output_tokens_per_second": 839.0875595497242,
+          "peak_allocated_bytes": 2287193600,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "variant": "eager_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "247ddc076e7a8da9cd3266e173ee8ee8da61f9fbdbf1dd1a6ac5a9e51d45268e",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 137.41859000037948,
+          "ttft_p95_ms": 142.55280299948936,
+          "ttft_p99_ms": 142.55280299948936,
+          "tpot_p50_ms": 58.88293463494703,
+          "tpot_p95_ms": 61.40488188889105,
+          "tpot_p99_ms": 61.40488188889105,
+          "e2e_p50_ms": 3847.7112850014237,
+          "e2e_p95_ms": 4011.0603619996255,
+          "e2e_p99_ms": 4011.0603619996255,
+          "output_tokens_per_second": 140.10207456579732,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 137.5858169994899,
+          "ttft_p95_ms": 141.88991699847975,
+          "ttft_p99_ms": 141.88991699847975,
+          "tpot_p50_ms": 56.54146812698205,
+          "tpot_p95_ms": 58.568547650793334,
+          "tpot_p99_ms": 58.568547650793334,
+          "e2e_p50_ms": 3703.520701999878,
+          "e2e_p95_ms": 3827.1038200000476,
+          "e2e_p99_ms": 3827.1038200000476,
+          "output_tokens_per_second": 139.9118600556101,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "variant": "eager_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "247ddc076e7a8da9cd3266e173ee8ee8da61f9fbdbf1dd1a6ac5a9e51d45268e",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": true,
+        "prefix_cache": true,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/eager_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 137.59242500054825,
+          "ttft_p95_ms": 141.5122420003172,
+          "ttft_p99_ms": 141.5122420003172,
+          "tpot_p50_ms": 51.010510968245356,
+          "tpot_p95_ms": 61.4504576666756,
+          "tpot_p99_ms": 61.4504576666756,
+          "e2e_p50_ms": 3351.2546160000056,
+          "e2e_p95_ms": 4012.89107500088,
+          "e2e_p99_ms": 4012.89107500088,
+          "output_tokens_per_second": 145.81477623624656,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 137.83003800017468,
+          "ttft_p95_ms": 138.2807980007783,
+          "ttft_p99_ms": 138.2807980007783,
+          "tpot_p50_ms": 51.48472523808503,
+          "tpot_p95_ms": 54.70163665080373,
+          "tpot_p99_ms": 54.70163665080373,
+          "e2e_p50_ms": 3381.0056340007577,
+          "e2e_p95_ms": 3584.390373000133,
+          "e2e_p99_ms": 3584.390373000133,
+          "output_tokens_per_second": 148.81506577628778,
+          "peak_allocated_bytes": 2278653952,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    },
+    {
+      "case_id": "b8_p512_o64_none",
+      "variant": "graph_no_prefix",
+      "provenance": {
+        "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "upstream_source_sha256": {
+          "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+          "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+          "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+          "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+          "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+          "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+          "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+          "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+          "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+          "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+          "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+          "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+          "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+          "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+          "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+          "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+          "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+          "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+          "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+          "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+          "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+        },
+        "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+        "model_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+        "tokenizer_sha256": {
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+          "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+        },
+        "model_config_sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "source_sha256": {
+          "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+          "serving/benchmark_nanovllm.py": "073ed350b981109a0a1547487b577cd57b18cb332942f36c73dc5fec2553d415",
+          "serving/verify_h2_preflight.py": "aae35958a49a87f380258da098fcfcd66afd2362c8550fdb77ec78972de8bfa6",
+          "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+          "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+          "serving/h2_workloads.py": "8c8a1f90202c15e375d416379460302d8e693f66dacf810ce87ea022dd91c238",
+          "scripts/run_h2_nanovllm.py": "dd3532cfbb3d97354857c2d02b3526af978bc989ad9a144a934d25d92a465d13",
+          "scripts/summarize_h2_nanovllm.py": "515f19b1a34aef4f4fcf5cf72d141884d1e057df83453158d096d1e28e1f9d3a"
+        },
+        "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+        "h2_config_sha256": "7f3e01d79fd1770c8cf0fd120517bee0ea185cf912b187947ae3eff1b1054a1f",
+        "environment": {
+          "python": "3.11.16",
+          "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+          "packages": [
+            {
+              "name": "certifi",
+              "version": "2026.10.19"
+            },
+            {
+              "name": "charset-normalizer",
+              "version": "3.5.2"
+            },
+            {
+              "name": "cuda-bindings",
+              "version": "12.9.10"
+            },
+            {
+              "name": "cuda-pathfinder",
+              "version": "1.8.4"
+            },
+            {
+              "name": "cuda-toolkit",
+              "version": "12.9.1"
+            },
+            {
+              "name": "einops",
+              "version": "0.8.2"
+            },
+            {
+              "name": "filelock",
+              "version": "4.2.4"
+            },
+            {
+              "name": "flash_attn",
+              "version": "2.8.3.post2"
+            },
+            {
+              "name": "fsspec",
+              "version": "2026.9.0"
+            },
+            {
+              "name": "hf-xet",
+              "version": "1.7.0"
+            },
+            {
+              "name": "huggingface_hub",
+              "version": "0.36.2"
+            },
+            {
+              "name": "idna",
+              "version": "3.20"
+            },
+            {
+              "name": "Jinja2",
+              "version": "3.1.6"
+            },
+            {
+              "name": "MarkupSafe",
+              "version": "3.0.4"
+            },
+            {
+              "name": "mpmath",
+              "version": "1.3.0"
+            },
+            {
+              "name": "nano-vllm",
+              "version": "0.2.0",
+              "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+            },
+            {
+              "name": "networkx",
+              "version": "3.6.1"
+            },
+            {
+              "name": "ninja",
+              "version": "1.13.2"
+            },
+            {
+              "name": "numpy",
+              "version": "2.4.6"
+            },
+            {
+              "name": "nvidia-cublas-cu12",
+              "version": "12.9.1.4"
+            },
+            {
+              "name": "nvidia-cuda-cupti-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cuda-nvrtc-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-cuda-runtime-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "nvidia-cudnn-cu12",
+              "version": "9.10.2.21"
+            },
+            {
+              "name": "nvidia-cufft-cu12",
+              "version": "11.4.1.4"
+            },
+            {
+              "name": "nvidia-cufile-cu12",
+              "version": "1.14.1.1"
+            },
+            {
+              "name": "nvidia-curand-cu12",
+              "version": "10.3.10.19"
+            },
+            {
+              "name": "nvidia-cusolver-cu12",
+              "version": "11.7.5.82"
+            },
+            {
+              "name": "nvidia-cusparse-cu12",
+              "version": "12.5.10.65"
+            },
+            {
+              "name": "nvidia-cusparselt-cu12",
+              "version": "0.7.1"
+            },
+            {
+              "name": "nvidia-nccl-cu12",
+              "version": "2.27.3"
+            },
+            {
+              "name": "nvidia-nvjitlink-cu12",
+              "version": "12.9.86"
+            },
+            {
+              "name": "nvidia-nvshmem-cu12",
+              "version": "3.4.5"
+            },
+            {
+              "name": "nvidia-nvtx-cu12",
+              "version": "12.9.79"
+            },
+            {
+              "name": "packaging",
+              "version": "26.3"
+            },
+            {
+              "name": "pip",
+              "version": "26.2.2"
+            },
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            },
+            {
+              "name": "regex",
+              "version": "2026.9.29"
+            },
+            {
+              "name": "requests",
+              "version": "2.34.2"
+            },
+            {
+              "name": "safetensors",
+              "version": "0.8.0"
+            },
+            {
+              "name": "setuptools",
+              "version": "81.0.0"
+            },
+            {
+              "name": "sympy",
+              "version": "1.14.0"
+            },
+            {
+              "name": "tokenizers",
+              "version": "0.22.2"
+            },
+            {
+              "name": "torch",
+              "version": "2.8.0+cu129"
+            },
+            {
+              "name": "tqdm",
+              "version": "4.70.1"
+            },
+            {
+              "name": "transformers",
+              "version": "4.57.6"
+            },
+            {
+              "name": "triton",
+              "version": "3.4.0"
+            },
+            {
+              "name": "typing_extensions",
+              "version": "4.16.0"
+            },
+            {
+              "name": "urllib3",
+              "version": "2.8.0"
+            },
+            {
+              "name": "wheel",
+              "version": "0.48.0"
+            },
+            {
+              "name": "xxhash",
+              "version": "4.0.2"
+            }
+          ],
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "capability": [
+            12,
+            0
+          ],
+          "total_memory_bytes": 8546484224,
+          "torch_cuda": "12.9",
+          "driver": "610.88"
+        },
+        "numerical_policy_id": "static_tables_paged_prefill_v1",
+        "numerical_policy": {
+          "static_tables": true,
+          "paged_prefill": true,
+          "recompile_limit": 64,
+          "fail_on_recompile_limit_hit": true
+        },
+        "validation_config_sha256": "ecba2821b1e73899553eb9c0df4b545ff9ce7856761c51f177a0dd8b23318924",
+        "corrected_source_sha256": {
+          "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+          "serving/h2_corrected_runtime.py": "ebd9f97a7e0015135760f9f12c3a33c4cd1e51eeb5e56f64122f59500f7d852d",
+          "serving/verify_h2_corrected.py": "04983824667a0fd265c0d92a7ebc537005777405b5d130e8d3f6a3a7b94b6129",
+          "scripts/run_h2_corrected_validation.py": "0fe967cafb09ddf91929f35554fa021794b2ee5ba0c3f382f08f496931700f92"
+        },
+        "performance_config_sha256": "7290be1f8396b399a97abc343f21d5b20f7c2092cb0d9069c82a397258e9bf9a",
+        "performance_source_sha256": {
+          "serving/benchmark_h2_corrected.py": "b3b3c9ab99f9784e054609306c8a584ba1962fc7520bf42de108e3e6780d99be",
+          "scripts/run_h2_corrected_pilot.py": "9ccf74b9bb6f55da747626a7fb0a4a11af15f85227740fd27c5f965389e68863",
+          "scripts/audit_h2_corrected_pilot.py": "84336e2b2d973312bbcbec003adcc5eb45c841a081d855c34483f727cd6aa73e"
+        }
+      },
+      "workload": {
+        "sha256": "247ddc076e7a8da9cd3266e173ee8ee8da61f9fbdbf1dd1a6ac5a9e51d45268e",
+        "batch_size": 8,
+        "prompt_length": 512,
+        "output_length": 64,
+        "prefix_mode": "none",
+        "measured_pairs": 5,
+        "sampling": {
+          "temperature": 0.6,
+          "ignore_eos": true
+        },
+        "seed": 20261023,
+        "cache_reset_policy": "fresh_block_manager_per_pair"
+      },
+      "engine": {
+        "tensor_parallel_size": 1,
+        "max_model_len": 1024,
+        "max_num_batched_tokens": 4096,
+        "max_num_seqs": 8,
+        "gpu_memory_utilization": 0.65,
+        "kvcache_block_size": 256,
+        "num_kvcache_blocks": 32,
+        "enforce_eager": false,
+        "prefix_cache": false,
+        "dtype": "bfloat16"
+      },
+      "run_files": [
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/graph_no_prefix/run1.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/graph_no_prefix/run2.json",
+        "/home/shunzi/projects/RouteScale/results/h_nanovllm/h2_corrected_pilot/raw/b8_p512_o64_none/graph_no_prefix/run3.json"
+      ],
+      "phases": {
+        "cold": {
+          "ttft_p50_ms": 137.54778699876624,
+          "ttft_p95_ms": 137.9332020005677,
+          "ttft_p99_ms": 137.9332020005677,
+          "tpot_p50_ms": 7.649765777762421,
+          "tpot_p95_ms": 7.751871190478033,
+          "tpot_p99_ms": 7.751871190478033,
+          "e2e_p50_ms": 620.8298109995667,
+          "e2e_p95_ms": 626.027887001328,
+          "e2e_p99_ms": 626.027887001328,
+          "output_tokens_per_second": 828.5493122607755,
+          "peak_allocated_bytes": 2287193600,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        },
+        "warm": {
+          "ttft_p50_ms": 137.47883200085198,
+          "ttft_p95_ms": 138.6360380001861,
+          "ttft_p99_ms": 138.6360380001861,
+          "tpot_p50_ms": 7.677060126990822,
+          "tpot_p95_ms": 7.75750146033441,
+          "tpot_p99_ms": 7.75750146033441,
+          "e2e_p50_ms": 621.1336200012738,
+          "e2e_p95_ms": 627.3586300012539,
+          "e2e_p99_ms": 627.3586300012539,
+          "output_tokens_per_second": 824.9185933270268,
+          "peak_allocated_bytes": 2287193600,
+          "requests_completed": 40,
+          "prompt_tokens": 20480,
+          "output_tokens": 2560,
+          "cached_prompt_tokens": 0,
+          "prompt_token_hit_rate": 0.0
+        }
+      }
+    }
+  ]
+}

@@ -1,5 +1,141 @@
 # RouteScale experiment records
 
+This index follows the current [implementation outline](../docs/RouteScale_实施教程大纲.md):
+G = native inference (complete), H = nano-vLLM (partially complete),
+I = Mini-SGLang, J = training/inference review. Protocols, reports, file paths and
+JSON `stage` fields use the current numbering. The
+[migration record](../docs/stage_numbering_migration.md) preserves the old/new
+paths and file hashes; measurements and experiment outcomes are unchanged.
+
+H still needs timing-stability replication and H2 multi-GPU TP=2/4 experiments.
+H2/I2 multi-GPU work is deferred to a later consolidated rental session.
+The original H3 correctness gate retains `performance_execution_allowed=false`;
+the separate v5 controlled scope has its own passed performance gate.
+
+## I1: Mini-SGLang single-GPU service baseline
+
+The pinned Mini-SGLang / Qwen3-0.6B HTTP/SSE baseline ran 15 requests with
+463 finite-logit batch checks. Cancellation reaches the scheduler and active
+table/KV references are released. I1 acceptance remains incomplete: six gaps
+cover frontend/detokenizer cleanup, finish reasons, context validation, worker
+health and shutdown. The [I1 report](i_minisglang/i1_lifecycle/README.md) retains
+all failed preparation attempts, raw request events and the independent audit.
+Eleven CPU client tests pass; these are functional results, not online performance.
+
+## H3: same-model controlled performance and timing variability
+
+The new scope compares native KV, paged eager and paged Decode Graph using the
+same trained Dense artifact, serving environment and BF16 weights. All 2,592
+target logit vectors pass the unchanged error thresholds against FP32 math with
+the same BF16-rounded parameter values; 864 eager/Graph vectors are exact.
+All paths explicitly disable BF16 reduced-precision GEMM reduction. Six pilots,
+36 formal GPU processes and an independent audit passed; v1–v4 failures remain.
+
+Observed replay-throughput median ratios for Graph/eager are 2.92–3.74x, while
+TTFT does not improve. Timing variability is material: one native case spans
+2.46x across independent processes, and a three-group paired follow-up preserves
+the speed direction but does not identify a unique historical cause. These are
+controlled fixed-token measurements, not stable production speedups or online SLOs.
+See the [complete report, ranges and plot](h_nanovllm/h3_performance_v5/README.md).
+
+## H3: earlier RouteScale Dense integration correctness
+
+The project's trained Dense checkpoint now runs through an explicit nano-vLLM
+bridge, retaining learned absolute positions, LayerNorm/GELU and tied weights.
+Three independent variants pass 792 full-vocabulary native-BF16 comparisons;
+264 eager/Graph vectors are bitwise exact. A fresh-process audit independently
+recomputes the native references and verifies 52 state-dict tensor keys,
+invalid-request guards, the 512-cached-token boundary and engine reclamation.
+This is first-scope correctness, not a performance ranking or full H3 completion.
+Both numerical sides use full BF16 weights in the serving environment, so G3's
+FP32-weight/autocast timings are not direct controls. See
+[`h_nanovllm/h3_routescale/README.md`](h_nanovllm/h3_routescale/README.md).
+
+## H1: pinned nano-vLLM reproduction
+
+The upstream execution path is isolated from the training environment and uses
+a pinned Qwen3-0.6B snapshot. H1 passed its full acceptance sequence: 11 upstream
+state tests, FP16/BF16 attention checks and two new-process generation requests
+with no remaining request/block references. See
+[`h_nanovllm/h1_run.json`](h_nanovllm/h1_run.json).
+H2 has 24 fixed workloads and 48 passed CPU metadata probes. The original pilot
+was stopped before formal timing by a strict BF16 prefix-logit gate; its failed
+gate and controlled FP32-attention diagnostic are retained. Batch-1 Graph decode
+also failed its numerical gate. Only the three passed batch-8 cases enter the
+separate Graph-only scope: 18/18 formal processes passed, with 6.21–8.51x output
+throughput in this local offline benchmark and about 8.14 MiB extra peak allocated
+memory. See [`h_nanovllm/h2_graph_b8/README.md`](h_nanovllm/h2_graph_b8/README.md).
+This does not qualify the excluded batch-1 or prefix cases. Commands, scope and the source
+walkthrough are indexed in [`h_nanovllm/README.md`](h_nanovllm/README.md).
+The subsequent opt-in corrected policy fixes both numerical comparisons by
+unifying page-table width and paged Prefill. All 2,048 full-vocabulary tensor
+comparisons across 64 cold/warm steps and eight cases are exact. See
+[`h_nanovllm/h2_numerics/README.md`](h_nanovllm/h2_numerics/README.md).
+This is correctness evidence, not a new performance ranking; historical gates and timings remain unchanged.
+The separately qualified corrected-policy performance pilot passed all 36 formal
+processes and its audit: 2,250 requests and 144,000 output tokens. Graph throughput
+is 5.90–7.47x eager; a 50% prefix-token hit rate reduces warm TTFT from 137.64 to
+71.57 ms, without a corresponding whole-generation throughput gain (0.994x).
+These are separate measurements, not replacements for the native results above.
+The Graph/Prefix scope alone does not cover subsequent batching,
+fragmentation/capacity, TP or model-integration work. Full results and the measurement contract are in
+[`h_nanovllm/h2_corrected_pilot/README.md`](h_nanovllm/h2_corrected_pilot/README.md).
+The subsequent fixed-cohort versus continuous-admission pilot completed CPU
+contracts and GPU preflight, but the mixed-length cases failed the unchanged
+numerical budget (max relative RMSE 3.974% versus 0.5%). Formal processes remain
+0/18. Cold controls isolate the first divergence to BF16 Prefill output-projection
+row shape, not an established KV-address bug; an isolated tile512 linear control
+is exact but is not a full-model fix. See
+[`h_nanovllm/h2_scheduling/README.md`](h_nanovllm/h2_scheduling/README.md).
+The subsequent full-model tile512 strategy passed all 1,664 per-request logit
+vectors exactly, then all 18 formal processes and independent verification:
+864 measured requests and 29,952 output tokens. Mixed workloads gain about 32%
+output throughput and reduce TTFT p95 by 42% / 56%, while ITL p99 rises from about
+8.5 ms to 71–75 ms. The equal-length control has no refill opportunity or mechanism
+benefit. Both sides use the same opt-in BF16 linear tiling; this is not native
+upstream timing or online SLO evidence. Original failure data and its exact source
+snapshot remain intact. See
+[`h_nanovllm/h2_scheduling_tile512/README.md`](h_nanovllm/h2_scheduling_tile512/README.md).
+The subsequent KV allocation study passes 18 CPU capacity points, 13 real-GPU
+tensor/address checks and 1,056 exact full-vocabulary vectors across a Decode
+page boundary. With the same 896 MiB pool, 128-token live KV fits 32 paged
+allocations versus eight full-window reservations; 257-token requests expose
+substantial page-tail waste. A separate hole-reuse control distinguishes
+contiguous external fragmentation from page tails and unused reservations.
+These are allocation/functional results, not throughput or measured maximum
+serving concurrency. See
+[`h_nanovllm/h2_kv_capacity/README.md`](h_nanovllm/h2_kv_capacity/README.md).
+The separate real-model KV-budget pilot passed 4,160 exact numerical vectors
+and all 18 formal processes plus saved-logit/raw-metric audit: 864 measured
+requests and 74,880 output tokens. In a controlled 448 MiB pool, reducing
+reservation allows real cohorts of eight instead of four, delivering 1.950x
+short-request and 1.887x page-growth throughput. TPOT p50 is slightly worse.
+The 896 MiB ample-budget control admits eight on both sides and records a
+negative result: paged throughput is 0.931x, not a universal speedup. Both sides
+still use paged attention; this is not a native contiguous-kernel comparison
+or a search for full-device serving capacity. See
+[`h_nanovllm/h2_kv_pressure/README.md`](h_nanovllm/h2_kv_pressure/README.md).
+A separate three-process negative-control diagnosis completed 48 balanced
+full-path traces, 27 controlled-page CUDA-stream probes and 3,072 exact saved
+full-vocabulary comparisons. The median of process-level paired throughput
+ratios is 1.017x; the original 0.931x slowdown was not stably reproduced.
+Dense-page Decode stream medians differ by about 1%, while some Prefill
+differences remain. This neither replaces the original result nor establishes
+a unique historical root cause or a runtime fix. See
+[`h_nanovllm/h2_kv_diagnostic/README.md`](h_nanovllm/h2_kv_diagnostic/README.md).
+
+## G1--G3: inference artifact and native KV cache
+
+The first inference baseline exports the trained 50.91M Dense TinyStories
+checkpoint without optimizer state, verifies strict loading and FP32/BF16
+logits, then compares contiguous-KV Prefill/Decode with full recomputation.
+All G1 and G2 correctness workloads pass. G3 completed its full 48-variant,
+144-process matrix on one RTX 5060 Laptop GPU. KV caching ranges from slower at
+batch 1 to 2.844x output throughput at batch 32 in the tested normal-context
+workloads; it loses its benefit when the learned-position window forces a
+cache rebuild for every token. Results and reproduction commands are indexed
+in [`g_serving/README.md`](g_serving/README.md).
+
 ## A2: local TinyStories candidate
 
 Date: 2026-09-20. These runs validate the local training configuration on one

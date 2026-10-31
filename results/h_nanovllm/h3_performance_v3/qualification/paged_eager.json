@@ -1,0 +1,1554 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "pass",
+  "created_at_utc": "2026-10-24T06:09:52.919120+00:00",
+  "variant": "paged_eager",
+  "provenance": {
+    "config_sha256": "157a5106836e3b0f9982aaa59531b2271596393daa1c6797cb560c3de22d49c3",
+    "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+    "reference_policy": "bf16_weights_fp32_math",
+    "protocol_sha256": "063d56955fa64379155f693ae11625b1a7d7ddba940ce437aeb86c6dd334783e",
+    "historical_baseline_sha256": "7d36787e08d39829fe0afd0cfaab465250585fd735012087956f6563c37e296d",
+    "manifest_sha256": "15d5b165ca1547a511263320952afbbacc253f3a6495695a41dab3b054c31fb1",
+    "preparation_sha256": "dbe8baa6d00da0ba0a012d206e52d02fbbb1d85c576b2aac799cb972fc17f158",
+    "workload_sha256": "f9c4a50f85c544275187750b246b76ca4d2747318e1983efadc453a54593444d",
+    "data_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "tokenizer_sha256": "0667215793a970d7e7b816b3912e135fa1883d5af8876b61548d279c00891fa5",
+    "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+    "upstream_source_sha256": {
+      "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+    },
+    "source_sha256": {
+      "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+      "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+      "distributed_common.py": "04eff939c5139309fcc6604a4e7576224e01cf21a9d191a1b3be4377b3ab14b4",
+      "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+      "serving/h3_model.py": "319b705925775d5aef05906906b98f06bf246161e2469fd4df7d8768e95b276d",
+      "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+      "serving/backends/routescale_nanovllm.py": "2ce14a74f59710ee73b260520d70a6eb13c78eaf716d122a7244f744c88731e7",
+      "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+      "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+      "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+      "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+      "serving/h3_performance.py": "83388505e2c689fb390053e24c201c1ddfcf0e7a62dbe5b970ed2a06899d42c5",
+      "scripts/run_h3_performance.py": "851d1bddade78999ff4671d862dcb7538c35b86e1dab1d5d3fff824c6e8826eb",
+      "scripts/summarize_h3_performance.py": "ae1c7d95110cb2183354e7dedd09f3fbb1c61b2ba8bb579fe9df3e29d61dc556",
+      "scripts/audit_h3_performance.py": "62a41f1a31f40fb21f5eb0e65e960178852dd9ffd2e3641ef943be533a5a3d7a",
+      "docs/h3_performance_protocol.md": "ed8678e166f63e07897e7996bcc91831782cd04854da4e27ff030d0f8bee4ffd"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "torch": "2.8.0+cu129",
+      "cuda": "12.9",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "capability": [
+        12,
+        0
+      ],
+      "total_memory_bytes": 8546484224,
+      "driver": "610.88",
+      "packages": [
+        {
+          "name": "certifi",
+          "version": "2026.10.19"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "cuda-bindings",
+          "version": "12.9.10"
+        },
+        {
+          "name": "cuda-pathfinder",
+          "version": "1.8.4"
+        },
+        {
+          "name": "cuda-toolkit",
+          "version": "12.9.1"
+        },
+        {
+          "name": "einops",
+          "version": "0.8.2"
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "name": "flash_attn",
+          "version": "2.8.3.post2"
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "name": "huggingface_hub",
+          "version": "0.36.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "name": "nano-vllm",
+          "version": "0.2.0",
+          "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "name": "ninja",
+          "version": "1.13.2"
+        },
+        {
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.9.1.4"
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21"
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.4.1.4"
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.14.1.1"
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.10.19"
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.5.82"
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.10.65"
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1"
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.3"
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.4.5"
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "name": "pip",
+          "version": "26.2.2"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.3"
+        },
+        {
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "name": "safetensors",
+          "version": "0.8.0"
+        },
+        {
+          "name": "setuptools",
+          "version": "81.0.0"
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.22.2"
+        },
+        {
+          "name": "torch",
+          "version": "2.8.0+cu129"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "transformers",
+          "version": "4.57.6"
+        },
+        {
+          "name": "triton",
+          "version": "3.4.0"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "name": "wheel",
+          "version": "0.48.0"
+        },
+        {
+          "name": "xxhash",
+          "version": "4.0.2"
+        }
+      ]
+    }
+  },
+  "cases": {
+    "latency_short": {
+      "path": "runs/validation/h3_performance_v3/paged_eager_latency_short.pt",
+      "sha256": "7441b0c9d23e0f635adab9568d02ed0a6c89d1367bbabf1138802d6f6791b0e2",
+      "shape": [
+        32,
+        1,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 1306.9713134765625,
+        "itl_ms": [
+          396.8943176269531,
+          7.359104156494141,
+          7.2578558921813965,
+          7.078752040863037,
+          7.277696132659912,
+          6.532256126403809,
+          7.1117119789123535,
+          6.9885759353637695,
+          9.635519981384277,
+          7.530720233917236,
+          6.061376094818115,
+          6.420159816741943,
+          7.784192085266113,
+          7.377920150756836,
+          5.681951999664307,
+          6.018688201904297,
+          8.884896278381348,
+          5.785183906555176,
+          5.833792209625244,
+          3.7410879135131836,
+          8.823264122009277,
+          7.679711818695068,
+          8.268192291259766,
+          5.287456035614014,
+          6.826240062713623,
+          6.341023921966553,
+          5.335040092468262,
+          4.311135768890381,
+          5.41267204284668,
+          6.565728187561035,
+          8.236895561218262
+        ],
+        "tpot_ms": 19.36590705379363,
+        "wall_ms": 1935.8692309979233,
+        "model_execution_ms": 1907.314432144165,
+        "output_tokens": 32,
+        "output_sha256": "226a769534dcaa9f8401e5bc82c451c81b312e0abf462ee4a38cf1f079d85f72",
+        "argmax_sha256": null,
+        "cached_positions": 63,
+        "max_used_blocks": 1,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 31,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 32,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 33,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 34,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 35,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 36,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 37,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 38,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 39,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 40,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 41,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 42,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 43,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 44,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 45,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 46,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 47,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 48,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 49,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 50,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 51,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 52,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 53,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 54,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 55,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 56,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 57,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 58,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 59,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 60,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 61,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 62,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 63,
+          "used_blocks": 1,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "batch_short": {
+      "path": "runs/validation/h3_performance_v3/paged_eager_batch_short.pt",
+      "sha256": "02cfecc3ed6427d5b7f4fc8fb00c9cd61c524195856c401fca3454f810050ed3",
+      "shape": [
+        64,
+        8,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 63.799808502197266,
+        "itl_ms": [
+          11.746335983276367,
+          12.67529582977295,
+          11.417728424072266,
+          13.952351570129395,
+          9.494815826416016,
+          7.781472206115723,
+          6.44652795791626,
+          6.371488094329834,
+          9.792448043823242,
+          7.3823041915893555,
+          5.752448081970215,
+          5.1690239906311035,
+          7.552800178527832,
+          6.3955841064453125,
+          5.826111793518066,
+          5.70681619644165,
+          5.084991931915283,
+          4.926176071166992,
+          5.007359981536865,
+          6.399231910705566,
+          5.081632137298584,
+          8.143584251403809,
+          9.11952018737793,
+          6.675903797149658,
+          6.3066558837890625,
+          8.686016082763672,
+          6.06220817565918,
+          9.962271690368652,
+          4.895359992980957,
+          4.7124481201171875,
+          5.952447891235352,
+          4.385280132293701,
+          4.616415977478027,
+          6.792448043823242,
+          6.092415809631348,
+          5.642208099365234,
+          4.613152027130127,
+          5.5730881690979,
+          5.948095798492432,
+          5.528063774108887,
+          4.348447799682617,
+          4.432127952575684,
+          4.305088043212891,
+          4.776447772979736,
+          8.532383918762207,
+          5.8842878341674805,
+          6.066688060760498,
+          5.472320079803467,
+          9.835840225219727,
+          7.812672138214111,
+          4.998079776763916,
+          5.130527973175049,
+          5.927231788635254,
+          4.7294721603393555,
+          6.937471866607666,
+          6.24179220199585,
+          5.274911880493164,
+          5.392767906188965,
+          7.145376205444336,
+          5.020031929016113,
+          5.130911827087402,
+          5.689248085021973,
+          5.022047996520996
+        ],
+        "tpot_ms": 6.567884187849741,
+        "wall_ms": 567.7463639949565,
+        "model_execution_ms": 477.57651233673096,
+        "output_tokens": 512,
+        "output_sha256": "2e5883fdb8e382bb9f6daaf35777b097a38cd76c2802454e33cc34994cc68bd8",
+        "argmax_sha256": null,
+        "cached_positions": 191,
+        "max_used_blocks": 8,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 63,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 128,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 129,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 130,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 131,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 132,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 133,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 134,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 135,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 136,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 137,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 138,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 139,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 140,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 141,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 142,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 143,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 144,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 145,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 146,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 147,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 148,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 149,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 150,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 151,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 152,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 153,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 154,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 155,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 156,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 157,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 158,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 159,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 160,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 161,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 162,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 163,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 164,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 165,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 166,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 167,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 168,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 169,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 170,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 171,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 172,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 173,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 174,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 175,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 176,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 177,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 178,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 179,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 180,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 181,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 182,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 183,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 184,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 185,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 186,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 187,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 188,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 189,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 190,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 191,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "page_growth": {
+      "path": "runs/validation/h3_performance_v3/paged_eager_page_growth.pt",
+      "sha256": "135e3a1799e305f2f48a48c7ef9b8b9ae4a204f12a9dca1043f05a834594bfff",
+      "shape": [
+        32,
+        8,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 24.701343536376953,
+        "itl_ms": [
+          15.788736343383789,
+          9.032511711120605,
+          8.972960472106934,
+          8.641504287719727,
+          8.52905559539795,
+          7.170080184936523,
+          7.028768062591553,
+          9.978143692016602,
+          8.128864288330078,
+          6.262080192565918,
+          5.419487953186035,
+          6.396575927734375,
+          5.705215930938721,
+          5.414495944976807,
+          7.080639839172363,
+          10.30303955078125,
+          5.427807807922363,
+          4.932544231414795,
+          4.4958720207214355,
+          5.719295978546143,
+          6.724448204040527,
+          5.96563196182251,
+          5.726175785064697,
+          4.665984153747559,
+          5.111807823181152,
+          6.342879772186279,
+          5.164480209350586,
+          5.5581440925598145,
+          5.084864139556885,
+          6.082176208496094,
+          7.958399772644043
+        ],
+        "tpot_ms": 6.929441036716584,
+        "wall_ms": 280.5202410017955,
+        "model_execution_ms": 239.51401567459106,
+        "output_tokens": 256,
+        "output_sha256": "b625746988225e698d66ce76175c88d5d1266c16f44fccdd141df503cf8c445f",
+        "argmax_sha256": null,
+        "cached_positions": 286,
+        "max_used_blocks": 16,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 31,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 255,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 256,
+          "used_blocks": 8,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 257,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 258,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 259,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 260,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 261,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 262,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 263,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 264,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 265,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 266,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 267,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 268,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 269,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 270,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 271,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 272,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 273,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 274,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 275,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 276,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 277,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 278,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 279,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 280,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 281,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 282,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 283,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 284,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 285,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 286,
+          "used_blocks": 16,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "long_prefill": {
+      "path": "runs/validation/h3_performance_v3/paged_eager_long_prefill.pt",
+      "sha256": "7cd83a784adb01f93f097ff8c9d7ca41f9d727537658766a3075ba00b54fc69a",
+      "shape": [
+        64,
+        1,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 25.196800231933594,
+        "itl_ms": [
+          16.859840393066406,
+          13.481439590454102,
+          12.625663757324219,
+          7.9966721534729,
+          7.697408199310303,
+          6.648863792419434,
+          7.480000019073486,
+          9.334495544433594,
+          16.01241683959961,
+          9.601792335510254,
+          10.12224006652832,
+          14.585344314575195,
+          9.512160301208496,
+          8.632960319519043,
+          10.126399993896484,
+          9.720895767211914,
+          7.17091178894043,
+          9.146207809448242,
+          5.0215678215026855,
+          6.778463840484619,
+          5.201920032501221,
+          6.7244157791137695,
+          5.376351833343506,
+          5.034656047821045,
+          6.28604793548584,
+          7.886271953582764,
+          12.301152229309082,
+          5.293727874755859,
+          5.138271808624268,
+          5.085984230041504,
+          7.882527828216553,
+          7.458111763000488,
+          4.964640140533447,
+          3.856544017791748,
+          4.01961612701416,
+          5.206655979156494,
+          6.350912094116211,
+          7.530367851257324,
+          7.493984222412109,
+          5.111040115356445,
+          4.71014404296875,
+          4.503007888793945,
+          5.505663871765137,
+          4.951295852661133,
+          3.98307204246521,
+          5.392928123474121,
+          4.114336013793945,
+          4.18009614944458,
+          5.762815952301025,
+          4.694143772125244,
+          4.233823776245117,
+          4.182015895843506,
+          4.530272006988525,
+          5.670176029205322,
+          5.6412482261657715,
+          4.742527961730957,
+          5.391232013702393,
+          4.72163200378418,
+          4.173503875732422,
+          6.025951862335205,
+          6.8094401359558105,
+          4.512991905212402,
+          7.178719997406006
+        ],
+        "tpot_ms": 6.958253712881179,
+        "wall_ms": 518.410220000078,
+        "model_execution_ms": 463.5667841434479,
+        "output_tokens": 64,
+        "output_sha256": "22ba6e8152fba665e36c9d6d3dfd3d065d94995f43f386414bbafe015be700e6",
+        "argmax_sha256": null,
+        "cached_positions": 447,
+        "max_used_blocks": 2,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 63,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 384,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 385,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 386,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 387,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 388,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 389,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 390,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 391,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 392,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 393,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 394,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 395,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 396,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 397,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 398,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 399,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 400,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 401,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 402,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 403,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 404,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 405,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 406,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 407,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 408,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 409,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 410,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 411,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 412,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 413,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 414,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 415,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 416,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 417,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 418,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 419,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 420,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 421,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 422,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 423,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 424,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 425,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 426,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 427,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 428,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 429,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 430,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 431,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 432,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 433,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 434,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 435,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 436,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 437,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 438,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 439,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 440,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 441,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 442,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 443,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 444,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 445,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 446,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 447,
+          "used_blocks": 2,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    }
+  }
+}

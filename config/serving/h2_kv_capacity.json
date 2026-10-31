@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "base_scheduling_config": "config/serving/h2_scheduling_tile512.json",
+  "base_gate_sha256": "95092cb53347584fcbc72679b6f2189503ce9fcd8d4716ff28202bdca58b4ebc",
+  "results_dir": "results/h_nanovllm/h2_kv_capacity",
+  "num_blocks": 32,
+  "block_size": 256,
+  "max_model_len": 1024,
+  "capacity_lengths": [128, 256, 257, 512, 768, 1024],
+  "fragmentation": {"initial_requests": 16, "initial_tokens": 512, "release_stride": 2, "new_tokens": 768},
+  "gpu_validation": {"prompt_case_id": "b8_p128_o64_none", "output_tokens": 132, "policies": ["static_window", "paged"], "require_exact_logits": true},
+  "limitations": "Allocation capacity, not throughput or maximum serving concurrency. Contiguous exact-token first-fit is a CPU reference only. Both GPU policies use the SAME paged attention kernels and fixed physical tensor; static_window controls reservation, not a contiguous attention implementation."
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "scope": "cuda_graph_only",
+  "h2_config": "config/serving/h2_nanovllm.json",
+  "results_dir": "results/h_nanovllm/h2_graph_pilot",
+  "variants": ["eager_no_prefix", "graph_no_prefix"],
+  "correctness_case_ids": ["b1_p128_o64_none", "b8_p128_o64_high", "b8_p512_o64_none", "b8_p512_o64_high"],
+  "engine": {
+    "tensor_parallel_size": 1,
+    "max_model_len": 1024,
+    "max_num_batched_tokens": 4096,
+    "max_num_seqs": 8,
+    "gpu_memory_utilization": 0.65,
+    "kvcache_block_size": 256,
+    "num_kvcache_blocks": 32
+  },
+  "minimum_free_after_kv_bytes": 536870912,
+  "warmup_pairs": 1,
+  "correctness_case_id": "b8_p512_o64_high",
+  "correctness_output_tokens": 4,
+  "correctness_atol": 0.05,
+  "correctness_rtol": 0.02,
+  "correctness_max_relative_rmse": 0.005,
+  "timing_policy": "host-visible batched offline latency, includes enqueue/schedule/sample/copy/postprocess; excludes initialization, graph capture, warmup, cache reset and output hashing"
+}

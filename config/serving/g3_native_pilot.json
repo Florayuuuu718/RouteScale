@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "artifact": "runs/checkpoints/g_serving/dense_baseline/model.pt",
+  "data_path": "data/tinystories_full/val.bin",
+  "dtype": "bfloat16",
+  "decode_input_policy": "fixed",
+  "backends": ["naive", "kv_cache"],
+  "prefix_modes": ["none"],
+  "batch_sizes": [1, 8, 32],
+  "prompt_lengths": [128],
+  "output_lengths": [64, 256],
+  "warmup_repeats": 2,
+  "measure_repeats": 5,
+  "independent_runs": 3,
+  "seed": 20261017
+}

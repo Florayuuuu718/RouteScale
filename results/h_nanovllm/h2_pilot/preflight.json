@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "fail",
+  "evidence_class": "gpu_preflight_gate",
+  "gpu_execution_allowed": false,
+  "created_at_utc": "2026-10-23T09:06:43.310313+00:00",
+  "comparisons": [
+    {
+      "variant": "graph_no_prefix",
+      "phase": "cold",
+      "step": 0,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "cold",
+      "step": 1,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "cold",
+      "step": 2,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "cold",
+      "step": 3,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "warm",
+      "step": 0,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "warm",
+      "step": 1,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "warm",
+      "step": 2,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "graph_no_prefix",
+      "phase": "warm",
+      "step": 3,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "eager_prefix",
+      "phase": "cold",
+      "step": 0,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "eager_prefix",
+      "phase": "cold",
+      "step": 1,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "eager_prefix",
+      "phase": "cold",
+      "step": 2,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "variant": "eager_prefix",
+      "phase": "cold",
+      "step": 3,
+      "max_abs_error": 0.0,
+      "relative_rmse": 0.0,
+      "top1_agreement": 1.0
+    }
+  ],
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/serving/verify_h2_preflight.py\", line 51, in main\n    torch.testing.assert_close(actual, expected, atol=pilot[\"correctness_atol\"], rtol=pilot[\"correctness_rtol\"])\n  File \"/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/testing/_comparison.py\", line 1587, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 89904 / 1215488 (7.4%)\nGreatest absolute difference: 0.28125 at index (0, 1276) (up to 0.05 allowed)\nGreatest relative difference: 59508.69921875 at index (7, 66905) (up to 0.02 allowed)\n"
+}

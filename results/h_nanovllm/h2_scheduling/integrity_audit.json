@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "pass",
+  "evidence_class": "failed_preflight_integrity_audit",
+  "numerical_gate_status": "fail",
+  "does_not_release_gpu_execution": true,
+  "formal_processes": 0,
+  "numerical_gate_sha256": "490b47efb145c10519bddecb0baa3dda631569abcfc8e810387aaaaf7e5186a1",
+  "report_and_reference_hashes_match": true,
+  "current_model_and_sources_match": true,
+  "all_probe_request_budgets_active_caps_and_releases_verified": true,
+  "historical_raw_hashes_match": {
+    "h2_graph_b8": 18,
+    "h2_corrected_pilot": 36
+  },
+  "prior_corrected_numerical_evidence_unchanged": true,
+  "outline_git_diff_empty": true,
+  "evidence_sha256": {
+    "preflight.json": "490b47efb145c10519bddecb0baa3dda631569abcfc8e810387aaaaf7e5186a1",
+    "preflight/fixed_cohort.json": "6e4e0cc2bd4dc93a1d261d8fde7e7d1c2cbd540379968910165e15adab1d4d8c",
+    "preflight/continuous.json": "3794c516aa36bc339e56fbe95edbe3b8f128117ede8c793e3ab219be40708419",
+    "shape_diagnostic.json": "0b846f36d43a4c55fb006e3d4bcb99015f5ae0996654537abb889cd14307929b",
+    "gemm_diagnostic.json": "f36debb77429305d655e77ab2481dd387e5c50792ab6abbbf195d8d0916d8bd3"
+  },
+  "limitations": "Pass means evidence integrity only. Numerical gate remains fail; no performance samples or full-model linear-shape correction have been released."
+}

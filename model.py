@@ -77,6 +77,66 @@ class CausalSelfAttention(nn.Module):
         y = self.resid_dropout(self.c_proj(y))
         return y
 
+    def forward_with_kv_cache(self, x, cache_key, cache_value, start_position):
+        """Run prefill or incremental decode against a preallocated KV cache."""
+        B, T, C = x.size()
+        end_position = start_position + T
+        if cache_key.shape != cache_value.shape:
+            raise ValueError("key/value cache shapes must match")
+        if cache_key.ndim != 4 or cache_key.shape[:2] != (B, self.n_head):
+            raise ValueError("KV cache batch/head shape does not match attention input")
+        if cache_key.shape[3] != C // self.n_head:
+            raise ValueError("KV cache head dimension does not match attention input")
+        if end_position > cache_key.shape[2]:
+            raise ValueError("KV cache capacity exceeded")
+
+        q, k, v = self.c_attn(x).split(self.n_embd, dim=2)
+        k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        cache_key[:, :, start_position:end_position, :].copy_(k)
+        cache_value[:, :, start_position:end_position, :].copy_(v)
+        keys = cache_key[:, :, :end_position, :]
+        values = cache_value[:, :, :end_position, :]
+
+        if start_position == 0:
+            attention_mask = None
+            is_causal = True
+        elif T == 1:
+            attention_mask = None
+            is_causal = False
+        else:
+            query_positions = torch.arange(
+                start_position, end_position, device=x.device
+            ).unsqueeze(1)
+            key_positions = torch.arange(end_position, device=x.device).unsqueeze(0)
+            attention_mask = key_positions <= query_positions
+            is_causal = False
+
+        if self.flash:
+            y = torch.nn.functional.scaled_dot_product_attention(
+                q,
+                keys,
+                values,
+                attn_mask=attention_mask,
+                dropout_p=0.0,
+                is_causal=is_causal,
+            )
+        else:
+            attention = (q @ keys.transpose(-2, -1)) * (
+                1.0 / math.sqrt(keys.size(-1))
+            )
+            if attention_mask is None and is_causal:
+                attention_mask = torch.tril(
+                    torch.ones(T, end_position, dtype=torch.bool, device=x.device)
+                )
+            if attention_mask is not None:
+                attention = attention.masked_fill(~attention_mask, float('-inf'))
+            attention = F.softmax(attention, dim=-1)
+            y = attention @ values
+        y = y.transpose(1, 2).contiguous().view(B, T, C)
+        return self.resid_dropout(self.c_proj(y))
+
 class MLP(nn.Module):
 
     def __init__(self, config):
@@ -107,6 +167,13 @@ class Block(nn.Module):
         x = x + self.mlp(self.ln_2(x))
         return x
 
+    def forward_with_kv_cache(self, x, cache_key, cache_value, start_position):
+        x = x + self.attn.forward_with_kv_cache(
+            self.ln_1(x), cache_key, cache_value, start_position
+        )
+        x = x + self.mlp(self.ln_2(x))
+        return x
+
 @dataclass
 class GPTConfig:
     block_size: int = 1024
@@ -122,6 +189,27 @@ class GPTConfig:
     moe_drop_tokens: bool = False
     moe_balance_loss_weight: float = 0.0
     moe_dispatch_backend: str = "loop"
+
+
+@dataclass
+class KVCache:
+    """Preallocated, contiguous per-layer keys and values."""
+
+    keys: list[torch.Tensor]
+    values: list[torch.Tensor]
+    length: int
+    capacity: int
+    batch_size: int
+
+    @property
+    def allocated_bytes(self):
+        return sum(
+            tensor.numel() * tensor.element_size()
+            for tensor in (*self.keys, *self.values)
+        )
+
+    def reset(self):
+        self.length = 0
 
 class GPT(nn.Module):
 
@@ -274,6 +362,66 @@ class GPT(nn.Module):
             self._last_total_loss = None
 
         return logits, loss
+
+    def allocate_kv_cache(
+        self,
+        batch_size,
+        *,
+        capacity=None,
+        device=None,
+        dtype=None,
+    ):
+        """Allocate fixed-capacity KV tensors without adding them to model state."""
+        if batch_size <= 0:
+            raise ValueError("KV cache batch_size must be positive")
+        capacity = self.config.block_size if capacity is None else capacity
+        if not 0 < capacity <= self.config.block_size:
+            raise ValueError("KV cache capacity must be within model block_size")
+        parameter = next(self.parameters())
+        device = parameter.device if device is None else torch.device(device)
+        dtype = parameter.dtype if dtype is None else dtype
+        head_dim = self.config.n_embd // self.config.n_head
+        shape = (batch_size, self.config.n_head, capacity, head_dim)
+        return KVCache(
+            keys=[
+                torch.empty(shape, device=device, dtype=dtype)
+                for _ in range(self.config.n_layer)
+            ],
+            values=[
+                torch.empty(shape, device=device, dtype=dtype)
+                for _ in range(self.config.n_layer)
+            ],
+            length=0,
+            capacity=capacity,
+            batch_size=batch_size,
+        )
+
+    def forward_with_kv_cache(self, idx, cache):
+        """Run inference while appending this token chunk to ``cache``."""
+        if self.training:
+            raise RuntimeError("KV-cache forward requires model.eval()")
+        batch_size, token_count = idx.size()
+        if batch_size != cache.batch_size:
+            raise ValueError("input batch size does not match KV cache")
+        if len(cache.keys) != self.config.n_layer or len(cache.values) != self.config.n_layer:
+            raise ValueError("KV cache layer count does not match model")
+        end_position = cache.length + token_count
+        if end_position > cache.capacity:
+            raise ValueError("KV cache capacity exceeded")
+        positions = torch.arange(cache.length, end_position, device=idx.device)
+        x = self.transformer.drop(
+            self.transformer.wte(idx) + self.transformer.wpe(positions)
+        )
+        for layer_index, block in enumerate(self.transformer.h):
+            x = block.forward_with_kv_cache(
+                x,
+                cache.keys[layer_index],
+                cache.values[layer_index],
+                cache.length,
+            )
+        cache.length = end_position
+        x = self.transformer.ln_f(x)
+        return self.lm_head(x[:, [-1], :])
 
     def get_last_moe_metrics(self):
         """Return detached raw metrics for the most recent MoE forward."""

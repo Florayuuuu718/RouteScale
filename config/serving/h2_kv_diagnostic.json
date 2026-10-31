@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "base_pressure_config": "config/serving/h2_kv_pressure.json",
+  "base_audit_sha256": "5e2ac26d6702c38a5e1de70a08a3ea1b38db181e9d70e2d8621889cf16e93bea",
+  "base_gate_sha256": "9ce80593af38bc2b057be02de404cb13058ba48f8e4e9b20f03827343bbc69e5",
+  "results_dir": "results/h_nanovllm/h2_kv_diagnostic",
+  "case_id": "ample_short",
+  "independent_runs": 3,
+  "paired_blocks": 4,
+  "layout_rounds": 3,
+  "layouts": ["stride4", "dense0", "dense8"],
+  "output_tokens": 64,
+  "limitations": "Diagnostic only; never replaces the original 18-process results. Paired full-path traces reuse the qualified sampler/runtime. Layout probes use one common allocator and teacher forcing, with CUDA stream event timing, not serving throughput or attention-kernel-only timing. Telemetry is sampled between blocks, not continuously; no clock locking or power setting changes."
+}

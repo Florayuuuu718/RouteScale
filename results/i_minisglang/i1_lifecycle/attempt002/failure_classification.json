@@ -1,0 +1,9 @@
+{
+  "status": "failed_real_kernel_warmup",
+  "reason": "CUDA 13.0 rsqrt/rsqrtf declarations conflict with glibc 2.43 noexcept specifications",
+  "exception": "ninja exited with status 2: exception specification is incompatible",
+  "operator_action": "Interrupted dedicated runner after identifying worker failure; finally block recovered child processes",
+  "server_log_sha256": "48ba882d15725bb65c1fe1b66b7cf827e17bd32acc3af6dc66b5f13538918bc3",
+  "fix_for_next_attempt": "isolated CUDA toolkit header copy with two noexcept declarations; system CUDA unchanged",
+  "followup": "attempt003"
+}

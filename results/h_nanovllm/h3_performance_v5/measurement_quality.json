@@ -1,0 +1,826 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "timing_variability_requires_followup",
+  "evidence_class": "measurement_variability_annotation",
+  "source_sha256": "3f54cf341c073bae64ae602c10cea8b265e06929de73865a9864448bfc513f85",
+  "summary_sha256": "5839fdccb7ebf3622d2554db38e956d4af13828bb07a5feed43981b0dbc5f111",
+  "measured_request_budgets": 1620,
+  "measured_output_positions": 77760,
+  "processes_scopes_over_pilot_cv": [
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.36408871101807894,
+      "measurement_cv": 0.36408871101807894,
+      "output_tokens_per_second": 990.8665386617355
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.15724090117718062,
+      "measurement_cv": 0.15724090117718062,
+      "output_tokens_per_second": 3862.914839849968
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.23703990408929992,
+      "measurement_cv": 0.23717090005248906,
+      "output_tokens_per_second": 160.9314981180546
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.21413496042719668,
+      "measurement_cv": 0.21413496042719668,
+      "output_tokens_per_second": 155.14922082040394
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.15342772762691517,
+      "measurement_cv": 0.15182095633935208,
+      "output_tokens_per_second": 159.11108964303978
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.18871924658956796,
+      "measurement_cv": 0.18875977997243004,
+      "output_tokens_per_second": 147.8063763864747
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.1645148549115913,
+      "measurement_cv": 0.1645148549115913,
+      "output_tokens_per_second": 137.7638959981927
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1583773022745414,
+      "measurement_cv": 0.1154498971117849,
+      "output_tokens_per_second": 808.978365293879
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.19035772764197048,
+      "measurement_cv": 0.13709533648385733,
+      "output_tokens_per_second": 740.0297566249485
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.16426050378099896,
+      "measurement_cv": 0.16197297438880254,
+      "output_tokens_per_second": 109.48393091697278
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.3608955620237741,
+      "measurement_cv": 0.3608955620237741,
+      "output_tokens_per_second": 129.93115902150168
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.20874192217985899,
+      "measurement_cv": 0.146809509374785,
+      "output_tokens_per_second": 1056.8137766976026
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.34150301803455513,
+      "measurement_cv": 0.34150301803455513,
+      "output_tokens_per_second": 1086.102175469495
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.18092501253416512,
+      "measurement_cv": 0.18096851291156651,
+      "output_tokens_per_second": 1088.5113423978698
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.19633157056647013,
+      "measurement_cv": 0.19633157056647013,
+      "output_tokens_per_second": 850.9518000667601
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.20037267061392422,
+      "measurement_cv": 0.19827035038045235,
+      "output_tokens_per_second": 1052.8533834348998
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.22170259214352897,
+      "measurement_cv": 0.22170259214352897,
+      "output_tokens_per_second": 1247.7667959460848
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1666553869108659,
+      "measurement_cv": 0.12792115181360425,
+      "output_tokens_per_second": 5698.184335026709
+    }
+  ],
+  "per_process_scope_statistics": [
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.06930608819798162,
+      "measurement_cv": 0.06846726209198561,
+      "output_tokens_per_second": 1169.6593940506218
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.36408871101807894,
+      "measurement_cv": 0.36408871101807894,
+      "output_tokens_per_second": 990.8665386617355
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.04805541605719639,
+      "measurement_cv": 0.047811185706582146,
+      "output_tokens_per_second": 1182.6638298687783
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.14059676000273308,
+      "measurement_cv": 0.14059676000273308,
+      "output_tokens_per_second": 1075.062377501323
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1319969707416625,
+      "measurement_cv": 0.13132229361523612,
+      "output_tokens_per_second": 903.2202842328817
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.10562237195351296,
+      "measurement_cv": 0.10562237195351296,
+      "output_tokens_per_second": 985.358854932395
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.11723961902003589,
+      "measurement_cv": 0.11423306379210073,
+      "output_tokens_per_second": 1059.2825514965539
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.14922754771466368,
+      "measurement_cv": 0.14922754771466368,
+      "output_tokens_per_second": 1046.0755157145577
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.12039884368009368,
+      "measurement_cv": 0.11105064132621636,
+      "output_tokens_per_second": 1402.9063890979007
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.06558733346145361,
+      "measurement_cv": 0.06558733346145361,
+      "output_tokens_per_second": 1092.7791340464519
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.09968930463926516,
+      "measurement_cv": 0.09744190524642236,
+      "output_tokens_per_second": 995.0652275343483
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.05465572975203638,
+      "measurement_cv": 0.05465572975203638,
+      "output_tokens_per_second": 919.0920784058669
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.05618661084125494,
+      "measurement_cv": 0.062058646333887094,
+      "output_tokens_per_second": 6712.068237902596
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.05709823254401215,
+      "measurement_cv": 0.05709823254401215,
+      "output_tokens_per_second": 3479.540782626708
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.11335764020596421,
+      "measurement_cv": 0.08130781442518142,
+      "output_tokens_per_second": 6337.770684345877
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.15724090117718062,
+      "measurement_cv": 0.15724090117718062,
+      "output_tokens_per_second": 3862.914839849968
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.12510007420475666,
+      "measurement_cv": 0.12584111884637877,
+      "output_tokens_per_second": 6724.036793122999
+    },
+    {
+      "case_id": "batch_short",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.1153101603325169,
+      "measurement_cv": 0.1153101603325169,
+      "output_tokens_per_second": 3892.0861937804175
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.23703990408929992,
+      "measurement_cv": 0.23717090005248906,
+      "output_tokens_per_second": 160.9314981180546
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.21413496042719668,
+      "measurement_cv": 0.21413496042719668,
+      "output_tokens_per_second": 155.14922082040394
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.15342772762691517,
+      "measurement_cv": 0.15182095633935208,
+      "output_tokens_per_second": 159.11108964303978
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.033826545752390226,
+      "measurement_cv": 0.033826545752390226,
+      "output_tokens_per_second": 172.81799446641352
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.18871924658956796,
+      "measurement_cv": 0.18875977997243004,
+      "output_tokens_per_second": 147.8063763864747
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.146784144460215,
+      "measurement_cv": 0.146784144460215,
+      "output_tokens_per_second": 145.6317110631024
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.14886629016970765,
+      "measurement_cv": 0.14455717236077348,
+      "output_tokens_per_second": 149.42385197426773
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.1099305841244744,
+      "measurement_cv": 0.1099305841244744,
+      "output_tokens_per_second": 145.6550343130761
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.030212010911184056,
+      "measurement_cv": 0.027228428801950328,
+      "output_tokens_per_second": 157.39145664547453
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.06301955849468283,
+      "measurement_cv": 0.06301955849468283,
+      "output_tokens_per_second": 143.65479315119407
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.14895721024864908,
+      "measurement_cv": 0.1455419619003604,
+      "output_tokens_per_second": 139.59890463116514
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.1645148549115913,
+      "measurement_cv": 0.1645148549115913,
+      "output_tokens_per_second": 137.7638959981927
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1583773022745414,
+      "measurement_cv": 0.1154498971117849,
+      "output_tokens_per_second": 808.978365293879
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.04709458000815505,
+      "measurement_cv": 0.04709458000815505,
+      "output_tokens_per_second": 519.7319398371523
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.19035772764197048,
+      "measurement_cv": 0.13709533648385733,
+      "output_tokens_per_second": 740.0297566249485
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.0720256438033081,
+      "measurement_cv": 0.0720256438033081,
+      "output_tokens_per_second": 467.1821067292397
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.12566902215637948,
+      "measurement_cv": 0.09177542305546513,
+      "output_tokens_per_second": 916.7911223827372
+    },
+    {
+      "case_id": "latency_short",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.07578861994213686,
+      "measurement_cv": 0.07578861994213686,
+      "output_tokens_per_second": 428.00575400101394
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.08788155876321924,
+      "measurement_cv": 0.08668649887227751,
+      "output_tokens_per_second": 133.69106435156493
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.06150377360340329,
+      "measurement_cv": 0.06150377360340329,
+      "output_tokens_per_second": 163.6446159759273
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.033022808270409536,
+      "measurement_cv": 0.0327535033563423,
+      "output_tokens_per_second": 153.63040981819006
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.05250400224169856,
+      "measurement_cv": 0.05250400224169856,
+      "output_tokens_per_second": 322.73844376573004
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.11733636179895085,
+      "measurement_cv": 0.11916960684877202,
+      "output_tokens_per_second": 133.08467858387587
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.09906364012475624,
+      "measurement_cv": 0.09906364012475624,
+      "output_tokens_per_second": 131.0811365684743
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.16426050378099896,
+      "measurement_cv": 0.16197297438880254,
+      "output_tokens_per_second": 109.48393091697278
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.3608955620237741,
+      "measurement_cv": 0.3608955620237741,
+      "output_tokens_per_second": 129.93115902150168
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.08391597282235658,
+      "measurement_cv": 0.08449634054180845,
+      "output_tokens_per_second": 135.79223193599796
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.0991021689638243,
+      "measurement_cv": 0.0991021689638243,
+      "output_tokens_per_second": 134.2191424845387
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.14575480963856816,
+      "measurement_cv": 0.14276891051316587,
+      "output_tokens_per_second": 168.35592205915825
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.07682573341544453,
+      "measurement_cv": 0.07682573341544453,
+      "output_tokens_per_second": 135.78933725498194
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.13054890518785398,
+      "measurement_cv": 0.10454579509061422,
+      "output_tokens_per_second": 925.2165885408549
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.045921417374611924,
+      "measurement_cv": 0.045921417374611924,
+      "output_tokens_per_second": 482.3434269582725
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.20874192217985899,
+      "measurement_cv": 0.146809509374785,
+      "output_tokens_per_second": 1056.8137766976026
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.07737026369863169,
+      "measurement_cv": 0.07737026369863169,
+      "output_tokens_per_second": 524.4430877373763
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.06336545694213659,
+      "measurement_cv": 0.014775527627774739,
+      "output_tokens_per_second": 859.2135622198067
+    },
+    {
+      "case_id": "long_prefill",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.1090003158185984,
+      "measurement_cv": 0.1090003158185984,
+      "output_tokens_per_second": 502.2815393536379
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.04129835208016842,
+      "measurement_cv": 0.04190829435925033,
+      "output_tokens_per_second": 1377.7031837724194
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.07600586029131763,
+      "measurement_cv": 0.07600586029131763,
+      "output_tokens_per_second": 1096.2946883923407
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.0748067538347216,
+      "measurement_cv": 0.07565038123357118,
+      "output_tokens_per_second": 1021.1319480717161
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.34150301803455513,
+      "measurement_cv": 0.34150301803455513,
+      "output_tokens_per_second": 1086.102175469495
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.18092501253416512,
+      "measurement_cv": 0.18096851291156651,
+      "output_tokens_per_second": 1088.5113423978698
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "native_kv",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.09061026943124877,
+      "measurement_cv": 0.09061026943124877,
+      "output_tokens_per_second": 1126.897288942661
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1196877287657504,
+      "measurement_cv": 0.11719764274801456,
+      "output_tokens_per_second": 1175.9241337801716
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.19633157056647013,
+      "measurement_cv": 0.19633157056647013,
+      "output_tokens_per_second": 850.9518000667601
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.20037267061392422,
+      "measurement_cv": 0.19827035038045235,
+      "output_tokens_per_second": 1052.8533834348998
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.10805322845097387,
+      "measurement_cv": 0.10805322845097387,
+      "output_tokens_per_second": 1185.2759575602977
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.037805822745878404,
+      "measurement_cv": 0.037873758880731745,
+      "output_tokens_per_second": 1321.5156829420193
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_eager",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.22170259214352897,
+      "measurement_cv": 0.22170259214352897,
+      "output_tokens_per_second": 1247.7667959460848
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.031745463557920316,
+      "measurement_cv": 0.029960727720789674,
+      "output_tokens_per_second": 6503.927513986068
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run1",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.07320702152827012,
+      "measurement_cv": 0.07320702152827012,
+      "output_tokens_per_second": 3331.5451003557896
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.061244917582976045,
+      "measurement_cv": 0.05082198373493047,
+      "output_tokens_per_second": 5833.425134306401
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run2",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.0468735276972751,
+      "measurement_cv": 0.0468735276972751,
+      "output_tokens_per_second": 3524.9132401164497
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "model_execution",
+      "wall_cv": 0.1666553869108659,
+      "measurement_cv": 0.12792115181360425,
+      "output_tokens_per_second": 5698.184335026709
+    },
+    {
+      "case_id": "page_growth",
+      "variant": "paged_graph",
+      "run_id": "run3",
+      "measurement_scope": "replay_e2e",
+      "wall_cv": 0.02614538715700325,
+      "measurement_cv": 0.02614538715700325,
+      "output_tokens_per_second": 3459.770698498328
+    }
+  ],
+  "maximum_independent_process_throughput_ratio": 2.4621272916499133,
+  "limitations": "Pilot qualified two predeclared cases. Other formal cases contain timing variability. These annotations retain every raw run and do not reject or replace formal data."
+}

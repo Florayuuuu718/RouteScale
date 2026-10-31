@@ -1,0 +1,600 @@
+"""
+Full definition of a GPT Language Model, all of it in this single file.
+References:
+1) the official GPT-2 TensorFlow implementation released by OpenAI:
+https://github.com/openai/gpt-2/blob/master/src/model.py
+2) huggingface/transformers PyTorch implementation:
+https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt2/modeling_gpt2.py
+"""
+
+import math
+import inspect
+from dataclasses import dataclass
+
+import torch
+import torch.nn as nn
+from torch.nn import functional as F
+
+from moe import Top1MoE
+
+class LayerNorm(nn.Module):
+    """ LayerNorm but with an optional bias. PyTorch doesn't support simply bias=False """
+
+    def __init__(self, ndim, bias):
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(ndim))
+        self.bias = nn.Parameter(torch.zeros(ndim)) if bias else None
+
+    def forward(self, input):
+        return F.layer_norm(input, self.weight.shape, self.weight, self.bias, 1e-5)
+
+class CausalSelfAttention(nn.Module):
+
+    def __init__(self, config):
+        super().__init__()
+        assert config.n_embd % config.n_head == 0
+        # key, query, value projections for all heads, but in a batch
+        self.c_attn = nn.Linear(config.n_embd, 3 * config.n_embd, bias=config.bias)
+        # output projection
+        self.c_proj = nn.Linear(config.n_embd, config.n_embd, bias=config.bias)
+        # regularization
+        self.attn_dropout = nn.Dropout(config.dropout)
+        self.resid_dropout = nn.Dropout(config.dropout)
+        self.n_head = config.n_head
+        self.n_embd = config.n_embd
+        self.dropout = config.dropout
+        # flash attention make GPU go brrrrr but support is only in PyTorch >= 2.0
+        self.flash = hasattr(torch.nn.functional, 'scaled_dot_product_attention')
+        if not self.flash:
+            print("WARNING: using slow attention. Flash Attention requires PyTorch >= 2.0")
+            # causal mask to ensure that attention is only applied to the left in the input sequence
+            self.register_buffer("bias", torch.tril(torch.ones(config.block_size, config.block_size))
+                                        .view(1, 1, config.block_size, config.block_size))
+
+    def forward(self, x):
+        B, T, C = x.size() # batch size, sequence length, embedding dimensionality (n_embd)
+
+        # calculate query, key, values for all heads in batch and move head forward to be the batch dim
+        q, k, v  = self.c_attn(x).split(self.n_embd, dim=2)
+        k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
+        q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
+        v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
+
+        # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
+        if self.flash:
+            # efficient attention using Flash Attention CUDA kernels
+            y = torch.nn.functional.scaled_dot_product_attention(q, k, v, attn_mask=None, dropout_p=self.dropout if self.training else 0, is_causal=True)
+        else:
+            # manual implementation of attention
+            att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
+            att = att.masked_fill(self.bias[:,:,:T,:T] == 0, float('-inf'))
+            att = F.softmax(att, dim=-1)
+            att = self.attn_dropout(att)
+            y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
+        y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
+
+        # output projection
+        y = self.resid_dropout(self.c_proj(y))
+        return y
+
+    def forward_with_kv_cache(self, x, cache_key, cache_value, start_position):
+        """Run prefill or incremental decode against a preallocated KV cache."""
+        B, T, C = x.size()
+        end_position = start_position + T
+        if cache_key.shape != cache_value.shape:
+            raise ValueError("key/value cache shapes must match")
+        if cache_key.ndim != 4 or cache_key.shape[:2] != (B, self.n_head):
+            raise ValueError("KV cache batch/head shape does not match attention input")
+        if cache_key.shape[3] != C // self.n_head:
+            raise ValueError("KV cache head dimension does not match attention input")
+        if end_position > cache_key.shape[2]:
+            raise ValueError("KV cache capacity exceeded")
+
+        q, k, v = self.c_attn(x).split(self.n_embd, dim=2)
+        k = k.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        q = q.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        v = v.view(B, T, self.n_head, C // self.n_head).transpose(1, 2)
+        cache_key[:, :, start_position:end_position, :].copy_(k)
+        cache_value[:, :, start_position:end_position, :].copy_(v)
+        keys = cache_key[:, :, :end_position, :]
+        values = cache_value[:, :, :end_position, :]
+
+        if start_position == 0:
+            attention_mask = None
+            is_causal = True
+        elif T == 1:
+            attention_mask = None
+            is_causal = False
+        else:
+            query_positions = torch.arange(
+                start_position, end_position, device=x.device
+            ).unsqueeze(1)
+            key_positions = torch.arange(end_position, device=x.device).unsqueeze(0)
+            attention_mask = key_positions <= query_positions
+            is_causal = False
+
+        if self.flash:
+            y = torch.nn.functional.scaled_dot_product_attention(
+                q,
+                keys,
+                values,
+                attn_mask=attention_mask,
+                dropout_p=0.0,
+                is_causal=is_causal,
+            )
+        else:
+            attention = (q @ keys.transpose(-2, -1)) * (
+                1.0 / math.sqrt(keys.size(-1))
+            )
+            if attention_mask is None and is_causal:
+                attention_mask = torch.tril(
+                    torch.ones(T, end_position, dtype=torch.bool, device=x.device)
+                )
+            if attention_mask is not None:
+                attention = attention.masked_fill(~attention_mask, float('-inf'))
+            attention = F.softmax(attention, dim=-1)
+            y = attention @ values
+        y = y.transpose(1, 2).contiguous().view(B, T, C)
+        return self.resid_dropout(self.c_proj(y))
+
+class MLP(nn.Module):
+
+    def __init__(self, config):
+        super().__init__()
+        self.c_fc    = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)
+        self.gelu    = nn.GELU()
+        self.c_proj  = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)
+        self.dropout = nn.Dropout(config.dropout)
+
+    def forward(self, x):
+        x = self.c_fc(x)
+        x = self.gelu(x)
+        x = self.c_proj(x)
+        x = self.dropout(x)
+        return x
+
+class Block(nn.Module):
+
+    def __init__(self, config):
+        super().__init__()
+        self.ln_1 = LayerNorm(config.n_embd, bias=config.bias)
+        self.attn = CausalSelfAttention(config)
+        self.ln_2 = LayerNorm(config.n_embd, bias=config.bias)
+        self.mlp = MLP(config)
+
+    def forward(self, x):
+        x = x + self.attn(self.ln_1(x))
+        x = x + self.mlp(self.ln_2(x))
+        return x
+
+    def forward_with_kv_cache(self, x, cache_key, cache_value, start_position):
+        x = x + self.attn.forward_with_kv_cache(
+            self.ln_1(x), cache_key, cache_value, start_position
+        )
+        x = x + self.mlp(self.ln_2(x))
+        return x
+
+@dataclass
+class GPTConfig:
+    block_size: int = 1024
+    vocab_size: int = 50304 # GPT-2 vocab_size of 50257, padded up to nearest multiple of 64 for efficiency
+    n_layer: int = 12
+    n_head: int = 12
+    n_embd: int = 768
+    dropout: float = 0.0
+    bias: bool = True # True: bias in Linears and LayerNorms, like GPT-2. False: a bit better and faster
+    moe_num_experts: int = 0 # 0 keeps every Transformer block dense
+    moe_layer_index: int = 4 # zero-based block index replaced when MoE is enabled
+    moe_capacity_factor: float = 0.0 # 0 observes unbounded routing
+    moe_drop_tokens: bool = False
+    moe_balance_loss_weight: float = 0.0
+    moe_dispatch_backend: str = "loop"
+
+
+@dataclass
+class KVCache:
+    """Preallocated, contiguous per-layer keys and values."""
+
+    keys: list[torch.Tensor]
+    values: list[torch.Tensor]
+    length: int
+    capacity: int
+    batch_size: int
+
+    @property
+    def allocated_bytes(self):
+        return sum(
+            tensor.numel() * tensor.element_size()
+            for tensor in (*self.keys, *self.values)
+        )
+
+    def reset(self):
+        self.length = 0
+
+class GPT(nn.Module):
+
+    def __init__(self, config):
+        super().__init__()
+        assert config.vocab_size is not None
+        assert config.block_size is not None
+        if config.moe_num_experts < 0:
+            raise ValueError("moe_num_experts cannot be negative")
+        if config.moe_capacity_factor < 0.0:
+            raise ValueError("moe_capacity_factor cannot be negative")
+        if config.moe_drop_tokens and config.moe_capacity_factor <= 0.0:
+            raise ValueError(
+                "moe_drop_tokens requires a positive moe_capacity_factor"
+            )
+        if config.moe_balance_loss_weight < 0.0:
+            raise ValueError("moe_balance_loss_weight cannot be negative")
+        if config.moe_num_experts > 0 and not (
+            0 <= config.moe_layer_index < config.n_layer
+        ):
+            raise ValueError(
+                "moe_layer_index must identify an existing Transformer block"
+            )
+        self.config = config
+        self._last_lm_loss = None
+        self._last_total_loss = None
+
+        self.transformer = nn.ModuleDict(dict(
+            wte = nn.Embedding(config.vocab_size, config.n_embd),
+            wpe = nn.Embedding(config.block_size, config.n_embd),
+            drop = nn.Dropout(config.dropout),
+            h = nn.ModuleList([Block(config) for _ in range(config.n_layer)]),
+            ln_f = LayerNorm(config.n_embd, bias=config.bias),
+        ))
+        self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        # with weight tying when using torch.compile() some warnings get generated:
+        # "UserWarning: functional_call was passed multiple values for tied weights.
+        # This behavior is deprecated and will be an error in future versions"
+        # not 100% sure what this is, so far seems to be harmless. TODO investigate
+        self.transformer.wte.weight = self.lm_head.weight # https://paperswithcode.com/method/weight-tying
+
+        # init all weights
+        self.apply(self._init_weights)
+        # apply special scaled init to the residual projections, per GPT-2 paper
+        for pn, p in self.named_parameters():
+            if pn.endswith('c_proj.weight'):
+                torch.nn.init.normal_(p, mean=0.0, std=0.02/math.sqrt(2 * config.n_layer))
+
+        if config.moe_num_experts > 0:
+            self._replace_mlp_with_moe()
+
+        # report number of parameters
+        print("number of parameters: %.2fM" % (self.get_num_params()/1e6,))
+
+    def _replace_mlp_with_moe(self):
+        """Replace one initialized dense MLP without perturbing shared weights.
+
+        The complete dense model is initialized first, so a dense model and an
+        MoE model created with the same seed have identical shared parameters.
+        Expert zero receives the replaced dense MLP weights; additional experts
+        and the router use deterministic continuation of the same RNG stream.
+        """
+        config = self.config
+        block = self.transformer.h[config.moe_layer_index]
+        dense_mlp = block.mlp
+        moe = Top1MoE(
+            config.n_embd,
+            config.moe_num_experts,
+            bias=config.bias,
+            dropout=config.dropout,
+            capacity_factor=config.moe_capacity_factor,
+            drop_tokens=config.moe_drop_tokens,
+            dispatch_backend=config.moe_dispatch_backend,
+        )
+        moe.apply(self._init_weights)
+        for expert in moe.experts:
+            torch.nn.init.normal_(
+                expert.c_proj.weight,
+                mean=0.0,
+                std=0.02/math.sqrt(2 * config.n_layer),
+            )
+        moe.experts[0].load_state_dict(dense_mlp.state_dict())
+        block.mlp = moe
+
+    def get_num_params(self, non_embedding=True):
+        """
+        Return the number of parameters in the model.
+        For non-embedding count (default), the position embeddings get subtracted.
+        The token embeddings would too, except due to the parameter sharing these
+        params are actually used as weights in the final layer, so we include them.
+        """
+        n_params = sum(p.numel() for p in self.parameters())
+        if non_embedding:
+            n_params -= self.transformer.wpe.weight.numel()
+        return n_params
+
+    def get_num_active_params(self, non_embedding=True):
+        """Count parameters used by one token's Top-1 forward path."""
+        n_params = self.get_num_params(non_embedding=non_embedding)
+        if self.config.moe_num_experts == 0:
+            return n_params
+        moe = self.transformer.h[self.config.moe_layer_index].mlp
+        expert_params = sum(p.numel() for p in moe.experts[0].parameters())
+        return n_params - (self.config.moe_num_experts - 1) * expert_params
+
+    def _init_weights(self, module):
+        if isinstance(module, nn.Linear):
+            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+            if module.bias is not None:
+                torch.nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+
+    def forward(self, idx, targets=None):
+        device = idx.device
+        b, t = idx.size()
+        assert t <= self.config.block_size, f"Cannot forward sequence of length {t}, block size is only {self.config.block_size}"
+        pos = torch.arange(0, t, dtype=torch.long, device=device) # shape (t)
+
+        # forward the GPT model itself
+        tok_emb = self.transformer.wte(idx) # token embeddings of shape (b, t, n_embd)
+        pos_emb = self.transformer.wpe(pos) # position embeddings of shape (t, n_embd)
+        x = self.transformer.drop(tok_emb + pos_emb)
+        for block in self.transformer.h:
+            x = block(x)
+        x = self.transformer.ln_f(x)
+
+        if targets is not None:
+            # if we are given some desired targets also calculate the loss
+            logits = self.lm_head(x)
+            lm_loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1), ignore_index=-1)
+            loss = lm_loss
+            if self.config.moe_num_experts > 0:
+                routing = self.transformer.h[
+                    self.config.moe_layer_index
+                ].mlp.last_routing
+                if routing is None:
+                    raise RuntimeError("MoE routing evidence is missing")
+                loss = loss + (
+                    self.config.moe_balance_loss_weight
+                    * routing.balance_loss
+                )
+            self._last_lm_loss = lm_loss.detach()
+            self._last_total_loss = loss.detach()
+        else:
+            # inference-time mini-optimization: only forward the lm_head on the very last position
+            logits = self.lm_head(x[:, [-1], :]) # note: using list [-1] to preserve the time dim
+            loss = None
+            self._last_lm_loss = None
+            self._last_total_loss = None
+
+        return logits, loss
+
+    def allocate_kv_cache(
+        self,
+        batch_size,
+        *,
+        capacity=None,
+        device=None,
+        dtype=None,
+    ):
+        """Allocate fixed-capacity KV tensors without adding them to model state."""
+        if batch_size <= 0:
+            raise ValueError("KV cache batch_size must be positive")
+        capacity = self.config.block_size if capacity is None else capacity
+        if not 0 < capacity <= self.config.block_size:
+            raise ValueError("KV cache capacity must be within model block_size")
+        parameter = next(self.parameters())
+        device = parameter.device if device is None else torch.device(device)
+        dtype = parameter.dtype if dtype is None else dtype
+        head_dim = self.config.n_embd // self.config.n_head
+        shape = (batch_size, self.config.n_head, capacity, head_dim)
+        return KVCache(
+            keys=[
+                torch.empty(shape, device=device, dtype=dtype)
+                for _ in range(self.config.n_layer)
+            ],
+            values=[
+                torch.empty(shape, device=device, dtype=dtype)
+                for _ in range(self.config.n_layer)
+            ],
+            length=0,
+            capacity=capacity,
+            batch_size=batch_size,
+        )
+
+    def forward_with_kv_cache(self, idx, cache):
+        """Run inference while appending this token chunk to ``cache``."""
+        if self.training:
+            raise RuntimeError("KV-cache forward requires model.eval()")
+        batch_size, token_count = idx.size()
+        if batch_size != cache.batch_size:
+            raise ValueError("input batch size does not match KV cache")
+        if len(cache.keys) != self.config.n_layer or len(cache.values) != self.config.n_layer:
+            raise ValueError("KV cache layer count does not match model")
+        end_position = cache.length + token_count
+        if end_position > cache.capacity:
+            raise ValueError("KV cache capacity exceeded")
+        positions = torch.arange(cache.length, end_position, device=idx.device)
+        x = self.transformer.drop(
+            self.transformer.wte(idx) + self.transformer.wpe(positions)
+        )
+        for layer_index, block in enumerate(self.transformer.h):
+            x = block.forward_with_kv_cache(
+                x,
+                cache.keys[layer_index],
+                cache.values[layer_index],
+                cache.length,
+            )
+        cache.length = end_position
+        x = self.transformer.ln_f(x)
+        return self.lm_head(x[:, [-1], :])
+
+    def get_last_moe_metrics(self):
+        """Return detached raw metrics for the most recent MoE forward."""
+        if self.config.moe_num_experts == 0:
+            return None
+        moe = self.transformer.h[self.config.moe_layer_index].mlp
+        routing = moe.last_routing
+        if routing is None:
+            return None
+        return {
+            'expert_counts': routing.expert_counts.detach(),
+            'processed_counts': routing.processed_counts.detach(),
+            'overflow_counts': routing.overflow_counts.detach(),
+            'router_probability_sums': (
+                routing.router_probability_sums.detach()
+            ),
+            'token_count': routing.token_count,
+            'dropped_token_count': routing.dropped_token_count,
+            'capacity': routing.capacity,
+            'balance_loss': routing.balance_loss.detach(),
+            'lm_loss': self._last_lm_loss,
+            'total_loss': self._last_total_loss,
+        }
+
+    def get_last_loss_components(self):
+        """Return detached loss components without synchronizing CUDA."""
+        if self._last_lm_loss is None or self._last_total_loss is None:
+            return None
+        balance_loss = torch.zeros_like(self._last_lm_loss)
+        if self.config.moe_num_experts > 0:
+            moe = self.transformer.h[self.config.moe_layer_index].mlp
+            if moe.last_routing is None:
+                raise RuntimeError("MoE routing evidence is missing")
+            balance_loss = moe.last_routing.balance_loss.detach()
+        return {
+            'lm_loss': self._last_lm_loss,
+            'balance_loss': balance_loss,
+            'total_loss': self._last_total_loss,
+        }
+
+    def crop_block_size(self, block_size):
+        # model surgery to decrease the block size if necessary
+        # e.g. we may load the GPT2 pretrained model checkpoint (block size 1024)
+        # but want to use a smaller block size for some smaller, simpler model
+        assert block_size <= self.config.block_size
+        self.config.block_size = block_size
+        self.transformer.wpe.weight = nn.Parameter(self.transformer.wpe.weight[:block_size])
+        for block in self.transformer.h:
+            if hasattr(block.attn, 'bias'):
+                block.attn.bias = block.attn.bias[:,:,:block_size,:block_size]
+
+    @classmethod
+    def from_pretrained(cls, model_type, override_args=None):
+        assert model_type in {'gpt2', 'gpt2-medium', 'gpt2-large', 'gpt2-xl'}
+        override_args = override_args or {} # default to empty dict
+        # only dropout can be overridden see more notes below
+        assert all(k == 'dropout' for k in override_args)
+        from transformers import GPT2LMHeadModel
+        print("loading weights from pretrained gpt: %s" % model_type)
+
+        # n_layer, n_head and n_embd are determined from model_type
+        config_args = {
+            'gpt2':         dict(n_layer=12, n_head=12, n_embd=768),  # 124M params
+            'gpt2-medium':  dict(n_layer=24, n_head=16, n_embd=1024), # 350M params
+            'gpt2-large':   dict(n_layer=36, n_head=20, n_embd=1280), # 774M params
+            'gpt2-xl':      dict(n_layer=48, n_head=25, n_embd=1600), # 1558M params
+        }[model_type]
+        print("forcing vocab_size=50257, block_size=1024, bias=True")
+        config_args['vocab_size'] = 50257 # always 50257 for GPT model checkpoints
+        config_args['block_size'] = 1024 # always 1024 for GPT model checkpoints
+        config_args['bias'] = True # always True for GPT model checkpoints
+        # we can override the dropout rate, if desired
+        if 'dropout' in override_args:
+            print(f"overriding dropout rate to {override_args['dropout']}")
+            config_args['dropout'] = override_args['dropout']
+        # create a from-scratch initialized minGPT model
+        config = GPTConfig(**config_args)
+        model = GPT(config)
+        sd = model.state_dict()
+        sd_keys = sd.keys()
+        sd_keys = [k for k in sd_keys if not k.endswith('.attn.bias')] # discard this mask / buffer, not a param
+
+        # init a huggingface/transformers model
+        model_hf = GPT2LMHeadModel.from_pretrained(model_type)
+        sd_hf = model_hf.state_dict()
+
+        # copy while ensuring all of the parameters are aligned and match in names and shapes
+        sd_keys_hf = sd_hf.keys()
+        sd_keys_hf = [k for k in sd_keys_hf if not k.endswith('.attn.masked_bias')] # ignore these, just a buffer
+        sd_keys_hf = [k for k in sd_keys_hf if not k.endswith('.attn.bias')] # same, just the mask (buffer)
+        transposed = ['attn.c_attn.weight', 'attn.c_proj.weight', 'mlp.c_fc.weight', 'mlp.c_proj.weight']
+        # basically the openai checkpoints use a "Conv1D" module, but we only want to use a vanilla Linear
+        # this means that we have to transpose these weights when we import them
+        assert len(sd_keys_hf) == len(sd_keys), f"mismatched keys: {len(sd_keys_hf)} != {len(sd_keys)}"
+        for k in sd_keys_hf:
+            if any(k.endswith(w) for w in transposed):
+                # special treatment for the Conv1D weights we need to transpose
+                assert sd_hf[k].shape[::-1] == sd[k].shape
+                with torch.no_grad():
+                    sd[k].copy_(sd_hf[k].t())
+            else:
+                # vanilla copy over the other parameters
+                assert sd_hf[k].shape == sd[k].shape
+                with torch.no_grad():
+                    sd[k].copy_(sd_hf[k])
+
+        return model
+
+    def configure_optimizers(self, weight_decay, learning_rate, betas, device_type):
+        # start with all of the candidate parameters
+        param_dict = {pn: p for pn, p in self.named_parameters()}
+        # filter out those that do not require grad
+        param_dict = {pn: p for pn, p in param_dict.items() if p.requires_grad}
+        # create optim groups. Any parameters that is 2D will be weight decayed, otherwise no.
+        # i.e. all weight tensors in matmuls + embeddings decay, all biases and layernorms don't.
+        decay_params = [p for n, p in param_dict.items() if p.dim() >= 2]
+        nodecay_params = [p for n, p in param_dict.items() if p.dim() < 2]
+        optim_groups = [
+            {'params': decay_params, 'weight_decay': weight_decay},
+            {'params': nodecay_params, 'weight_decay': 0.0}
+        ]
+        num_decay_params = sum(p.numel() for p in decay_params)
+        num_nodecay_params = sum(p.numel() for p in nodecay_params)
+        print(f"num decayed parameter tensors: {len(decay_params)}, with {num_decay_params:,} parameters")
+        print(f"num non-decayed parameter tensors: {len(nodecay_params)}, with {num_nodecay_params:,} parameters")
+        # Create AdamW optimizer and use the fused version if it is available
+        fused_available = 'fused' in inspect.signature(torch.optim.AdamW).parameters
+        use_fused = fused_available and device_type == 'cuda'
+        extra_args = dict(fused=True) if use_fused else dict()
+        optimizer = torch.optim.AdamW(optim_groups, lr=learning_rate, betas=betas, **extra_args)
+        print(f"using fused AdamW: {use_fused}")
+
+        return optimizer
+
+    def estimate_mfu(self, fwdbwd_per_iter, dt):
+        """ estimate model flops utilization (MFU) in units of A100 bfloat16 peak FLOPS """
+        # first estimate the number of flops we do per iteration.
+        # see PaLM paper Appendix B as ref: https://arxiv.org/abs/2204.02311
+        N = self.get_num_params()
+        cfg = self.config
+        L, H, Q, T = cfg.n_layer, cfg.n_head, cfg.n_embd//cfg.n_head, cfg.block_size
+        flops_per_token = 6*N + 12*L*H*Q*T
+        flops_per_fwdbwd = flops_per_token * T
+        flops_per_iter = flops_per_fwdbwd * fwdbwd_per_iter
+        # express our flops throughput as ratio of A100 bfloat16 peak flops
+        flops_achieved = flops_per_iter * (1.0/dt) # per second
+        flops_promised = 312e12 # A100 GPU bfloat16 peak flops is 312 TFLOPS
+        mfu = flops_achieved / flops_promised
+        return mfu
+
+    @torch.no_grad()
+    def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+        """
+        Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
+        the sequence max_new_tokens times, feeding the predictions back into the model each time.
+        Most likely you'll want to make sure to be in model.eval() mode of operation for this.
+        """
+        for _ in range(max_new_tokens):
+            # if the sequence context is growing too long we must crop it at block_size
+            idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]
+            # forward the model to get the logits for the index in the sequence
+            logits, _ = self(idx_cond)
+            # pluck the logits at the final step and scale by desired temperature
+            logits = logits[:, -1, :] / temperature
+            # optionally crop the logits to only the top k options
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                logits[logits < v[:, [-1]]] = -float('Inf')
+            # apply softmax to convert logits to (normalized) probabilities
+            probs = F.softmax(logits, dim=-1)
+            # sample from the distribution
+            idx_next = torch.multinomial(probs, num_samples=1)
+            # append sampled index to the running sequence and continue
+            idx = torch.cat((idx, idx_next), dim=1)
+
+        return idx

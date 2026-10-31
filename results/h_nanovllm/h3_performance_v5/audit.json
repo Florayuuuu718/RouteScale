@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "pass",
+  "evidence_class": "independent_performance_audit",
+  "created_at_utc": "2026-10-24T06:37:43.494154+00:00",
+  "provenance": {
+    "config_sha256": "1f4e0c99f2b9fc67d661b8191334c9c755b209a5be52b2ea2cca27abf5ff08a9",
+    "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+    "allow_bf16_reduced_precision_reduction": false,
+    "reference_policy": "bf16_weights_fp32_math",
+    "protocol_sha256": "4d057c080c3f26f22e9dfd6129804d86f3be37f90959a9b409dbec5e45cd3aa0",
+    "historical_baseline_sha256": "a95302ae97e384db16c0fd19fbabbcdb5d34e0b93d8a7881533144ad22efa74f",
+    "manifest_sha256": "15d5b165ca1547a511263320952afbbacc253f3a6495695a41dab3b054c31fb1",
+    "preparation_sha256": "a6d76a445b37977ad31a0de636a8de4af21dae3ad90b413ff281e0fb513b8f3b",
+    "workload_sha256": "f9c4a50f85c544275187750b246b76ca4d2747318e1983efadc453a54593444d",
+    "data_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "tokenizer_sha256": "0667215793a970d7e7b816b3912e135fa1883d5af8876b61548d279c00891fa5",
+    "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+    "upstream_source_sha256": {
+      "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+    },
+    "source_sha256": {
+      "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+      "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+      "distributed_common.py": "04eff939c5139309fcc6604a4e7576224e01cf21a9d191a1b3be4377b3ab14b4",
+      "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+      "serving/h3_model.py": "319b705925775d5aef05906906b98f06bf246161e2469fd4df7d8768e95b276d",
+      "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+      "serving/backends/routescale_nanovllm.py": "2ce14a74f59710ee73b260520d70a6eb13c78eaf716d122a7244f744c88731e7",
+      "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+      "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+      "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+      "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+      "serving/h3_performance.py": "f567c8151cf9b44d8cc6c12cbc6ac69c27653409295533b8cf74f3bee7f769db",
+      "scripts/run_h3_performance.py": "a3c96fad76d64bb301979cecdfc4d6703e5fc8893628017364ea07fff2140b5a",
+      "scripts/summarize_h3_performance.py": "ae1c7d95110cb2183354e7dedd09f3fbb1c61b2ba8bb579fe9df3e29d61dc556",
+      "scripts/audit_h3_performance.py": "61cdd8a4db8275a7c614b881bec4fbe85afa623854a35f292165913942a56fc1",
+      "docs/h3_performance_protocol.md": "ed8678e166f63e07897e7996bcc91831782cd04854da4e27ff030d0f8bee4ffd"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "torch": "2.8.0+cu129",
+      "cuda": "12.9",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "capability": [
+        12,
+        0
+      ],
+      "total_memory_bytes": 8546484224,
+      "driver": "610.88",
+      "packages": [
+        {
+          "name": "certifi",
+          "version": "2026.10.19"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "cuda-bindings",
+          "version": "12.9.10"
+        },
+        {
+          "name": "cuda-pathfinder",
+          "version": "1.8.4"
+        },
+        {
+          "name": "cuda-toolkit",
+          "version": "12.9.1"
+        },
+        {
+          "name": "einops",
+          "version": "0.8.2"
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "name": "flash_attn",
+          "version": "2.8.3.post2"
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "name": "huggingface_hub",
+          "version": "0.36.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "name": "nano-vllm",
+          "version": "0.2.0",
+          "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "name": "ninja",
+          "version": "1.13.2"
+        },
+        {
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.9.1.4"
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21"
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.4.1.4"
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.14.1.1"
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.10.19"
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.5.82"
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.10.65"
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1"
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.3"
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.4.5"
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "name": "pip",
+          "version": "26.2.2"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.3"
+        },
+        {
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "name": "safetensors",
+          "version": "0.8.0"
+        },
+        {
+          "name": "setuptools",
+          "version": "81.0.0"
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.22.2"
+        },
+        {
+          "name": "torch",
+          "version": "2.8.0+cu129"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "transformers",
+          "version": "4.57.6"
+        },
+        {
+          "name": "triton",
+          "version": "3.4.0"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "name": "wheel",
+          "version": "0.48.0"
+        },
+        {
+          "name": "xxhash",
+          "version": "4.0.2"
+        }
+      ]
+    }
+  },
+  "qualification_gate_sha256": "19df1f9b370d3b3702c737000aa357b3708d1dd7a33773198832ff44df1d94e7",
+  "pilot_gate_sha256": "772f939e7f9b45e28bd113a9c3a307fd1d43c74b828c07f7fbe4e18b61d28dcb",
+  "native_bf16_vectors_recompared": 2592,
+  "reference_comparison_vectors": 2592,
+  "graph_vectors_recompared": 864,
+  "formal_processes": 36,
+  "raw_sha256": {
+    "raw/batch_short/native_kv/run1.json": "4dbdfbe5f809f911b0aabde40b0beed3bc6b7f67589a8b8def9c570fa6fc5e57",
+    "raw/batch_short/native_kv/run2.json": "656d59057da98f7b1f30f814aa0fd9cd230a3fa0300aa1968823e7086dbfc732",
+    "raw/batch_short/native_kv/run3.json": "3415eae544698356e8f0d0347ef2788fbb4fad11f9d0c20d6b25563806d5ac03",
+    "raw/batch_short/paged_eager/run1.json": "573f096cfe941171877d51d1ad0906b24943fc9c7ecaa1c852d156e87a379364",
+    "raw/batch_short/paged_eager/run2.json": "964f11acd4df012ec63436c855f5bc67b3760f323f9ae4178afc9f33aba8d244",
+    "raw/batch_short/paged_eager/run3.json": "3ae92b124265aa5cbcebae44bc72b555558bfad458fb8a50f6be2e5a28c2e907",
+    "raw/batch_short/paged_graph/run1.json": "c6c3e14bb4cd59ca78a53d08d590ee03320461e8b35fbe09d59eda381817f10a",
+    "raw/batch_short/paged_graph/run2.json": "9d622516ed64157fbb9ada02a5cf0f4b43c910825606d2e85771a0a78989133c",
+    "raw/batch_short/paged_graph/run3.json": "7f9610cbd185085edb39cb866bba6de49cdff5b9aa999c85e9681748d4c89fac",
+    "raw/latency_short/native_kv/run1.json": "0eb5043c580f3f5937a46926015490473812b357e1e0dbf7cad4848cca61e684",
+    "raw/latency_short/native_kv/run2.json": "3caad01d1cc40d718afb4a8e09b19ea2b08d8d669730c763ed2f12d0a67700e5",
+    "raw/latency_short/native_kv/run3.json": "30855ebbf0a2ee4eaec20eaceb3e9da5773838ca12a7f9e5318b6ab4dc50bd6f",
+    "raw/latency_short/paged_eager/run1.json": "a20f0e68dc8106f998b3a4569ba717914861da148921505c015e3d0765f55906",
+    "raw/latency_short/paged_eager/run2.json": "9a3062cad8015a01100566a0e07b0f717f057daaddcbfd4058a6c67f079eed57",
+    "raw/latency_short/paged_eager/run3.json": "7391e70f6e1b0081e35d7d960effd08d38ecbe702871d8fd05179b36a5646507",
+    "raw/latency_short/paged_graph/run1.json": "6374d4a4407200bb2bcdd53832a9d5407e02c5900edc4f0f23255764fe2f4959",
+    "raw/latency_short/paged_graph/run2.json": "7c610a74518d30dc1956462c3df63ced2abbe0c58bbb84bbb0b86d876107eabe",
+    "raw/latency_short/paged_graph/run3.json": "155a945514e94b7611adea9beac4680ccd829f86d291d35169b6cb9684f0a4a7",
+    "raw/long_prefill/native_kv/run1.json": "aba94bca126af7eb1419611ecbe7cbae8690fdd52a9046068289935c79b189eb",
+    "raw/long_prefill/native_kv/run2.json": "ad65a8a402be55378597fb6a0099466a3e713c65c0e7171e830c3ebe97e7cc80",
+    "raw/long_prefill/native_kv/run3.json": "a85ec3687a37790c481282e1f7f3e44b1096dd13e877161d255703aa78e727cd",
+    "raw/long_prefill/paged_eager/run1.json": "ccaca34970e15840001464c637ed3f3317b6aba6e701c44acbd0fa543b0b11a1",
+    "raw/long_prefill/paged_eager/run2.json": "3ca94642262c6e82328d4f136d33278a6ac7ca2d719fbf7c306b35fef14d24b3",
+    "raw/long_prefill/paged_eager/run3.json": "08e7653f57d29c59ab66b69428b2ca57bcdd9ff71d83242e62b0b2c8270fd2e5",
+    "raw/long_prefill/paged_graph/run1.json": "3758144a8f0dbaaccb8a7d9881e052c73c1588adc0055a3a28c9fefa79eeca71",
+    "raw/long_prefill/paged_graph/run2.json": "af9fc20a5434a6f22a484cf56d26478501563899de6d99176240429599421fc6",
+    "raw/long_prefill/paged_graph/run3.json": "9ad30b6efb6c27523c01294ad172c68ec7e380c61c30b6cea1875644b37d136f",
+    "raw/page_growth/native_kv/run1.json": "432b27cd16daca984620d7a4510c4aa503e72fd0fc184b8901987bf329768568",
+    "raw/page_growth/native_kv/run2.json": "e4fd84ac0b664146c207a4fffae212d6c2343dc38c320065271d7b158569772b",
+    "raw/page_growth/native_kv/run3.json": "9411879432f1976c09f19f86772dcf07fc0a7de39723431bcb8dc818606c69f6",
+    "raw/page_growth/paged_eager/run1.json": "773f0c649f9dd9a3eda974cb9cabdf2164b6aad0b9668b1f143da84ec2c556d7",
+    "raw/page_growth/paged_eager/run2.json": "a6693f5e0bc2a124490ca8fc61b537c26b837bfea458720a95b3b89168e3214b",
+    "raw/page_growth/paged_eager/run3.json": "dce9395bdb6b0dda13aae05ada88398b888c1f25f7cdf3d3b7d3b43e3cbeeded",
+    "raw/page_growth/paged_graph/run1.json": "e194c0fa4563e7884934227084bb92db84bc49bd44082f36e9f642cdfb1e509a",
+    "raw/page_growth/paged_graph/run2.json": "448663c6ddbfda3976d3af6e850b1a6a1f69c9fd927072b7cfb4a9ef3c9e74bd",
+    "raw/page_growth/paged_graph/run3.json": "ce11622b238594c16d0b78b7fb357db978155fd51f208c88c0dffdaec1c4410b"
+  },
+  "summary_sha256": "5839fdccb7ebf3622d2554db38e956d4af13828bb07a5feed43981b0dbc5f111",
+  "raw_metrics_recomputed_exactly": true,
+  "reference_tensor_hashes_match": true,
+  "old_correctness_scope_unchanged": true
+}

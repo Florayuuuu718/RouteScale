@@ -1,0 +1,433 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "pass",
+  "evidence_class": "independent_routescale_bridge_verification",
+  "created_at_utc": "2026-10-23T16:05:41.475662+00:00",
+  "verifier_sha256": "15e7d727510d53a0bafa767027e33d6f95c7017c602621c399febd13eb406705",
+  "gate_sha256": "f9779402714fd377cf61e86a8b1cd27ecd63ee77689a77037f60338aad1528bd",
+  "provenance": {
+    "config_sha256": "ece5e328edc876f23c1903eb4a6d8cad0e36ab9eecabece76fd442cfadf8481b",
+    "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+    "artifact_state_dict_sha256": "45df60bc5a34632510a8bf33f675cf2a8dbafee564ec1d6a3bcd7a1e63b0a6f2",
+    "artifact_model_config": {
+      "block_size": 512,
+      "vocab_size": 50257,
+      "n_layer": 8,
+      "n_head": 8,
+      "n_embd": 512,
+      "dropout": 0.0,
+      "bias": false,
+      "moe_num_experts": 0,
+      "moe_layer_index": 4,
+      "moe_capacity_factor": 0.0,
+      "moe_drop_tokens": false,
+      "moe_balance_loss_weight": 0.0,
+      "moe_dispatch_backend": "loop"
+    },
+    "original_manifest_sha256": "15d5b165ca1547a511263320952afbbacc253f3a6495695a41dab3b054c31fb1",
+    "preparation_sha256": "11a97ca25f7ea8c74b93bf4f5f25ba2b96007b2904bdc2fdc4b54e62a1097da1",
+    "tokenizer_sha256": "0667215793a970d7e7b816b3912e135fa1883d5af8876b61548d279c00891fa5",
+    "workload_sha256": "e0df68b04ba954eb0acc539e63cf89e9b1fb2a748149ec83b14546be76dcfcf1",
+    "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+    "upstream_source_sha256": {
+      "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+    },
+    "source_sha256": {
+      "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+      "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+      "distributed_common.py": "04eff939c5139309fcc6604a4e7576224e01cf21a9d191a1b3be4377b3ab14b4",
+      "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+      "serving/h3_prepare.py": "a401afacdc5821ddb087fbb0be3ff6a9e9a56ff4c2a63dbc4d0ee1bce2c66f74",
+      "serving/h3_model.py": "319b705925775d5aef05906906b98f06bf246161e2469fd4df7d8768e95b276d",
+      "serving/backends/routescale_nanovllm.py": "2ce14a74f59710ee73b260520d70a6eb13c78eaf716d122a7244f744c88731e7",
+      "serving/verify_h3_routescale.py": "825e0be17462c9937b222074ea6304d5432cfc8ba1ec4c5d22aa872124a9dc2e",
+      "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+      "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+      "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+      "scripts/run_h3_routescale.py": "0070d7b7fc8ab78b34474f6228bd40f1da664e493f854732779e087bb6a02d86"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "torch": "2.8.0+cu129",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "capability": [
+        12,
+        0
+      ],
+      "packages": [
+        {
+          "name": "certifi",
+          "version": "2026.10.19"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "cuda-bindings",
+          "version": "12.9.10"
+        },
+        {
+          "name": "cuda-pathfinder",
+          "version": "1.8.4"
+        },
+        {
+          "name": "cuda-toolkit",
+          "version": "12.9.1"
+        },
+        {
+          "name": "einops",
+          "version": "0.8.2"
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "name": "flash_attn",
+          "version": "2.8.3.post2"
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "name": "huggingface_hub",
+          "version": "0.36.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "name": "nano-vllm",
+          "version": "0.2.0",
+          "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "name": "ninja",
+          "version": "1.13.2"
+        },
+        {
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.9.1.4"
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21"
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.4.1.4"
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.14.1.1"
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.10.19"
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.5.82"
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.10.65"
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1"
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.3"
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.4.5"
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "name": "pip",
+          "version": "26.2.2"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.3"
+        },
+        {
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "name": "safetensors",
+          "version": "0.8.0"
+        },
+        {
+          "name": "setuptools",
+          "version": "81.0.0"
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.22.2"
+        },
+        {
+          "name": "torch",
+          "version": "2.8.0+cu129"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "transformers",
+          "version": "4.57.6"
+        },
+        {
+          "name": "triton",
+          "version": "3.4.0"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "name": "wheel",
+          "version": "0.48.0"
+        },
+        {
+          "name": "xxhash",
+          "version": "4.0.2"
+        }
+      ]
+    }
+  },
+  "native_bf16_vectors_recompared": 792,
+  "native_reference_tensors": {
+    "short": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/short.pt",
+      "sha256": "866e4044a05c70b22cc5393857332c38bd757f26f4a4615922b7dcb0361fd2a5"
+    },
+    "batch": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/batch.pt",
+      "sha256": "148eb05a12176d47d4196365071facb3004b976b60e79eb031ee0054f44eabca"
+    },
+    "ragged": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/ragged.pt",
+      "sha256": "f226ecf927ba2f0a911dd38a4ddc4b73bea263a5df6d9124d6a87f9dbd8b634e"
+    },
+    "page_cross": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/page_cross.pt",
+      "sha256": "4c587db94b35a43da7d4ba9ffa7a8a7404f23f922a73da53a7c5795b476bd2e3"
+    },
+    "window_edge": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/window_edge.pt",
+      "sha256": "7d7beafc4ac96e84ece1b4f59dfd2a46e188797e2c9338a466c93251c8fa9c34"
+    },
+    "prefix_reuse": {
+      "path": "runs/validation/h3_routescale/h3_routescale/independent_native/prefix_reuse.pt",
+      "sha256": "0db88e378c1a3d2302e44ba22edd2c41592fa1057b5ddff75576085510871717"
+    }
+  },
+  "comparisons": {
+    "eager_no_prefix_short_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0024389137979596853
+    },
+    "graph_no_prefix_short_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0024389137979596853
+    },
+    "eager_prefix_short_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0024389137979596853
+    },
+    "eager_no_prefix_batch_cold": {
+      "vectors": 128,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0034309858456254005
+    },
+    "graph_no_prefix_batch_cold": {
+      "vectors": 128,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0034309858456254005
+    },
+    "eager_prefix_batch_cold": {
+      "vectors": 128,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0034309858456254005
+    },
+    "eager_no_prefix_ragged_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0031420737504959106
+    },
+    "graph_no_prefix_ragged_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0031420737504959106
+    },
+    "eager_prefix_ragged_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0031420737504959106
+    },
+    "eager_no_prefix_page_cross_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0023752108681946993
+    },
+    "graph_no_prefix_page_cross_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0023752108681946993
+    },
+    "eager_prefix_page_cross_cold": {
+      "vectors": 16,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0023752108681946993
+    },
+    "eager_no_prefix_window_edge_cold": {
+      "vectors": 8,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0020180707797408104
+    },
+    "graph_no_prefix_window_edge_cold": {
+      "vectors": 8,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0020180707797408104
+    },
+    "eager_prefix_window_edge_cold": {
+      "vectors": 8,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0020180707797408104
+    },
+    "eager_no_prefix_prefix_reuse_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0032530517783015966
+    },
+    "eager_no_prefix_prefix_reuse_warm": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0032530517783015966
+    },
+    "graph_no_prefix_prefix_reuse_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0032530517783015966
+    },
+    "graph_no_prefix_prefix_reuse_warm": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0032530517783015966
+    },
+    "eager_prefix_prefix_reuse_cold": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.0032530517783015966
+    },
+    "eager_prefix_prefix_reuse_warm": {
+      "vectors": 32,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.002885834313929081
+    }
+  },
+  "runtime_bf16_weight_tensors_equal": 52,
+  "invalid_public_requests_rejected": 6,
+  "public_512_cached_token_boundary_passed": true,
+  "closed_engine_lifetime": {
+    "runner_collected": true,
+    "model_collected": true,
+    "kv_tensor_collected": true,
+    "allocated_bytes_before": 111821824,
+    "allocated_bytes_after": 111821824
+  },
+  "performance_execution_allowed": false,
+  "limitations": "Integration correctness only, not throughput. Original FP32 artifact preserved; both numerical reference and target explicitly cast to full BF16. This is not G3 FP32-weight autocast timing. Learned absolute positions and native LayerNorm/GELU retained. Reject cached context beyond 512; no sliding-window rebuild, MoE or TP>1."
+}

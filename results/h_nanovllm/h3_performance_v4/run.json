@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "fail",
+  "started_at_utc": "2026-10-24T06:16:14.843547+00:00",
+  "pid": 104151,
+  "config_sha256": "a63d11f5afdd2f1c0345b0729901de872e52d9ac5ebba1cb0a82d0d8fa1e75a2",
+  "completed_steps": [
+    "prepare",
+    "reference",
+    "reference_cohort_full_recompute",
+    "reference_bf16_weights_fp32_math",
+    "qualify_native_kv",
+    "qualify_paged_eager",
+    "qualify_paged_graph"
+  ],
+  "planned_formal_processes": 36,
+  "completed_formal_processes": 0,
+  "current_step": "numerical_gate",
+  "updated_at_utc": "2026-10-24T06:18:58.377562+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h3_performance.py\", line 121, in main\n    subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python', '-m', 'serving.h3_performance', 'compare', '--config', 'config/serving/h3_performance_v4.json']' returned non-zero exit status 1.\n"
+}

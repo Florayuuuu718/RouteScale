@@ -1,0 +1,1554 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "pass",
+  "created_at_utc": "2026-10-24T06:03:26.588514+00:00",
+  "variant": "native_kv",
+  "provenance": {
+    "config_sha256": "e5b6f951ce0dbe6258455184c60db131e531b52ef38a1f07f4363482cb97a519",
+    "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+    "reference_policy": "single_request_full_recompute",
+    "protocol_sha256": "187548e781cc1864f9c72c4cc0390da9e89de221d00c6d94038510a38726b30a",
+    "historical_baseline_sha256": "f5466fdf53e89a9ac38f77d7bac11eb841ab3950dd3cea8f67310b54939a87d9",
+    "manifest_sha256": "15d5b165ca1547a511263320952afbbacc253f3a6495695a41dab3b054c31fb1",
+    "preparation_sha256": "32f2c292caf5206edd5a478160211c5b85edc37ee93d42608fd1b0fe963ec15c",
+    "workload_sha256": "f9c4a50f85c544275187750b246b76ca4d2747318e1983efadc453a54593444d",
+    "data_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "tokenizer_sha256": "0667215793a970d7e7b816b3912e135fa1883d5af8876b61548d279c00891fa5",
+    "upstream_commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+    "upstream_source_sha256": {
+      "bench.py": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "example.py": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "nanovllm/__init__.py": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "nanovllm/config.py": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "nanovllm/engine/block_manager.py": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "nanovllm/engine/llm_engine.py": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "nanovllm/engine/model_runner.py": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "nanovllm/engine/scheduler.py": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "nanovllm/engine/sequence.py": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "nanovllm/layers/activation.py": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "nanovllm/layers/attention.py": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "nanovllm/layers/embed_head.py": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "nanovllm/layers/layernorm.py": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "nanovllm/layers/linear.py": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "nanovllm/layers/rotary_embedding.py": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "nanovllm/layers/sampler.py": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "nanovllm/llm.py": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "nanovllm/models/qwen3.py": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "nanovllm/sampling_params.py": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "nanovllm/utils/context.py": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "nanovllm/utils/loader.py": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99"
+    },
+    "source_sha256": {
+      "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+      "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+      "distributed_common.py": "04eff939c5139309fcc6604a4e7576224e01cf21a9d191a1b3be4377b3ab14b4",
+      "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+      "serving/h3_model.py": "319b705925775d5aef05906906b98f06bf246161e2469fd4df7d8768e95b276d",
+      "serving/backends/nanovllm.py": "680bee48698211824297630a6efeb453bd9e2c9b3eb6865cbb190b42c140d4d5",
+      "serving/backends/routescale_nanovllm.py": "2ce14a74f59710ee73b260520d70a6eb13c78eaf716d122a7244f744c88731e7",
+      "serving/h2_numerical_policy.py": "76d2a26963bddead550e7b65c24371b230b730e307f982a5ccc00349ea254c36",
+      "serving/h2_prefix_probe.py": "bb14c33103c89bee98491ee37737d05fb15fdcc12ff31f8bb04fad9bc4a80788",
+      "serving/h2_runtime.py": "c9a573370d98a4b792587cab7cb9d64c5edebae810313cc3adbde7c83ee3f46a",
+      "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+      "serving/h3_performance.py": "c768997d5570342484948bcdd7004080b92500c4f3ce206fe829ebec1e0467a3",
+      "scripts/run_h3_performance.py": "851d1bddade78999ff4671d862dcb7538c35b86e1dab1d5d3fff824c6e8826eb",
+      "scripts/summarize_h3_performance.py": "ae1c7d95110cb2183354e7dedd09f3fbb1c61b2ba8bb579fe9df3e29d61dc556",
+      "scripts/audit_h3_performance.py": "c1b21c62c411b4e6d245b891f12a14edf8d8671e5164256fa744e60562e9cba3",
+      "docs/h3_performance_protocol.md": "ed8678e166f63e07897e7996bcc91831782cd04854da4e27ff030d0f8bee4ffd"
+    },
+    "environment": {
+      "python": "3.11.16",
+      "torch": "2.8.0+cu129",
+      "cuda": "12.9",
+      "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "capability": [
+        12,
+        0
+      ],
+      "total_memory_bytes": 8546484224,
+      "driver": "610.88",
+      "packages": [
+        {
+          "name": "certifi",
+          "version": "2026.10.19"
+        },
+        {
+          "name": "charset-normalizer",
+          "version": "3.5.2"
+        },
+        {
+          "name": "cuda-bindings",
+          "version": "12.9.10"
+        },
+        {
+          "name": "cuda-pathfinder",
+          "version": "1.8.4"
+        },
+        {
+          "name": "cuda-toolkit",
+          "version": "12.9.1"
+        },
+        {
+          "name": "einops",
+          "version": "0.8.2"
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4"
+        },
+        {
+          "name": "flash_attn",
+          "version": "2.8.3.post2"
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0"
+        },
+        {
+          "name": "hf-xet",
+          "version": "1.7.0"
+        },
+        {
+          "name": "huggingface_hub",
+          "version": "0.36.2"
+        },
+        {
+          "name": "idna",
+          "version": "3.20"
+        },
+        {
+          "name": "Jinja2",
+          "version": "3.1.6"
+        },
+        {
+          "name": "MarkupSafe",
+          "version": "3.0.4"
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0"
+        },
+        {
+          "name": "nano-vllm",
+          "version": "0.2.0",
+          "editable_project_location": "/home/shunzi/projects/RouteScale/runs/vendor/nano-vllm"
+        },
+        {
+          "name": "networkx",
+          "version": "3.6.1"
+        },
+        {
+          "name": "ninja",
+          "version": "1.13.2"
+        },
+        {
+          "name": "numpy",
+          "version": "2.4.6"
+        },
+        {
+          "name": "nvidia-cublas-cu12",
+          "version": "12.9.1.4"
+        },
+        {
+          "name": "nvidia-cuda-cupti-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cuda-nvrtc-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-cuda-runtime-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "nvidia-cudnn-cu12",
+          "version": "9.10.2.21"
+        },
+        {
+          "name": "nvidia-cufft-cu12",
+          "version": "11.4.1.4"
+        },
+        {
+          "name": "nvidia-cufile-cu12",
+          "version": "1.14.1.1"
+        },
+        {
+          "name": "nvidia-curand-cu12",
+          "version": "10.3.10.19"
+        },
+        {
+          "name": "nvidia-cusolver-cu12",
+          "version": "11.7.5.82"
+        },
+        {
+          "name": "nvidia-cusparse-cu12",
+          "version": "12.5.10.65"
+        },
+        {
+          "name": "nvidia-cusparselt-cu12",
+          "version": "0.7.1"
+        },
+        {
+          "name": "nvidia-nccl-cu12",
+          "version": "2.27.3"
+        },
+        {
+          "name": "nvidia-nvjitlink-cu12",
+          "version": "12.9.86"
+        },
+        {
+          "name": "nvidia-nvshmem-cu12",
+          "version": "3.4.5"
+        },
+        {
+          "name": "nvidia-nvtx-cu12",
+          "version": "12.9.79"
+        },
+        {
+          "name": "packaging",
+          "version": "26.3"
+        },
+        {
+          "name": "pip",
+          "version": "26.2.2"
+        },
+        {
+          "name": "PyYAML",
+          "version": "6.0.3"
+        },
+        {
+          "name": "regex",
+          "version": "2026.9.29"
+        },
+        {
+          "name": "requests",
+          "version": "2.34.2"
+        },
+        {
+          "name": "safetensors",
+          "version": "0.8.0"
+        },
+        {
+          "name": "setuptools",
+          "version": "81.0.0"
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0"
+        },
+        {
+          "name": "tokenizers",
+          "version": "0.22.2"
+        },
+        {
+          "name": "torch",
+          "version": "2.8.0+cu129"
+        },
+        {
+          "name": "tqdm",
+          "version": "4.70.1"
+        },
+        {
+          "name": "transformers",
+          "version": "4.57.6"
+        },
+        {
+          "name": "triton",
+          "version": "3.4.0"
+        },
+        {
+          "name": "typing_extensions",
+          "version": "4.16.0"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0"
+        },
+        {
+          "name": "wheel",
+          "version": "0.48.0"
+        },
+        {
+          "name": "xxhash",
+          "version": "4.0.2"
+        }
+      ]
+    }
+  },
+  "cases": {
+    "latency_short": {
+      "path": "runs/validation/h3_performance_v2/native_kv_latency_short.pt",
+      "sha256": "202e61187e4f3ba56b9ea2206c12488eeffa23199c9676d1d36d149df0a68f09",
+      "shape": [
+        32,
+        1,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 485.6722412109375,
+        "itl_ms": [
+          512.9033203125,
+          18.115007400512695,
+          7.023744106292725,
+          5.801087856292725,
+          5.921919822692871,
+          5.813471794128418,
+          6.533408164978027,
+          4.389472007751465,
+          4.474815845489502,
+          5.785791873931885,
+          5.101151943206787,
+          4.534239768981934,
+          5.057631969451904,
+          4.328864097595215,
+          3.9402239322662354,
+          5.676095962524414,
+          4.519264221191406,
+          4.746304035186768,
+          5.252384185791016,
+          4.075263977050781,
+          7.644224166870117,
+          6.261983871459961,
+          8.487520217895508,
+          9.030719757080078,
+          6.735167980194092,
+          10.278592109680176,
+          7.739808082580566,
+          6.703296184539795,
+          5.451327800750732,
+          5.72870397567749,
+          9.779871940612793
+        ],
+        "tpot_ms": 22.833376753714777,
+        "wall_ms": 1233.87516499497,
+        "model_execution_ms": 1193.5069205760956,
+        "output_tokens": 32,
+        "output_sha256": "226a769534dcaa9f8401e5bc82c451c81b312e0abf462ee4a38cf1f079d85f72",
+        "argmax_sha256": null,
+        "cached_positions": 63,
+        "max_used_blocks": 0,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 31,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 32,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 33,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 34,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 35,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 36,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 37,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 38,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 39,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 40,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 41,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 42,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 43,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 44,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 45,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 46,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 47,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 48,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 49,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 50,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 51,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 52,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 53,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 54,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 55,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 56,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 57,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 58,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 59,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 60,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 61,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 62,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 63,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 8388608,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "batch_short": {
+      "path": "runs/validation/h3_performance_v2/native_kv_batch_short.pt",
+      "sha256": "e79f56430d9c3d8761352d5c7ae1b4be977b17a7290033c906ca6d436fc8e3ac",
+      "shape": [
+        64,
+        8,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 64.63369750976562,
+        "itl_ms": [
+          10.311967849731445,
+          12.878144264221191,
+          16.67571258544922,
+          5.436704158782959,
+          10.39907169342041,
+          7.300511837005615,
+          4.7063679695129395,
+          5.664544105529785,
+          5.70304012298584,
+          4.4271039962768555,
+          5.8084797859191895,
+          11.060992240905762,
+          12.01801586151123,
+          10.553567886352539,
+          12.118176460266113,
+          6.102975845336914,
+          4.933663845062256,
+          4.428544044494629,
+          14.8689603805542,
+          17.444896697998047,
+          12.995583534240723,
+          7.512447834014893,
+          5.101376056671143,
+          8.441023826599121,
+          7.005407810211182,
+          4.101791858673096,
+          5.399040222167969,
+          4.7027201652526855,
+          4.751935958862305,
+          7.127999782562256,
+          7.6902079582214355,
+          9.918720245361328,
+          6.734560012817383,
+          6.7921600341796875,
+          7.489727973937988,
+          6.499680042266846,
+          9.050975799560547,
+          10.67363166809082,
+          4.268703937530518,
+          4.453536033630371,
+          12.172991752624512,
+          7.455039978027344,
+          4.987167835235596,
+          6.125887870788574,
+          7.626944065093994,
+          6.472095966339111,
+          6.579520225524902,
+          9.16262435913086,
+          4.7072319984436035,
+          5.662911891937256,
+          7.603744029998779,
+          5.425951957702637,
+          5.344543933868408,
+          6.455552101135254,
+          6.036992073059082,
+          9.429856300354004,
+          6.374879837036133,
+          9.407584190368652,
+          8.222335815429688,
+          6.845280170440674,
+          10.420831680297852,
+          16.204511642456055,
+          12.076064109802246
+        ],
+        "tpot_ms": 8.005606605893089,
+        "wall_ms": 650.477304996457,
+        "model_execution_ms": 568.9869136810303,
+        "output_tokens": 512,
+        "output_sha256": "2e5883fdb8e382bb9f6daaf35777b097a38cd76c2802454e33cc34994cc68bd8",
+        "argmax_sha256": null,
+        "cached_positions": 191,
+        "max_used_blocks": 0,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 63,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 128,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 129,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 130,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 131,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 132,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 133,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 134,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 135,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 136,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 137,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 138,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 139,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 140,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 141,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 142,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 143,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 144,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 145,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 146,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 147,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 148,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 149,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 150,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 151,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 152,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 153,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 154,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 155,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 156,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 157,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 158,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 159,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 160,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 161,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 162,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 163,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 164,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 165,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 166,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 167,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 168,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 169,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 170,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 171,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 172,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 173,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 174,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 175,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 176,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 177,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 178,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 179,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 180,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 181,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 182,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 183,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 184,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 185,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 186,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 187,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 188,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 189,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 190,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 191,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "page_growth": {
+      "path": "runs/validation/h3_performance_v2/native_kv_page_growth.pt",
+      "sha256": "0807c8aca8b25e2bdf4fec2614686d356ec0a04eff39251112bfb1aa90a44f84",
+      "shape": [
+        32,
+        8,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 12.08351993560791,
+        "itl_ms": [
+          11.07436752319336,
+          19.180383682250977,
+          17.551136016845703,
+          9.28831958770752,
+          11.141471862792969,
+          8.34547233581543,
+          7.9713921546936035,
+          9.7258882522583,
+          14.393440246582031,
+          21.349088668823242,
+          15.119744300842285,
+          6.910208225250244,
+          6.5800957679748535,
+          12.28502368927002,
+          18.5296630859375,
+          13.588095664978027,
+          6.668064117431641,
+          6.192319869995117,
+          4.702943801879883,
+          5.757376194000244,
+          6.727615833282471,
+          4.501920223236084,
+          5.012320041656494,
+          5.585792064666748,
+          6.929120063781738,
+          10.6113920211792,
+          7.721183776855469,
+          5.497280120849609,
+          4.746943950653076,
+          7.146463871002197,
+          7.805791854858398
+        ],
+        "tpot_ms": 9.63355867324337,
+        "wall_ms": 333.90348400280345,
+        "model_execution_ms": 310.72383880615234,
+        "output_tokens": 256,
+        "output_sha256": "b625746988225e698d66ce76175c88d5d1266c16f44fccdd141df503cf8c445f",
+        "argmax_sha256": null,
+        "cached_positions": 286,
+        "max_used_blocks": 0,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 31,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 255,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 256,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 257,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 258,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 259,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 260,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 261,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 262,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 263,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 264,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 265,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 266,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 267,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 268,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 269,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 270,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 271,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 272,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 273,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 274,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 275,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 276,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 277,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 278,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 279,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 280,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 281,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 282,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 283,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 284,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 285,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 286,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 67108864,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    },
+    "long_prefill": {
+      "path": "runs/validation/h3_performance_v2/native_kv_long_prefill.pt",
+      "sha256": "a74230ee63f0b01cd3cb6e718582f75fd30f913f7dd66bcd5391b367d560b570",
+      "shape": [
+        64,
+        1,
+        50257
+      ],
+      "dtype": "torch.bfloat16",
+      "trace": {
+        "ttft_ms": 14.323936462402344,
+        "itl_ms": [
+          29.239776611328125,
+          12.109855651855469,
+          7.214623928070068,
+          8.924480438232422,
+          7.162240028381348,
+          13.313088417053223,
+          13.018655776977539,
+          10.617952346801758,
+          7.821631908416748,
+          10.908896446228027,
+          10.07744026184082,
+          13.250592231750488,
+          11.321375846862793,
+          12.118687629699707,
+          7.064064025878906,
+          8.392319679260254,
+          7.164127826690674,
+          6.486623764038086,
+          10.402175903320312,
+          11.636320114135742,
+          8.526752471923828,
+          7.596960067749023,
+          7.351103782653809,
+          9.064096450805664,
+          8.425248146057129,
+          7.005695819854736,
+          7.659776210784912,
+          7.13427209854126,
+          4.557759761810303,
+          5.308256149291992,
+          3.9424641132354736,
+          5.9967041015625,
+          5.227871894836426,
+          4.349792003631592,
+          4.1293439865112305,
+          5.05241584777832,
+          4.054719924926758,
+          4.274975776672363,
+          6.540192127227783,
+          5.100992202758789,
+          4.108992099761963,
+          7.011136054992676,
+          7.690271854400635,
+          5.451456069946289,
+          4.417056083679199,
+          4.711552143096924,
+          4.664224147796631,
+          3.927839994430542,
+          3.991424083709717,
+          5.313600063323975,
+          5.095200061798096,
+          4.466495990753174,
+          4.6593918800354,
+          3.9706239700317383,
+          4.033504009246826,
+          5.780288219451904,
+          4.902944087982178,
+          5.707968235015869,
+          9.747039794921875,
+          10.809663772583008,
+          8.728287696838379,
+          10.91097640991211,
+          8.556960105895996
+        ],
+        "tpot_ms": 7.590495533413357,
+        "wall_ms": 524.2814499943051,
+        "model_execution_ms": 492.52515506744385,
+        "output_tokens": 64,
+        "output_sha256": "22ba6e8152fba665e36c9d6d3dfd3d065d94995f43f386414bbafe015be700e6",
+        "argmax_sha256": null,
+        "cached_positions": 447,
+        "max_used_blocks": 0,
+        "prefix_tokens": 0,
+        "prefill_calls": 1,
+        "decode_calls": 63,
+        "released": true
+      },
+      "usage": [
+        {
+          "cached_positions": 384,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 385,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 386,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 387,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 388,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 389,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 390,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 391,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 392,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 393,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 394,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 395,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 396,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 397,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 398,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 399,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 400,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 401,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 402,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 403,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 404,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 405,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 406,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 407,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 408,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 409,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 410,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 411,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 412,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 413,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 414,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 415,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 416,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 417,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 418,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 419,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 420,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 421,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 422,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 423,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 424,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 425,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 426,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 427,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 428,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 429,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 430,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 431,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 432,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 433,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 434,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 435,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 436,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 437,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 438,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 439,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 440,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 441,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 442,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 443,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 444,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 445,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 446,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        },
+        {
+          "cached_positions": 447,
+          "used_blocks": 0,
+          "prefix_tokens": 0
+        }
+      ],
+      "kv_bytes": 8388608,
+      "weight_sha256": "93eccbf836f609c5e01a856e9f10c7e3e02edc519b2847c59a5bbb83eb89fd11"
+    }
+  }
+}

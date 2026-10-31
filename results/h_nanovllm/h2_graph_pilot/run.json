@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "fail",
+  "pid": 16088,
+  "started_at_utc": "2026-10-23T09:15:26.222098+00:00",
+  "completed_steps": [
+    "preflight/b1_p128_o64_none/eager_no_prefix",
+    "preflight/b1_p128_o64_none/graph_no_prefix",
+    "preflight/b8_p128_o64_high/eager_no_prefix",
+    "preflight/b8_p128_o64_high/graph_no_prefix",
+    "preflight/b8_p512_o64_none/eager_no_prefix",
+    "preflight/b8_p512_o64_none/graph_no_prefix",
+    "preflight/b8_p512_o64_high/eager_no_prefix",
+    "preflight/b8_p512_o64_high/graph_no_prefix"
+  ],
+  "planned_processes": 24,
+  "scope": "cuda_graph_only",
+  "pilot_config_sha256": "604ba14f38288f803d35f039f5eaf65617b5f9051e371f22e6116a58b3563f16",
+  "completed_formal_processes": 0,
+  "current_step": "preflight/compare",
+  "updated_at_utc": "2026-10-23T09:20:18.950413+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_nanovllm.py\", line 89, in main\n    run(\"preflight/compare\", [python, \"-m\", \"serving.verify_h2_preflight\", \"--config\", str(args.config)])\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_nanovllm.py\", line 72, in run\n    subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python', '-m', 'serving.verify_h2_preflight', '--config', 'config/serving/h2_graph_pilot.json']' returned non-zero exit status 1.\n"
+}

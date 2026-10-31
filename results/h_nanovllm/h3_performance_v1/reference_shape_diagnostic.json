@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "status": "diagnostic",
+  "created_at_utc": "2026-10-24T06:00:10.127373+00:00",
+  "evidence_class": "bf16_reference_batch_shape_diagnostic",
+  "source_sha256": "d150a7f42b11ebd30511595633d9278e97ae9d7bbe34f6876f5418fb42d02f1b",
+  "config_sha256": "8dc406fdb8e061de395ecb2236c375e58362a48f6e400e1e8cb762cb3368226a",
+  "failed_gate_sha256": "42911ce82f43a414772a77e51c56e58e5864d0957dd4a0c7a88c6c45bab834f1",
+  "original_failure_unchanged": true,
+  "reference": {
+    "path": "runs/validation/h3_performance_v1/diagnostic_single_request_reference.pt",
+    "sha256": "7512fb5bbb2190caa9a567520deebc923f5006d41ad57c9434c003f803f6e901",
+    "shape": [
+      64,
+      8,
+      50257
+    ],
+    "dtype": "torch.bfloat16"
+  },
+  "comparisons": {
+    "batched_reference": {
+      "passed": true,
+      "vectors": 512,
+      "exact": false,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.004294188693165779
+    },
+    "native_kv": {
+      "passed": true,
+      "vectors": 512,
+      "exact": false,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.004642341751605272
+    },
+    "paged_eager": {
+      "passed": true,
+      "vectors": 512,
+      "exact": false,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.004678267985582352
+    },
+    "paged_graph": {
+      "passed": true,
+      "vectors": 512,
+      "exact": false,
+      "max_absolute_error": 0.0625,
+      "max_relative_rmse": 0.004678267985582352
+    }
+  },
+  "failing_step": 58,
+  "failing_request": 7,
+  "first_block_checks": {
+    "ln_1": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        512
+      ]
+    },
+    "qkv": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        1536
+      ]
+    },
+    "attention_input": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        512
+      ]
+    },
+    "attention_projection": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        512
+      ]
+    },
+    "ln_2": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        512
+      ]
+    },
+    "mlp_fc": {
+      "exact": true,
+      "max_absolute_error": 0.0,
+      "differing_elements": 0,
+      "shape": [
+        8,
+        186,
+        2048
+      ]
+    },
+    "mlp_projection": {
+      "exact": false,
+      "max_absolute_error": 0.0078125,
+      "differing_elements": 210339,
+      "shape": [
+        8,
+        186,
+        512
+      ]
+    },
+    "lm_head": {
+      "exact": false,
+      "max_absolute_error": 0.0625,
+      "differing_elements": 64950,
+      "shape": [
+        8,
+        1,
+        50257
+      ]
+    }
+  },
+  "first_differing_probe": "mlp_projection",
+  "limitations": "Reference-shape intervention only. Does not repair a runtime kernel, change thresholds or turn the failed batched-reference gate into pass. A canonical-reference scope requires a fresh gate."
+}

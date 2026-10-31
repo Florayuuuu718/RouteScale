@@ -1,0 +1,9 @@
+{
+  "status": "failed_real_kernel_warmup",
+  "reason": "ninja existed in the isolated venv but launcher PATH omitted that venv bin directory",
+  "exception": "FileNotFoundError: [Errno 2] No such file or directory: 'ninja'",
+  "operator_action": "Interrupted dedicated runner after identifying worker failure; finally block recovered all child processes",
+  "server_log_sha256": "31ae42d176d8a60cd9be2871e7196f1588d813cfd16583a844228788e58111bb",
+  "fix_for_next_attempt": "prepend isolated interpreter bin to server PATH; preserve attempt001 unchanged",
+  "followup": "attempt002"
+}

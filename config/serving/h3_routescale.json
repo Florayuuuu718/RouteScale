@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "h1_config": "config/serving/h1_nanovllm.json",
+  "artifact_manifest": "results/g_serving/g1_export/manifest.json",
+  "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+  "results_dir": "results/h_nanovllm/h3_routescale",
+  "workload_dir": "runs/workloads/h3_routescale",
+  "seed": 20261023,
+  "engine": {"tensor_parallel_size": 1, "max_model_len": 512, "max_num_batched_tokens": 1024, "max_num_seqs": 8, "num_kvcache_blocks": 16, "kvcache_block_size": 256},
+  "variants": ["eager_no_prefix", "graph_no_prefix", "eager_prefix"],
+  "cases": [
+    {"case_id": "short", "prompts": [32], "output_tokens": 16},
+    {"case_id": "batch", "prompts": [128, 128, 128, 128], "output_tokens": 32},
+    {"case_id": "ragged", "prompts": [17, 63, 129, 257], "output_tokens": 8},
+    {"case_id": "page_cross", "prompts": [255, 255], "output_tokens": 8},
+    {"case_id": "window_edge", "prompts": [505], "output_tokens": 8},
+    {"case_id": "prefix_reuse", "prompts": [257, 257], "output_tokens": 16}
+  ],
+  "tolerances": {"fp32_atol": 0.00005, "fp32_rtol": 0.00001, "bf16_atol": 0.125, "bf16_rtol": 0.02, "max_relative_rmse": 0.005, "graph_requires_exact": true},
+  "minimum_free_bytes": 536870912,
+  "limitations": "Integration correctness only, not throughput. Original FP32 artifact preserved; both numerical reference and target explicitly cast to full BF16. This is not G3 FP32-weight autocast timing. Learned absolute positions and native LayerNorm/GELU retained. Reject cached context beyond 512; no sliding-window rebuild, MoE or TP>1."
+}

@@ -1,0 +1,172 @@
+{
+  "status": "pass",
+  "evidence_class": "negative_control_diagnostic_summary",
+  "independent_runs": 3,
+  "paired_sampled_traces": 48,
+  "layout_stream_probes": 27,
+  "full_vocabulary_layout_comparisons": 3072,
+  "paired_blocks": [
+    {
+      "run_id": 1,
+      "block_id": 0,
+      "paged_throughput_ratio": 1.042406737886198
+    },
+    {
+      "run_id": 1,
+      "block_id": 1,
+      "paged_throughput_ratio": 1.0373453621975472
+    },
+    {
+      "run_id": 1,
+      "block_id": 2,
+      "paged_throughput_ratio": 0.9856271804253262
+    },
+    {
+      "run_id": 1,
+      "block_id": 3,
+      "paged_throughput_ratio": 0.9925495680450264
+    },
+    {
+      "run_id": 2,
+      "block_id": 0,
+      "paged_throughput_ratio": 1.009448619502053
+    },
+    {
+      "run_id": 2,
+      "block_id": 1,
+      "paged_throughput_ratio": 0.9963773486740589
+    },
+    {
+      "run_id": 2,
+      "block_id": 2,
+      "paged_throughput_ratio": 1.026950749741997
+    },
+    {
+      "run_id": 2,
+      "block_id": 3,
+      "paged_throughput_ratio": 1.025260884007466
+    },
+    {
+      "run_id": 3,
+      "block_id": 0,
+      "paged_throughput_ratio": 1.0094224939963745
+    },
+    {
+      "run_id": 3,
+      "block_id": 1,
+      "paged_throughput_ratio": 1.0350881079259309
+    },
+    {
+      "run_id": 3,
+      "block_id": 2,
+      "paged_throughput_ratio": 1.0730180821361082
+    },
+    {
+      "run_id": 3,
+      "block_id": 3,
+      "paged_throughput_ratio": 1.098035581083119
+    }
+  ],
+  "per_run": [
+    {
+      "run_id": 1,
+      "paired_ratio_median": 1.0149474651212869,
+      "paired_ratios": [
+        1.042406737886198,
+        1.0373453621975472,
+        0.9856271804253262,
+        0.9925495680450264
+      ],
+      "layouts": {
+        "stride4": {
+          "prefill_stream_ms": 74.07968139648438,
+          "decode_stream_mean_ms": 5.2115601433648004,
+          "decode_host_mean_ms": 5.346524413090221
+        },
+        "dense0": {
+          "prefill_stream_ms": 79.09516906738281,
+          "decode_stream_mean_ms": 5.275659667121039,
+          "decode_host_mean_ms": 5.423529920725351
+        },
+        "dense8": {
+          "prefill_stream_ms": 86.9201889038086,
+          "decode_stream_mean_ms": 5.111666293371291,
+          "decode_host_mean_ms": 5.214593016024169
+        }
+      }
+    },
+    {
+      "run_id": 2,
+      "paired_ratio_median": 1.0173547517547594,
+      "paired_ratios": [
+        1.009448619502053,
+        0.9963773486740589,
+        1.026950749741997,
+        1.025260884007466
+      ],
+      "layouts": {
+        "stride4": {
+          "prefill_stream_ms": 89.27871704101562,
+          "decode_stream_mean_ms": 5.22806447649759,
+          "decode_host_mean_ms": 5.352437396516232
+        },
+        "dense0": {
+          "prefill_stream_ms": 95.42505645751953,
+          "decode_stream_mean_ms": 5.400085842798626,
+          "decode_host_mean_ms": 5.5097239047528195
+        },
+        "dense8": {
+          "prefill_stream_ms": 85.83484649658203,
+          "decode_stream_mean_ms": 5.285490785326276,
+          "decode_host_mean_ms": 5.412342365450477
+        }
+      }
+    },
+    {
+      "run_id": 3,
+      "paired_ratio_median": 1.0540530950310196,
+      "paired_ratios": [
+        1.0094224939963745,
+        1.0350881079259309,
+        1.0730180821361082,
+        1.098035581083119
+      ],
+      "layouts": {
+        "stride4": {
+          "prefill_stream_ms": 87.89539337158203,
+          "decode_stream_mean_ms": 5.260596805148655,
+          "decode_host_mean_ms": 5.416052746156874
+        },
+        "dense0": {
+          "prefill_stream_ms": 105.574462890625,
+          "decode_stream_mean_ms": 5.248476452297634,
+          "decode_host_mean_ms": 5.432963364867083
+        },
+        "dense8": {
+          "prefill_stream_ms": 97.94483184814453,
+          "decode_stream_mean_ms": 5.413680750226217,
+          "decode_host_mean_ms": 5.574045412411954
+        }
+      }
+    }
+  ],
+  "median_of_process_paired_ratios": 1.0173547517547594,
+  "layouts": {
+    "stride4": {
+      "prefill_stream_ms": 87.89539337158203,
+      "decode_stream_mean_ms": 5.22806447649759,
+      "decode_host_mean_ms": 5.352437396516232
+    },
+    "dense0": {
+      "prefill_stream_ms": 95.42505645751953,
+      "decode_stream_mean_ms": 5.275659667121039,
+      "decode_host_mean_ms": 5.432963364867083
+    },
+    "dense8": {
+      "prefill_stream_ms": 86.9201889038086,
+      "decode_stream_mean_ms": 5.285490785326276,
+      "decode_host_mean_ms": 5.412342365450477
+    }
+  },
+  "limitations": "Diagnostic only; never replaces the original 18-process results. Paired full-path traces reuse the qualified sampler/runtime. Layout probes use one common allocator and teacher forcing, with CUDA stream event timing, not serving throughput or attention-kernel-only timing. Telemetry is sampled between blocks, not continuously; no clock locking or power setting changes."
+}

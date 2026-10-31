@@ -1,0 +1,4004 @@
+{
+  "schema_version": 1,
+  "stage": "G3",
+  "benchmark": "native_serving_summary",
+  "created_at_utc": "2026-10-17T07:46:13.135643+00:00",
+  "status": "pass",
+  "independent_runs_per_variant": 3,
+  "variant_count": 48,
+  "comparison_count": 24,
+  "invariants": {
+    "formal_gpu_only": true,
+    "same_artifact_workload_environment_source_per_variant": true,
+    "deterministic_outputs_across_repeats_and_runs": true,
+    "median_of_independent_run_medians": true
+  },
+  "variants": [
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "b1f46fbbf87d706d1e47c35acb7977d4e6b8c2a50dc0f78ae32d4c0e142f6f18",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        6.063839912414551,
+        5.3288960456848145,
+        5.5382399559021
+      ],
+      "median_of_run_median_ttft_ms": 5.5382399559021,
+      "median_tpot_ms_by_run": [
+        5.663455963134766,
+        5.20684814453125,
+        5.233439922332764
+      ],
+      "median_of_run_median_tpot_ms": 5.233439922332764,
+      "median_e2e_wall_ms_by_run": [
+        1672.2170220000407,
+        1524.8056580003322,
+        1464.1812579993712
+      ],
+      "median_of_run_median_e2e_wall_ms": 1524.8056580003322,
+      "output_tokens_per_second_by_run": [
+        155.77050148837884,
+        172.3297741445294,
+        171.19709253045903
+      ],
+      "median_output_tokens_per_second": 171.19709253045903,
+      "median_peak_allocated_bytes": 146711552,
+      "median_peak_reserved_bytes": 165675008,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "b1f46fbbf87d706d1e47c35acb7977d4e6b8c2a50dc0f78ae32d4c0e142f6f18",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        6.789663791656494,
+        8.048480033874512,
+        6.893631935119629
+      ],
+      "median_of_run_median_ttft_ms": 6.893631935119629,
+      "median_tpot_ms_by_run": [
+        5.628223896026611,
+        6.776000022888184,
+        5.707327842712402
+      ],
+      "median_of_run_median_tpot_ms": 5.707327842712402,
+      "median_e2e_wall_ms_by_run": [
+        415.23245200005476,
+        503.4197340009996,
+        411.5973039988603
+      ],
+      "median_of_run_median_e2e_wall_ms": 415.23245200005476,
+      "output_tokens_per_second_by_run": [
+        155.46677758031166,
+        113.5164222087649,
+        155.01557322066867
+      ],
+      "median_output_tokens_per_second": 155.01557322066867,
+      "median_peak_allocated_bytes": 146697728,
+      "median_peak_reserved_bytes": 163577856,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a67e84905ff73bc429931682da7ffb9c556680a28592af8256f0ad5fb21f1241",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.05295991897583,
+        5.603487968444824,
+        5.520639896392822
+      ],
+      "median_of_run_median_ttft_ms": 5.520639896392822,
+      "median_tpot_ms_by_run": [
+        5.793280124664307,
+        5.638207912445068,
+        5.823808193206787
+      ],
+      "median_of_run_median_tpot_ms": 5.793280124664307,
+      "median_e2e_wall_ms_by_run": [
+        1636.1733409994486,
+        1615.7749939993664,
+        1624.6189030007372
+      ],
+      "median_of_run_median_e2e_wall_ms": 1624.6189030007372,
+      "output_tokens_per_second_by_run": [
+        156.39641352280583,
+        158.83619985718119,
+        154.74797671427226
+      ],
+      "median_output_tokens_per_second": 156.39641352280583,
+      "median_peak_allocated_bytes": 153815552,
+      "median_peak_reserved_bytes": 171966464,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a67e84905ff73bc429931682da7ffb9c556680a28592af8256f0ad5fb21f1241",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b1_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        4.874303817749023,
+        6.13699197769165,
+        6.167776107788086
+      ],
+      "median_of_run_median_ttft_ms": 6.13699197769165,
+      "median_tpot_ms_by_run": [
+        5.2053117752075195,
+        5.531775951385498,
+        5.186272144317627
+      ],
+      "median_of_run_median_tpot_ms": 5.2053117752075195,
+      "median_e2e_wall_ms_by_run": [
+        373.50542599961045,
+        428.37639800018223,
+        392.42942799864977
+      ],
+      "median_of_run_median_e2e_wall_ms": 392.42942799864977,
+      "output_tokens_per_second_by_run": [
+        164.53529259711553,
+        150.21751056596403,
+        165.427834480269
+      ],
+      "median_output_tokens_per_second": 164.53529259711553,
+      "median_peak_allocated_bytes": 153700352,
+      "median_peak_reserved_bytes": 171966464,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "0f15a7ee8854b8acffe0a242eb7993adaa8f2cc6331705fa2f4637c19eb8b60d",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        10.088383674621582,
+        9.308768272399902,
+        10.411487579345703
+      ],
+      "median_of_run_median_ttft_ms": 10.088383674621582,
+      "median_tpot_ms_by_run": [
+        6.646175861358643,
+        5.62883186340332,
+        6.043776035308838
+      ],
+      "median_of_run_median_tpot_ms": 6.043776035308838,
+      "median_e2e_wall_ms_by_run": [
+        2037.4592339994706,
+        1695.0536690001172,
+        1645.1585490012803
+      ],
+      "median_of_run_median_e2e_wall_ms": 1695.0536690001172,
+      "output_tokens_per_second_by_run": [
+        4252.914388652049,
+        4852.284764697891,
+        4762.39830927917
+      ],
+      "median_output_tokens_per_second": 4762.39830927917,
+      "median_peak_allocated_bytes": 452184064,
+      "median_peak_reserved_bytes": 465567744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "0f15a7ee8854b8acffe0a242eb7993adaa8f2cc6331705fa2f4637c19eb8b60d",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.602975845336914,
+        9.72111988067627,
+        9.231072425842285
+      ],
+      "median_of_run_median_ttft_ms": 9.602975845336914,
+      "median_tpot_ms_by_run": [
+        6.263840198516846,
+        6.417407989501953,
+        6.177152156829834
+      ],
+      "median_of_run_median_tpot_ms": 6.263840198516846,
+      "median_e2e_wall_ms_by_run": [
+        450.41461500113655,
+        448.8188399991486,
+        462.12317099889333
+      ],
+      "median_of_run_median_e2e_wall_ms": 450.41461500113655,
+      "output_tokens_per_second_by_run": [
+        4754.659725330172,
+        4515.788353695478,
+        4510.492710964757
+      ],
+      "median_output_tokens_per_second": 4515.788353695478,
+      "median_peak_allocated_bytes": 451741696,
+      "median_peak_reserved_bytes": 465567744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "bbbcd35947fa3d5bb0700a173c2b5e56f2d6c994f7fcb9cf06867a840cde2a3a",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        38.42067337036133,
+        37.753440856933594,
+        37.84249496459961
+      ],
+      "median_of_run_median_ttft_ms": 37.84249496459961,
+      "median_tpot_ms_by_run": [
+        38.006561279296875,
+        37.88694381713867,
+        38.111392974853516
+      ],
+      "median_of_run_median_tpot_ms": 38.006561279296875,
+      "median_e2e_wall_ms_by_run": [
+        9858.574488000158,
+        9801.65602499983,
+        9880.978351999147
+      ],
+      "median_of_run_median_e2e_wall_ms": 9858.574488000158,
+      "output_tokens_per_second_by_run": [
+        828.1220855067668,
+        834.8910663142558,
+        828.2635086369806
+      ],
+      "median_output_tokens_per_second": 828.2635086369806,
+      "median_peak_allocated_bytes": 675495936,
+      "median_peak_reserved_bytes": 861929472,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "bbbcd35947fa3d5bb0700a173c2b5e56f2d6c994f7fcb9cf06867a840cde2a3a",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b32_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        38.15305709838867,
+        37.646881103515625,
+        38.14787292480469
+      ],
+      "median_of_run_median_ttft_ms": 38.14787292480469,
+      "median_tpot_ms_by_run": [
+        38.02479934692383,
+        37.92975997924805,
+        38.08969497680664
+      ],
+      "median_of_run_median_tpot_ms": 38.02479934692383,
+      "median_e2e_wall_ms_by_run": [
+        2466.4580469998327,
+        2454.888762000337,
+        2476.5214960007143
+      ],
+      "median_of_run_median_e2e_wall_ms": 2466.4580469998327,
+      "output_tokens_per_second_by_run": [
+        814.3543949926552,
+        824.2886923670023,
+        826.5320861943594
+      ],
+      "median_output_tokens_per_second": 824.2886923670023,
+      "median_peak_allocated_bytes": 674856960,
+      "median_peak_reserved_bytes": 861929472,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "43f2c26c82b8ba391bc27676c3732c754d5bced0e3728b10bf7d5cb334216ac8",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        3.748800039291382,
+        7.110367774963379,
+        6.4738240242004395
+      ],
+      "median_of_run_median_ttft_ms": 6.4738240242004395,
+      "median_tpot_ms_by_run": [
+        2.3159360885620117,
+        5.721407890319824,
+        5.8023681640625
+      ],
+      "median_of_run_median_tpot_ms": 5.721407890319824,
+      "median_e2e_wall_ms_by_run": [
+        693.727267000213,
+        1576.1759190008888,
+        1573.8673380001273
+      ],
+      "median_of_run_median_e2e_wall_ms": 1573.8673380001273,
+      "output_tokens_per_second_by_run": [
+        2570.293034683325,
+        1270.3598528194266,
+        1235.5012641679334
+      ],
+      "median_output_tokens_per_second": 1270.3598528194266,
+      "median_peak_allocated_bytes": 215689216,
+      "median_peak_reserved_bytes": 222298112,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "43f2c26c82b8ba391bc27676c3732c754d5bced0e3728b10bf7d5cb334216ac8",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.487391948699951,
+        5.3084797859191895,
+        6.37446403503418
+      ],
+      "median_of_run_median_ttft_ms": 5.487391948699951,
+      "median_tpot_ms_by_run": [
+        5.565824031829834,
+        5.805952072143555,
+        7.529119968414307
+      ],
+      "median_of_run_median_tpot_ms": 5.805952072143555,
+      "median_e2e_wall_ms_by_run": [
+        391.8866549993254,
+        378.50333399910596,
+        562.0756520002033
+      ],
+      "median_of_run_median_e2e_wall_ms": 391.8866549993254,
+      "output_tokens_per_second_by_run": [
+        1281.468820203019,
+        1348.5107473460428,
+        923.6770126069596
+      ],
+      "median_output_tokens_per_second": 1281.468820203019,
+      "median_peak_allocated_bytes": 215578624,
+      "median_peak_reserved_bytes": 222298112,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "dc77920f89a1dd23dcd5c70d2b40db9fc6cfb8292fb80876667f48bd56ce6909",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        10.15123176574707,
+        9.948639869689941,
+        9.931743621826172
+      ],
+      "median_of_run_median_ttft_ms": 9.948639869689941,
+      "median_tpot_ms_by_run": [
+        10.039135932922363,
+        9.967967987060547,
+        10.20911979675293
+      ],
+      "median_of_run_median_tpot_ms": 10.039135932922363,
+      "median_e2e_wall_ms_by_run": [
+        2816.801270000724,
+        2783.2762409998395,
+        2945.1354339998943
+      ],
+      "median_of_run_median_e2e_wall_ms": 2816.801270000724,
+      "output_tokens_per_second_by_run": [
+        733.2235199407191,
+        717.0633331839995,
+        695.4260697799813
+      ],
+      "median_output_tokens_per_second": 717.0633331839995,
+      "median_peak_allocated_bytes": 271614464,
+      "median_peak_reserved_bytes": 289406976,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "dc77920f89a1dd23dcd5c70d2b40db9fc6cfb8292fb80876667f48bd56ce6909",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/high/b8_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.729536056518555,
+        10.066720008850098,
+        10.240511894226074
+      ],
+      "median_of_run_median_ttft_ms": 10.066720008850098,
+      "median_tpot_ms_by_run": [
+        9.927647590637207,
+        10.088383674621582,
+        10.086079597473145
+      ],
+      "median_of_run_median_tpot_ms": 10.086079597473145,
+      "median_e2e_wall_ms_by_run": [
+        677.4458750005579,
+        713.7680650012044,
+        695.0252130009176
+      ],
+      "median_of_run_median_e2e_wall_ms": 695.0252130009176,
+      "output_tokens_per_second_by_run": [
+        754.0915766617992,
+        721.9475848696037,
+        687.0571061311169
+      ],
+      "median_output_tokens_per_second": 721.9475848696037,
+      "median_peak_allocated_bytes": 271380992,
+      "median_peak_reserved_bytes": 289406976,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "e90bdb9442dfa8988c9aa140fe3dfd39b838ec8bbf11e1a0cdabef41f7b9b595",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.212128162384033,
+        4.782688140869141,
+        5.810495853424072
+      ],
+      "median_of_run_median_ttft_ms": 5.212128162384033,
+      "median_tpot_ms_by_run": [
+        5.377439975738525,
+        6.133056163787842,
+        5.27020788192749
+      ],
+      "median_of_run_median_tpot_ms": 5.377439975738525,
+      "median_e2e_wall_ms_by_run": [
+        1494.5529729993723,
+        1700.5768020007963,
+        1505.1670060001925
+      ],
+      "median_of_run_median_e2e_wall_ms": 1505.1670060001925,
+      "output_tokens_per_second_by_run": [
+        165.77329645648146,
+        135.52359335579226,
+        172.7135315982632
+      ],
+      "median_output_tokens_per_second": 165.77329645648146,
+      "median_peak_allocated_bytes": 146711552,
+      "median_peak_reserved_bytes": 165675008,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "e90bdb9442dfa8988c9aa140fe3dfd39b838ec8bbf11e1a0cdabef41f7b9b595",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        4.597695827484131,
+        8.431679725646973,
+        5.6914238929748535
+      ],
+      "median_of_run_median_ttft_ms": 5.6914238929748535,
+      "median_tpot_ms_by_run": [
+        5.5193281173706055,
+        5.888512134552002,
+        6.13424015045166
+      ],
+      "median_of_run_median_tpot_ms": 5.888512134552002,
+      "median_e2e_wall_ms_by_run": [
+        364.23855500015634,
+        461.2970090001909,
+        429.038837999542
+      ],
+      "median_of_run_median_e2e_wall_ms": 429.038837999542,
+      "output_tokens_per_second_by_run": [
+        169.9550410706247,
+        140.5534586189388,
+        148.89554602313953
+      ],
+      "median_output_tokens_per_second": 148.89554602313953,
+      "median_peak_allocated_bytes": 146697728,
+      "median_peak_reserved_bytes": 163577856,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a0c38fe68fca467cd2debd6475816bd8fdc3d9918c328ef153e57114d45bab8f",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        7.7803521156311035,
+        6.899007797241211,
+        4.798208236694336
+      ],
+      "median_of_run_median_ttft_ms": 6.899007797241211,
+      "median_tpot_ms_by_run": [
+        5.732800006866455,
+        5.724703788757324,
+        6.029344081878662
+      ],
+      "median_of_run_median_tpot_ms": 5.732800006866455,
+      "median_e2e_wall_ms_by_run": [
+        1680.4086599986476,
+        1672.3781609998696,
+        1675.2457769998728
+      ],
+      "median_of_run_median_e2e_wall_ms": 1675.2457769998728,
+      "output_tokens_per_second_by_run": [
+        147.994389976209,
+        149.2016632683432,
+        139.40506611161888
+      ],
+      "median_output_tokens_per_second": 147.994389976209,
+      "median_peak_allocated_bytes": 153815552,
+      "median_peak_reserved_bytes": 171966464,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a0c38fe68fca467cd2debd6475816bd8fdc3d9918c328ef153e57114d45bab8f",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b1_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        6.262400150299072,
+        6.191808223724365,
+        5.289760112762451
+      ],
+      "median_of_run_median_ttft_ms": 6.191808223724365,
+      "median_tpot_ms_by_run": [
+        6.042880058288574,
+        5.468800067901611,
+        6.044896125793457
+      ],
+      "median_of_run_median_tpot_ms": 6.042880058288574,
+      "median_e2e_wall_ms_by_run": [
+        427.8449820012611,
+        392.3442819996126,
+        433.37084900122136
+      ],
+      "median_of_run_median_e2e_wall_ms": 427.8449820012611,
+      "output_tokens_per_second_by_run": [
+        142.90507443122615,
+        158.91188755887714,
+        142.15094375845675
+      ],
+      "median_output_tokens_per_second": 142.90507443122615,
+      "median_peak_allocated_bytes": 153700352,
+      "median_peak_reserved_bytes": 171966464,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1099233eba81414722970fd2296264daaa3c5c1bc76f5c535f3d5dac7a2820fa",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.481504440307617,
+        9.378399848937988,
+        9.34943962097168
+      ],
+      "median_of_run_median_ttft_ms": 9.378399848937988,
+      "median_tpot_ms_by_run": [
+        6.818079948425293,
+        6.409120082855225,
+        6.085440158843994
+      ],
+      "median_of_run_median_tpot_ms": 6.409120082855225,
+      "median_e2e_wall_ms_by_run": [
+        1792.1287760000268,
+        1906.7745949996606,
+        1800.65162199935
+      ],
+      "median_of_run_median_e2e_wall_ms": 1800.65162199935,
+      "output_tokens_per_second_by_run": [
+        4177.790128505134,
+        4277.285161190619,
+        4593.0962590215
+      ],
+      "median_output_tokens_per_second": 4277.285161190619,
+      "median_peak_allocated_bytes": 452184064,
+      "median_peak_reserved_bytes": 465567744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1099233eba81414722970fd2296264daaa3c5c1bc76f5c535f3d5dac7a2820fa",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.115167617797852,
+        9.152959823608398,
+        9.076255798339844
+      ],
+      "median_of_run_median_ttft_ms": 9.115167617797852,
+      "median_tpot_ms_by_run": [
+        5.706528186798096,
+        5.915647983551025,
+        6.46892786026001
+      ],
+      "median_of_run_median_tpot_ms": 5.915647983551025,
+      "median_e2e_wall_ms_by_run": [
+        407.01208599966776,
+        407.409983999969,
+        431.7131589996279
+      ],
+      "median_of_run_median_e2e_wall_ms": 407.409983999969,
+      "output_tokens_per_second_by_run": [
+        4997.26868034337,
+        4962.425541178352,
+        4839.688826329023
+      ],
+      "median_output_tokens_per_second": 4962.425541178352,
+      "median_peak_allocated_bytes": 451741696,
+      "median_peak_reserved_bytes": 465567744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "8c7dfc76efd4b95cfeb90aec968e838a50a7d9a4d9dd27cef52cb0b871f7f097",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        38.21859359741211,
+        37.89263916015625,
+        38.07465744018555
+      ],
+      "median_of_run_median_ttft_ms": 38.07465744018555,
+      "median_tpot_ms_by_run": [
+        37.92595291137695,
+        38.096927642822266,
+        37.92086410522461
+      ],
+      "median_of_run_median_tpot_ms": 37.92595291137695,
+      "median_e2e_wall_ms_by_run": [
+        9814.131229999475,
+        9891.128094999658,
+        9832.677373000479
+      ],
+      "median_of_run_median_e2e_wall_ms": 9832.677373000479,
+      "output_tokens_per_second_by_run": [
+        833.8868486155653,
+        826.0381496015335,
+        831.7105123946235
+      ],
+      "median_output_tokens_per_second": 831.7105123946235,
+      "median_peak_allocated_bytes": 675495936,
+      "median_peak_reserved_bytes": 861929472,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "8c7dfc76efd4b95cfeb90aec968e838a50a7d9a4d9dd27cef52cb0b871f7f097",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b32_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        37.97324752807617,
+        38.053279876708984,
+        37.79065704345703
+      ],
+      "median_of_run_median_ttft_ms": 37.97324752807617,
+      "median_tpot_ms_by_run": [
+        37.879329681396484,
+        38.08015823364258,
+        38.09667205810547
+      ],
+      "median_of_run_median_tpot_ms": 38.08015823364258,
+      "median_e2e_wall_ms_by_run": [
+        2452.8499959997134,
+        2476.654738000434,
+        2482.14352299874
+      ],
+      "median_of_run_median_e2e_wall_ms": 2476.654738000434,
+      "output_tokens_per_second_by_run": [
+        833.951070847873,
+        828.0395690226735,
+        826.3084999980475
+      ],
+      "median_output_tokens_per_second": 828.0395690226735,
+      "median_peak_allocated_bytes": 674856960,
+      "median_peak_reserved_bytes": 861929472,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "93558c19e09a4a0a5de81cdb1d99f15b6630e212924bb12b43e893d2cc858969",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        7.959775924682617,
+        5.199264049530029,
+        6.360576152801514
+      ],
+      "median_of_run_median_ttft_ms": 6.360576152801514,
+      "median_tpot_ms_by_run": [
+        5.686528205871582,
+        5.849184036254883,
+        5.444511890411377
+      ],
+      "median_of_run_median_tpot_ms": 5.686528205871582,
+      "median_e2e_wall_ms_by_run": [
+        1650.983425000959,
+        1706.1489660009101,
+        1602.1546459996898
+      ],
+      "median_of_run_median_e2e_wall_ms": 1650.983425000959,
+      "output_tokens_per_second_by_run": [
+        1267.7107495588584,
+        1233.083051832691,
+        1226.8683187503136
+      ],
+      "median_output_tokens_per_second": 1233.083051832691,
+      "median_peak_allocated_bytes": 215689216,
+      "median_peak_reserved_bytes": 222298112,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "93558c19e09a4a0a5de81cdb1d99f15b6630e212924bb12b43e893d2cc858969",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        3.9885759353637695,
+        6.756383895874023,
+        5.517119884490967
+      ],
+      "median_of_run_median_ttft_ms": 5.517119884490967,
+      "median_tpot_ms_by_run": [
+        5.183872222900391,
+        5.3434882164001465,
+        5.534111976623535
+      ],
+      "median_of_run_median_tpot_ms": 5.3434882164001465,
+      "median_e2e_wall_ms_by_run": [
+        365.4409270002361,
+        384.43294199896627,
+        380.1627720004035
+      ],
+      "median_of_run_median_e2e_wall_ms": 380.1627720004035,
+      "output_tokens_per_second_by_run": [
+        1311.6415676750682,
+        1337.5551240573784,
+        1296.6118585492181
+      ],
+      "median_output_tokens_per_second": 1311.6415676750682,
+      "median_peak_allocated_bytes": 215578624,
+      "median_peak_reserved_bytes": 222298112,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1735d77c5180a373307a06e679637e23603ebe4150905ce465bbfd315007be14",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        10.456319808959961,
+        11.502431869506836,
+        10.347776412963867
+      ],
+      "median_of_run_median_ttft_ms": 10.456319808959961,
+      "median_tpot_ms_by_run": [
+        9.952447891235352,
+        10.11193561553955,
+        10.035872459411621
+      ],
+      "median_of_run_median_tpot_ms": 10.035872459411621,
+      "median_e2e_wall_ms_by_run": [
+        2790.8744430005754,
+        2805.325463999907,
+        2758.0726359992696
+      ],
+      "median_of_run_median_e2e_wall_ms": 2790.8744430005754,
+      "output_tokens_per_second_by_run": [
+        749.5342315596876,
+        722.7280898004027,
+        742.7520609896586
+      ],
+      "median_output_tokens_per_second": 742.7520609896586,
+      "median_peak_allocated_bytes": 271614464,
+      "median_peak_reserved_bytes": 289406976,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "kv_cache",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1735d77c5180a373307a06e679637e23603ebe4150905ce465bbfd315007be14",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/kv_cache/none/b8_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.957023620605469,
+        10.023167610168457,
+        9.915167808532715
+      ],
+      "median_of_run_median_ttft_ms": 9.957023620605469,
+      "median_tpot_ms_by_run": [
+        10.143199920654297,
+        9.96940803527832,
+        9.900799751281738
+      ],
+      "median_of_run_median_tpot_ms": 9.96940803527832,
+      "median_e2e_wall_ms_by_run": [
+        701.7153130000224,
+        672.0246280001447,
+        668.8766139996005
+      ],
+      "median_of_run_median_e2e_wall_ms": 672.0246280001447,
+      "output_tokens_per_second_by_run": [
+        720.6236199335426,
+        759.8223035747948,
+        739.9453572893464
+      ],
+      "median_output_tokens_per_second": 739.9453572893464,
+      "median_peak_allocated_bytes": 271380992,
+      "median_peak_reserved_bytes": 289406976,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "b1f46fbbf87d706d1e47c35acb7977d4e6b8c2a50dc0f78ae32d4c0e142f6f18",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        4.49286413192749,
+        7.169343948364258,
+        3.6871678829193115
+      ],
+      "median_of_run_median_ttft_ms": 4.49286413192749,
+      "median_tpot_ms_by_run": [
+        4.530752182006836,
+        4.716127872467041,
+        4.178207874298096
+      ],
+      "median_of_run_median_tpot_ms": 4.530752182006836,
+      "median_e2e_wall_ms_by_run": [
+        1346.4119660002325,
+        1378.996997998911,
+        1192.9146940001374
+      ],
+      "median_of_run_median_e2e_wall_ms": 1346.4119660002325,
+      "output_tokens_per_second_by_run": [
+        193.20396395806586,
+        186.77486527221592,
+        212.68227132146245
+      ],
+      "median_output_tokens_per_second": 193.20396395806586,
+      "median_peak_allocated_bytes": 142115328,
+      "median_peak_reserved_bytes": 159383552,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "b1f46fbbf87d706d1e47c35acb7977d4e6b8c2a50dc0f78ae32d4c0e142f6f18",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        3.8950719833374023,
+        3.6732800006866455,
+        7.240447998046875
+      ],
+      "median_of_run_median_ttft_ms": 3.8950719833374023,
+      "median_tpot_ms_by_run": [
+        4.922624111175537,
+        4.506847858428955,
+        5.6735358238220215
+      ],
+      "median_of_run_median_tpot_ms": 4.922624111175537,
+      "median_e2e_wall_ms_by_run": [
+        346.80925400061824,
+        323.00193599985505,
+        450.7717930009676
+      ],
+      "median_of_run_median_e2e_wall_ms": 346.80925400061824,
+      "output_tokens_per_second_by_run": [
+        180.26169175644088,
+        199.09653266161342,
+        153.82468095600046
+      ],
+      "median_output_tokens_per_second": 180.26169175644088,
+      "median_peak_allocated_bytes": 139444224,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a67e84905ff73bc429931682da7ffb9c556680a28592af8256f0ad5fb21f1241",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.845600128173828,
+        5.375328063964844,
+        5.231167793273926
+      ],
+      "median_of_run_median_ttft_ms": 5.375328063964844,
+      "median_tpot_ms_by_run": [
+        5.078495979309082,
+        4.8185601234436035,
+        4.945024013519287
+      ],
+      "median_of_run_median_tpot_ms": 4.945024013519287,
+      "median_e2e_wall_ms_by_run": [
+        1444.5380140005,
+        1444.8356599987164,
+        1416.4012189994537
+      ],
+      "median_of_run_median_e2e_wall_ms": 1444.5380140005,
+      "output_tokens_per_second_by_run": [
+        169.3743357648297,
+        185.7568457237651,
+        179.09713773682586
+      ],
+      "median_output_tokens_per_second": 179.09713773682586,
+      "median_peak_allocated_bytes": 143852032,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a67e84905ff73bc429931682da7ffb9c556680a28592af8256f0ad5fb21f1241",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b1_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        7.177087783813477,
+        5.5419840812683105,
+        5.014944076538086
+      ],
+      "median_of_run_median_ttft_ms": 5.5419840812683105,
+      "median_tpot_ms_by_run": [
+        5.2099199295043945,
+        4.794303894042969,
+        4.579296112060547
+      ],
+      "median_of_run_median_tpot_ms": 4.794303894042969,
+      "median_e2e_wall_ms_by_run": [
+        378.4514670005592,
+        355.11669000152324,
+        310.62002500038943
+      ],
+      "median_of_run_median_e2e_wall_ms": 355.11669000152324,
+      "output_tokens_per_second_by_run": [
+        171.10137686282587,
+        183.36047343365541,
+        188.53680394871122
+      ],
+      "median_output_tokens_per_second": 183.36047343365541,
+      "median_peak_allocated_bytes": 143738368,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "0f15a7ee8854b8acffe0a242eb7993adaa8f2cc6331705fa2f4637c19eb8b60d",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.021056175231934,
+        9.07750415802002,
+        9.075872421264648
+      ],
+      "median_of_run_median_ttft_ms": 9.075872421264648,
+      "median_tpot_ms_by_run": [
+        19.360288619995117,
+        19.239423751831055,
+        18.672351837158203
+      ],
+      "median_of_run_median_tpot_ms": 19.239423751831055,
+      "median_e2e_wall_ms_by_run": [
+        4815.164997999091,
+        4991.073598999719,
+        4777.753007998399
+      ],
+      "median_of_run_median_e2e_wall_ms": 4815.164997999091,
+      "output_tokens_per_second_by_run": [
+        1674.63965550345,
+        1652.762926792972,
+        1711.4712501704973
+      ],
+      "median_output_tokens_per_second": 1674.63965550345,
+      "median_peak_allocated_bytes": 289131008,
+      "median_peak_reserved_bytes": 1275068416,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "0f15a7ee8854b8acffe0a242eb7993adaa8f2cc6331705fa2f4637c19eb8b60d",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        10.19753646850586,
+        9.98857593536377,
+        9.965279579162598
+      ],
+      "median_of_run_median_ttft_ms": 9.98857593536377,
+      "median_tpot_ms_by_run": [
+        12.149632453918457,
+        12.62656021118164,
+        12.888319969177246
+      ],
+      "median_of_run_median_tpot_ms": 12.62656021118164,
+      "median_e2e_wall_ms_by_run": [
+        782.3553720008931,
+        835.2832839991606,
+        842.7975060003519
+      ],
+      "median_of_run_median_e2e_wall_ms": 835.2832839991606,
+      "output_tokens_per_second_by_run": [
+        2608.2969995819485,
+        2466.8562873564288,
+        2432.8472361601503
+      ],
+      "median_output_tokens_per_second": 2466.8562873564288,
+      "median_peak_allocated_bytes": 212878336,
+      "median_peak_reserved_bytes": 341835776,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "bbbcd35947fa3d5bb0700a173c2b5e56f2d6c994f7fcb9cf06867a840cde2a3a",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        35.74140930175781,
+        35.95478439331055,
+        36.08860778808594
+      ],
+      "median_of_run_median_ttft_ms": 35.95478439331055,
+      "median_tpot_ms_by_run": [
+        35.746559143066406,
+        36.014305114746094,
+        35.95366287231445
+      ],
+      "median_of_run_median_tpot_ms": 35.95366287231445,
+      "median_e2e_wall_ms_by_run": [
+        9230.174644999352,
+        9311.793205999493,
+        9271.622006001053
+      ],
+      "median_of_run_median_e2e_wall_ms": 9271.622006001053,
+      "output_tokens_per_second_by_run": [
+        889.5336070372086,
+        881.3080172095795,
+        882.577273904165
+      ],
+      "median_output_tokens_per_second": 882.577273904165,
+      "median_peak_allocated_bytes": 340283904,
+      "median_peak_reserved_bytes": 408944640,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "bbbcd35947fa3d5bb0700a173c2b5e56f2d6c994f7fcb9cf06867a840cde2a3a",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b32_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        36.04022216796875,
+        35.92268753051758,
+        35.504798889160156
+      ],
+      "median_of_run_median_ttft_ms": 35.92268753051758,
+      "median_tpot_ms_by_run": [
+        35.83241653442383,
+        35.634910583496094,
+        35.899166107177734
+      ],
+      "median_of_run_median_tpot_ms": 35.83241653442383,
+      "median_e2e_wall_ms_by_run": [
+        2312.2561399995902,
+        2293.285924999509,
+        2304.193257001316
+      ],
+      "median_of_run_median_e2e_wall_ms": 2304.193257001316,
+      "output_tokens_per_second_by_run": [
+        885.3730543521759,
+        892.0586008359143,
+        886.4192629574077
+      ],
+      "median_output_tokens_per_second": 886.4192629574077,
+      "median_peak_allocated_bytes": 339694080,
+      "median_peak_reserved_bytes": 408944640,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "43f2c26c82b8ba391bc27676c3732c754d5bced0e3728b10bf7d5cb334216ac8",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        7.225215911865234,
+        7.231135845184326,
+        5.4778242111206055
+      ],
+      "median_of_run_median_ttft_ms": 7.225215911865234,
+      "median_tpot_ms_by_run": [
+        6.578368186950684,
+        6.30511999130249,
+        6.545119762420654
+      ],
+      "median_of_run_median_tpot_ms": 6.545119762420654,
+      "median_e2e_wall_ms_by_run": [
+        1722.3509070008731,
+        1695.6991829993058,
+        1762.5817659991299
+      ],
+      "median_of_run_median_e2e_wall_ms": 1722.3509070008731,
+      "output_tokens_per_second_by_run": [
+        1092.739225620375,
+        1195.7572320786653,
+        1175.0383954408398
+      ],
+      "median_output_tokens_per_second": 1175.0383954408398,
+      "median_peak_allocated_bytes": 175245824,
+      "median_peak_reserved_bytes": 203423744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "43f2c26c82b8ba391bc27676c3732c754d5bced0e3728b10bf7d5cb334216ac8",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.124320030212402,
+        6.976384162902832,
+        6.581535816192627
+      ],
+      "median_of_run_median_ttft_ms": 6.581535816192627,
+      "median_tpot_ms_by_run": [
+        5.065087795257568,
+        4.749792098999023,
+        4.858528137207031
+      ],
+      "median_of_run_median_tpot_ms": 4.858528137207031,
+      "median_e2e_wall_ms_by_run": [
+        343.02692399978696,
+        346.70476599967515,
+        356.8879840004229
+      ],
+      "median_of_run_median_e2e_wall_ms": 346.70476599967515,
+      "output_tokens_per_second_by_run": [
+        1465.7334319761326,
+        1497.829276477914,
+        1410.12305617232
+      ],
+      "median_output_tokens_per_second": 1465.7334319761326,
+      "median_peak_allocated_bytes": 155952128,
+      "median_peak_reserved_bytes": 182452224,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "dc77920f89a1dd23dcd5c70d2b40db9fc6cfb8292fb80876667f48bd56ce6909",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.292991638183594,
+        9.266048431396484,
+        14.865440368652344
+      ],
+      "median_of_run_median_ttft_ms": 9.292991638183594,
+      "median_tpot_ms_by_run": [
+        9.460576057434082,
+        9.380224227905273,
+        9.592000007629395
+      ],
+      "median_of_run_median_tpot_ms": 9.460576057434082,
+      "median_e2e_wall_ms_by_run": [
+        2644.885790999979,
+        2508.4386359994824,
+        2595.646059000501
+      ],
+      "median_of_run_median_e2e_wall_ms": 2595.646059000501,
+      "output_tokens_per_second_by_run": [
+        752.8829404768687,
+        810.974760955623,
+        749.1596513410055
+      ],
+      "median_output_tokens_per_second": 752.8829404768687,
+      "median_peak_allocated_bytes": 188207616,
+      "median_peak_reserved_bytes": 207618048,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "dc77920f89a1dd23dcd5c70d2b40db9fc6cfb8292fb80876667f48bd56ce6909",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/high/b8_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.54793643951416,
+        9.69923210144043,
+        9.388031959533691
+      ],
+      "median_of_run_median_ttft_ms": 9.54793643951416,
+      "median_tpot_ms_by_run": [
+        9.389663696289062,
+        9.856831550598145,
+        9.4683198928833
+      ],
+      "median_of_run_median_tpot_ms": 9.4683198928833,
+      "median_e2e_wall_ms_by_run": [
+        615.1843030002055,
+        650.6016090006597,
+        628.5450010000204
+      ],
+      "median_of_run_median_e2e_wall_ms": 628.5450010000204,
+      "output_tokens_per_second_by_run": [
+        827.6049102327321,
+        768.299947987017,
+        813.8095549371014
+      ],
+      "median_output_tokens_per_second": 813.8095549371014,
+      "median_peak_allocated_bytes": 187986432,
+      "median_peak_reserved_bytes": 207618048,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "e90bdb9442dfa8988c9aa140fe3dfd39b838ec8bbf11e1a0cdabef41f7b9b595",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        4.13705587387085,
+        5.071167945861816,
+        6.016479969024658
+      ],
+      "median_of_run_median_ttft_ms": 5.071167945861816,
+      "median_tpot_ms_by_run": [
+        4.898464202880859,
+        4.604063987731934,
+        6.28000020980835
+      ],
+      "median_of_run_median_tpot_ms": 4.898464202880859,
+      "median_e2e_wall_ms_by_run": [
+        1401.8357959994319,
+        1346.1314579999453,
+        1746.7480050017912
+      ],
+      "median_of_run_median_e2e_wall_ms": 1401.8357959994319,
+      "output_tokens_per_second_by_run": [
+        185.93642256391428,
+        182.53210699546725,
+        143.9130411601297
+      ],
+      "median_output_tokens_per_second": 182.53210699546725,
+      "median_peak_allocated_bytes": 142115328,
+      "median_peak_reserved_bytes": 159383552,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "e90bdb9442dfa8988c9aa140fe3dfd39b838ec8bbf11e1a0cdabef41f7b9b595",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        3.8948800563812256,
+        5.475456237792969,
+        3.972223997116089
+      ],
+      "median_of_run_median_ttft_ms": 3.972223997116089,
+      "median_tpot_ms_by_run": [
+        4.628479957580566,
+        5.291872024536133,
+        4.644959926605225
+      ],
+      "median_of_run_median_tpot_ms": 4.644959926605225,
+      "median_e2e_wall_ms_by_run": [
+        345.8828940001695,
+        379.09867700000177,
+        331.82187100101146
+      ],
+      "median_of_run_median_e2e_wall_ms": 345.8828940001695,
+      "output_tokens_per_second_by_run": [
+        179.32669667843032,
+        167.88302015670286,
+        192.84456880572864
+      ],
+      "median_output_tokens_per_second": 179.32669667843032,
+      "median_peak_allocated_bytes": 139444224,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a0c38fe68fca467cd2debd6475816bd8fdc3d9918c328ef153e57114d45bab8f",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a",
+        "0e0d28d9b145768eae0bcb9a6ba3390b2bbdbb0b454453653ea959d5edd00b0a"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        4.51043176651001,
+        5.813248157501221,
+        3.784991979598999
+      ],
+      "median_of_run_median_ttft_ms": 4.51043176651001,
+      "median_tpot_ms_by_run": [
+        5.297120094299316,
+        4.81712007522583,
+        4.51859188079834
+      ],
+      "median_of_run_median_tpot_ms": 4.81712007522583,
+      "median_e2e_wall_ms_by_run": [
+        1501.7719459992804,
+        1410.2271009996912,
+        1291.0616010012745
+      ],
+      "median_of_run_median_e2e_wall_ms": 1410.2271009996912,
+      "output_tokens_per_second_by_run": [
+        171.3587659184357,
+        179.97932530522294,
+        195.5626188481802
+      ],
+      "median_output_tokens_per_second": 179.97932530522294,
+      "median_peak_allocated_bytes": 143852032,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "a0c38fe68fca467cd2debd6475816bd8fdc3d9918c328ef153e57114d45bab8f",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8",
+        "5f004963bf88d5f23ef1e97182366eb19e010be394c1022e7f3cec43441829a8"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b1_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.048160076141357,
+        4.733119964599609,
+        6.074592113494873
+      ],
+      "median_of_run_median_ttft_ms": 5.048160076141357,
+      "median_tpot_ms_by_run": [
+        4.663008213043213,
+        4.743807792663574,
+        4.992127895355225
+      ],
+      "median_of_run_median_tpot_ms": 4.743807792663574,
+      "median_e2e_wall_ms_by_run": [
+        329.8042599999462,
+        318.98460400043405,
+        373.14223800058244
+      ],
+      "median_of_run_median_e2e_wall_ms": 329.8042599999462,
+      "output_tokens_per_second_by_run": [
+        192.82621625689254,
+        190.0447201831247,
+        175.01611248930965
+      ],
+      "median_output_tokens_per_second": 190.0447201831247,
+      "median_peak_allocated_bytes": 143738368,
+      "median_peak_reserved_bytes": 157286400,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1099233eba81414722970fd2296264daaa3c5c1bc76f5c535f3d5dac7a2820fa",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.175264358520508,
+        9.084896087646484,
+        9.90505599975586
+      ],
+      "median_of_run_median_ttft_ms": 9.175264358520508,
+      "median_tpot_ms_by_run": [
+        18.45359992980957,
+        19.06038475036621,
+        18.558080673217773
+      ],
+      "median_of_run_median_tpot_ms": 18.558080673217773,
+      "median_e2e_wall_ms_by_run": [
+        4750.358233999577,
+        4855.481795000742,
+        4786.11384999931
+      ],
+      "median_of_run_median_e2e_wall_ms": 4786.11384999931,
+      "output_tokens_per_second_by_run": [
+        1723.109477264446,
+        1678.8776209111663,
+        1708.8040272808169
+      ],
+      "median_output_tokens_per_second": 1708.8040272808169,
+      "median_peak_allocated_bytes": 289131008,
+      "median_peak_reserved_bytes": 1275068416,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1099233eba81414722970fd2296264daaa3c5c1bc76f5c535f3d5dac7a2820fa",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        8.621536254882812,
+        8.613247871398926,
+        8.90009593963623
+      ],
+      "median_of_run_median_ttft_ms": 8.621536254882812,
+      "median_tpot_ms_by_run": [
+        12.061920166015625,
+        11.899968147277832,
+        12.174015998840332
+      ],
+      "median_of_run_median_tpot_ms": 12.061920166015625,
+      "median_e2e_wall_ms_by_run": [
+        761.0787549983797,
+        756.0999679990346,
+        771.9956419987284
+      ],
+      "median_of_run_median_e2e_wall_ms": 761.0787549983797,
+      "output_tokens_per_second_by_run": [
+        2672.679597890546,
+        2654.938821502689,
+        2607.0905807852623
+      ],
+      "median_output_tokens_per_second": 2654.938821502689,
+      "median_peak_allocated_bytes": 212878336,
+      "median_peak_reserved_bytes": 341835776,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "8c7dfc76efd4b95cfeb90aec968e838a50a7d9a4d9dd27cef52cb0b871f7f097",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30",
+        "5bb73f9147b43cbc33d69f8bb756e8908b9511ff0de400224de4527dbe13fb30"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        36.50288009643555,
+        35.78355026245117,
+        35.78031921386719
+      ],
+      "median_of_run_median_ttft_ms": 35.78355026245117,
+      "median_tpot_ms_by_run": [
+        36.24198532104492,
+        36.22300720214844,
+        36.06288146972656
+      ],
+      "median_of_run_median_tpot_ms": 36.22300720214844,
+      "median_e2e_wall_ms_by_run": [
+        9425.934980999955,
+        9358.505857000637,
+        9294.328469999527
+      ],
+      "median_of_run_median_e2e_wall_ms": 9358.505857000637,
+      "output_tokens_per_second_by_run": [
+        863.83199451936,
+        874.6924309859639,
+        880.9827208922559
+      ],
+      "median_output_tokens_per_second": 874.6924309859639,
+      "median_peak_allocated_bytes": 340283904,
+      "median_peak_reserved_bytes": 408944640,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "8c7dfc76efd4b95cfeb90aec968e838a50a7d9a4d9dd27cef52cb0b871f7f097",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0",
+        "a0c3055ea0ede134d3849fdde899258045d760bb783384007bdfb7b14c4198d0"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b32_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        35.86991882324219,
+        36.01327896118164,
+        36.199073791503906
+      ],
+      "median_of_run_median_ttft_ms": 36.01327896118164,
+      "median_tpot_ms_by_run": [
+        35.92230224609375,
+        36.188575744628906,
+        36.12588882446289
+      ],
+      "median_of_run_median_tpot_ms": 36.12588882446289,
+      "median_e2e_wall_ms_by_run": [
+        2319.2123860007996,
+        2334.4682690003538,
+        2330.65263699973
+      ],
+      "median_of_run_median_e2e_wall_ms": 2330.65263699973,
+      "output_tokens_per_second_by_run": [
+        882.9554724912894,
+        877.1997518687281,
+        878.1085598697443
+      ],
+      "median_output_tokens_per_second": 878.1085598697443,
+      "median_peak_allocated_bytes": 339694080,
+      "median_peak_reserved_bytes": 408944640,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "93558c19e09a4a0a5de81cdb1d99f15b6630e212924bb12b43e893d2cc858969",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        7.36572790145874,
+        5.266751766204834,
+        6.649856090545654
+      ],
+      "median_of_run_median_ttft_ms": 6.649856090545654,
+      "median_tpot_ms_by_run": [
+        6.200704097747803,
+        6.426527976989746,
+        6.045055866241455
+      ],
+      "median_of_run_median_tpot_ms": 6.200704097747803,
+      "median_e2e_wall_ms_by_run": [
+        1707.602067001062,
+        1737.0276900001045,
+        1619.9591040003725
+      ],
+      "median_of_run_median_e2e_wall_ms": 1707.602067001062,
+      "output_tokens_per_second_by_run": [
+        1186.19438646383,
+        1181.8108879025676,
+        1237.4703573437453
+      ],
+      "median_output_tokens_per_second": 1186.19438646383,
+      "median_peak_allocated_bytes": 175245824,
+      "median_peak_reserved_bytes": 203423744,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "93558c19e09a4a0a5de81cdb1d99f15b6630e212924bb12b43e893d2cc858969",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p128_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        5.011839866638184,
+        4.848288059234619,
+        7.763904094696045
+      ],
+      "median_of_run_median_ttft_ms": 5.011839866638184,
+      "median_tpot_ms_by_run": [
+        4.934432029724121,
+        4.669407844543457,
+        5.580319881439209
+      ],
+      "median_of_run_median_tpot_ms": 4.934432029724121,
+      "median_e2e_wall_ms_by_run": [
+        369.3574349999835,
+        326.8314819997613,
+        370.00889100090717
+      ],
+      "median_of_run_median_e2e_wall_ms": 369.3574349999835,
+      "output_tokens_per_second_by_run": [
+        1382.2794662259041,
+        1563.10243364579,
+        1286.4092950401382
+      ],
+      "median_output_tokens_per_second": 1382.2794662259041,
+      "median_peak_allocated_bytes": 155952128,
+      "median_peak_reserved_bytes": 182452224,
+      "context_overflow": false,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1735d77c5180a373307a06e679637e23603ebe4150905ce465bbfd315007be14",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99",
+        "8851d5a285192b13ce817da078968ef01e8c4ae39d397d7d58a5823901622e99"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o256/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o256/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o256/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        9.755200386047363,
+        9.982624053955078,
+        9.692480087280273
+      ],
+      "median_of_run_median_ttft_ms": 9.755200386047363,
+      "median_tpot_ms_by_run": [
+        9.714719772338867,
+        9.562591552734375,
+        9.753984451293945
+      ],
+      "median_of_run_median_tpot_ms": 9.714719772338867,
+      "median_e2e_wall_ms_by_run": [
+        2721.1648800002877,
+        2590.6596499989973,
+        2609.6353139982966
+      ],
+      "median_of_run_median_e2e_wall_ms": 2609.6353139982966,
+      "output_tokens_per_second_by_run": [
+        719.0232134918856,
+        793.5806494961952,
+        785.0985524211958
+      ],
+      "median_output_tokens_per_second": 785.0985524211958,
+      "median_peak_allocated_bytes": 188207616,
+      "median_peak_reserved_bytes": 207618048,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    },
+    {
+      "backend": "naive",
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+      "prompt_token_ids_sha256": "1735d77c5180a373307a06e679637e23603ebe4150905ce465bbfd315007be14",
+      "source_sha256": {
+        "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+        "serving/artifact.py": "d3aad5b9ca33b4357ef23a670e63f85c510e9abb61a81c94991d082974e7ca0e",
+        "serving/native/benchmark.py": "97b025f015acc632b69ea83507cd512d3f594e189f5dfa9ee0385e4d7730e4ca",
+        "serving/benchmark_native.py": "4ec7718353e7559a82ee83ea527348bf411a698fcdd39ee05ce2c877cde00581"
+      },
+      "environment": {
+        "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+        "python": "3.11.16",
+        "torch": "2.12.1+cu129",
+        "cuda_runtime": "12.9",
+        "cudnn": 92000,
+        "device": "cuda",
+        "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "gpu_total_memory_bytes": 8546484224,
+        "compute_capability": [
+          12,
+          0
+        ]
+      },
+      "output_token_ids_sha256": [
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00",
+        "3f8e12f02914b4e28508b61309f2288e656782d1aadc50ae7e41bba8bca88e00"
+      ],
+      "run_files": [
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o64/run1.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o64/run2.json",
+        "results/g_serving/g3_native/raw/naive/none/b8_p512_o64/run3.json"
+      ],
+      "run_ids": [
+        "run1",
+        "run2",
+        "run3"
+      ],
+      "median_ttft_ms_by_run": [
+        11.924223899841309,
+        10.005248069763184,
+        9.572192192077637
+      ],
+      "median_of_run_median_ttft_ms": 10.005248069763184,
+      "median_tpot_ms_by_run": [
+        10.972607612609863,
+        9.801600456237793,
+        9.334112167358398
+      ],
+      "median_of_run_median_tpot_ms": 9.801600456237793,
+      "median_e2e_wall_ms_by_run": [
+        735.4143409993412,
+        668.580892999671,
+        615.879823000796
+      ],
+      "median_of_run_median_e2e_wall_ms": 668.580892999671,
+      "output_tokens_per_second_by_run": [
+        605.7643634810889,
+        765.4880524866879,
+        820.8596002801124
+      ],
+      "median_output_tokens_per_second": 765.4880524866879,
+      "median_peak_allocated_bytes": 187986432,
+      "median_peak_reserved_bytes": 207618048,
+      "context_overflow": true,
+      "outputs_deterministic": true
+    }
+  ],
+  "comparisons": [
+    {
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.8860951350232994,
+      "naive_to_kv_ttft_ratio": 0.8112440355964438,
+      "naive_to_kv_tpot_ratio": 0.8657311919589763,
+      "naive_to_kv_e2e_ratio": 0.8830056203791573,
+      "kv_minus_naive_peak_allocated_bytes": 4596224
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.8599474004167047,
+      "naive_to_kv_ttft_ratio": 0.5650246517360387,
+      "naive_to_kv_tpot_ratio": 0.862509434684247,
+      "naive_to_kv_e2e_ratio": 0.8352171231562905,
+      "kv_minus_naive_peak_allocated_bytes": 7253504
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.8732490954301146,
+      "naive_to_kv_ttft_ratio": 0.9736784439566644,
+      "naive_to_kv_tpot_ratio": 0.8535793034530379,
+      "naive_to_kv_e2e_ratio": 0.8891549958777283,
+      "kv_minus_naive_peak_allocated_bytes": 9963520
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.8973323940322867,
+      "naive_to_kv_ttft_ratio": 0.9030456779825963,
+      "naive_to_kv_tpot_ratio": 0.9210406794224799,
+      "naive_to_kv_e2e_ratio": 0.9049186036138581,
+      "kv_minus_naive_peak_allocated_bytes": 9961984
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 2.843834668328955,
+      "naive_to_kv_ttft_ratio": 0.8996359292020173,
+      "naive_to_kv_tpot_ratio": 3.183344922020744,
+      "naive_to_kv_e2e_ratio": 2.8407153626229857,
+      "kv_minus_naive_peak_allocated_bytes": 163053056
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 1.8305842852867436,
+      "naive_to_kv_ttft_ratio": 1.0401542288804255,
+      "naive_to_kv_tpot_ratio": 2.0157858136565108,
+      "naive_to_kv_e2e_ratio": 1.8544764227889294,
+      "kv_minus_naive_peak_allocated_bytes": 238863360
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9384600455131569,
+      "naive_to_kv_ttft_ratio": 0.9501166460336468,
+      "naive_to_kv_tpot_ratio": 0.9459856841060575,
+      "naive_to_kv_e2e_ratio": 0.9404627430960183,
+      "kv_minus_naive_peak_allocated_bytes": 335212032
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9299083704666843,
+      "naive_to_kv_ttft_ratio": 0.9416694766003523,
+      "naive_to_kv_tpot_ratio": 0.9423433430247052,
+      "naive_to_kv_e2e_ratio": 0.9342114129223104,
+      "kv_minus_naive_peak_allocated_bytes": 335162880
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 1.081121993756489,
+      "naive_to_kv_ttft_ratio": 1.1160661588662193,
+      "naive_to_kv_tpot_ratio": 1.1439701360034977,
+      "naive_to_kv_e2e_ratio": 1.0943431288112377,
+      "kv_minus_naive_peak_allocated_bytes": 40443392
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.8742850454569463,
+      "naive_to_kv_ttft_ratio": 1.199392330221991,
+      "naive_to_kv_tpot_ratio": 0.8368185057051746,
+      "naive_to_kv_e2e_ratio": 0.8847067425663473,
+      "kv_minus_naive_peak_allocated_bytes": 59626496
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9524234042676256,
+      "naive_to_kv_ttft_ratio": 0.9340966966244421,
+      "naive_to_kv_tpot_ratio": 0.9423695545758126,
+      "naive_to_kv_e2e_ratio": 0.9214871090284029,
+      "kv_minus_naive_peak_allocated_bytes": 83406848
+    },
+    {
+      "prefix_mode": "high",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.8871210475347667,
+      "naive_to_kv_ttft_ratio": 0.9484654814199807,
+      "naive_to_kv_tpot_ratio": 0.9387512562616885,
+      "naive_to_kv_e2e_ratio": 0.9043484887204957,
+      "kv_minus_naive_peak_allocated_bytes": 83394560
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.9081870536924118,
+      "naive_to_kv_ttft_ratio": 0.9729553433586826,
+      "naive_to_kv_tpot_ratio": 0.9109286621480355,
+      "naive_to_kv_e2e_ratio": 0.9313490067289268,
+      "kv_minus_naive_peak_allocated_bytes": 4596224
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.8303032888078002,
+      "naive_to_kv_ttft_ratio": 0.6979314968999515,
+      "naive_to_kv_tpot_ratio": 0.7888172462700738,
+      "naive_to_kv_e2e_ratio": 0.8061808474330678,
+      "kv_minus_naive_peak_allocated_bytes": 7253504
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.8222855026555334,
+      "naive_to_kv_ttft_ratio": 0.6537797751603717,
+      "naive_to_kv_tpot_ratio": 0.8402735259308068,
+      "naive_to_kv_e2e_ratio": 0.841803107556676,
+      "kv_minus_naive_peak_allocated_bytes": 9963520
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 1,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.751954983508748,
+      "naive_to_kv_ttft_ratio": 0.8152965811826929,
+      "naive_to_kv_tpot_ratio": 0.7850243173628512,
+      "naive_to_kv_e2e_ratio": 0.7708498962808312,
+      "kv_minus_naive_peak_allocated_bytes": 9961984
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 2.5030870087525314,
+      "naive_to_kv_ttft_ratio": 0.9783400693413085,
+      "naive_to_kv_tpot_ratio": 2.8955738749320266,
+      "naive_to_kv_e2e_ratio": 2.6579899140540344,
+      "kv_minus_naive_peak_allocated_bytes": 163053056
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 1.8691299027258308,
+      "naive_to_kv_ttft_ratio": 0.9458450591790328,
+      "naive_to_kv_tpot_ratio": 2.0389854500394287,
+      "naive_to_kv_e2e_ratio": 1.868090584148369,
+      "kv_minus_naive_peak_allocated_bytes": 238863360
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9508605344362124,
+      "naive_to_kv_ttft_ratio": 0.9398259280117318,
+      "naive_to_kv_tpot_ratio": 0.9550981431314896,
+      "naive_to_kv_e2e_ratio": 0.9517759509427343,
+      "kv_minus_naive_peak_allocated_bytes": 335212032
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 32,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9429808646273783,
+      "naive_to_kv_ttft_ratio": 0.9483855425995527,
+      "naive_to_kv_tpot_ratio": 0.9486801132183018,
+      "naive_to_kv_e2e_ratio": 0.9410486658634618,
+      "kv_minus_naive_peak_allocated_bytes": 335162880
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 1.0395286522208564,
+      "naive_to_kv_ttft_ratio": 1.0454801468915245,
+      "naive_to_kv_tpot_ratio": 1.0904200020225543,
+      "naive_to_kv_e2e_ratio": 1.0342938888075575,
+      "kv_minus_naive_peak_allocated_bytes": 40443392
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": false,
+      "kv_to_naive_output_throughput_ratio": 0.948897527398203,
+      "naive_to_kv_ttft_ratio": 0.9084159799983389,
+      "naive_to_kv_tpot_ratio": 0.9234477236385482,
+      "naive_to_kv_e2e_ratio": 0.9715770775145535,
+      "kv_minus_naive_peak_allocated_bytes": 59626496
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 256,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9460621965217701,
+      "naive_to_kv_ttft_ratio": 0.9329477831854557,
+      "naive_to_kv_tpot_ratio": 0.9679995248672598,
+      "naive_to_kv_e2e_ratio": 0.935060092202707,
+      "kv_minus_naive_peak_allocated_bytes": 83406848
+    },
+    {
+      "prefix_mode": "none",
+      "batch_size": 8,
+      "prompt_length": 512,
+      "output_length": 64,
+      "dtype": "bfloat16",
+      "decode_input_policy": "fixed",
+      "context_overflow": true,
+      "kv_to_naive_output_throughput_ratio": 0.9666321438794947,
+      "naive_to_kv_ttft_ratio": 1.0048432594915129,
+      "naive_to_kv_tpot_ratio": 0.9831677489328641,
+      "naive_to_kv_e2e_ratio": 0.994875582148348,
+      "kv_minus_naive_peak_allocated_bytes": 83394560
+    }
+  ]
+}

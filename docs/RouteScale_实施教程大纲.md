@@ -1,7 +1,8 @@
 # RouteScale：Transformer 训练系统项目实施大纲
 
-> 版本：2026-10-17
+> 版本：2026-10-24
 > 本文只记录项目路线、实施任务和阶段验收条件，不记录学习问答、完成进度或具体实验结果。
+> 编号调整：删除原 G 总结阶段，原 H→G、I→H、J→I、K→J，子任务与过程文件同步前移。协议、脚本、配置、测试、目录和 JSON `stage` 均使用新编号，详见[迁移说明](stage_numbering_migration.md)。
 
 相关文档：
 
@@ -406,29 +407,13 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 
 ---
 
-## G. 训练阶段报告与求职材料
+## G. 从训练 checkpoint 到增量推理
 
-1. README 顶部说明训练任务、个人修改和核心实测结论。
-2. 提供环境检查、数据准备、单卡和多卡的最短复现命令。
-3. 绘制单卡时间分解、1/2/4 卡 scaling、MoE 负载和 Triton A/B 图。
-4. 分开标注调试子集、完整数据短窗口和完整覆盖训练。
-5. 标明 nanoGPT 上游内容、个人修改和 AI 辅助范围。
-6. 保留成功、失败和无收益实验。
-7. 准备 5 分钟项目讲解和简历要点。
-
-### G 阶段验收
-
-陌生读者能在 5 分钟内找到项目问题、方法、硬件、数据、主要图表、实测结论和结论边界。
-
----
-
-## H. 从训练 checkpoint 到增量推理
-
-H 阶段先建立 RouteScale 自身的推理基线，不直接从完整 serving 框架开始。Dense
+G 阶段先建立 RouteScale 自身的推理基线，不直接从完整 serving 框架开始。Dense
 checkpoint 是首个正式对象；MoE 必须等 Dense 的导出、logits 等价和 KV Cache
 正确性全部通过后再进入。
 
-### H1. 推理产物契约
+### G1. 推理产物契约
 
 1. 从训练 checkpoint 导出权重、`GPTConfig`、tokenizer 名称与版本、特殊 token、
    dtype 和源文件 SHA256；训练恢复所需的 optimizer/RNG/数据窗口状态不进入推理产物。
@@ -436,7 +421,7 @@ checkpoint 是首个正式对象；MoE 必须等 Dense 的导出、logits 等价
 3. 固定一组短、中、长 prompt，在 FP32 和正式推理 dtype 下保存 reference logits。
 4. 使用 greedy decoding 对照训练模型和导出模型；先定位首个不一致 token，再允许测性能。
 
-### H2. 朴素生成与 KV Cache
+### G2. 朴素生成与 KV Cache
 
 1. 将当前每步重算完整上下文的 `GPT.generate` 作为朴素基线。
 2. 为每层 attention 增加增量 Prefill/Decode 接口、position offset 和连续 KV Cache。
@@ -444,7 +429,7 @@ checkpoint 是首个正式对象；MoE 必须等 Dense 的导出、logits 等价
 4. 对照完整重算与 cached decode 的 logits、greedy token 和结束条件。
 5. 分开报告 Prefill latency、TTFT、Decode tokens/s、每 token latency 和 KV Cache 显存。
 
-### H3. 推理正式协议
+### G3. 推理正式协议
 
 正式 workload 至少覆盖：
 
@@ -457,7 +442,7 @@ checkpoint 是首个正式对象；MoE 必须等 Dense 的导出、logits 等价
 latency p50/p95/p99、峰值显存和成功请求数。发生 OOM 时必须记录请求形状、并发、
 KV Cache 大小和失败阶段。
 
-### H 阶段验收
+### G 阶段验收
 
 训练 checkpoint 能在新进程中作为独立推理产物加载；朴素与 cached 路径在容差内
 logits 等价且 greedy token 一致；能解释 Prefill 与 Decode 的计算/显存差异，并用
@@ -465,13 +450,13 @@ logits 等价且 greedy token 一致；能解释 Prefill 与 Decode 的计算/�
 
 ---
 
-## I. nano-vLLM：推理执行核心
+## H. nano-vLLM：推理执行核心
 
 nano-vLLM 用作“机制显微镜”。其上游源码保留在独立环境或 fork 中，RouteScale
 只保存固定 commit、环境、必要 patch、统一 workload 和结果，不把上游包加入训练
 环境的默认依赖。
 
-### I1. 上游复现与源码路径
+### H1. 上游复现与源码路径
 
 1. 固定 `GeeeekExplorer/nano-vllm` commit、许可证、Python/PyTorch/CUDA 和模型 revision。
 2. 使用其原生支持的 Qwen3-0.6B 跑通官方离线生成，先复现功能，再测本机结果。
@@ -479,7 +464,7 @@ nano-vLLM 用作“机制显微镜”。其上游源码保留在独立环境或 
    顺序阅读并画出 Prefill、Decode、抢占、block 分配和释放的数据流。
 4. 为 block 分配、引用计数、释放、Prefix Cache 命中和 cache exhaustion 写最小状态测试。
 
-### I2. 单变量消融
+### H2. 单变量消融
 
 依次对照：
 
@@ -492,28 +477,32 @@ nano-vLLM 用作“机制显微镜”。其上游源码保留在独立环境或 
 不得把上游 README 的数字当作本项目结果。所有结论必须来自相同硬件、模型 revision、
 请求集合、采样参数和测量边界。
 
-### I3. RouteScale 模型接入
+### H3. RouteScale 模型接入
 
 1. 在隔离 fork 或可重放 patch 中增加 Dense `RouteScaleGPT`，处理 learned positional
    embedding、LayerNorm、GELU、MHA、tied embedding 和 RouteScale 权重命名。
-2. 先加载 H 阶段导出的 Dense 权重，不同时加入 MoE、量化或 speculative decoding。
-3. 用 H 阶段 reference logits 和 greedy token 验证模型层、KV 写入和采样语义。
+2. 先加载 G 阶段导出的 Dense 权重，不同时加入 MoE、量化或 speculative decoding。
+3. 用 G 阶段 reference logits 和 greedy token 验证模型层、KV 写入和采样语义。
 4. 对照 RouteScale native cached path 与 nano-vLLM 的吞吐、TTFT、显存和并发能力。
 
-### I 阶段验收
+### H 阶段验收
 
 能够脱离文档解释 Scheduler、BlockManager、ModelRunner 和 Paged KV Cache 的职责；
 所有 block 生命周期测试通过；至少完成两项正式消融；RouteScale Dense checkpoint
-在 nano-vLLM 接入路径上与 H 阶段 reference 等价，或保留定位清楚、可复现的阻塞记录。
+在 nano-vLLM 接入路径上与 G 阶段 reference 等价，或保留定位清楚、可复现的阻塞记录。
 
 ---
 
-## J. Mini-SGLang：在线 Serving 系统
+## I. Mini-SGLang：在线 Serving 系统
 
 Mini-SGLang 用作“系统放大镜”。本阶段研究从 HTTP 请求到流式输出的完整控制面，
-不重复实现 I 阶段已经证明的基础 KV Cache。
+不重复实现 H 阶段已经证明的基础 KV Cache。
 
-### J1. 服务链路与进程边界
+执行顺序：先在本机单卡完成 I1 服务链路、I2 单卡消融和 I3 在线负载。
+H2 与 I2 的 TP=2/4 等多卡实验统一留到后期租卡窗口；租卡前准备好配置、
+smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以单卡结果代替多卡验收。
+
+### I1. 服务链路与进程边界
 
 1. 固定 `sgl-project/mini-sglang` commit、环境和 Qwen3-0.6B revision，使用独立
    `uv` 环境或容器启动 OpenAI-compatible server。
@@ -522,7 +511,7 @@ Mini-SGLang 用作“系统放大镜”。本阶段研究从 HTTP 请求到流�
 3. 区分请求排队、Prefill、Decode、detokenize 和网络返回时间，不只记录总 wall time。
 4. 验证客户端断开、EOS、最大输出长度、服务关闭和请求资源释放。
 
-### J2. 调度与缓存消融
+### I2. 调度与缓存消融
 
 1. Naive Cache 对照 Radix Cache，分别使用无共享前缀和高共享前缀 workload；
 2. Chunked Prefill 开关及不同 chunk size，观察长 prompt 对短请求 TTFT 的影响；
@@ -532,14 +521,14 @@ Mini-SGLang 用作“系统放大镜”。本阶段研究从 HTTP 请求到流�
    结果声称性能差异；
 6. 多卡对照 TP=1/2/4，并用 NCCL trace 解释小模型和较大模型的通信/计算比。
 
-### J3. 在线负载协议
+### I3. 在线负载协议
 
 正式在线实验至少包含低请求率、接近饱和点和超过饱和点三档流量；报告 request
 throughput、input/output token throughput、TTFT、ITL/TPOT、E2E p50/p95/p99、
 排队时间、cache hit rate、抢占/重算和满足延迟目标的 goodput。离线吞吐与在线延迟
 使用不同结果表，不互相替代。
 
-### J 阶段验收
+### I 阶段验收
 
 能够解释控制面与执行面的边界；有 Radix Cache、Chunked Prefill 和 Overlap
 Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什么可能朝不同方向变化；
@@ -547,9 +536,9 @@ Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什�
 
 ---
 
-## K. 训练—推理联合复盘
+## J. 训练—推理联合复盘
 
-### K1. 统一对照边界
+### J1. 统一对照边界
 
 1. 使用 Qwen3-0.6B 作为 nano-vLLM 与 Mini-SGLang 的共同原生模型，只比较双方都
    支持且语义一致的功能。
@@ -559,7 +548,7 @@ Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什�
 3. 所有来源记录模型 revision、框架 commit、请求哈希、采样参数、warmup、测量时间、
    GPU 拓扑和环境；不同 GPU 或不同模型的绝对数字不进入同一排名。
 
-### K2. MoE 的 train/serve gap
+### J2. MoE 的 train/serve gap
 
 1. 比较训练阶段大量 token 的固定容量 dispatch 与 Decode 阶段每请求一个新 token
    的动态 batch，量化 expert 利用率和 padding 浪费。
@@ -570,7 +559,7 @@ Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什�
    或新的 grouped kernel。
 5. 只有 Dense serving 已稳定且 Profiler 证明 MoE compute 是热点，才接入 RouteScale MoE。
 
-### K3. 最终决策
+### J3. 最终决策
 
 最终报告必须回答：
 
@@ -580,7 +569,7 @@ Scheduling 的单变量证据；能说明平均吞吐、TTFT 和尾延迟为什�
 - 训练侧 fixed shape 与服务侧 batch bucket 的共同点和语义差异是什么？
 - 对本地单卡、四卡实验机和在线服务，分别推荐哪条最简单且证据充分的路径？
 
-### K 阶段验收
+### J 阶段验收
 
 形成从训练、导出、离线推理到在线服务的完整证据链；共同模型和共同 workload 的
 对照可复现；结论同时包含收益、负结果、适用规模、硬件限制和下一步决策。最终更新
@@ -620,13 +609,13 @@ README、学习笔记、结果索引、五分钟讲解和简历表述。
 | `results/c6_deepspeed/` | C6 DeepSpeed 正确性、性能、容量、通信与 checkpoint 指标 |
 | `results/c7_fsdp2/` | C7 FSDP2 正确性、性能、通信与 DCP 结果 |
 | `moe.py` | D 阶段建立的 Top-1 MoE |
-| `serving/export_checkpoint.py` | H 阶段训练 checkpoint 到推理产物的导出与校验 |
+| `serving/export_checkpoint.py` | G 阶段训练 checkpoint 到推理产物的导出与校验 |
 | `serving/native/` | RouteScale 朴素生成、增量模型、KV Cache 与最小调度实现 |
 | `serving/backends/` | nano-vLLM 离线 adapter 与 Mini-SGLang HTTP adapter |
 | `serving/workloads.py` | 离线/在线请求集合、共享前缀比例和 workload 哈希 |
 | `serving/metrics.py` | TTFT、ITL/TPOT、E2E、goodput、显存与 cache 指标 |
-| `config/serving/` | H–K 阶段固定的模型、请求、缓存、调度和并行配置 |
+| `config/serving/` | G–J 阶段固定的模型、请求、缓存、调度和并行配置 |
 | `scripts/benchmark_offline_serving.py` | RouteScale/nano-vLLM 离线统一测量入口 |
 | `scripts/benchmark_online_serving.py` | Mini-SGLang 在线请求回放与延迟统计入口 |
 | `third_party/serving_sources.lock` | 上游 URL、commit、模型 revision、许可证和隔离环境记录 |
-| `results/h_serving/` | H–K 阶段的正确性、离线/在线性能指标和结论；原始 trace 写入 `runs/traces/` |
+| `results/g_serving/` | G–J 阶段的正确性、离线/在线性能指标和结论；原始 trace 写入 `runs/traces/` |

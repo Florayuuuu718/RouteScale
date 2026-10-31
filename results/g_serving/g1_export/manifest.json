@@ -1,0 +1,52 @@
+{
+  "format": "routescale.inference",
+  "format_version": 1,
+  "model_config": {
+    "block_size": 512,
+    "vocab_size": 50257,
+    "n_layer": 8,
+    "n_head": 8,
+    "n_embd": 512,
+    "dropout": 0.0,
+    "bias": false,
+    "moe_num_experts": 0,
+    "moe_layer_index": 4,
+    "moe_capacity_factor": 0.0,
+    "moe_drop_tokens": false,
+    "moe_balance_loss_weight": 0.0,
+    "moe_dispatch_backend": "loop"
+  },
+  "tokenizer": {
+    "implementation": "tiktoken",
+    "implementation_version": "0.14.0",
+    "name": "gpt2",
+    "vocab_size": 50257,
+    "special_tokens": {
+      "end_of_text": 50256
+    },
+    "story_separator": "end_of_text"
+  },
+  "inference_dtype": "bfloat16",
+  "stored_weight_dtypes": [
+    "float32"
+  ],
+  "state_dict_sha256": "45df60bc5a34632510a8bf33f675cf2a8dbafee564ec1d6a3bcd7a1e63b0a6f2",
+  "tied_embedding_verified": true,
+  "provenance": {
+    "source_checkpoint": "runs/checkpoints/legacy/out-tinystories/ckpt.pt",
+    "source_checkpoint_bytes": 614076460,
+    "source_checkpoint_sha256": "86f7da8c7d9dea5899afab3b3bd072f7cdae16a3c8a5b2be0ad292bfc87cca47",
+    "source_format": "nanogpt",
+    "training_step": 300,
+    "best_validation_loss": 3.5545010566711426,
+    "source_training_dtype": "bfloat16"
+  },
+  "artifact_path": "runs/checkpoints/g_serving/dense_baseline/model.pt",
+  "artifact_bytes": 204690819,
+  "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+  "excluded_training_state": [
+    "optimizer",
+    "rng",
+    "data_window_progress"
+  ]
+}

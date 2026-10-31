@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "stage": "H1",
+  "status": "pass",
+  "evidence_class": "static_binary_inspection",
+  "date": "2026-10-23",
+  "wheel": "flash_attn-2.8.3.post2+cu12torch2.8cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+  "wheel_sha256": "92aabf18ecfcf5d620ac7fe97fafe88f83e714b7a790e4bf219dff4a404cfb38",
+  "binary": "flash_attn_2_cuda.cpython-311-x86_64-linux-gnu.so",
+  "inspection_command": "/usr/local/cuda/bin/cuobjdump --list-elf runs/tmp/h1_wheel_inspection/flash_attn_2_cuda.cpython-311-x86_64-linux-gnu.so",
+  "elf_images_by_architecture": {"sm_80": 72, "sm_90": 72, "sm_100": 72, "sm_120": 72},
+  "required_architecture": "sm_120",
+  "limitation": "Architecture presence does not establish kernel numerical correctness or performance."
+}

@@ -1,3 +1,11 @@
 # Override jupyter in Github language stats for more accurate estimate of repo code languages
 # reference: https://github.com/github/linguist/blob/master/docs/overrides.md#generated-code
 *.ipynb linguist-generated
+
+# Keep executable sources consistent and frozen audit evidence byte-for-byte.
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+results/** -text
+artifacts/** -text

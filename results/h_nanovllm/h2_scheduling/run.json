@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "scope": "admission_policy",
+  "status": "fail",
+  "pid": 40505,
+  "started_at_utc": "2026-10-23T12:44:08.897488+00:00",
+  "config_sha256": "bf17caa34c2f17009a6d41fc19c11a40147c999182acef34e6ac23ab1b32819b",
+  "source_sha256": {
+    "serving/h2_scheduling.py": "530d754642b7d596248608a03b4e40eec2ed263219958ca3be676eb96fd718a9",
+    "serving/benchmark_h2_scheduling.py": "a791c0a0656a2b9f12677980f59974794e44c36d1ec214542ff77058b1ee3094",
+    "scripts/run_h2_scheduling.py": "89b1404403751a761333053286926faf42958c262fd683a5be87065df1863158",
+    "scripts/summarize_h2_scheduling.py": "772b14069291ba8ccbb796b0d795dc875aeb02a16d6b098850e8760922e1476b"
+  },
+  "planned_formal_processes": 18,
+  "completed_formal_processes": 0,
+  "completed_steps": [
+    "preflight/fixed_cohort",
+    "preflight/continuous"
+  ],
+  "current_step": "preflight/compare",
+  "updated_at_utc": "2026-10-23T12:45:33.100115+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_scheduling.py\", line 93, in main\n    run(\"preflight/compare\", [python, \"scripts/summarize_h2_scheduling.py\", \"--config\", str(args.config), \"--gate-only\"])\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_scheduling.py\", line 78, in run\n    subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python', 'scripts/summarize_h2_scheduling.py', '--config', '/home/shunzi/projects/RouteScale/config/serving/h2_scheduling.json', '--gate-only']' returned non-zero exit status 1.\n"
+}

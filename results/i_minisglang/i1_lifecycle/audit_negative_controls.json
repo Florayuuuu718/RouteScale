@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "controls": [
+    {
+      "control": "frozen_source_corruption",
+      "expected_failed_check": "frozen_sources",
+      "detected": true
+    },
+    {
+      "control": "missing_client_terminal",
+      "expected_failed_check": "one_client_terminal_per_request",
+      "detected": true
+    },
+    {
+      "control": "server_event_corruption",
+      "expected_failed_check": "server_events_match_raw_logs",
+      "detected": true
+    }
+  ],
+  "auditor_sha256": "2a6a625a194132273a96412d342fc09fb7805a7b87f7cf0389135d2396bc2e32"
+}

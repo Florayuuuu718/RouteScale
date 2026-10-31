@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "cpu_preparation_only",
+  "h1_config": "config/serving/h1_nanovllm.json",
+  "required_h1_results": ["h1_run.json", "h1_state_tests.json", "h1_attention.json", "h1_smoke.json"],
+  "seed": 20261023,
+  "batch_sizes": [1, 8, 32],
+  "prompt_lengths": [128, 512],
+  "output_lengths": [64, 256],
+  "prefix_modes": ["none", "high"],
+  "shared_prefix_fraction": 0.75,
+  "block_size": 256,
+  "max_model_len": 1024,
+  "dtype": "bfloat16",
+  "waves": ["cold", "warm"],
+  "independent_runs": 3,
+  "measured_pairs_per_run": 5,
+  "sampling": {"temperature": 0.6, "ignore_eos": true},
+  "cache_reset_policy": "fresh_block_manager_per_pair",
+  "variants": {
+    "eager_no_prefix": {"enforce_eager": true, "prefix_cache": false},
+    "graph_no_prefix": {"enforce_eager": false, "prefix_cache": false},
+    "eager_prefix": {"enforce_eager": true, "prefix_cache": true}
+  },
+  "workload_path": "runs/workloads/h2_nanovllm/requests.json",
+  "metadata_probe_blocks": 128,
+  "pilot_case_ids": ["b1_p128_o64_none", "b8_p128_o64_high", "b8_p512_o64_none", "b8_p512_o64_high"]
+}

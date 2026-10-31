@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "scope": "routescale_bf16_full_reduction_math_reference_replay_v5",
+  "h1_config": "config/serving/h1_nanovllm.json",
+  "artifact_manifest": "results/g_serving/g1_export/manifest.json",
+  "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+  "tokenizer_path": "runs/workloads/h3_routescale/tokenizer.json",
+  "data_path": "data/tinystories_full/val.bin",
+  "results_dir": "results/h_nanovllm/h3_performance_v5",
+  "workload_path": "runs/workloads/h3_performance_v5/requests.json",
+  "validation_dir": "runs/validation/h3_performance_v5",
+  "dtype": "bfloat16",
+  "seed": 20261024,
+  "prefix_cache": false,
+  "token_policy": "argmax_diagnostic_then_fixed_validation_token_replay",
+  "variants": [
+    "native_kv",
+    "paged_eager",
+    "paged_graph"
+  ],
+  "engine": {
+    "tensor_parallel_size": 1,
+    "max_model_len": 512,
+    "max_num_batched_tokens": 2048,
+    "max_num_seqs": 8,
+    "num_kvcache_blocks": 16,
+    "kvcache_block_size": 256
+  },
+  "cases": [
+    {
+      "case_id": "latency_short",
+      "batch_size": 1,
+      "prompt_length": 32,
+      "output_length": 32
+    },
+    {
+      "case_id": "batch_short",
+      "batch_size": 8,
+      "prompt_length": 128,
+      "output_length": 64
+    },
+    {
+      "case_id": "page_growth",
+      "batch_size": 8,
+      "prompt_length": 255,
+      "output_length": 32
+    },
+    {
+      "case_id": "long_prefill",
+      "batch_size": 1,
+      "prompt_length": 384,
+      "output_length": 64
+    }
+  ],
+  "tolerances": {
+    "bf16_atol": 0.125,
+    "bf16_rtol": 0.02,
+    "max_relative_rmse": 0.005,
+    "graph_requires_exact": true
+  },
+  "warmup_repeats": 3,
+  "measure_repeats": 5,
+  "independent_runs": 3,
+  "pilot_case_ids": [
+    "latency_short",
+    "page_growth"
+  ],
+  "pilot_warmup_repeats": 3,
+  "pilot_measure_repeats": 5,
+  "pilot_max_coefficient_of_variation": 0.15,
+  "minimum_free_bytes": 536870912,
+  "subprocess_timeout_seconds": 900,
+  "reference_policy": "bf16_weights_fp32_math",
+  "protocol": "docs/h3_performance_v5_protocol.md",
+  "additional_reference_policies": [],
+  "allow_bf16_reduced_precision_reduction": false
+}

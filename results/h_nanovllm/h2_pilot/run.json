@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "stage": "H2",
+  "status": "fail",
+  "pid": 14562,
+  "started_at_utc": "2026-10-23T09:04:32.963960+00:00",
+  "completed_steps": [
+    "preflight/eager_no_prefix",
+    "preflight/graph_no_prefix",
+    "preflight/eager_prefix"
+  ],
+  "planned_processes": 36,
+  "pilot_config_sha256": "94bcc14d9465a2e385fc7152a829bd1730e315939a6afa0f5ad866245643f7b1",
+  "completed_formal_processes": 0,
+  "current_step": "preflight/compare",
+  "updated_at_utc": "2026-10-23T09:06:46.722561+00:00",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_nanovllm.py\", line 85, in main\n    run(\"preflight/compare\", [python, \"-m\", \"serving.verify_h2_preflight\", \"--config\", str(args.config)])\n  File \"/home/shunzi/projects/RouteScale/scripts/run_h2_nanovllm.py\", line 69, in run\n    subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python', '-m', 'serving.verify_h2_preflight', '--config', '/home/shunzi/projects/RouteScale/config/serving/h2_pilot.json']' returned non-zero exit status 1.\n"
+}

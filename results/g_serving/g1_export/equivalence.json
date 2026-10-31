@@ -1,0 +1,251 @@
+{
+  "schema_version": 1,
+  "stage": "G1",
+  "created_at_utc": "2026-10-17T05:20:46.952115+00:00",
+  "status": "pass",
+  "device": "cpu",
+  "torch_version": "2.12.1+cu129",
+  "dtypes": [
+    "float32",
+    "bfloat16"
+  ],
+  "greedy_tokens": 4,
+  "prompt_set_sha256": "9c52b0fbcd9c2c892d3dca932270274bcccd410c66b640c1552f6a089bfb3a42",
+  "source_checkpoint": "runs/checkpoints/legacy/out-tinystories/ckpt.pt",
+  "source_checkpoint_sha256": "86f7da8c7d9dea5899afab3b3bd072f7cdae16a3c8a5b2be0ad292bfc87cca47",
+  "artifact": "runs/checkpoints/g_serving/dense_baseline/model.pt",
+  "artifact_sha256": "1c3b6835dd3c394a617cccc3c398a277e6fb99e6a1026680c14dfd1b1d946d2a",
+  "reference_logits": "runs/checkpoints/g_serving/dense_baseline/reference_logits.pt",
+  "reference_logits_sha256": "0fd9eb1e000d865d8adf89e4d8f500f3b800891b167a793987d2efc393a2088a",
+  "strict_load_count": 2,
+  "elapsed_seconds": 15.839453872999911,
+  "comparisons": {
+    "float32": {
+      "source_model_config": {
+        "block_size": 512,
+        "vocab_size": 50257,
+        "n_layer": 8,
+        "n_head": 8,
+        "n_embd": 512,
+        "dropout": 0.0,
+        "bias": false,
+        "moe_num_experts": 0,
+        "moe_layer_index": 4,
+        "moe_capacity_factor": 0.0,
+        "moe_drop_tokens": false,
+        "moe_balance_loss_weight": 0.0,
+        "moe_dispatch_backend": "loop"
+      },
+      "artifact_state_dict_sha256": "45df60bc5a34632510a8bf33f675cf2a8dbafee564ec1d6a3bcd7a1e63b0a6f2",
+      "strict_load": true,
+      "tied_embedding_storage": true,
+      "prompts": {
+        "short": {
+          "prompt_tokens": 4,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "81178a0e88c32a6ae12e30b4d7f712c1dafc03049448ca09503ebc3d556619af",
+          "exported_logits_sha256": "81178a0e88c32a6ae12e30b4d7f712c1dafc03049448ca09503ebc3d556619af",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            11,
+            612,
+            373,
+            257
+          ],
+          "top5_token_ids": [
+            11,
+            612,
+            13,
+            290,
+            284
+          ],
+          "top5_logits": [
+            9.683368682861328,
+            8.305458068847656,
+            6.868791580200195,
+            6.198111534118652,
+            6.19183874130249
+          ]
+        },
+        "medium": {
+          "prompt_tokens": 28,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "4912040389e6f72ea403f6a84ad0f687ea231814c9664fd529c99622ab810d01",
+          "exported_logits_sha256": "4912040389e6f72ea403f6a84ad0f687ea231814c9664fd529c99622ab810d01",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            198,
+            198,
+            3198,
+            1110
+          ],
+          "top5_token_ids": [
+            198,
+            383,
+            220,
+            1375,
+            1881
+          ],
+          "top5_logits": [
+            9.616211891174316,
+            9.49718189239502,
+            9.1550931930542,
+            8.9945068359375,
+            8.919035911560059
+          ]
+        },
+        "long": {
+          "prompt_tokens": 125,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "6097846cc6c79f6e01131bc60474075ac6bec4deed60794e671e6ae0445c4dad",
+          "exported_logits_sha256": "6097846cc6c79f6e01131bc60474075ac6bec4deed60794e671e6ae0445c4dad",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            198,
+            198,
+            464,
+            1310
+          ],
+          "top5_token_ids": [
+            198,
+            220,
+            383,
+            50256,
+            1406
+          ],
+          "top5_logits": [
+            13.315756797790527,
+            8.098827362060547,
+            7.695302963256836,
+            7.479554653167725,
+            6.099883556365967
+          ]
+        }
+      }
+    },
+    "bfloat16": {
+      "source_model_config": {
+        "block_size": 512,
+        "vocab_size": 50257,
+        "n_layer": 8,
+        "n_head": 8,
+        "n_embd": 512,
+        "dropout": 0.0,
+        "bias": false,
+        "moe_num_experts": 0,
+        "moe_layer_index": 4,
+        "moe_capacity_factor": 0.0,
+        "moe_drop_tokens": false,
+        "moe_balance_loss_weight": 0.0,
+        "moe_dispatch_backend": "loop"
+      },
+      "artifact_state_dict_sha256": "45df60bc5a34632510a8bf33f675cf2a8dbafee564ec1d6a3bcd7a1e63b0a6f2",
+      "strict_load": true,
+      "tied_embedding_storage": true,
+      "prompts": {
+        "short": {
+          "prompt_tokens": 4,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "8c8a5f995219b218e2d68e2c45d702190d8059718a29e03d1d779889f152d92b",
+          "exported_logits_sha256": "8c8a5f995219b218e2d68e2c45d702190d8059718a29e03d1d779889f152d92b",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            11,
+            612,
+            373,
+            257
+          ],
+          "top5_token_ids": [
+            11,
+            612,
+            13,
+            290,
+            284
+          ],
+          "top5_logits": [
+            9.6875,
+            8.3125,
+            6.84375,
+            6.1875,
+            6.1875
+          ]
+        },
+        "medium": {
+          "prompt_tokens": 28,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "acace48d5270441e46ea142168d1cd65cfe9aaad26f37a8045d6ba7196372084",
+          "exported_logits_sha256": "acace48d5270441e46ea142168d1cd65cfe9aaad26f37a8045d6ba7196372084",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            198,
+            198,
+            3198,
+            1110
+          ],
+          "top5_token_ids": [
+            198,
+            383,
+            220,
+            1375,
+            1119
+          ],
+          "top5_logits": [
+            9.625,
+            9.5,
+            9.1875,
+            9.0,
+            8.9375
+          ]
+        },
+        "long": {
+          "prompt_tokens": 125,
+          "logits_allclose": true,
+          "max_abs_difference": 0.0,
+          "mean_abs_difference": 0.0,
+          "source_logits_sha256": "d21e64369b21546c84703c7c86cf6568f41eb7d02365bc500c2a757c4d657a19",
+          "exported_logits_sha256": "d21e64369b21546c84703c7c86cf6568f41eb7d02365bc500c2a757c4d657a19",
+          "greedy_tokens_equal": true,
+          "first_greedy_mismatch": null,
+          "greedy_token_ids": [
+            198,
+            198,
+            464,
+            1310
+          ],
+          "top5_token_ids": [
+            198,
+            220,
+            383,
+            50256,
+            1406
+          ],
+          "top5_logits": [
+            13.3125,
+            8.125,
+            7.6875,
+            7.46875,
+            6.09375
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "GPU unavailable; this run establishes correctness only, not serving performance"
+  ]
+}

@@ -25,6 +25,13 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 
 ## Roadmap
 
+Stage labels follow the [implementation outline](docs/RouteScale_实施教程大纲.md):
+G = native inference (complete), H = nano-vLLM (partially complete),
+I = Mini-SGLang, J = training/inference review. The former standalone G summary
+stage was removed. Protocols, scripts, configurations, tests, artifact paths and
+JSON stage labels use the current numbering; see the
+[migration record](docs/stage_numbering_migration.md).
+
 - [x] Reproducible TinyStories training baseline
 - [x] Mixed-precision and micro-batch memory evaluation
 - [x] Checkpoint save and resume validation
@@ -38,6 +45,31 @@ Detailed experiment records are available in [`results/README.md`](results/READM
 - [x] Four-GPU DeepSpeed/FSDP2 performance, capacity and checkpoint matrix
 - [x] Top-1 Mixture-of-Experts
 - [x] Fixed-capacity MoE dispatch and Triton Grouped GEMM evaluation
+- [x] Versioned Dense inference artifact with strict-load/logits equivalence
+- [x] Native contiguous KV-cache correctness for prefill and incremental decode
+- [x] Single-GPU CUDA serving benchmark for TTFT, decode throughput and KV-cache memory
+- [x] Pinned nano-vLLM / Qwen3-0.6B reproduction and GPU functional checks
+- [x] nano-vLLM CUDA Graph / Prefix Cache pilot A/B (corrected policy: 2,048 exact numerical checks, 36/36 formal processes and audit passed; remaining H-stage work is not implied complete)
+- [x] nano-vLLM fixed-cohort / continuous-admission pilot (tile512 policy: 1,664 exact-logit comparisons, 18/18 formal processes and independent audit; original failure retained)
+- [x] KV allocation capacity / fragmentation controls (18 CPU capacity points, 13 real-GPU tensor/address checks, 1,056 exact boundary-logit comparisons; not throughput or maximum serving concurrency)
+- [x] Controlled KV-budget real-model admission/throughput pilot (4,160 exact vectors, 18/18 formal processes and audit; ample-budget negative result retained, no eviction or online SLO claim)
+- [x] Bounded negative-control follow-up (48 balanced full-path traces, 27 CUDA-stream probes, 3,072 exact vectors; historical slowdown not stably reproduced, no runtime fix claimed)
+- [x] RouteScale Dense / nano-vLLM first-scope integration correctness (792 native-BF16 logit vectors, 264 exact eager/Graph vectors and independent weight/API/lifetime audit; initial scope excludes timing)
+- [x] H3 same-model controlled performance matrix (2,592 BF16 target vectors, 864 exact eager/Graph vectors, 6/6 pilots, 36/36 formal processes and independent audit; explicit GEMM reduction policy, fixed-token replay)
+- [ ] H3 timing-stability replication before claiming precise steady-state speedups
+- [ ] H2: multi-GPU TP=2/4 ablations (deferred to the consolidated rental session with I2)
+- [ ] I: Mini-SGLang online serving experiments
+- [x] Mini-SGLang pinned single-GPU HTTP/SSE baseline (15 requests, 463 finite-logit checks; six lifecycle acceptance gaps retained in the [I1 report](results/i_minisglang/i1_lifecycle/README.md))
+- [ ] I1: lifecycle cleanup, validation, health and shutdown acceptance
+- [ ] I2/I3: single-GPU scheduling ablations and online load experiments; TP=2/4 deferred to the later rental session
+
+The native-weight integration, architecture mapping and remaining measurement
+boundaries are documented in
+[`results/h_nanovllm/h3_routescale/README.md`](results/h_nanovllm/h3_routescale/README.md).
+The subsequent [H3 controlled performance report](results/h_nanovllm/h3_performance_v5/README.md)
+includes numerical-policy failures, the complete matrix, independent-process
+ranges and a paired timing diagnosis. Graph improves observed replay throughput;
+TTFT does not improve, and substantial timing variability limits precise rankings.
 
 The frozen D-stage single-GPU experiment contract and D1/D2 mechanism boundaries
 are recorded in [`docs/d_stage_protocol.md`](docs/d_stage_protocol.md). D1
@@ -67,6 +99,7 @@ verified AutoDL evidence snapshot is stored under
 - `data/`: dataset preparation code and local tokenized datasets
 - `docs/`: protocols, runbooks, reports and the project roadmap
 - `notebooks/`: sizing and scaling-law notebooks
+- `serving/`: checkpoint export, correctness baselines and native inference code
 - `results/`: small, reviewable experiment metrics and reports committed to Git
 - `artifacts/`: frozen evidence snapshots imported from completed remote runs
 - `runs/`: ignored machine-local checkpoints, profiler traces, logs and archives

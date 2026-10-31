@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "base_validation": "config/serving/h2_corrected_validation.json",
+  "base_gate_sha256": "496eaf500e54c8c8a08489e33025a7ca5fff7757ace36b6346a50e1b4a532c06",
+  "results_dir": "results/h_nanovllm/h2_scheduling_tile512",
+  "previous_failed_results": "results/h_nanovllm/h2_scheduling",
+  "previous_failed_gate_sha256": "490b47efb145c10519bddecb0baa3dda631569abcfc8e810387aaaaf7e5186a1",
+  "failed_source_manifest_sha256": "07fa6bf5797f57b1856cabe32cd0250bf5c4d3a6c28d549610e960070a7e0661",
+  "linear_policy": {
+    "policy_id": "prefill_linear_tile512_v1",
+    "tile_rows": 512,
+    "allowed_prefill_rows": [512, 1024],
+    "require_exact_logits": true
+  },
+  "prompt_case_id": "b8_p128_o64_none",
+  "max_active_requests": 8,
+  "policies": ["fixed_cohort", "continuous"],
+  "independent_runs": 3,
+  "measured_traces": 3,
+  "warmup_traces": 1,
+  "logical_validation_step_ms": 10,
+  "cases": [
+    {"case_id": "equal_burst", "output_pattern": [32], "second_wave_arrival_ms": 0},
+    {"case_id": "mixed_burst", "output_pattern": [8, 8, 8, 8, 64, 64, 64, 64], "second_wave_arrival_ms": 0},
+    {"case_id": "mixed_staggered", "output_pattern": [8, 8, 8, 8, 64, 64, 64, 64], "second_wave_arrival_ms": 160}
+  ],
+  "timing_policy": "open-loop local arrival replay; TTFT/E2E start at planned arrival, not admission; includes enqueue/scheduling/model/sampling/copy/postprocess and idle arrival waits; excludes initialization/capture/compile/warmup/cache reset/output hashing",
+  "limitations": "Opt-in canonical BF16 Prefill linear tiling on both sides; not native upstream timing. Identical non-padded 512-row GEMMs for the 4/8-request Prefill shapes. Decode Graph, 32-block physical pool and model weights unchanged. No HTTP/SLO, arbitrary batch shape, cache-pressure or TP claim."
+}

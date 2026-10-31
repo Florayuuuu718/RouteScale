@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "validation_config": "config/serving/h2_corrected_validation.json",
+  "qualification_gate_sha256": "496eaf500e54c8c8a08489e33025a7ca5fff7757ace36b6346a50e1b4a532c06",
+  "results_dir": "results/h_nanovllm/h2_corrected_pilot",
+  "pilot_case_ids": [
+    "b1_p128_o64_none",
+    "b8_p128_o64_high",
+    "b8_p512_o64_none",
+    "b8_p512_o64_high"
+  ],
+  "variants": ["eager_no_prefix", "graph_no_prefix", "eager_prefix"],
+  "scope": "cuda_graph_and_prefix_cache",
+  "independent_runs": 3
+}
