@@ -1,0 +1,12 @@
+{
+  "system_path": "/usr/local/cuda-13.0",
+  "system_sha256": "decdc28efcfaf0aaf806abc96d7bba9cb84b37c6e83cb82cda59b6aa59916ff8",
+  "patched_sha256": "13256b220d400a5665cde8bc87c21b0188944390c6a945a7fffa2827254b305a",
+  "patched_header": "targets/x86_64-linux/include/crt/math_functions.h",
+  "changes": [
+    "rsqrt(double x) noexcept (true)",
+    "rsqrtf(float x) noexcept (true)"
+  ],
+  "reason": "CUDA 13.0 declarations conflict with local glibc 2.43 exception specifications",
+  "reference": "https://forums.developer.nvidia.com/t/cuda-headers-in-crt-math-functions-h-still-broken-in-debian-13-repo/362940"
+}

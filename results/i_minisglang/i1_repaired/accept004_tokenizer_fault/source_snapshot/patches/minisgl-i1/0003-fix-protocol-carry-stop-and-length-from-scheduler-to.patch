@@ -1,0 +1,120 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:17:05 +0800
+Subject: [PATCH 3/7] fix(protocol): carry stop and length from scheduler to
+ both completion paths
+
+---
+ python/minisgl/message/frontend.py    | 1 +
+ python/minisgl/message/tokenizer.py   | 1 +
+ python/minisgl/scheduler/scheduler.py | 9 +++++----
+ python/minisgl/server/api_server.py   | 9 +++++++--
+ python/minisgl/tokenizer/server.py    | 2 +-
+ 5 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/python/minisgl/message/frontend.py b/python/minisgl/message/frontend.py
+index d664ccf..96e99db 100644
+--- a/python/minisgl/message/frontend.py
++++ b/python/minisgl/message/frontend.py
+@@ -27,3 +27,4 @@ class UserReply(BaseFrontendMsg):
+     uid: int
+     incremental_output: str
+     finished: bool
++    finish_reason: str | None = None
+diff --git a/python/minisgl/message/tokenizer.py b/python/minisgl/message/tokenizer.py
+index e2d94f1..1fd5bed 100644
+--- a/python/minisgl/message/tokenizer.py
++++ b/python/minisgl/message/tokenizer.py
+@@ -29,6 +29,7 @@ class DetokenizeMsg(BaseTokenizerMsg):
+     uid: int
+     next_token: int
+     finished: bool
++    finish_reason: str | None = None
+ 
+ 
+ @dataclass
+diff --git a/python/minisgl/scheduler/scheduler.py b/python/minisgl/scheduler/scheduler.py
+index be4a27f..5a02517 100644
+--- a/python/minisgl/scheduler/scheduler.py
++++ b/python/minisgl/scheduler/scheduler.py
+@@ -151,10 +151,11 @@ class Scheduler(SchedulerIOMixin):
+                 next_token = next_tokens_cpu[i]
+                 req.append_host(next_token.unsqueeze(0))
+                 next_token = int(next_token.item())
+-                finished = not req.can_decode
+-                if not req.sampling_params.ignore_eos:
+-                    finished |= next_token == self.eos_token_id
+-                reply.append(DetokenizeMsg(uid=req.uid, next_token=next_token, finished=finished))
++                is_eos = not req.sampling_params.ignore_eos and next_token == self.eos_token_id
++                finish_reason = "stop" if is_eos else "length" if not req.can_decode else None
++                finished = finish_reason is not None
++                reply.append(DetokenizeMsg(uid=req.uid, next_token=next_token, finished=finished,
++                                          finish_reason=finish_reason))
+ 
+                 # NOTE: overlap scheduling may make the request freed twice, skip second free
+                 if finished and req not in self.finished_reqs:
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 4195aec..4d75c7f 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -159,6 +159,7 @@ class FrontendManager:
+ 
+     async def stream_chat_completions(self, uid: int):
+         first_chunk = True
++        finish_reason = None
+         async with aclosing(self.wait_for_ack(uid)) as acks:
+           async for ack in acks:
+             delta = {}
+@@ -176,13 +177,14 @@ class FrontendManager:
+             yield f"data: {json.dumps(chunk)}\n\n".encode()
+ 
+             if ack.finished:
++                finish_reason = ack.finish_reason
+                 break
+ 
+         # send final finish_reason
+         end_chunk = {
+             "id": f"cmpl-{uid}",
+             "object": "text_completion.chunk",
+-            "choices": [{"delta": {}, "index": 0, "finish_reason": "stop"}],
++            "choices": [{"delta": {}, "index": 0, "finish_reason": finish_reason}],
+         }
+         yield f"data: {json.dumps(end_chunk)}\n\n".encode()
+         yield b"data: [DONE]\n\n"
+@@ -284,11 +286,14 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+ 
+     # Non-streaming: collect all chunks and return a single JSON response
+     full_content = ""
++    finish_reason = None
+     complete = False
+     try:
+         async with aclosing(state.wait_for_ack(uid)) as acks:
+             async for ack in acks:
+                 full_content += ack.incremental_output
++                if ack.finished:
++                    finish_reason = ack.finish_reason
+         complete = True
+     finally:
+         state.cleanup_user(uid)
+@@ -304,7 +309,7 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+             {
+                 "index": 0,
+                 "message": {"role": "assistant", "content": full_content},
+-                "finish_reason": "stop",
++                "finish_reason": finish_reason,
+             }
+         ],
+         "usage": {
+diff --git a/python/minisgl/tokenizer/server.py b/python/minisgl/tokenizer/server.py
+index 88d428f..fcb35a8 100644
+--- a/python/minisgl/tokenizer/server.py
++++ b/python/minisgl/tokenizer/server.py
+@@ -69,7 +69,7 @@ def tokenize_worker(
+             for msg in pending_msg:
+                 if isinstance(msg, DetokenizeMsg):
+                     reply, = detokenize_manager.detokenize([msg])
+-                    send_frontend.put(UserReply(msg.uid, reply, msg.finished))
++                    send_frontend.put(UserReply(msg.uid, reply, msg.finished, msg.finish_reason))
+                 elif isinstance(msg, RequestEndMsg):
+                     detokenize_manager.forget(msg.uid)
+                     send_frontend.put(UserReply(msg.uid, "", True))

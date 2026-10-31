@@ -1,0 +1,35 @@
+test_detokenizer_cancellation_ack_discards_state_without_tombstones (test_i1_lifecycle_repairs.BackendTests.test_detokenizer_cancellation_ack_discards_state_without_tombstones) ... ok
+test_new_wire_fields_round_trip_in_batches (test_i1_lifecycle_repairs.BackendTests.test_new_wire_fields_round_trip_in_batches) ... ok
+test_process_scan_tolerates_exit_between_liveness_and_status (test_i1_lifecycle_repairs.BackendTests.test_process_scan_tolerates_exit_between_liveness_and_status) ... ok
+test_scheduler_context_error_never_enqueues (test_i1_lifecycle_repairs.BackendTests.test_scheduler_context_error_never_enqueues) ... ok
+test_scheduler_eos_precedence_and_length_ignore_eos (test_i1_lifecycle_repairs.BackendTests.test_scheduler_eos_precedence_and_length_ignore_eos) ... ok
+test_scheduler_releases_before_abort_ack_and_stops_scheduling (test_i1_lifecycle_repairs.BackendTests.test_scheduler_releases_before_abort_ack_and_stops_scheduling) ... ok
+test_startup_observes_dead_worker_instead_of_waiting_forever (test_i1_lifecycle_repairs.BackendTests.test_startup_observes_dead_worker_instead_of_waiting_forever) ... ok
+test_worker_group_reaps_healthy_and_already_dead_children (test_i1_lifecycle_repairs.BackendTests.test_worker_group_reaps_healthy_and_already_dead_children) ... ok
+test_bounded_admission_cannot_be_bypassed_by_cancelling (test_i1_lifecycle_repairs.FrontendTests.test_bounded_admission_cannot_be_bypassed_by_cancelling) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+ok
+test_completed_backend_keeps_slot_until_frontend_consumes_or_closes (test_i1_lifecycle_repairs.FrontendTests.test_completed_backend_keeps_slot_until_frontend_consumes_or_closes) ... ok
+test_disconnect_before_first_token (test_i1_lifecycle_repairs.FrontendTests.test_disconnect_before_first_token) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+ok
+test_disconnect_while_sending_headers_before_body_iterator_starts (test_i1_lifecycle_repairs.FrontendTests.test_disconnect_while_sending_headers_before_body_iterator_starts) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+ok
+test_error_is_http_rejection_before_sse_headers (test_i1_lifecycle_repairs.FrontendTests.test_error_is_http_rejection_before_sse_headers) ... ok
+test_explicit_early_close_aborts_but_keeps_admission_until_ack (test_i1_lifecycle_repairs.FrontendTests.test_explicit_early_close_aborts_but_keeps_admission_until_ack) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+ok
+test_nonstream_finish_reason_and_cleanup (test_i1_lifecycle_repairs.FrontendTests.test_nonstream_finish_reason_and_cleanup) ... ok
+test_server_deadline_cleans_and_aborts (test_i1_lifecycle_repairs.FrontendTests.test_server_deadline_cleans_and_aborts) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+ok
+test_shutdown_cancels_owned_tasks_before_closing_queues (test_i1_lifecycle_repairs.FrontendTests.test_shutdown_cancels_owned_tasks_before_closing_queues) ... ok
+test_stream_finish_reason_and_immediate_cleanup (test_i1_lifecycle_repairs.FrontendTests.test_stream_finish_reason_and_immediate_cleanup) ... ok
+test_task_cancellation_and_generator_exception (test_i1_lifecycle_repairs.FrontendTests.test_task_cancellation_and_generator_exception) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 0
+[1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [33mWARNING [0m Aborting request for user 1
+ok
+test_worker_exit_fails_inflight_and_readiness_and_stops_admission (test_i1_lifecycle_repairs.FrontendTests.test_worker_exit_fails_inflight_and_readiness_and_stops_admission) ... [1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [32mINFO    [0m Worker fault cleanup: {}
+[1m[2026-10-31|11:44:29|FrontendAPI|core|rank=0][0m [32mINFO    [0m Worker shutdown: {}
+ok
+test_zero_linger_shutdown_when_peer_died_with_buffered_sends (test_i1_lifecycle_repairs.SocketTests.test_zero_linger_shutdown_when_peer_died_with_buffered_sends) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.472s
+
+OK

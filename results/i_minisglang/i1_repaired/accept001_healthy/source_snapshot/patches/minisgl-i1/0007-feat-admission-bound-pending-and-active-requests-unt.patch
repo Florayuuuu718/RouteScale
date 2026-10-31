@@ -1,0 +1,200 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:19:23 +0800
+Subject: [PATCH 7/7] feat(admission): bound pending and active requests until
+ backend release acknowledgment
+
+---
+ python/minisgl/server/api_server.py | 72 ++++++++++++++++++-----------
+ python/minisgl/server/args.py       |  3 ++
+ python/minisgl/server/launch.py     |  2 +
+ 3 files changed, 49 insertions(+), 28 deletions(-)
+
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 24d1d9c..7f7e781 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -112,6 +112,12 @@ class FrontendManager:
+     listener_task: asyncio.Task | None = None
+     monitor_task: asyncio.Task | None = None
+     closed: bool = False
++    admitted: set[int] = field(default_factory=set)
++    aborting: set[int] = field(default_factory=set)
++
++    def backend_terminal(self, uid: int):
++        self.admitted.discard(uid)
++        self.aborting.discard(uid)
+ 
+     def ensure_available(self):
+         if self.workers is not None and (failure := self.workers.failure()):
+@@ -137,14 +143,19 @@ class FrontendManager:
+         if self.failure is not None and self.workers is not None:
+             report = await asyncio.to_thread(self.workers.stop)
+             logger.info("Worker fault cleanup: %s", report)
++            self.admitted.clear()
++            self.aborting.clear()
+ 
+     def new_user(self) -> int:
+         self.ensure_available()
++        if len(self.admitted) >= self.config.max_total_requests:
++            raise HTTPException(429, "Inference admission limit reached", headers={"Retry-After": "1"})
+         uid = self.uid_counter
+         self.uid_counter += 1
+         self.ack_map[uid] = []
+         self.event_map[uid] = asyncio.Event()
+         self.deadline_map[uid] = time.monotonic() + self.config.request_timeout_s
++        self.admitted.add(uid)
+         return uid
+ 
+     async def listen(self):
+@@ -152,6 +163,10 @@ class FrontendManager:
+             while True:
+                 msg = await self.recv_tokenizer.get()
+                 for msg in _unwrap_msg(msg):
++                    # Normal replies are sent after resource release; cancellation
++                    # replies are sent after the ordered detokenizer cleanup.
++                    if msg.finished:
++                        self.backend_terminal(msg.uid)
+                     if msg.uid not in self.ack_map:
+                         continue
+                     self.ack_map[msg.uid].append(msg)
+@@ -177,9 +192,11 @@ class FrontendManager:
+ 
+     async def wait_event(self, uid: int, request: Request | None = None):
+         event = self.event_map[uid]
+-        while not event.is_set():
++        while True:
+             if time.monotonic() >= self.deadline_map[uid]:
+                 raise HTTPException(504, "Request deadline exceeded")
++            if event.is_set():
++                return
+             if request is not None and await request.is_disconnected():
+                 raise asyncio.CancelledError
+             try:
+@@ -227,36 +244,31 @@ class FrontendManager:
+                     yield f"data: {json.dumps({'error': {'message': ack.error, 'code': ack.status_code}})}\n\n".encode()
+                     return
+                 yield f"data: {ack.incremental_output}\n".encode()
+-        yield "data: [DONE]\n".encode()
+-        logger.debug("Finished streaming response for user %s", uid)
++        yield b"data: [DONE]\n"
+ 
+     async def stream_chat_completions(self, uid: int):
+         first_chunk = True
+         finish_reason = None
+         async with aclosing(self.wait_for_ack(uid)) as acks:
+-          async for ack in acks:
+-            if ack.error:
+-                yield f"data: {json.dumps({'error': {'message': ack.error, 'code': ack.status_code}})}\n\n".encode()
+-                return
+-            delta = {}
+-            if first_chunk:
+-                delta["role"] = "assistant"
+-                first_chunk = False
+-            if ack.incremental_output:
+-                delta["content"] = ack.incremental_output
+-
+-            chunk = {
+-                "id": f"cmpl-{uid}",
+-                "object": "text_completion.chunk",
+-                "choices": [{"delta": delta, "index": 0, "finish_reason": None}],
+-            }
+-            yield f"data: {json.dumps(chunk)}\n\n".encode()
+-
+-            if ack.finished:
+-                finish_reason = ack.finish_reason
+-                break
+-
+-        # send final finish_reason
++            async for ack in acks:
++                if ack.error:
++                    yield f"data: {json.dumps({'error': {'message': ack.error, 'code': ack.status_code}})}\n\n".encode()
++                    return
++                delta = {}
++                if first_chunk:
++                    delta["role"] = "assistant"
++                    first_chunk = False
++                if ack.incremental_output:
++                    delta["content"] = ack.incremental_output
++                chunk = {
++                    "id": f"cmpl-{uid}",
++                    "object": "text_completion.chunk",
++                    "choices": [{"delta": delta, "index": 0, "finish_reason": None}],
++                }
++                yield f"data: {json.dumps(chunk)}\n\n".encode()
++                if ack.finished:
++                    finish_reason = ack.finish_reason
++                    break
+         end_chunk = {
+             "id": f"cmpl-{uid}",
+             "object": "text_completion.chunk",
+@@ -264,7 +276,6 @@ class FrontendManager:
+         }
+         yield f"data: {json.dumps(end_chunk)}\n\n".encode()
+         yield b"data: [DONE]\n\n"
+-        logger.debug("Finished streaming response for user %s", uid)
+ 
+     async def stream_with_cancellation(self, generator, request: Request, uid: int):
+         complete = False
+@@ -284,6 +295,9 @@ class FrontendManager:
+ 
+     async def abort_user(self, uid: int):
+         self.cleanup_user(uid)
++        if uid not in self.admitted or uid in self.aborting or not self.accepting or self.closed:
++            return
++        self.aborting.add(uid)
+         logger.warning("Aborting request for user %s", uid)
+         await self.send_one(AbortMsg(uid=uid))
+ 
+@@ -306,6 +320,8 @@ class FrontendManager:
+             logger.info("Worker shutdown: %s", report)
+         for uid in list(self.ack_map):
+             self.cleanup_user(uid)
++        self.admitted.clear()
++        self.aborting.clear()
+ 
+ 
+ @asynccontextmanager
+@@ -439,7 +455,7 @@ async def shell_completion(req: OpenAICompletionRequest):
+ 
+     # TODO: support more sampling parameters
+     uid = state.new_user()
+-    await state.send_one(
++    await state.start_request(uid,
+         TokenizeMsg(
+             uid=uid,
+             text=prompt,
+diff --git a/python/minisgl/server/args.py b/python/minisgl/server/args.py
+index 09ef179..3b35ff2 100644
+--- a/python/minisgl/server/args.py
++++ b/python/minisgl/server/args.py
+@@ -19,6 +19,7 @@ class ServerArgs(SchedulerConfig):
+     silent_output: bool = False
+     request_timeout_s: float = 600.0
+     startup_timeout_s: float = 600.0
++    max_total_requests: int = 4
+ 
+     @property
+     def share_tokenizer(self) -> bool:
+@@ -70,6 +71,8 @@ def parse_args(args: List[str], run_shell: bool = False) -> Tuple[ServerArgs, bo
+     parser = argparse.ArgumentParser(description="MiniSGL Server Arguments")
+     parser.add_argument("--request-timeout-s", type=float, default=ServerArgs.request_timeout_s)
+     parser.add_argument("--startup-timeout-s", type=float, default=ServerArgs.startup_timeout_s)
++    parser.add_argument("--max-total-requests", type=int, default=ServerArgs.max_total_requests,
++                        help="Bound all admitted requests, including pending and cancelling requests.")
+ 
+     parser.add_argument(
+         "--model-path",
+diff --git a/python/minisgl/server/launch.py b/python/minisgl/server/launch.py
+index a46a2de..2dc03e0 100644
+--- a/python/minisgl/server/launch.py
++++ b/python/minisgl/server/launch.py
+@@ -50,6 +50,8 @@ def launch_server(run_shell: bool = False) -> None:
+         raise ValueError("I1 lifecycle patches require num_tokenizer=0 and MINISGL_DISABLE_OVERLAP_SCHEDULING=1")
+     if min(server_args.request_timeout_s, server_args.startup_timeout_s) <= 0:
+         raise ValueError("Lifecycle timeouts must be positive")
++    if server_args.max_total_requests < 1:
++        raise ValueError("max_total_requests must be positive")
+     logger = init_logger(__name__, "initializer")
+ 
+     def start_subprocess() -> WorkerGroup:

@@ -1,0 +1,55 @@
+{
+  "stage": "I1",
+  "attempt": "accept011_tokenizer_fault",
+  "scenario": "tokenizer_fault",
+  "status": "scenario_exercised_pending_independent_audit",
+  "evidence_class": "functional_not_performance",
+  "runtime_dir": "runs/logs/i_minisglang/i1_repaired/accept011_tokenizer_fault",
+  "start_wall_time_ns": 1793418314954308562,
+  "ipc_semaphores_before": [],
+  "server_pid": 48469,
+  "startup_seconds": 22.18034006199923,
+  "initial_children": [
+    {
+      "pid": 48495,
+      "name": "python",
+      "created": 1793418320.79
+    },
+    {
+      "pid": 48496,
+      "name": "python",
+      "created": 1793418320.79
+    },
+    {
+      "pid": 48497,
+      "name": "python",
+      "created": 1793418320.79
+    }
+  ],
+  "gpu_serving": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 1708 MiB, 610.88",
+  "client_terminal_counts": {
+    "finished": 1,
+    "failed": 3
+  },
+  "shutdown": {
+    "seconds": 0.21904410499882943,
+    "forced_cleanup": false,
+    "returncode": -15,
+    "tracked_pids": [
+      48469,
+      48495,
+      48496,
+      48497
+    ],
+    "surviving_pids": []
+  },
+  "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 0 MiB, 610.88",
+  "ipc_semaphores_after": [],
+  "raw_log_sha256": {
+    "events.48469.jsonl": "ad7659697ad29acfe879909289123ad4602d4e2b74fb44e7bd29bc29412f6fd7",
+    "events.48497.jsonl": "96cecd1646af8a4b6d933fcf2db57ab6e63203b8c4cbb006c2161d6895f03887",
+    "server.log": "21b2dd3dc5dac347b1e5737b5493a40843c9674c9cb14cc0631b51139243a112",
+    "client.jsonl": "c94ed6212c4c7b6e7d3abca0e056c3c25923e81fa7e30872be8afb3820bbabba",
+    "events.48496.jsonl": "7382ebc80b311fd19c186ff4d113f2a585d834a6be249be386bc7a59d6429dde"
+  }
+}

@@ -1,0 +1,376 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:18:47 +0800
+Subject: [PATCH 6/7] fix(shutdown): cancel listeners, close zero-linger
+ sockets and reap owned workers
+
+---
+ python/minisgl/scheduler/scheduler.py |  3 +
+ python/minisgl/server/api_server.py   | 56 ++++++++++------
+ python/minisgl/server/launch.py       | 93 ++++++++++++++-------------
+ python/minisgl/server/workers.py      | 32 +++++++++
+ python/minisgl/tokenizer/server.py    |  4 ++
+ python/minisgl/utils/mp.py            | 12 ++--
+ 6 files changed, 132 insertions(+), 68 deletions(-)
+
+diff --git a/python/minisgl/scheduler/scheduler.py b/python/minisgl/scheduler/scheduler.py
+index 57e322c..00e064d 100644
+--- a/python/minisgl/scheduler/scheduler.py
++++ b/python/minisgl/scheduler/scheduler.py
+@@ -135,6 +135,9 @@ class Scheduler(SchedulerIOMixin):
+         torch.cuda.synchronize(self.device)
+         self.sync_all_ranks()
+         self.engine.shutdown()
++        for name in ("_recv_from_tokenizer", "_send_into_tokenizer", "_send_into_ranks", "_recv_from_rank0"):
++            if queue := getattr(self, name, None):
++                queue.stop()
+ 
+     def _process_last_data(self, last_data: ForwardData | None) -> None:
+         if last_data is None:
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 4d7a571..24d1d9c 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -111,6 +111,7 @@ class FrontendManager:
+     accepting: bool = True
+     listener_task: asyncio.Task | None = None
+     monitor_task: asyncio.Task | None = None
++    closed: bool = False
+ 
+     def ensure_available(self):
+         if self.workers is not None and (failure := self.workers.failure()):
+@@ -131,8 +132,11 @@ class FrontendManager:
+         while self.accepting:
+             if self.workers is not None and (failure := self.workers.failure()):
+                 self.mark_failed(failure)
+-                return
++                break
+             await asyncio.sleep(0.05)
++        if self.failure is not None and self.workers is not None:
++            report = await asyncio.to_thread(self.workers.stop)
++            logger.info("Worker fault cleanup: %s", report)
+ 
+     def new_user(self) -> int:
+         self.ensure_available()
+@@ -283,9 +287,25 @@ class FrontendManager:
+         logger.warning("Aborting request for user %s", uid)
+         await self.send_one(AbortMsg(uid=uid))
+ 
+-    def shutdown(self):
++    async def shutdown(self):
++        if self.closed:
++            return
++        self.closed = True
++        self.mark_failed("Service is shutting down")
++        for task in (self.listener_task, self.monitor_task):
++            if task is not None:
++                task.cancel()
++        await asyncio.gather(*(task for task in (self.listener_task, self.monitor_task)
++                               if task is not None), return_exceptions=True)
++        # Close sockets only after their consumers have left; linger=0 prevents
++        # context.term from waiting forever for a dead tokenizer peer.
+         self.send_tokenizer.stop()
+         self.recv_tokenizer.stop()
++        if self.workers is not None:
++            report = await asyncio.to_thread(self.workers.stop)
++            logger.info("Worker shutdown: %s", report)
++        for uid in list(self.ack_map):
++            self.cleanup_user(uid)
+ 
+ 
+ @asynccontextmanager
+@@ -295,7 +315,7 @@ async def lifespan(_: FastAPI):
+     # shutdown code here
+     global _GLOBAL_STATE
+     if _GLOBAL_STATE is not None:
+-        _GLOBAL_STATE.shutdown()
++        await _GLOBAL_STATE.shutdown()
+ 
+ 
+ app = FastAPI(title="MiniSGL API Server", version="0.0.1", lifespan=lifespan)
+@@ -439,7 +459,7 @@ async def shell_completion(req: OpenAICompletionRequest):
+     return StreamingResponse(
+         state.stream_generate(uid),
+         media_type="text/event-stream",
+-        background=BackgroundTask(lambda: _abort),
++        background=BackgroundTask(_abort),
+     )
+ 
+ 
+@@ -495,13 +515,7 @@ async def shell():
+     finally:
+         print("Exiting shell...")
+         await asyncio.sleep(0.1)
+-        get_global_state().shutdown()
+-        # then kill all the subprocesses
+-        import psutil
+-
+-        parent = psutil.Process()
+-        for child in parent.children(recursive=True):
+-            child.kill()
++        await get_global_state().shutdown()
+ 
+ 
+ def run_api_server(config: ServerArgs, start_backend: Callable, run_shell: bool) -> None:
+@@ -539,10 +553,16 @@ def run_api_server(config: ServerArgs, start_backend: Callable, run_shell: bool)
+     )
+ 
+     # start the backend here
+-    _GLOBAL_STATE.workers = start_backend()
+-
+-    logger.info(f"API server is ready to serve on {host}:{port}")
+-    if not run_shell:
+-        uvicorn.run(app, host=host, port=port)
+-    else:
+-        asyncio.run(shell())
++    try:
++        _GLOBAL_STATE.workers = start_backend()
++        logger.info(f"API server is ready to serve on {host}:{port}")
++        if not run_shell:
++            uvicorn.run(app, host=host, port=port, timeout_graceful_shutdown=1)
++        else:
++            asyncio.run(shell())
++    finally:
++        # Includes startup failure and interruption before ASGI lifespan starts.
++        _GLOBAL_STATE.send_tokenizer.stop()
++        _GLOBAL_STATE.recv_tokenizer.stop()
++        if _GLOBAL_STATE.workers is not None:
++            _GLOBAL_STATE.workers.stop()
+diff --git a/python/minisgl/server/launch.py b/python/minisgl/server/launch.py
+index ce6f36e..a46a2de 100644
+--- a/python/minisgl/server/launch.py
++++ b/python/minisgl/server/launch.py
+@@ -65,62 +65,67 @@ def launch_server(run_shell: bool = False) -> None:
+         ack_queue: mp.Queue[str] = mp.Queue()
+         workers = WorkerGroup()
+ 
+-        for i in range(world_size):
+-            new_args = replace(
+-                server_args,
+-                tp_info=DistributedInfo(i, world_size),
+-            )
+-            workers.start(
+-                target=_run_scheduler,
+-                args=(new_args, ack_queue),
+-                daemon=False,
+-                name=f"minisgl-TP{i}-scheduler",
+-            )
+-
+-        num_tokenizers = server_args.num_tokenizer
+-        # DeTokenizer, only 1
+-        workers.start(
+-            target=tokenize_worker,
+-            kwargs={
+-                "tokenizer_path": server_args.model_path,
+-                "addr": server_args.zmq_detokenizer_addr,
+-                "backend_addr": server_args.zmq_backend_addr,
+-                "frontend_addr": server_args.zmq_frontend_addr,
+-                "local_bs": 1,
+-                "create": server_args.tokenizer_create_addr,
+-                "tokenizer_id": num_tokenizers,
+-                "ack_queue": ack_queue,
+-            },
+-            daemon=False,
+-            name="minisgl-detokenizer-0",
+-        )
+-        for i in range(num_tokenizers):
++        try:
++            for i in range(world_size):
++                new_args = replace(
++                    server_args,
++                    tp_info=DistributedInfo(i, world_size),
++                )
++                workers.start(
++                    target=_run_scheduler,
++                    args=(new_args, ack_queue),
++                    daemon=False,
++                    name=f"minisgl-TP{i}-scheduler",
++                )
++
++            num_tokenizers = server_args.num_tokenizer
++            # DeTokenizer, only 1
+             workers.start(
+                 target=tokenize_worker,
+                 kwargs={
+                     "tokenizer_path": server_args.model_path,
+-                    "addr": server_args.zmq_tokenizer_addr,
++                    "addr": server_args.zmq_detokenizer_addr,
+                     "backend_addr": server_args.zmq_backend_addr,
+                     "frontend_addr": server_args.zmq_frontend_addr,
+                     "local_bs": 1,
+                     "create": server_args.tokenizer_create_addr,
+-                    "tokenizer_id": i,
++                    "tokenizer_id": num_tokenizers,
+                     "ack_queue": ack_queue,
+                 },
+                 daemon=False,
+-                name=f"minisgl-tokenizer-{i}",
++                name="minisgl-detokenizer-0",
+             )
+-
+-        # Wait for acknowledgments from all worker processes:
+-        # - world_size schedulers (but only primary rank sends ack)
+-        # - num_tokenizers tokenizers
+-        # - 1 detokenizer
+-        # Total acks expected: 1 + num_tokenizers + 1 = num_tokenizers + 2
+-        workers.wait_ready(ack_queue, num_tokenizers + 2, server_args.startup_timeout_s)
+-        for message in workers.ready_messages:
+-            logger.info(message)
+-        ack_queue.close()
+-        ack_queue.join_thread()
++            for i in range(num_tokenizers):
++                workers.start(
++                    target=tokenize_worker,
++                    kwargs={
++                        "tokenizer_path": server_args.model_path,
++                        "addr": server_args.zmq_tokenizer_addr,
++                        "backend_addr": server_args.zmq_backend_addr,
++                        "frontend_addr": server_args.zmq_frontend_addr,
++                        "local_bs": 1,
++                        "create": server_args.tokenizer_create_addr,
++                        "tokenizer_id": i,
++                        "ack_queue": ack_queue,
++                    },
++                    daemon=False,
++                    name=f"minisgl-tokenizer-{i}",
++                )
++
++            # Wait for acknowledgments from all worker processes:
++            # - world_size schedulers (but only primary rank sends ack)
++            # - num_tokenizers tokenizers
++            # - 1 detokenizer
++            # Total acks expected: 1 + num_tokenizers + 1 = num_tokenizers + 2
++            workers.wait_ready(ack_queue, num_tokenizers + 2, server_args.startup_timeout_s)
++            for message in workers.ready_messages:
++                logger.info(message)
++        except BaseException:
++            workers.stop()
++            raise
++        finally:
++            ack_queue.close()
++            ack_queue.join_thread()
+         return workers
+ 
+     run_api_server(server_args, start_subprocess, run_shell=run_shell)
+diff --git a/python/minisgl/server/workers.py b/python/minisgl/server/workers.py
+index ddfa051..f3da057 100644
+--- a/python/minisgl/server/workers.py
++++ b/python/minisgl/server/workers.py
+@@ -3,6 +3,9 @@ from __future__ import annotations
+ 
+ import multiprocessing as mp
+ import queue
++import os
++import signal
++import threading
+ import time
+ 
+ 
+@@ -10,6 +13,8 @@ class WorkerGroup:
+     def __init__(self):
+         self.processes: list[mp.Process] = []
+         self.ready_messages: list[str] = []
++        self._stop_lock = threading.Lock()
++        self.shutdown_report: dict | None = None
+ 
+     def start(self, **kwargs):
+         process = mp.Process(**kwargs)
+@@ -33,3 +38,30 @@ class WorkerGroup:
+                 self.ready_messages.append(ack_queue.get(timeout=0.1))
+             except queue.Empty:
+                 pass
++
++    def stop(self) -> dict:
++        # One shared deadline per phase, never a timeout per child. Also reap
++        # children that had already died before the shutdown request.
++        with self._stop_lock:
++            if self.shutdown_report is not None:
++                return self.shutdown_report
++            started = time.monotonic()
++            signals = []
++            for sig, budget in ((signal.SIGINT, 2.0), (signal.SIGTERM, 1.5), (signal.SIGKILL, 0.5)):
++                alive = [p for p in self.processes if p.is_alive()]
++                for process in alive:
++                    try:
++                        os.kill(process.pid, sig)
++                        signals.append(dict(pid=process.pid, signal=sig.name))
++                    except ProcessLookupError:
++                        pass
++                deadline = time.monotonic() + budget
++                for process in self.processes:
++                    process.join(timeout=max(0, deadline - time.monotonic()))
++                if not any(p.is_alive() for p in self.processes):
++                    break
++            self.shutdown_report = dict(seconds=time.monotonic() - started,
++                signals=signals, escalated=any(s['signal'] != 'SIGINT' for s in signals),
++                surviving_pids=[p.pid for p in self.processes if p.is_alive()],
++                exitcodes={str(p.pid): p.exitcode for p in self.processes})
++            return self.shutdown_report
+diff --git a/python/minisgl/tokenizer/server.py b/python/minisgl/tokenizer/server.py
+index cbf751e..bbd9b6b 100644
+--- a/python/minisgl/tokenizer/server.py
++++ b/python/minisgl/tokenizer/server.py
+@@ -85,3 +85,7 @@ def tokenize_worker(
+                     raise TypeError(f"Unexpected tokenizer message: {type(msg)}")
+     except KeyboardInterrupt:
+         pass
++    finally:
++        recv_listener.stop()
++        send_backend.stop()
++        send_frontend.stop()
+diff --git a/python/minisgl/utils/mp.py b/python/minisgl/utils/mp.py
+index 181baf1..3987edf 100644
+--- a/python/minisgl/utils/mp.py
++++ b/python/minisgl/utils/mp.py
+@@ -26,7 +26,7 @@ class ZmqPushQueue(Generic[T]):
+         self.socket.send(event, copy=False)
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()
+ 
+ 
+@@ -47,7 +47,7 @@ class ZmqAsyncPushQueue(Generic[T]):
+         await self.socket.send(event, copy=False)
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()
+ 
+ 
+@@ -77,7 +77,7 @@ class ZmqPullQueue(Generic[T]):
+         return self.socket.poll(timeout=0) == 0
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()
+ 
+ 
+@@ -98,7 +98,7 @@ class ZmqAsyncPullQueue(Generic[T]):
+         return self.decoder(msgpack.unpackb(event, raw=False))
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()
+ 
+ 
+@@ -122,7 +122,7 @@ class ZmqPubQueue(Generic[T]):
+         self.socket.send(event, copy=False)
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()
+ 
+ 
+@@ -147,5 +147,5 @@ class ZmqSubQueue(Generic[T]):
+         return self.socket.poll(timeout=0) == 0
+ 
+     def stop(self):
+-        self.socket.close()
++        self.socket.close(linger=0)
+         self.context.term()

@@ -4,9 +4,16 @@ Agreed on 2026-10-31. This file records work to do, not completed results.
 Existing reports, failed attempts, numerical gates and source snapshots remain
 the evidence for completed experiments.
 
+Progress on 2026-10-31: **I1 accepted** for TP1, shared tokenizer and
+Graph/Overlap off, with seven replayable patches, bounded admission, 40 local
+tests and four independently audited real-GPU scenarios (130 checks).
+See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
+and [runbook](i1_lifecycle_repairs.md). I2 is next; I2/I3, H3 replication and
+delivery preparation below remain pending. No paid resources have been used.
+
 ## Local work before renting GPUs
 
-1. **I1 lifecycle acceptance.** Preserve the pinned upstream baseline in
+1. **I1 lifecycle acceptance (accepted at the scope above).** Preserve the pinned upstream baseline in
    `results/i_minisglang/i1_lifecycle/attempt004`. Repair frontend request cleanup,
    detokenizer cancellation cleanup, finish reasons, over-context error handling,
    worker health/failure propagation and bounded shutdown. Add bounded admission.

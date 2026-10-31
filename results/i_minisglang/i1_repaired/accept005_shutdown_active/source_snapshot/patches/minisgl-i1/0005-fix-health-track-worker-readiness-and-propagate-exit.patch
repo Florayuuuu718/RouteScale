@@ -1,0 +1,367 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:18:10 +0800
+Subject: [PATCH 5/7] fix(health): track worker readiness and propagate exits
+ to in-flight requests
+
+---
+ python/minisgl/server/api_server.py | 101 ++++++++++++++++++++++------
+ python/minisgl/server/args.py       |   4 ++
+ python/minisgl/server/launch.py     |  31 ++++++---
+ python/minisgl/server/workers.py    |  35 ++++++++++
+ 4 files changed, 140 insertions(+), 31 deletions(-)
+ create mode 100644 python/minisgl/server/workers.py
+
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 1512fb8..4d7a571 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -105,45 +105,90 @@ class FrontendManager:
+     initialized: bool = False
+     ack_map: Dict[int, List[UserReply]] = field(default_factory=dict)
+     event_map: Dict[int, asyncio.Event] = field(default_factory=dict)
++    deadline_map: Dict[int, float] = field(default_factory=dict)
++    workers: object | None = None
++    failure: str | None = None
++    accepting: bool = True
++    listener_task: asyncio.Task | None = None
++    monitor_task: asyncio.Task | None = None
++
++    def ensure_available(self):
++        if self.workers is not None and (failure := self.workers.failure()):
++            self.mark_failed(failure)
++        if not self.accepting:
++            raise HTTPException(503, self.failure or "Service is shutting down")
++
++    def mark_failed(self, reason: str):
++        if self.failure is not None:
++            return
++        self.failure = reason
++        self.accepting = False
++        for uid in self.ack_map:
++            self.ack_map[uid] = [UserReply(uid, "", True, error=reason, status_code=503)]
++            self.event_map[uid].set()
++
++    async def monitor(self):
++        while self.accepting:
++            if self.workers is not None and (failure := self.workers.failure()):
++                self.mark_failed(failure)
++                return
++            await asyncio.sleep(0.05)
+ 
+     def new_user(self) -> int:
++        self.ensure_available()
+         uid = self.uid_counter
+         self.uid_counter += 1
+         self.ack_map[uid] = []
+         self.event_map[uid] = asyncio.Event()
++        self.deadline_map[uid] = time.monotonic() + self.config.request_timeout_s
+         return uid
+ 
+     async def listen(self):
+-        while True:
+-            msg = await self.recv_tokenizer.get()
+-            for msg in _unwrap_msg(msg):
+-                if msg.uid not in self.ack_map:
+-                    continue
+-                self.ack_map[msg.uid].append(msg)
+-                self.event_map[msg.uid].set()
++        try:
++            while True:
++                msg = await self.recv_tokenizer.get()
++                for msg in _unwrap_msg(msg):
++                    if msg.uid not in self.ack_map:
++                        continue
++                    self.ack_map[msg.uid].append(msg)
++                    self.event_map[msg.uid].set()
++        except asyncio.CancelledError:
++            raise
++        except Exception as exc:
++            self.mark_failed(f"Tokenizer channel failed: {exc}")
+ 
+     def _create_listener_once(self):
+         if not self.initialized:
+-            asyncio.create_task(self.listen())
++            self.listener_task = asyncio.create_task(self.listen())
++            self.monitor_task = asyncio.create_task(self.monitor())
+             self.initialized = True
+ 
+     async def send_one(self, msg: BaseTokenizerMsg):
+         self._create_listener_once()
+-        await self.send_tokenizer.put(msg)
++        try:
++            await asyncio.wait_for(self.send_tokenizer.put(msg), timeout=1.0)
++        except Exception as exc:
++            self.mark_failed(f"Tokenizer send failed: {exc}")
++            raise HTTPException(503, self.failure) from exc
++
++    async def wait_event(self, uid: int, request: Request | None = None):
++        event = self.event_map[uid]
++        while not event.is_set():
++            if time.monotonic() >= self.deadline_map[uid]:
++                raise HTTPException(504, "Request deadline exceeded")
++            if request is not None and await request.is_disconnected():
++                raise asyncio.CancelledError
++            try:
++                await asyncio.wait_for(event.wait(), timeout=0.05)
++            except TimeoutError:
++                pass
+ 
+     async def start_request(self, uid: int, msg: TokenizeMsg, request: Request | None = None):
+         # Delay response headers until a token or an explicit validation error.
+         # A disconnect while tokenizing/prefilling must also reach the scheduler.
+         try:
+             await self.send_one(msg)
+-            event = self.event_map[uid]
+-            while not event.is_set():
+-                if request is not None and await request.is_disconnected():
+-                    raise asyncio.CancelledError
+-                try:
+-                    await asyncio.wait_for(event.wait(), timeout=0.05)
+-                except TimeoutError:
+-                    pass
++            await self.wait_event(uid, request)
+             first = self.ack_map[uid][0]
+             if first.error:
+                 raise HTTPException(first.status_code, first.error)
+@@ -151,11 +196,11 @@ class FrontendManager:
+             await asyncio.shield(self.abort_user(uid))
+             raise
+ 
+-    async def wait_for_ack(self, uid: int):
++    async def wait_for_ack(self, uid: int, request: Request | None = None):
+         event = self.event_map[uid]
+         try:
+             while True:
+-                await event.wait()
++                await self.wait_event(uid, request)
+                 event.clear()
+                 pending = self.ack_map[uid]
+                 self.ack_map[uid] = []
+@@ -169,6 +214,7 @@ class FrontendManager:
+     def cleanup_user(self, uid: int):
+         self.ack_map.pop(uid, None)
+         self.event_map.pop(uid, None)
++        self.deadline_map.pop(uid, None)
+ 
+     async def stream_generate(self, uid: int):
+         async with aclosing(self.wait_for_ack(uid)) as acks:
+@@ -225,6 +271,8 @@ class FrontendManager:
+                         raise asyncio.CancelledError
+                     yield chunk
+                 complete = True
++        except HTTPException as exc:
++            yield f"data: {json.dumps({'error': {'message': exc.detail, 'code': exc.status_code}})}\n\n".encode()
+         finally:
+             self.cleanup_user(uid)
+             if not complete:
+@@ -242,6 +290,7 @@ class FrontendManager:
+ 
+ @asynccontextmanager
+ async def lifespan(_: FastAPI):
++    get_global_state()._create_listener_once()
+     yield
+     # shutdown code here
+     global _GLOBAL_STATE
+@@ -276,9 +325,16 @@ async def generate(req: GenerateRequest, request: Request):
+ 
+ @app.api_route("/v1", methods=["GET", "POST", "HEAD", "OPTIONS"])
+ async def v1_root():
++    get_global_state().ensure_available()
+     return {"status": "ok"}
+ 
+ 
++@app.get("/health")
++@app.get("/ready")
++async def readiness():
++    return await v1_root()
++
++
+ @app.post("/v1/chat/completions")
+ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+     state = get_global_state()
+@@ -316,7 +372,7 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+     finish_reason = None
+     complete = False
+     try:
+-        async with aclosing(state.wait_for_ack(uid)) as acks:
++        async with aclosing(state.wait_for_ack(uid, request)) as acks:
+             async for ack in acks:
+                 if ack.error:
+                     raise HTTPException(ack.status_code, ack.error)
+@@ -352,6 +408,7 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+ @app.get("/v1/models")
+ async def available_models():
+     state = get_global_state()
++    state.ensure_available()
+     return ModelList(data=[ModelCard(id=state.config.model_path, root=state.config.model_path)])
+ 
+ 
+@@ -447,7 +504,7 @@ async def shell():
+             child.kill()
+ 
+ 
+-def run_api_server(config: ServerArgs, start_backend: Callable[[], None], run_shell: bool) -> None:
++def run_api_server(config: ServerArgs, start_backend: Callable, run_shell: bool) -> None:
+     """
+     Run the frontend API server (FastAPI + uvicorn) and wire it to the tokenizer process via ZMQ.
+ 
+@@ -482,7 +539,7 @@ def run_api_server(config: ServerArgs, start_backend: Callable[[], None], run_sh
+     )
+ 
+     # start the backend here
+-    start_backend()
++    _GLOBAL_STATE.workers = start_backend()
+ 
+     logger.info(f"API server is ready to serve on {host}:{port}")
+     if not run_shell:
+diff --git a/python/minisgl/server/args.py b/python/minisgl/server/args.py
+index 3ec88f8..09ef179 100644
+--- a/python/minisgl/server/args.py
++++ b/python/minisgl/server/args.py
+@@ -17,6 +17,8 @@ class ServerArgs(SchedulerConfig):
+     server_port: int = 1919
+     num_tokenizer: int = 0
+     silent_output: bool = False
++    request_timeout_s: float = 600.0
++    startup_timeout_s: float = 600.0
+ 
+     @property
+     def share_tokenizer(self) -> bool:
+@@ -66,6 +68,8 @@ def parse_args(args: List[str], run_shell: bool = False) -> Tuple[ServerArgs, bo
+     from minisgl.moe import SUPPORTED_MOE_BACKENDS
+ 
+     parser = argparse.ArgumentParser(description="MiniSGL Server Arguments")
++    parser.add_argument("--request-timeout-s", type=float, default=ServerArgs.request_timeout_s)
++    parser.add_argument("--startup-timeout-s", type=float, default=ServerArgs.startup_timeout_s)
+ 
+     parser.add_argument(
+         "--model-path",
+diff --git a/python/minisgl/server/launch.py b/python/minisgl/server/launch.py
+index 2e9c2f1..ce6f36e 100644
+--- a/python/minisgl/server/launch.py
++++ b/python/minisgl/server/launch.py
+@@ -40,11 +40,19 @@ def _run_scheduler(args: ServerArgs, ack_queue: mp.Queue[str]) -> None:
+ def launch_server(run_shell: bool = False) -> None:
+     from .api_server import run_api_server
+     from .args import parse_args
++    from .workers import WorkerGroup
++    from minisgl.env import ENV
+ 
+     server_args, run_shell = parse_args(sys.argv[1:], run_shell)
++    # This repair series relies on a single ordered request/abort producer and
++    # no in-flight overlap results. Other modes require their own acceptance.
++    if server_args.num_tokenizer != 0 or not ENV.DISABLE_OVERLAP_SCHEDULING:
++        raise ValueError("I1 lifecycle patches require num_tokenizer=0 and MINISGL_DISABLE_OVERLAP_SCHEDULING=1")
++    if min(server_args.request_timeout_s, server_args.startup_timeout_s) <= 0:
++        raise ValueError("Lifecycle timeouts must be positive")
+     logger = init_logger(__name__, "initializer")
+ 
+-    def start_subprocess() -> None:
++    def start_subprocess() -> WorkerGroup:
+         import multiprocessing as mp
+ 
+         from minisgl.tokenizer import tokenize_worker
+@@ -55,22 +63,23 @@ def launch_server(run_shell: bool = False) -> None:
+         # a multiprocessing queue to receive ack from subprocesses
+         # so that we can guarantee all subprocesses are ready
+         ack_queue: mp.Queue[str] = mp.Queue()
++        workers = WorkerGroup()
+ 
+         for i in range(world_size):
+             new_args = replace(
+                 server_args,
+                 tp_info=DistributedInfo(i, world_size),
+             )
+-            mp.Process(
++            workers.start(
+                 target=_run_scheduler,
+                 args=(new_args, ack_queue),
+                 daemon=False,
+                 name=f"minisgl-TP{i}-scheduler",
+-            ).start()
++            )
+ 
+         num_tokenizers = server_args.num_tokenizer
+         # DeTokenizer, only 1
+-        mp.Process(
++        workers.start(
+             target=tokenize_worker,
+             kwargs={
+                 "tokenizer_path": server_args.model_path,
+@@ -84,9 +93,9 @@ def launch_server(run_shell: bool = False) -> None:
+             },
+             daemon=False,
+             name="minisgl-detokenizer-0",
+-        ).start()
++        )
+         for i in range(num_tokenizers):
+-            mp.Process(
++            workers.start(
+                 target=tokenize_worker,
+                 kwargs={
+                     "tokenizer_path": server_args.model_path,
+@@ -100,15 +109,19 @@ def launch_server(run_shell: bool = False) -> None:
+                 },
+                 daemon=False,
+                 name=f"minisgl-tokenizer-{i}",
+-            ).start()
++            )
+ 
+         # Wait for acknowledgments from all worker processes:
+         # - world_size schedulers (but only primary rank sends ack)
+         # - num_tokenizers tokenizers
+         # - 1 detokenizer
+         # Total acks expected: 1 + num_tokenizers + 1 = num_tokenizers + 2
+-        for _ in range(num_tokenizers + 2):
+-            logger.info(ack_queue.get())
++        workers.wait_ready(ack_queue, num_tokenizers + 2, server_args.startup_timeout_s)
++        for message in workers.ready_messages:
++            logger.info(message)
++        ack_queue.close()
++        ack_queue.join_thread()
++        return workers
+ 
+     run_api_server(server_args, start_subprocess, run_shell=run_shell)
+ 
+diff --git a/python/minisgl/server/workers.py b/python/minisgl/server/workers.py
+new file mode 100644
+index 0000000..ddfa051
+--- /dev/null
++++ b/python/minisgl/server/workers.py
+@@ -0,0 +1,35 @@
++"""Own worker handles; readiness is based on acknowledged, live processes."""
++from __future__ import annotations
++
++import multiprocessing as mp
++import queue
++import time
++
++
++class WorkerGroup:
++    def __init__(self):
++        self.processes: list[mp.Process] = []
++        self.ready_messages: list[str] = []
++
++    def start(self, **kwargs):
++        process = mp.Process(**kwargs)
++        process.start()
++        self.processes.append(process)
++
++    def failure(self) -> str | None:
++        for process in self.processes:
++            if not process.is_alive():
++                return f"Worker {process.name} (pid={process.pid}) exited ({process.exitcode})"
++        return None
++
++    def wait_ready(self, ack_queue, count: int, timeout: float):
++        deadline = time.monotonic() + timeout
++        while len(self.ready_messages) < count:
++            if failure := self.failure():
++                raise RuntimeError(failure)
++            if time.monotonic() >= deadline:
++                raise TimeoutError("Worker startup deadline exceeded")
++            try:
++                self.ready_messages.append(ack_queue.get(timeout=0.1))
++            except queue.Empty:
++                pass

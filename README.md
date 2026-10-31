@@ -60,7 +60,7 @@ JSON stage labels use the current numbering; see the
 - [ ] H2: multi-GPU TP=2/4 ablations (deferred to the consolidated rental session with I2)
 - [ ] I: Mini-SGLang online serving experiments
 - [x] Mini-SGLang pinned single-GPU HTTP/SSE baseline (15 requests, 463 finite-logit checks; six lifecycle acceptance gaps retained in the [I1 report](results/i_minisglang/i1_lifecycle/README.md))
-- [ ] I1: lifecycle cleanup, validation, health and shutdown acceptance
+- [x] I1: lifecycle cleanup, bounded admission, validation, health and shutdown acceptance (TP1, shared tokenizer, Graph/Overlap off; four real-GPU scenarios, 130 audit checks and 40 local tests; [report](results/i_minisglang/i1_repaired/README.md))
 - [ ] I2/I3: single-GPU scheduling ablations and online load experiments; TP=2/4 deferred to the later rental session
 
 The native-weight integration, architecture mapping and remaining measurement

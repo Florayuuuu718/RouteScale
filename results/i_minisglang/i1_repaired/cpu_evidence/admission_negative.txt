@@ -1,0 +1,26 @@
+test_completed_backend_keeps_slot_until_frontend_consumes_or_closes (test_i1_lifecycle_repairs.FrontendTests.test_completed_backend_keeps_slot_until_frontend_consumes_or_closes) ... FAIL
+
+======================================================================
+FAIL: test_completed_backend_keeps_slot_until_frontend_consumes_or_closes (test_i1_lifecycle_repairs.FrontendTests.test_completed_backend_keeps_slot_until_frontend_consumes_or_closes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/tests/test_i1_lifecycle_repairs.py", line 161, in test_completed_backend_keeps_slot_until_frontend_consumes_or_closes
+    with self.assertRaises(api.HTTPException) as error:
+AssertionError: HTTPException not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.035s
+
+FAILED (failures=1)

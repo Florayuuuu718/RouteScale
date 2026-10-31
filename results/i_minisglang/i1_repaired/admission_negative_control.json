@@ -1,0 +1,12 @@
+{
+  "test": "test_completed_backend_keeps_slot_until_frontend_consumes_or_closes",
+  "pre_fix_tree": "b614c7a2da55ddbd79954813fe69c3dae99f3165",
+  "fixed_tree": "eef671349fb1219434e1147def27462acb74aa99",
+  "command": "ROUTESCALE_MINISGL_TEST_CHECKOUT=/home/shunzi/projects/RouteScale/runs/vendor/mini-sglang-i1 runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i1_lifecycle_repairs.py -k completed_backend_keeps -v",
+  "expected_returncode": 1,
+  "observed_returncode": 1,
+  "failure": "429 not raised while completed backends still had unconsumed frontend buffers",
+  "test_source_sha256": "8d7c3d56be125a5b7634462d32e7c3d21433dfdc20482a458857925e212d9adc",
+  "output_sha256": "671293b8528999f7880f3936d6b032fbcc56bc42789bc0576fd83d861a2698d1",
+  "fixed_test_passes_in": "cpu_tests.json"
+}

@@ -1,0 +1,176 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:16:30 +0800
+Subject: [PATCH 1/7] fix(frontend): close response iterators and release
+ request maps in finally
+
+---
+ python/minisgl/server/api_server.py | 103 +++++++++++++++++-----------
+ 1 file changed, 62 insertions(+), 41 deletions(-)
+
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 3161b1d..3780cee 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -3,7 +3,7 @@ from __future__ import annotations
+ import asyncio
+ import json
+ import time
+-from contextlib import asynccontextmanager
++from contextlib import aclosing, asynccontextmanager
+ from dataclasses import dataclass, field
+ from typing import Callable, Dict, List, Literal, Tuple
+ 
+@@ -133,33 +133,34 @@ class FrontendManager:
+ 
+     async def wait_for_ack(self, uid: int):
+         event = self.event_map[uid]
+-
+-        while True:
+-            await event.wait()
+-            event.clear()
+-
+-            pending = self.ack_map[uid]
+-            self.ack_map[uid] = []
+-            ack = None
+-            for ack in pending:
+-                yield ack
+-            if ack and ack.finished:
+-                break
+-
+-        del self.ack_map[uid]
+-        del self.event_map[uid]
++        try:
++            while True:
++                await event.wait()
++                event.clear()
++                pending = self.ack_map[uid]
++                self.ack_map[uid] = []
++                for ack in pending:
++                    yield ack
++                    if ack.finished:
++                        return
++        finally:
++            self.cleanup_user(uid)
++
++    def cleanup_user(self, uid: int):
++        self.ack_map.pop(uid, None)
++        self.event_map.pop(uid, None)
+ 
+     async def stream_generate(self, uid: int):
+-        async for ack in self.wait_for_ack(uid):
+-            yield f"data: {ack.incremental_output}\n".encode()
+-            if ack.finished:
+-                break
++        async with aclosing(self.wait_for_ack(uid)) as acks:
++            async for ack in acks:
++                yield f"data: {ack.incremental_output}\n".encode()
+         yield "data: [DONE]\n".encode()
+         logger.debug("Finished streaming response for user %s", uid)
+ 
+     async def stream_chat_completions(self, uid: int):
+         first_chunk = True
+-        async for ack in self.wait_for_ack(uid):
++        async with aclosing(self.wait_for_ack(uid)) as acks:
++          async for ack in acks:
+             delta = {}
+             if first_chunk:
+                 delta["role"] = "assistant"
+@@ -188,23 +189,21 @@ class FrontendManager:
+         logger.debug("Finished streaming response for user %s", uid)
+ 
+     async def stream_with_cancellation(self, generator, request: Request, uid: int):
++        complete = False
+         try:
+-            async for chunk in generator:
+-                # detect if the client has disconnected
+-                if await request.is_disconnected():
+-                    logger.info("Client disconnected for user %s", uid)
+-                    raise asyncio.CancelledError
+-                yield chunk
+-        except asyncio.CancelledError:
+-            asyncio.create_task(self.abort_user(uid))
+-            raise
++            async with aclosing(generator):
++                async for chunk in generator:
++                    if await request.is_disconnected():
++                        raise asyncio.CancelledError
++                    yield chunk
++                complete = True
++        finally:
++            self.cleanup_user(uid)
++            if not complete:
++                await asyncio.shield(self.abort_user(uid))
+ 
+     async def abort_user(self, uid: int):
+-        await asyncio.sleep(0.1)
+-        if uid in self.ack_map:
+-            del self.ack_map[uid]
+-        if uid in self.event_map:
+-            del self.event_map[uid]
++        self.cleanup_user(uid)
+         logger.warning("Aborting request for user %s", uid)
+         await self.send_one(AbortMsg(uid=uid))
+ 
+@@ -213,6 +212,20 @@ class FrontendManager:
+         self.recv_tokenizer.stop()
+ 
+ 
++class ManagedStreamingResponse(StreamingResponse):
++    """Own the request even when headers fail before the body iterator starts."""
++
++    def __init__(self, *args, state: FrontendManager, uid: int, **kwargs):
++        super().__init__(*args, **kwargs)
++        self.state, self.uid = state, uid
++
++    async def __call__(self, scope, receive, send):
++        try:
++            return await super().__call__(scope, receive, send)
++        finally:
++            await asyncio.shield(self.state.abort_user(self.uid))
++
++
+ @asynccontextmanager
+ async def lifespan(_: FastAPI):
+     yield
+@@ -241,8 +254,9 @@ async def generate(req: GenerateRequest, request: Request):
+         )
+     )
+ 
+-    return StreamingResponse(
++    return ManagedStreamingResponse(
+         state.stream_with_cancellation(state.stream_generate(uid), request, uid),
++        state=state, uid=uid,
+         media_type="text/event-stream",
+     )
+ 
+@@ -278,17 +292,24 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+     )
+ 
+     if req.stream:
+-        return StreamingResponse(
++        return ManagedStreamingResponse(
+             state.stream_with_cancellation(state.stream_chat_completions(uid), request, uid),
++            state=state, uid=uid,
+             media_type="text/event-stream",
+         )
+ 
+     # Non-streaming: collect all chunks and return a single JSON response
+     full_content = ""
+-    async for ack in state.wait_for_ack(uid):
+-        full_content += ack.incremental_output
+-        if ack.finished:
+-            break
++    complete = False
++    try:
++        async with aclosing(state.wait_for_ack(uid)) as acks:
++            async for ack in acks:
++                full_content += ack.incremental_output
++        complete = True
++    finally:
++        state.cleanup_user(uid)
++        if not complete:
++            await asyncio.shield(state.abort_user(uid))
+ 
+     return {
+         "id": f"chatcmpl-{uid}",

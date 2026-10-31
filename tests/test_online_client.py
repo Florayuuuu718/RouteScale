@@ -65,6 +65,29 @@ class OnlineClientTests(unittest.IsolatedAsyncioTestCase):
             record, = await client.run([OnlineRequest("shape", {})])
             self.assert_terminal_once(record, "failed")
 
+    async def test_explicit_sse_error_cannot_be_a_success(self):
+        client, _ = self.client([b'data: {"error": {"message": "worker exited", "code": 503}}\n\n'])
+        record, = await client.run([OnlineRequest("fault", {})])
+        self.assert_terminal_once(record, "failed")
+        self.assertIn("worker exited", record["reason"])
+        self.assertEqual(sum(e["event"] == "server_error" for e in record["events"]), 1)
+
+    async def test_nonstream_completion_and_malformed_finish(self):
+        for reason, expected in (("length", "finished"), (None, "failed")):
+            def handle(request):
+                self.assertFalse(json.loads(request.content)["stream"])
+                return httpx.Response(200, json={"id": "chatcmpl-2", "choices": [
+                    {"message": {"content": "OK"}, "finish_reason": reason}]})
+            client = OnlineClient("http://fake", transport=httpx.MockTransport(handle))
+            record, = await client.run([OnlineRequest("plain", {}, stream=False)])
+            self.assert_terminal_once(record, expected)
+
+    async def test_nonstream_bad_shapes_still_produce_one_terminal(self):
+        for item in (None, [], {"choices": []}, {"choices": [None]}, {"choices": [{"message": None}]}):
+            client = OnlineClient("http://fake", transport=httpx.MockTransport(lambda request: httpx.Response(200, json=item)))
+            record, = await client.run([OnlineRequest("bad_plain", {}, stream=False)])
+            self.assert_terminal_once(record, "failed")
+
     async def test_disconnect_closes_response(self):
         client, streams = self.client(delay=.005)
         record, = await client.run([OnlineRequest("close", {}, disconnect_after_chunks=1)])

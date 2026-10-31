@@ -84,7 +84,12 @@ def install():
     original_reply = SchedulerIOMixin._reply_tokenizer_rank0
     def reply(self, messages):
         for msg in messages:
-            emit("scheduler_token", uid=msg.uid, token_id=msg.next_token, finished=msg.finished)
+            if hasattr(msg, "next_token"):
+                emit("scheduler_token", uid=msg.uid, token_id=msg.next_token, finished=msg.finished,
+                     finish_reason=getattr(msg, "finish_reason", None))
+            else:
+                emit("scheduler_end", uid=msg.uid, kind=type(msg).__name__,
+                     error=getattr(msg, "error", None), status_code=getattr(msg, "status_code", None))
         return original_reply(self, messages)
     SchedulerIOMixin._reply_tokenizer_rank0 = reply
 
@@ -102,6 +107,14 @@ def install():
         return result
     Scheduler.run_when_idle = idle
 
+    original_shutdown = Scheduler.shutdown
+    def scheduler_shutdown(self):
+        emit("scheduler_shutdown_start")
+        result = original_shutdown(self)
+        emit("scheduler_shutdown_end")
+        return result
+    Scheduler.shutdown = scheduler_shutdown
+
     original_tokenize = TokenizeManager.tokenize
     def tokenize(self, msgs):
         result = original_tokenize(self, msgs)
@@ -118,6 +131,51 @@ def install():
         return result
     DetokenizeManager.detokenize = detokenize
 
+    if hasattr(DetokenizeManager, "forget"):
+        original_forget = DetokenizeManager.forget
+        def forget(self, uid):
+            result = original_forget(self, uid)
+            emit("detokenizer_end", uid=uid, active_uids=sorted(self.decode_map))
+            return result
+        DetokenizeManager.forget = forget
+
+    if hasattr(api.FrontendManager, "backend_terminal"):
+        original_terminal = api.FrontendManager.backend_terminal
+        def terminal(self, uid):
+            result = original_terminal(self, uid)
+            emit("backend_terminal", uid=uid, admitted_uids=sorted(self.admitted),
+                 aborting_uids=sorted(self.aborting))
+            return result
+        api.FrontendManager.backend_terminal = terminal
+
+        if hasattr(api.FrontendManager, "release_if_complete"):
+            original_release = api.FrontendManager.release_if_complete
+            def release(self, uid):
+                held = uid in self.admitted
+                result = original_release(self, uid)
+                if held and uid not in self.admitted:
+                    emit("admission_release", uid=uid, admitted_uids=sorted(self.admitted),
+                         aborting_uids=sorted(self.aborting), ack_uids=sorted(self.ack_map))
+                return result
+            api.FrontendManager.release_if_complete = release
+
+        original_failed = api.FrontendManager.mark_failed
+        def failed(self, reason):
+            first = self.failure is None
+            result = original_failed(self, reason)
+            if first:
+                emit("frontend_failed", reason=reason, active_uids=sorted(self.ack_map))
+            return result
+        api.FrontendManager.mark_failed = failed
+
+        from minisgl.server.workers import WorkerGroup
+        original_stop = WorkerGroup.stop
+        def stop(self):
+            result = original_stop(self)
+            emit("workers_stopped", workers=[dict(pid=p.pid, name=p.name) for p in self.processes], **result)
+            return result
+        WorkerGroup.stop = stop
+
     original_abort = api.FrontendManager.abort_user
     async def abort(self, uid):
         emit("frontend_abort_start", uid=uid)
@@ -129,11 +187,17 @@ def install():
 
     original_new_user = api.FrontendManager.new_user
     def new_user(self):
-        uid = original_new_user(self)
         # Pinned API calls new_user directly from its endpoint; inspect only that caller.
         request = sys._getframe(1).f_locals.get("request")
+        external_id = request.headers.get("X-Request-ID") if request is not None else None
+        try:
+            uid = original_new_user(self)
+        except api.HTTPException as exc:
+            emit("frontend_rejected", external_id=external_id, status_code=exc.status_code,
+                 admitted_uids=sorted(getattr(self, "admitted", ())))
+            raise
         emit("frontend_new_user", uid=uid,
-             external_id=request.headers.get("X-Request-ID") if request is not None else None)
+             external_id=external_id, admitted_uids=sorted(getattr(self, "admitted", ())))
         return uid
     api.FrontendManager.new_user = new_user
 
@@ -142,5 +206,9 @@ def install():
         state = api.get_global_state()
         snapshot = dict(pid=os.getpid(), uid_counter=state.uid_counter,
                         ack_uids=sorted(state.ack_map), event_uids=sorted(state.event_map))
+        if hasattr(state, "admitted"):
+            snapshot.update(admitted_uids=sorted(state.admitted), aborting_uids=sorted(state.aborting),
+                            deadline_uids=sorted(state.deadline_map), accepting=state.accepting,
+                            failure=state.failure, backend_done_uids=sorted(getattr(state, "backend_done", ())))
         emit("frontend_snapshot", **{k: v for k, v in snapshot.items() if k != "pid"})
         return snapshot

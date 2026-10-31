@@ -1,0 +1,196 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: RouteScale <routescale@localhost>
+Date: Sat, 31 Oct 2026 11:17:31 +0800
+Subject: [PATCH 4/7] fix(validation): return explicit over-context errors
+ before streaming headers
+
+---
+ python/minisgl/message/frontend.py    |  2 ++
+ python/minisgl/message/tokenizer.py   |  2 ++
+ python/minisgl/scheduler/scheduler.py |  7 ++---
+ python/minisgl/server/api_server.py   | 45 ++++++++++++++++++++++-----
+ python/minisgl/tokenizer/server.py    |  3 +-
+ 5 files changed, 46 insertions(+), 13 deletions(-)
+
+diff --git a/python/minisgl/message/frontend.py b/python/minisgl/message/frontend.py
+index 96e99db..66bb91e 100644
+--- a/python/minisgl/message/frontend.py
++++ b/python/minisgl/message/frontend.py
+@@ -28,3 +28,5 @@ class UserReply(BaseFrontendMsg):
+     incremental_output: str
+     finished: bool
+     finish_reason: str | None = None
++    error: str | None = None
++    status_code: int = 200
+diff --git a/python/minisgl/message/tokenizer.py b/python/minisgl/message/tokenizer.py
+index 1fd5bed..42f04e8 100644
+--- a/python/minisgl/message/tokenizer.py
++++ b/python/minisgl/message/tokenizer.py
+@@ -49,3 +49,5 @@ class RequestEndMsg(BaseTokenizerMsg):
+     """Ordered scheduler acknowledgment, after all output and resource release."""
+ 
+     uid: int
++    error: str | None = None
++    status_code: int = 200
+diff --git a/python/minisgl/scheduler/scheduler.py b/python/minisgl/scheduler/scheduler.py
+index 5a02517..57e322c 100644
+--- a/python/minisgl/scheduler/scheduler.py
++++ b/python/minisgl/scheduler/scheduler.py
+@@ -179,10 +179,9 @@ class Scheduler(SchedulerIOMixin):
+             input_len, max_seq_len = len(msg.input_ids), self.engine.max_seq_len
+             max_output_len = max_seq_len - input_len
+             if max_output_len <= 0:
+-                return logger.warning_rank0(
+-                    f"Input sequence length {input_len} exceeds {max_seq_len}, "
+-                    f"request {msg.uid} is dropped."
+-                )
++                self.send_result([RequestEndMsg(uid=msg.uid, status_code=400,
++                    error=f"Input length {input_len} must be below context limit {max_seq_len}")])
++                return
+             if msg.sampling_params.max_tokens > max_output_len:
+                 msg.sampling_params.max_tokens = max_output_len
+                 logger.warning_rank0(
+diff --git a/python/minisgl/server/api_server.py b/python/minisgl/server/api_server.py
+index 4d75c7f..1512fb8 100644
+--- a/python/minisgl/server/api_server.py
++++ b/python/minisgl/server/api_server.py
+@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
+ from typing import Callable, Dict, List, Literal, Tuple
+ 
+ import uvicorn
+-from fastapi import FastAPI, Request
++from fastapi import FastAPI, HTTPException, Request
+ from fastapi.responses import StreamingResponse
+ from minisgl.core import SamplingParams
+ from minisgl.env import ENV
+@@ -52,7 +52,7 @@ def _unwrap_msg(msg: BaseFrontendMsg) -> List[UserReply]:
+ 
+ class GenerateRequest(BaseModel):
+     prompt: str
+-    max_tokens: int
++    max_tokens: int = Field(ge=1)
+     ignore_eos: bool = False
+ 
+ 
+@@ -69,7 +69,7 @@ class OpenAICompletionRequest(BaseModel):
+     prompt: str | None = None
+     messages: List[Message] | None = None
+ 
+-    max_tokens: int = 16
++    max_tokens: int = Field(default=16, ge=1)
+     temperature: float = 1.0
+ 
+     top_k: int = -1
+@@ -131,6 +131,26 @@ class FrontendManager:
+         self._create_listener_once()
+         await self.send_tokenizer.put(msg)
+ 
++    async def start_request(self, uid: int, msg: TokenizeMsg, request: Request | None = None):
++        # Delay response headers until a token or an explicit validation error.
++        # A disconnect while tokenizing/prefilling must also reach the scheduler.
++        try:
++            await self.send_one(msg)
++            event = self.event_map[uid]
++            while not event.is_set():
++                if request is not None and await request.is_disconnected():
++                    raise asyncio.CancelledError
++                try:
++                    await asyncio.wait_for(event.wait(), timeout=0.05)
++                except TimeoutError:
++                    pass
++            first = self.ack_map[uid][0]
++            if first.error:
++                raise HTTPException(first.status_code, first.error)
++        except BaseException:
++            await asyncio.shield(self.abort_user(uid))
++            raise
++
+     async def wait_for_ack(self, uid: int):
+         event = self.event_map[uid]
+         try:
+@@ -153,6 +173,9 @@ class FrontendManager:
+     async def stream_generate(self, uid: int):
+         async with aclosing(self.wait_for_ack(uid)) as acks:
+             async for ack in acks:
++                if ack.error:
++                    yield f"data: {json.dumps({'error': {'message': ack.error, 'code': ack.status_code}})}\n\n".encode()
++                    return
+                 yield f"data: {ack.incremental_output}\n".encode()
+         yield "data: [DONE]\n".encode()
+         logger.debug("Finished streaming response for user %s", uid)
+@@ -162,6 +185,9 @@ class FrontendManager:
+         finish_reason = None
+         async with aclosing(self.wait_for_ack(uid)) as acks:
+           async for ack in acks:
++            if ack.error:
++                yield f"data: {json.dumps({'error': {'message': ack.error, 'code': ack.status_code}})}\n\n".encode()
++                return
+             delta = {}
+             if first_chunk:
+                 delta["role"] = "assistant"
+@@ -231,7 +257,7 @@ async def generate(req: GenerateRequest, request: Request):
+     logger.debug("Received generate request %s", req)
+     state = get_global_state()
+     uid = state.new_user()
+-    await state.send_one(
++    await state.start_request(uid,
+         TokenizeMsg(
+             uid=uid,
+             text=req.prompt,
+@@ -239,7 +265,7 @@ async def generate(req: GenerateRequest, request: Request):
+                 ignore_eos=req.ignore_eos,
+                 max_tokens=req.max_tokens,
+             ),
+-        )
++        ), request
+     )
+ 
+     return StreamingResponse(
+@@ -259,12 +285,13 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+     if req.messages:
+         prompt = [msg.model_dump() for msg in req.messages]
+     else:
+-        assert req.prompt is not None, "Either 'messages' or 'prompt' must be provided"
++        if req.prompt is None:
++            raise HTTPException(400, "Either 'messages' or 'prompt' must be provided")
+         prompt = req.prompt
+ 
+     # TODO: support more sampling parameters
+     uid = state.new_user()
+-    await state.send_one(
++    await state.start_request(uid,
+         TokenizeMsg(
+             uid=uid,
+             text=prompt,
+@@ -275,7 +302,7 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+                 top_k=req.top_k,
+                 top_p=req.top_p,
+             ),
+-        )
++        ), request
+     )
+ 
+     if req.stream:
+@@ -291,6 +318,8 @@ async def v1_completions(req: OpenAICompletionRequest, request: Request):
+     try:
+         async with aclosing(state.wait_for_ack(uid)) as acks:
+             async for ack in acks:
++                if ack.error:
++                    raise HTTPException(ack.status_code, ack.error)
+                 full_content += ack.incremental_output
+                 if ack.finished:
+                     finish_reason = ack.finish_reason
+diff --git a/python/minisgl/tokenizer/server.py b/python/minisgl/tokenizer/server.py
+index fcb35a8..cbf751e 100644
+--- a/python/minisgl/tokenizer/server.py
++++ b/python/minisgl/tokenizer/server.py
+@@ -72,7 +72,8 @@ def tokenize_worker(
+                     send_frontend.put(UserReply(msg.uid, reply, msg.finished, msg.finish_reason))
+                 elif isinstance(msg, RequestEndMsg):
+                     detokenize_manager.forget(msg.uid)
+-                    send_frontend.put(UserReply(msg.uid, "", True))
++                    send_frontend.put(UserReply(msg.uid, "", True,
++                                               error=msg.error, status_code=msg.status_code))
+                 elif isinstance(msg, TokenizeMsg):
+                     ids, = tokenize_manager.tokenize([msg])
+                     send_backend.put(UserMsg(msg.uid, ids, msg.sampling_params))

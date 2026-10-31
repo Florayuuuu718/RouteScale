@@ -1,0 +1,90 @@
+{
+  "stage": "I1",
+  "lifecycle_complete": true,
+  "status": "accepted",
+  "scope": "single RTX 5060 Laptop, Qwen3-0.6B BF16, TP1, shared tokenizer, overlap/graph off",
+  "patched_tree": "eef671349fb1219434e1147def27462acb74aa99",
+  "checks": {
+    "recomputed_accept002_healthy": true,
+    "worker_exitcodes_accept002_healthy": true,
+    "recomputed_accept003_scheduler_fault": true,
+    "worker_exitcodes_accept003_scheduler_fault": true,
+    "recomputed_accept004_tokenizer_fault": true,
+    "worker_exitcodes_accept004_tokenizer_fault": true,
+    "recomputed_accept005_shutdown_active": true,
+    "worker_exitcodes_accept005_shutdown_active": true,
+    "all_four_scenarios": true,
+    "same_patch_tree_config_and_model": true,
+    "cpu_and_tamper_controls_passed": true,
+    "cpu_evidence_matches_frozen_files": true,
+    "cpu_test_logs_match_hashes": true
+  },
+  "scenarios": {
+    "healthy": {
+      "directory": "results/i_minisglang/i1_repaired/accept002_healthy",
+      "check_count": 49,
+      "client_terminal_counts": {
+        "finished": 17,
+        "cancelled": 4,
+        "rejected": 12
+      },
+      "shutdown_s": 3.4822797650012944,
+      "worker_stop_s": 3.2022866000006616,
+      "forced_cleanup": false
+    },
+    "scheduler_fault": {
+      "directory": "results/i_minisglang/i1_repaired/accept003_scheduler_fault",
+      "check_count": 28,
+      "client_terminal_counts": {
+        "finished": 1,
+        "failed": 3
+      },
+      "shutdown_s": 0.2678856539987464,
+      "worker_stop_s": 1.494178594000914,
+      "forced_cleanup": false
+    },
+    "tokenizer_fault": {
+      "directory": "results/i_minisglang/i1_repaired/accept004_tokenizer_fault",
+      "check_count": 28,
+      "client_terminal_counts": {
+        "finished": 1,
+        "failed": 3
+      },
+      "shutdown_s": 0.2660077700002148,
+      "worker_stop_s": 2.9875903539996216,
+      "forced_cleanup": false
+    },
+    "shutdown_active": {
+      "directory": "results/i_minisglang/i1_repaired/accept005_shutdown_active",
+      "check_count": 25,
+      "client_terminal_counts": {
+        "finished": 1,
+        "failed": 2
+      },
+      "shutdown_s": 4.26792963600019,
+      "worker_stop_s": 2.991833972999302,
+      "forced_cleanup": false
+    }
+  },
+  "cpu_tests": 38,
+  "evidence_sha256": {
+    "results/i_minisglang/i1_repaired/accept002_healthy/audit.json": "8e0cf9787da7887e6903dc7f7b2eb4ed14186c6b79887a1471479d44b56b51cc",
+    "results/i_minisglang/i1_repaired/accept002_healthy/audit_source.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+    "results/i_minisglang/i1_repaired/accept003_scheduler_fault/audit.json": "48e59170fac0fc78d982b7a21bfe037d7fcd21c524c3400637585aa9f6473c1d",
+    "results/i_minisglang/i1_repaired/accept003_scheduler_fault/audit_source.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+    "results/i_minisglang/i1_repaired/accept004_tokenizer_fault/audit.json": "5688270182266f29dd6a522cdc2335065fd0a3ee5744ef1fa93d256ce9fbafa8",
+    "results/i_minisglang/i1_repaired/accept004_tokenizer_fault/audit_source.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+    "results/i_minisglang/i1_repaired/accept005_shutdown_active/audit.json": "d74cf9350430393a80573f09bda3a9c3e60f49d6c1ada7cac7416deed5936bb1",
+    "results/i_minisglang/i1_repaired/accept005_shutdown_active/audit_source.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4"
+  },
+  "cpu_evidence_sha256": "f1cade125e37e947d572b2db11345376677f804e20c37ba7b410a30da4a5ba3f",
+  "audit_source_sha256": "92934d3afd8dab31472c0ea608851f9984f9bacc829508062ad0329c08f704db",
+  "boundaries": [
+    "finite logits, not reference numerical equivalence",
+    "no performance claim",
+    "external request ID is correlation only",
+    "TP2/4, overlap, separate tokenizer and restart recovery unaccepted",
+    "request-count admission, not HTTP byte/connection/backlog bounds"
+  ],
+  "paid_resources_used": false
+}

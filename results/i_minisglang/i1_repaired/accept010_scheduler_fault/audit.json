@@ -1,0 +1,244 @@
+{
+  "stage": "I1",
+  "scenario": "scheduler_fault",
+  "status": "scenario_pass",
+  "lifecycle_complete": true,
+  "performance_claims_allowed": false,
+  "scope": "TP1, shared tokenizer, overlap/graph off; finite logits are not reference equivalence",
+  "audit_source_sha256": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+  "checks": {
+    "frozen_sources": {
+      "status": "pass"
+    },
+    "frozen_config": {
+      "status": "pass"
+    },
+    "replayable_patch_identity": {
+      "status": "pass"
+    },
+    "raw_logs": {
+      "status": "pass"
+    },
+    "runner_completed": {
+      "status": "pass"
+    },
+    "frozen_single_gpu_scope": {
+      "status": "pass"
+    },
+    "server_events_match_raw": {
+      "status": "pass"
+    },
+    "client_events_match_raw": {
+      "status": "pass"
+    },
+    "every_offered_request_has_one_terminal": {
+      "status": "pass"
+    },
+    "frozen_payload_and_prompt_hashes": {
+      "status": "pass"
+    },
+    "response_uid_eos_short": {
+      "status": "pass"
+    },
+    "response_uid_fault_inflight": {
+      "status": "pass"
+    },
+    "tokenizer_matches_prompts": {
+      "status": "pass"
+    },
+    "real_kernel_and_finite_logits": {
+      "status": "pass",
+      "checked_batches": 7
+    },
+    "completed_requests_release_once_and_report_real_reason": {
+      "status": "pass"
+    },
+    "short_request_eos": {
+      "status": "pass"
+    },
+    "admission_always_bounded": {
+      "status": "pass",
+      "limit": 4,
+      "peak": 2
+    },
+    "admission_waits_for_frontend_and_backend": {
+      "status": "pass"
+    },
+    "settled_frontend_refs_empty": {
+      "status": "pass"
+    },
+    "settled_table_kv_and_detokenizer_refs": {
+      "status": "pass",
+      "settlements": 1
+    },
+    "inflight_and_queued_fail_within_budget": {
+      "status": "pass",
+      "budget_s": 3
+    },
+    "fault_injected_during_real_decode": {
+      "status": "pass"
+    },
+    "worker_fault_readiness_and_admission_503": {
+      "status": "pass"
+    },
+    "inflight_failure_is_explicit_sse_error": {
+      "status": "pass"
+    },
+    "worker_fault_frontend_state_released": {
+      "status": "pass"
+    },
+    "workers_stopped_without_internal_escalation": {
+      "status": "pass",
+      "reports": [
+        {
+          "event": "workers_stopped",
+          "pid": 48142,
+          "monotonic_ns": 9123736243824,
+          "wall_time_ns": 1793418257835323517,
+          "workers": [
+            {
+              "pid": 48166,
+              "name": "minisgl-TP0-scheduler"
+            },
+            {
+              "pid": 48167,
+              "name": "minisgl-detokenizer-0"
+            }
+          ],
+          "seconds": 1.370128915999885,
+          "signals": [
+            {
+              "pid": 48167,
+              "signal": "SIGINT"
+            }
+          ],
+          "escalated": false,
+          "surviving_pids": [],
+          "exitcodes": {
+            "48166": -15,
+            "48167": 0
+          }
+        },
+        {
+          "event": "workers_stopped",
+          "pid": 48142,
+          "monotonic_ns": 9124002777213,
+          "wall_time_ns": 1793418258101856897,
+          "workers": [
+            {
+              "pid": 48166,
+              "name": "minisgl-TP0-scheduler"
+            },
+            {
+              "pid": 48167,
+              "name": "minisgl-detokenizer-0"
+            }
+          ],
+          "seconds": 1.370128915999885,
+          "signals": [
+            {
+              "pid": 48167,
+              "signal": "SIGINT"
+            }
+          ],
+          "escalated": false,
+          "surviving_pids": [],
+          "exitcodes": {
+            "48166": -15,
+            "48167": 0
+          }
+        }
+      ]
+    },
+    "bounded_shutdown_without_runner_force": {
+      "status": "pass",
+      "shutdown": {
+        "seconds": 0.3160863760003849,
+        "forced_cleanup": false,
+        "returncode": -15,
+        "tracked_pids": [
+          48142,
+          48165,
+          48166,
+          48167
+        ],
+        "surviving_pids": []
+      }
+    },
+    "gpu_memory_returned_to_idle": {
+      "status": "pass",
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 0 MiB, 610.88"
+    }
+  },
+  "failed_checks": [],
+  "requests": {
+    "eos_short": {
+      "uid": 0,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 9121399959440
+    },
+    "fault_inflight": {
+      "uid": 1,
+      "state": "failed",
+      "output_tokens": 5,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 200,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 9122369065917
+    },
+    "fault_queued": {
+      "uid": 2,
+      "state": "failed",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 503,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 9122372743077
+    },
+    "post_fault_admission": {
+      "uid": null,
+      "state": "failed",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 503,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 9122396276524
+    }
+  },
+  "client_terminal_counts": {
+    "finished": 1,
+    "failed": 3
+  },
+  "evidence_sha256": {
+    "frontend_snapshots.json": "91fe5c06d1035847bcf22deb0d0db54514e4980f391f4dc6b88728ddbe785806",
+    "provenance.json": "e38532d339aa34c0cce21ef4014cbbc91584b31c5c37e8cf0f3a6b9d9b674a54",
+    "requests.json": "540cac15d7cd1318847d0ec74c123e278d373379d3b0407dc27b4cf6b9bd8496",
+    "run.json": "620a18784e1e5222bf93685aa910a15400be9c3186d3b6ded17ff279e56ab8ae",
+    "scenario.json": "164912b04231deeace0196560d8200db4f9eb55469388132d3ce065e4a1b0a2f",
+    "server_events.json": "276de083a80701240e0e6ebcd9a7ae11e4a08293bf5feb4ba083805d65d3efe7",
+    "settlements.json": "3bc56829a3ca06b98ab197c78b525526ffbe3bafdce98daabaf85b335b94d1a7",
+    "toolchain_patch.json": "8e08705994258498ef51a912bbdad4eb23153e61d37c60d1bfb30d44ab246b59",
+    "upstream_files.json": "6d43119236d1e11a913774ad2866242b4423cfe98f4ccd716d96bdc8df5120a8",
+    "workload.json": "41e6fc9dc3834228fcfa78c624f37c5de9e8c03eee6d9804a239652bb5922aed"
+  }
+}

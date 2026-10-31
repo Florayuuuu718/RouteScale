@@ -27,6 +27,7 @@ class OnlineRequest:
     cancel_after_s: float | None = None
     disconnect_after_chunks: int | None = None
     external_id: str | None = None
+    stream: bool = True
 
 
 @dataclass
@@ -130,6 +131,8 @@ class OnlineClient:
             return await asyncio.gather(*(one(req) for req in requests))
 
     async def _stream(self, http, req, record):
+        if not req.stream:
+            return await self._nonstream(http, req, record)
         async with http.stream("POST", "/v1/chat/completions", json={**req.payload, "stream": True},
                                headers={"X-Request-ID": req.external_id or req.request_id}) as response:
             record.http_status = response.status_code
@@ -150,6 +153,9 @@ class OnlineClient:
                 item = json.loads(data)
                 if not isinstance(item, dict):
                     raise ValueError("SSE JSON must be an object")
+                if item.get("error"):
+                    record.event("server_error", error=item["error"])
+                    raise ValueError(f"Server error: {item['error']}")
                 choices = item.get("choices", [])
                 if not isinstance(choices, list):
                     raise ValueError("SSE choices must be a list")
@@ -175,3 +181,24 @@ class OnlineClient:
                     record.transition("cancelled", reason="intentional_disconnect")
                     return
             raise ValueError("SSE ended without DONE")
+
+    async def _nonstream(self, http, req, record):
+        response = await http.post("/v1/chat/completions", json={**req.payload, "stream": False},
+                                   headers={"X-Request-ID": req.external_id or req.request_id})
+        record.http_status = response.status_code
+        record.event("http_headers", status=response.status_code)
+        if response.status_code >= 400:
+            record.transition("rejected" if response.status_code < 500 else "failed",
+                              reason=f"HTTP {response.status_code}", response=response.text[:2048])
+            return
+        item = response.json()
+        if (not isinstance(item, dict) or not isinstance(item.get("choices"), list) or
+                not item["choices"] or not isinstance(item["choices"][0], dict) or
+                not isinstance(item["choices"][0].get("message"), dict)):
+            raise ValueError("Malformed non-streaming choices/message")
+        choice = item["choices"][0]
+        text, reason = choice["message"]["content"], choice["finish_reason"]
+        if not isinstance(text, str) or reason not in {"stop", "length"}:
+            raise ValueError("Malformed non-streaming completion")
+        record.response_id, record.content, record.finish_reason = item["id"], text, reason
+        record.transition("finished", boundary="nonstream_response")

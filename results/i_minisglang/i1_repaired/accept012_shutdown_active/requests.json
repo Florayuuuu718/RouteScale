@@ -1,0 +1,576 @@
+[
+  {
+    "request_id": "eos_short",
+    "payload_sha256": "c8f82f2065a5b76a2b3ecba9db1501044fc3c682f3410f00d57b910c82582c62",
+    "state": "finished",
+    "events": [
+      {
+        "request_id": "eos_short",
+        "event": "created",
+        "monotonic_ns": 9256177825837,
+        "wall_time_ns": 1793418390276905901,
+        "planned_arrival_monotonic_s": 9256.169306257
+      },
+      {
+        "request_id": "eos_short",
+        "event": "queued",
+        "monotonic_ns": 9256178217739,
+        "wall_time_ns": 1793418390277297202,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "http_send",
+        "monotonic_ns": 9256178410284,
+        "wall_time_ns": 1793418390277489687
+      },
+      {
+        "request_id": "eos_short",
+        "event": "http_headers",
+        "monotonic_ns": 9258726380160,
+        "wall_time_ns": 1793418392825459864,
+        "status": 200
+      },
+      {
+        "request_id": "eos_short",
+        "event": "running",
+        "monotonic_ns": 9258727467619,
+        "wall_time_ns": 1793418392826547122,
+        "boundary": "first_sse_choice_not_gpu_start"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "first_text",
+        "monotonic_ns": 9258727696853,
+        "wall_time_ns": 1793418392826776386,
+        "boundary": "first_nonempty_text_not_token"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "sse_choice",
+        "monotonic_ns": 9258727905307,
+        "wall_time_ns": 1793418392826984901,
+        "text": "OK",
+        "finish_reason": null,
+        "response_id": "cmpl-0"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "sse_choice",
+        "monotonic_ns": 9258863982614,
+        "wall_time_ns": 1793418392963062418,
+        "text": "",
+        "finish_reason": null,
+        "response_id": "cmpl-0"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "sse_choice",
+        "monotonic_ns": 9258864731943,
+        "wall_time_ns": 1793418392963811256,
+        "text": "",
+        "finish_reason": "stop",
+        "response_id": "cmpl-0"
+      },
+      {
+        "request_id": "eos_short",
+        "event": "finished",
+        "monotonic_ns": 9258865001924,
+        "wall_time_ns": 1793418392964081087
+      }
+    ],
+    "content": "OK",
+    "sse_chunks": 3,
+    "response_id": "cmpl-0",
+    "finish_reason": "stop",
+    "http_status": 200,
+    "reason": null
+  },
+  {
+    "request_id": "fault_queued",
+    "payload_sha256": "ebc2956f0836ae4b3d3b6adca3fdd15c0e7cb0e31465d7f86fcdfc54f697f49e",
+    "state": "failed",
+    "events": [
+      {
+        "request_id": "fault_queued",
+        "event": "created",
+        "monotonic_ns": 9259038975433,
+        "wall_time_ns": 1793418393138055057,
+        "planned_arrival_monotonic_s": 9259.028982154
+      },
+      {
+        "request_id": "fault_queued",
+        "event": "queued",
+        "monotonic_ns": 9259039257287,
+        "wall_time_ns": 1793418393138336610,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "fault_queued",
+        "event": "http_send",
+        "monotonic_ns": 9259039619332,
+        "wall_time_ns": 1793418393138698675
+      },
+      {
+        "request_id": "fault_queued",
+        "event": "http_headers",
+        "monotonic_ns": 9260244799488,
+        "wall_time_ns": 1793418394343879051,
+        "status": 500
+      },
+      {
+        "request_id": "fault_queued",
+        "event": "failed",
+        "monotonic_ns": 9260245889782,
+        "wall_time_ns": 1793418394344969255,
+        "reason": "HTTP 500",
+        "response": "Internal Server Error"
+      }
+    ],
+    "content": "",
+    "sse_chunks": 0,
+    "response_id": null,
+    "finish_reason": null,
+    "http_status": 500,
+    "reason": "HTTP 500"
+  },
+  {
+    "request_id": "fault_inflight",
+    "payload_sha256": "cdd1b0e27eb8092a16f3c82f817ac97d5a845548d6228127046f2669adc37664",
+    "state": "failed",
+    "events": [
+      {
+        "request_id": "fault_inflight",
+        "event": "created",
+        "monotonic_ns": 9258884204297,
+        "wall_time_ns": 1793418392983284010,
+        "planned_arrival_monotonic_s": 9258.876190115
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "queued",
+        "monotonic_ns": 9258884437678,
+        "wall_time_ns": 1793418392983517032,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "http_send",
+        "monotonic_ns": 9258884668225,
+        "wall_time_ns": 1793418392983747448
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "http_headers",
+        "monotonic_ns": 9258933351371,
+        "wall_time_ns": 1793418393032430835,
+        "status": 200
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "running",
+        "monotonic_ns": 9258934294146,
+        "wall_time_ns": 1793418393033373800,
+        "boundary": "first_sse_choice_not_gpu_start"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "first_text",
+        "monotonic_ns": 9258934510977,
+        "wall_time_ns": 1793418393033590360,
+        "boundary": "first_nonempty_text_not_token"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9258934673264,
+        "wall_time_ns": 1793418393033752727,
+        "text": "Sure",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9258959516211,
+        "wall_time_ns": 1793418393058595774,
+        "text": "!",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9258989056767,
+        "wall_time_ns": 1793418393088136451,
+        "text": " Here",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259017174219,
+        "wall_time_ns": 1793418393116253813,
+        "text": " are",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259059676500,
+        "wall_time_ns": 1793418393158755873,
+        "text": " some",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259094670200,
+        "wall_time_ns": 1793418393193749803,
+        "text": " successive",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259123674833,
+        "wall_time_ns": 1793418393222754617,
+        "text": " integers",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259157064485,
+        "wall_time_ns": 1793418393256144108,
+        "text": " separated",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259188439754,
+        "wall_time_ns": 1793418393287519357,
+        "text": " by",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259224482042,
+        "wall_time_ns": 1793418393323561966,
+        "text": " commas",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259255828122,
+        "wall_time_ns": 1793418393354907706,
+        "text": ":\n\n",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259293667770,
+        "wall_time_ns": 1793418393392747634,
+        "text": "-",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259331264689,
+        "wall_time_ns": 1793418393430344282,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259361115953,
+        "wall_time_ns": 1793418393460195697,
+        "text": "1",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259407405749,
+        "wall_time_ns": 1793418393506485773,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259455239731,
+        "wall_time_ns": 1793418393554319445,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259505893167,
+        "wall_time_ns": 1793418393604973182,
+        "text": "2",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259530081246,
+        "wall_time_ns": 1793418393629161170,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259556430670,
+        "wall_time_ns": 1793418393655510604,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259581923648,
+        "wall_time_ns": 1793418393681003011,
+        "text": "3",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259609950649,
+        "wall_time_ns": 1793418393709030293,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259631964180,
+        "wall_time_ns": 1793418393731044184,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259652911859,
+        "wall_time_ns": 1793418393751991282,
+        "text": "4",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259682070401,
+        "wall_time_ns": 1793418393781149954,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259711637862,
+        "wall_time_ns": 1793418393810717576,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259747165202,
+        "wall_time_ns": 1793418393846245056,
+        "text": "5",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259775992664,
+        "wall_time_ns": 1793418393875072779,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259810865930,
+        "wall_time_ns": 1793418393909945794,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259848909654,
+        "wall_time_ns": 1793418393947989228,
+        "text": "6",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259875576185,
+        "wall_time_ns": 1793418393974655979,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259905071986,
+        "wall_time_ns": 1793418394004152060,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259928330203,
+        "wall_time_ns": 1793418394027409676,
+        "text": "7",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259960915348,
+        "wall_time_ns": 1793418394059995352,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9259985407130,
+        "wall_time_ns": 1793418394084486663,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260010586304,
+        "wall_time_ns": 1793418394109665837,
+        "text": "8",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260039305216,
+        "wall_time_ns": 1793418394138385460,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260068998204,
+        "wall_time_ns": 1793418394168078018,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260092816513,
+        "wall_time_ns": 1793418394191896267,
+        "text": "9",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260124471756,
+        "wall_time_ns": 1793418394223551490,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260161103167,
+        "wall_time_ns": 1793418394260183081,
+        "text": " ",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260185159189,
+        "wall_time_ns": 1793418394284238803,
+        "text": "1",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "sse_choice",
+        "monotonic_ns": 9260211144349,
+        "wall_time_ns": 1793418394310224374,
+        "text": "0",
+        "finish_reason": null,
+        "response_id": "cmpl-1"
+      },
+      {
+        "request_id": "fault_inflight",
+        "event": "failed",
+        "monotonic_ns": 9260249007306,
+        "wall_time_ns": 1793418394348087280,
+        "reason": "RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)"
+      }
+    ],
+    "content": "Sure! Here are some successive integers separated by commas:\n\n- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10",
+    "sse_chunks": 42,
+    "response_id": "cmpl-1",
+    "finish_reason": null,
+    "http_status": 200,
+    "reason": "RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)"
+  }
+]

@@ -1,0 +1,28 @@
+test_disconnect_while_sending_headers_before_body_iterator_starts (test_i1_lifecycle_repairs.FrontendTests.test_disconnect_while_sending_headers_before_body_iterator_starts) ... FAIL
+
+======================================================================
+FAIL: test_disconnect_while_sending_headers_before_body_iterator_starts (test_i1_lifecycle_repairs.FrontendTests.test_disconnect_while_sending_headers_before_body_iterator_starts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/unittest/async_case.py", line 90, in _callTestMethod
+    if self._callMaybeAsync(method) is not None:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/unittest/async_case.py", line 112, in _callMaybeAsync
+    return self._asyncioRunner.run(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/tests/test_i1_lifecycle_repairs.py", line 134, in test_disconnect_while_sending_headers_before_body_iterator_starts
+    self.assert_clean()
+  File "/home/shunzi/projects/RouteScale/tests/test_i1_lifecycle_repairs.py", line 91, in assert_clean
+    self.assertFalse(self.state.ack_map)
+AssertionError: {0: [UserReply(uid=0, incremental_output='first', finished=False, finish_reason=None, error=None, status_code=200)]} is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+FAILED (failures=1)

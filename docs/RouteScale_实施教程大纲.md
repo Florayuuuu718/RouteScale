@@ -510,6 +510,13 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
    链路，标明 ZMQ 控制消息、GPU tensor 和多卡 NCCL 通信。
 3. 区分请求排队、Prefill、Decode、detokenize 和网络返回时间，不只记录总 wall time。
 4. 验证客户端断开、EOS、最大输出长度、服务关闭和请求资源释放。
+5. 明确总接入上限、429 过载策略、worker 存活/readiness 和故障传播；
+   分别验收客户端终态、后端停止、table/KV、frontend/detokenizer 引用及进程退出。
+
+2026-10-31：本机 TP1、共享 tokenizer、Graph/Overlap 关闭的 I1 生命周期验收通过；
+七个可重放补丁、四个真实 GPU 场景、130 项场景检查和 40 项本机测试见
+[修复报告](../results/i_minisglang/i1_repaired/README.md)及
+[源码说明与运行手册](i1_lifecycle_repairs.md)。I2/I3 与 TP2/4 仍待执行。
 
 ### I2. 调度与缓存消融
 

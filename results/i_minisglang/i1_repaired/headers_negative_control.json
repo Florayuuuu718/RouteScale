@@ -1,0 +1,12 @@
+{
+  "test": "test_disconnect_while_sending_headers_before_body_iterator_starts",
+  "pre_fix_tree": "eef671349fb1219434e1147def27462acb74aa99",
+  "pre_fix_patch_series": "accept005_shutdown_active/source_snapshot/patches/minisgl-i1/series.json",
+  "fixed_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+  "expected_returncode": 1,
+  "observed_returncode": 1,
+  "failure": "ack_map and admission survived a failed HTTP header send before the body iterator started",
+  "test_source_sha256": "9e14089a2cef861c6b0b56365e1c38514b0452971c9fff80789db006c0debd37",
+  "output_sha256": "cb9cc12977315e1981be15907b155d3ab43eac3534bfc24d5cefd0bcc10be9fa",
+  "fixed_test_passes_in": "cpu_tests.json"
+}

@@ -1,0 +1,48 @@
+{
+  "total_tests": 40,
+  "runs": [
+    {
+      "name": "lifecycle",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i1_lifecycle_repairs.py -v",
+      "tests": 21,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/lifecycle_final2.txt",
+      "sha256": "57180815cf4a7d6fe83210587b123ddab7794c2146b4e5bec00660b973a63c68"
+    },
+    {
+      "name": "online_client",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_online_client.py -v",
+      "tests": 14,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/online_client.txt",
+      "sha256": "0f7ef31f9105c7f89572009ade192a6feddfb54d5976f7f4cf6dac5d065169de"
+    },
+    {
+      "name": "audit_tamper_controls",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i1_repaired_audit.py -v",
+      "tests": 5,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/audit_tamper_controls.txt",
+      "sha256": "d4eab2a7067098bb33f41f87a9bcc3aa04a4b77c3435dff45549aad99d0eb07b"
+    }
+  ],
+  "source_sha256": {
+    "patches/minisgl-i1/0001-fix-frontend-close-response-iterators-and-release-re.patch": "7cd6137c5079c59a681d5400ae4e64dc9b80d6f4960922f291e028e0f78f34b3",
+    "patches/minisgl-i1/0002-fix-cancel-acknowledge-backend-release-on-the-ordere.patch": "75f0014c3702726579f8af8797cc75841d7067e726807c9611fbbb35298d0fc8",
+    "patches/minisgl-i1/0003-fix-protocol-carry-stop-and-length-from-scheduler-to.patch": "3e93dd88129f18f5966712ab91e128f8f69f69d51c4e6df17aa6f94fcaf9cbd9",
+    "patches/minisgl-i1/0004-fix-validation-return-explicit-over-context-errors-b.patch": "2f185792514f05a331692880a9cd50a9bffff32e444ca6df41d796b1e21e53c4",
+    "patches/minisgl-i1/0005-fix-health-track-worker-readiness-and-propagate-exit.patch": "60d3692c1ad9445d03dee4122159a0e74174cd1ea76c0e94972ad4f9231e4408",
+    "patches/minisgl-i1/0006-fix-shutdown-cancel-listeners-close-zero-linger-sock.patch": "9f5369607a3d762e824d840e312c7ce6120efb29e7e80adebb977964f518257b",
+    "patches/minisgl-i1/0007-feat-admission-bound-pending-and-active-requests-unt.patch": "d012095f1bf19f9998d741a9c6a59f3e6a1f7b0c9c72098c046cee7563e56d36",
+    "patches/minisgl-i1/series.json": "0f24dc6f788c342c21aa18b7160e16ba458394ba2f4010929b5039653a74ee3f",
+    "scripts/audit_i1_repaired.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+    "scripts/audit_i1_suite.py": "27ef92df2e8695d321c09b88fabeee7a97562ddb66d59ae346f89650acc05c94",
+    "scripts/prepare_i1_lifecycle.py": "5d301f3887028d95b57dab4f77d37d651e43579c9547ebe26fe6cdc41a33b6ee",
+    "scripts/run_i1_repaired.py": "83e8b21a65e4c261266658e9b52376c62a9063600d002755009cecce25409309",
+    "serving/minisgl_observer.py": "5020157f739af8fb057e29ef9e2f0f05b81b8257c5fadc7e77a64885f3b1bb76",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "tests/test_i1_lifecycle_repairs.py": "f08816b20d01fafaf6f3e6bd6ca781dbbe140d778e651da0756ee7efa9e5004c",
+    "tests/test_i1_repaired_audit.py": "5caee7b45b58a39f5699df22009e5052c957e2c68a1a92e63366c8fce4d2163a",
+    "tests/test_online_client.py": "8c7e9e92ffb19bf82ec71b1fbbba173650e9938ca4755b17ed05787af66c6c98"
+  }
+}

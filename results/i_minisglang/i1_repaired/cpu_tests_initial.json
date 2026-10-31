@@ -1,0 +1,39 @@
+{
+  "total_tests": 38,
+  "runs": [
+    {
+      "name": "lifecycle",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i1_lifecycle_repairs.py -v",
+      "tests": 19,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/lifecycle.txt",
+      "sha256": "2ebe4168e1f04a61342ae3bf1d3e19189bf34d897c2637ffaf9ad14f47630267"
+    },
+    {
+      "name": "online_client",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_online_client.py -v",
+      "tests": 14,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/online_client.txt",
+      "sha256": "0f7ef31f9105c7f89572009ade192a6feddfb54d5976f7f4cf6dac5d065169de"
+    },
+    {
+      "name": "audit_tamper_controls",
+      "command": "runs/envs/mini-sglang/bin/python -m unittest discover -s tests -p test_i1_repaired_audit.py -v",
+      "tests": 5,
+      "returncode": 0,
+      "output": "results/i_minisglang/i1_repaired/cpu_evidence/audit_tamper_controls.txt",
+      "sha256": "d4eab2a7067098bb33f41f87a9bcc3aa04a4b77c3435dff45549aad99d0eb07b"
+    }
+  ],
+  "source_sha256": {
+    "tests/test_i1_lifecycle_repairs.py": "8d7c3d56be125a5b7634462d32e7c3d21433dfdc20482a458857925e212d9adc",
+    "tests/test_online_client.py": "8c7e9e92ffb19bf82ec71b1fbbba173650e9938ca4755b17ed05787af66c6c98",
+    "tests/test_i1_repaired_audit.py": "5caee7b45b58a39f5699df22009e5052c957e2c68a1a92e63366c8fce4d2163a",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "serving/minisgl_observer.py": "5020157f739af8fb057e29ef9e2f0f05b81b8257c5fadc7e77a64885f3b1bb76",
+    "scripts/audit_i1_repaired.py": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+    "scripts/prepare_i1_lifecycle.py": "5d301f3887028d95b57dab4f77d37d651e43579c9547ebe26fe6cdc41a33b6ee",
+    "patches/minisgl-i1/series.json": "221b3b47971979b7809e648064545963b9b83e7585dd9685319d44d2857851ae"
+  }
+}

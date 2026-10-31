@@ -1,0 +1,690 @@
+{
+  "stage": "I1",
+  "scenario": "healthy",
+  "status": "scenario_pass",
+  "lifecycle_complete": true,
+  "performance_claims_allowed": false,
+  "scope": "TP1, shared tokenizer, overlap/graph off; finite logits are not reference equivalence",
+  "audit_source_sha256": "8c514b68f1abb5a74b7543a10de22b0a3c2d831d19b24a4767cb183ac45963c4",
+  "checks": {
+    "frozen_sources": {
+      "status": "pass"
+    },
+    "frozen_config": {
+      "status": "pass"
+    },
+    "replayable_patch_identity": {
+      "status": "pass"
+    },
+    "raw_logs": {
+      "status": "pass"
+    },
+    "runner_completed": {
+      "status": "pass"
+    },
+    "frozen_single_gpu_scope": {
+      "status": "pass"
+    },
+    "server_events_match_raw": {
+      "status": "pass"
+    },
+    "client_events_match_raw": {
+      "status": "pass"
+    },
+    "every_offered_request_has_one_terminal": {
+      "status": "pass"
+    },
+    "frozen_payload_and_prompt_hashes": {
+      "status": "pass"
+    },
+    "response_uid_eos_short": {
+      "status": "pass"
+    },
+    "response_uid_max_tokens_32": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_0": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_1": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_2": {
+      "status": "pass"
+    },
+    "response_uid_queue_blocker": {
+      "status": "pass"
+    },
+    "response_uid_decode_disconnect": {
+      "status": "pass"
+    },
+    "response_uid_decode_deadline": {
+      "status": "pass"
+    },
+    "response_uid_nonstream_eos": {
+      "status": "pass"
+    },
+    "response_uid_nonstream_length": {
+      "status": "pass"
+    },
+    "response_uid_post_cancel_probe": {
+      "status": "pass"
+    },
+    "response_uid_context_last_slot": {
+      "status": "pass"
+    },
+    "response_uid_repeated_header_1": {
+      "status": "pass"
+    },
+    "response_uid_repeated_header_2": {
+      "status": "pass"
+    },
+    "response_uid_overload_1": {
+      "status": "pass"
+    },
+    "response_uid_overload_2": {
+      "status": "pass"
+    },
+    "response_uid_overload_3": {
+      "status": "pass"
+    },
+    "response_uid_overload_4": {
+      "status": "pass"
+    },
+    "response_uid_post_overload_probe": {
+      "status": "pass"
+    },
+    "tokenizer_matches_prompts": {
+      "status": "pass"
+    },
+    "real_kernel_and_finite_logits": {
+      "status": "pass",
+      "checked_batches": 752
+    },
+    "completed_requests_release_once_and_report_real_reason": {
+      "status": "pass"
+    },
+    "short_request_eos": {
+      "status": "pass"
+    },
+    "admission_always_bounded": {
+      "status": "pass",
+      "limit": 4,
+      "peak": 4
+    },
+    "admission_waits_for_frontend_and_backend": {
+      "status": "pass"
+    },
+    "settled_frontend_refs_empty": {
+      "status": "pass"
+    },
+    "settled_table_kv_and_detokenizer_refs": {
+      "status": "pass",
+      "settlements": 12
+    },
+    "normal_matrix_finished": {
+      "status": "pass"
+    },
+    "stream_and_nonstream_length_budgets": {
+      "status": "pass"
+    },
+    "invalid_parameters_rejected_before_uid": {
+      "status": "pass"
+    },
+    "context_overflow_and_equal_explicitly_rejected": {
+      "status": "pass"
+    },
+    "cancellation_stops_backend_cleans_detok_then_releases_admission": {
+      "status": "pass",
+      "requests": {
+        "queued_cancel": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.028134306,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "decode_disconnect": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.029147971,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "decode_deadline": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.017512628,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "nonstream_cancel": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.058992094,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        }
+      }
+    },
+    "queued_cancel_never_executes": {
+      "status": "pass"
+    },
+    "active_cancellations_free_once": {
+      "status": "pass"
+    },
+    "overload_rejects_and_recovers": {
+      "status": "pass"
+    },
+    "external_id_contract_is_fresh_uid": {
+      "status": "pass",
+      "boundary": "External X-Request-ID is a correlation header; no idempotence guarantee"
+    },
+    "workers_stopped_without_internal_escalation": {
+      "status": "pass",
+      "reports": [
+        {
+          "event": "workers_stopped",
+          "pid": 45141,
+          "monotonic_ns": 8266061122039,
+          "wall_time_ns": 1793417400160201752,
+          "workers": [
+            {
+              "pid": 45170,
+              "name": "minisgl-TP0-scheduler"
+            },
+            {
+              "pid": 45171,
+              "name": "minisgl-detokenizer-0"
+            }
+          ],
+          "seconds": 3.2022866000006616,
+          "signals": [
+            {
+              "pid": 45170,
+              "signal": "SIGINT"
+            },
+            {
+              "pid": 45171,
+              "signal": "SIGINT"
+            }
+          ],
+          "escalated": false,
+          "surviving_pids": [],
+          "exitcodes": {
+            "45170": 0,
+            "45171": 0
+          }
+        }
+      ]
+    },
+    "bounded_shutdown_without_runner_force": {
+      "status": "pass",
+      "shutdown": {
+        "seconds": 3.4822797650012944,
+        "forced_cleanup": false,
+        "returncode": -15,
+        "tracked_pids": [
+          45141,
+          45169,
+          45170,
+          45171
+        ],
+        "surviving_pids": []
+      }
+    },
+    "gpu_memory_returned_to_idle": {
+      "status": "pass",
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 0 MiB, 610.88"
+    }
+  },
+  "failed_checks": [],
+  "requests": {
+    "eos_short": {
+      "uid": 0,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8237241390559
+    },
+    "max_tokens_32": {
+      "uid": 1,
+      "state": "finished",
+      "output_tokens": 32,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8238491709712
+    },
+    "concurrent_0": {
+      "uid": 2,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8238865877209
+    },
+    "concurrent_1": {
+      "uid": 3,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8239218127348
+    },
+    "concurrent_2": {
+      "uid": 4,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8239459154924
+    },
+    "queue_blocker": {
+      "uid": 5,
+      "state": "finished",
+      "output_tokens": 384,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8252638460462
+    },
+    "queued_cancel": {
+      "uid": 6,
+      "state": "cancelled",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": null,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8239827693407
+    },
+    "decode_disconnect": {
+      "uid": 7,
+      "state": "cancelled",
+      "output_tokens": 5,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8252811922133
+    },
+    "decode_deadline": {
+      "uid": 8,
+      "state": "cancelled",
+      "output_tokens": 10,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8253224676459
+    },
+    "nonstream_cancel": {
+      "uid": 9,
+      "state": "cancelled",
+      "output_tokens": 14,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": null,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8253638069047
+    },
+    "nonstream_eos": {
+      "uid": 10,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8253830809094
+    },
+    "nonstream_length": {
+      "uid": 11,
+      "state": "finished",
+      "output_tokens": 8,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8254123780583
+    },
+    "post_cancel_probe": {
+      "uid": 12,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8254255405305
+    },
+    "invalid_type": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 422,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8254291165857
+    },
+    "zero_budget": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 422,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8254323586278
+    },
+    "context_overflow": {
+      "uid": 13,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 400,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8254378307216
+    },
+    "context_equal": {
+      "uid": 14,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 400,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8254432818131
+    },
+    "context_last_slot": {
+      "uid": 15,
+      "state": "finished",
+      "output_tokens": 1,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8254732715011
+    },
+    "repeated_header_1": {
+      "uid": 16,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8254867369093
+    },
+    "repeated_header_2": {
+      "uid": 17,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8254974718939
+    },
+    "overload_0": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255086555827
+    },
+    "overload_1": {
+      "uid": 19,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8258599953685
+    },
+    "overload_2": {
+      "uid": 20,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8260455761041
+    },
+    "overload_3": {
+      "uid": 18,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8256816439186
+    },
+    "overload_4": {
+      "uid": 21,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8262488058587
+    },
+    "overload_5": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255071899250
+    },
+    "overload_6": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255073449525
+    },
+    "overload_7": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255074585495
+    },
+    "overload_8": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255076161639
+    },
+    "overload_9": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255077746419
+    },
+    "overload_10": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255080454503
+    },
+    "overload_11": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8255084935420
+    },
+    "post_overload_probe": {
+      "uid": 22,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8262628498924
+    }
+  },
+  "client_terminal_counts": {
+    "finished": 17,
+    "cancelled": 4,
+    "rejected": 12
+  },
+  "evidence_sha256": {
+    "frontend_snapshots.json": "7b5be1fd30871f68a2c7efd49dbf085b696bb86555773d819520a1b942a2967c",
+    "provenance.json": "8c6ae488f742af217353e6ef9ff9d4f34eb59f23f3166513ec915bdc3caad357",
+    "requests.json": "e4f8241746d009a1b7bb8be6ac19034843743e9c57cb932644059f015f6bcd98",
+    "run.json": "9bd8e2a12eaea3dce0b5f4efd046f13d922850878274c735accf528cd2fb2b1a",
+    "scenario.json": "2bd11f50b8c86787345433917c688a348215d1b2995acdf2427dbb11b3db65a6",
+    "server_events.json": "4eb3d34ece12bae35da7f7c35e11a5a8ac241a8143bc02a1aa64201721191d75",
+    "settlements.json": "e7639eab8e3fee93274d2ce8a49c14c134a27a39250bbee1b9f483bf8b073dac",
+    "toolchain_patch.json": "8e08705994258498ef51a912bbdad4eb23153e61d37c60d1bfb30d44ab246b59",
+    "upstream_files.json": "c86d5a2d7f05e136fb4f18a74d18d062ac69d0f6f5dcfbebf7c723ae464b192c",
+    "workload.json": "fe0af0055c2a0e3005e7408aecad3f1ccc4bbeec38bfe7ac23a11cf55ef96dc5"
+  }
+}

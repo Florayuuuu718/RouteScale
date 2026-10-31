@@ -12,15 +12,23 @@ H2/I2 multi-GPU work is deferred to a later consolidated rental session.
 The original H3 correctness gate retains `performance_execution_allowed=false`;
 the separate v5 controlled scope has its own passed performance gate.
 
-## I1: Mini-SGLang single-GPU service baseline
+## I1: Mini-SGLang single-GPU lifecycle acceptance
 
 The pinned Mini-SGLang / Qwen3-0.6B HTTP/SSE baseline ran 15 requests with
 463 finite-logit batch checks. Cancellation reaches the scheduler and active
-table/KV references are released. I1 acceptance remains incomplete: six gaps
+table/KV references are released. The upstream baseline retained six gaps that
 cover frontend/detokenizer cleanup, finish reasons, context validation, worker
 health and shutdown. The [I1 report](i_minisglang/i1_lifecycle/README.md) retains
 all failed preparation attempts, raw request events and the independent audit.
 Eleven CPU client tests pass; these are functional results, not online performance.
+
+The separate [I1 repair report](i_minisglang/i1_repaired/README.md) now has accepted
+TP1 lifecycle evidence with shared tokenizer and Graph/Overlap disabled. Seven
+replayable patches cover the six gaps and bounded admission. Four fresh GPU
+service processes pass 130 scenario checks; 40 local control-plane/client/audit
+tests pass. Overload rejects explicitly, faulted workers propagate errors, and
+shutdown leaves no live processes or GPU allocations. Failed attempts and the
+original baseline remain available. I2/I3 and multi-GPU work are still pending.
 
 ## H3: same-model controlled performance and timing variability
 

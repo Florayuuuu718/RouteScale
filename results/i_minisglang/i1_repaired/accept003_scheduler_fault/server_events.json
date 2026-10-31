@@ -1,0 +1,1207 @@
+[
+  {
+    "event": "observer_installed",
+    "pid": 45645,
+    "monotonic_ns": 8351360599454,
+    "wall_time_ns": 1793417485459679919
+  },
+  {
+    "event": "observer_installed",
+    "pid": 45674,
+    "monotonic_ns": 8359070577395,
+    "wall_time_ns": 1793417493169657670
+  },
+  {
+    "event": "observer_installed",
+    "pid": 45673,
+    "monotonic_ns": 8359095246235,
+    "wall_time_ns": 1793417493194326730
+  },
+  {
+    "event": "engine_ready",
+    "pid": 45673,
+    "monotonic_ns": 8369736645900,
+    "wall_time_ns": 1793417503835725854,
+    "backend": "FlashInferBackend",
+    "torch": "2.9.1+cu129",
+    "cuda": "12.9",
+    "capability": [
+      12,
+      0
+    ],
+    "dtype": "torch.bfloat16",
+    "free_bytes": 5690621952,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 45673,
+    "monotonic_ns": 8369739619650,
+    "wall_time_ns": 1793417503838699744,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8369810380271,
+    "wall_time_ns": 1793417503909460405,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8377706456473,
+    "wall_time_ns": 1793417511805536428,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 45645,
+    "monotonic_ns": 8377758961079,
+    "wall_time_ns": 1793417511858040502,
+    "uid": 0,
+    "external_id": "eos_short",
+    "admitted_uids": [
+      0
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 45674,
+    "monotonic_ns": 8377767488026,
+    "wall_time_ns": 1793417511866568171,
+    "uid": 0,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      20841,
+      448,
+      279,
+      3175,
+      3409,
+      10402,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 45673,
+    "monotonic_ns": 8377769482012,
+    "wall_time_ns": 1793417511868561956,
+    "uid": 0,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 45673,
+    "monotonic_ns": 8377769920221,
+    "wall_time_ns": 1793417511868999544,
+    "trigger": "UserMsg",
+    "uid": 0,
+    "pending_uids": [
+      0
+    ],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8377773280335,
+    "wall_time_ns": 1793417511872360319,
+    "phase": "prefill",
+    "uids": [
+      0
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380607546287,
+    "wall_time_ns": 1793417514706626522,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599673856,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380627281956,
+    "wall_time_ns": 1793417514726362402,
+    "uid": 0,
+    "token_id": 3925,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380628214872,
+    "wall_time_ns": 1793417514727294456,
+    "phase": "decode",
+    "uids": [
+      0
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380628800556,
+    "wall_time_ns": 1793417514727880370,
+    "uids": [
+      0
+    ],
+    "active_uids": [
+      0
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380768626810,
+    "wall_time_ns": 1793417514867706895,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599676416,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "request_free",
+    "pid": 45673,
+    "monotonic_ns": 8380779958171,
+    "wall_time_ns": 1793417514879037884,
+    "uid": 0,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2028,
+    "num_pages": 2048,
+    "prefix_total_tokens": 20,
+    "prefix_evictable_tokens": 20
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380780599194,
+    "wall_time_ns": 1793417514879679078,
+    "uid": 0,
+    "token_id": 151645,
+    "finished": true,
+    "finish_reason": "stop"
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 45673,
+    "monotonic_ns": 8380781705118,
+    "wall_time_ns": 1793417514880785072,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2028,
+    "num_pages": 2048,
+    "prefix_total_tokens": 20,
+    "prefix_evictable_tokens": 20
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380782002741,
+    "wall_time_ns": 1793417514881082685,
+    "uids": [
+      0
+    ],
+    "active_uids": []
+  },
+  {
+    "event": "backend_terminal",
+    "pid": 45645,
+    "monotonic_ns": 8380783347021,
+    "wall_time_ns": 1793417514882427136,
+    "uid": 0,
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": []
+  },
+  {
+    "event": "admission_release",
+    "pid": 45645,
+    "monotonic_ns": 8380784484464,
+    "wall_time_ns": 1793417514883564018,
+    "uid": 0,
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "ack_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8380791094077,
+    "wall_time_ns": 1793417514890173750,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 45645,
+    "monotonic_ns": 8380821454334,
+    "wall_time_ns": 1793417514920533978,
+    "uid": 1,
+    "external_id": "fault_inflight",
+    "admitted_uids": [
+      1
+    ]
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 45645,
+    "monotonic_ns": 8380822366661,
+    "wall_time_ns": 1793417514921445894,
+    "uid": 2,
+    "external_id": "fault_queued",
+    "admitted_uids": [
+      1,
+      2
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 45674,
+    "monotonic_ns": 8380825048709,
+    "wall_time_ns": 1793417514924128703,
+    "uid": 1,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      852,
+      48924,
+      25780,
+      18663,
+      553,
+      76602,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 45674,
+    "monotonic_ns": 8380826687331,
+    "wall_time_ns": 1793417514925767455,
+    "uid": 2,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      20841,
+      448,
+      279,
+      3175,
+      3409,
+      10402,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 45673,
+    "monotonic_ns": 8380826759824,
+    "wall_time_ns": 1793417514925839498,
+    "uid": 1,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 45673,
+    "monotonic_ns": 8380827248629,
+    "wall_time_ns": 1793417514926327882,
+    "trigger": "UserMsg",
+    "uid": 1,
+    "pending_uids": [
+      1
+    ],
+    "running_uids": [],
+    "available_tables": 1,
+    "free_pages": 2028,
+    "num_pages": 2048,
+    "prefix_total_tokens": 20,
+    "prefix_evictable_tokens": 20
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380829844273,
+    "wall_time_ns": 1793417514928923736,
+    "phase": "prefill",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380868702857,
+    "wall_time_ns": 1793417514967782822,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599676928,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380870103689,
+    "wall_time_ns": 1793417514969183673,
+    "uid": 1,
+    "token_id": 39814,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 45673,
+    "monotonic_ns": 8380870938750,
+    "wall_time_ns": 1793417514970018444,
+    "uid": 2,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 45673,
+    "monotonic_ns": 8380871373393,
+    "wall_time_ns": 1793417514970453147,
+    "trigger": "UserMsg",
+    "uid": 2,
+    "pending_uids": [
+      2
+    ],
+    "running_uids": [
+      1
+    ],
+    "available_tables": 0,
+    "free_pages": 2012,
+    "num_pages": 2048,
+    "prefix_total_tokens": 36,
+    "prefix_evictable_tokens": 17
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380871392457,
+    "wall_time_ns": 1793417514970472411,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380871767639,
+    "wall_time_ns": 1793417514970847092,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380908079342,
+    "wall_time_ns": 1793417515007164276,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599677440,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380909935556,
+    "wall_time_ns": 1793417515009015540,
+    "uid": 1,
+    "token_id": 0,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380910779343,
+    "wall_time_ns": 1793417515009859308,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380911301713,
+    "wall_time_ns": 1793417515010381587,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380941689582,
+    "wall_time_ns": 1793417515040769406,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599677440,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380943406461,
+    "wall_time_ns": 1793417515042486535,
+    "uid": 1,
+    "token_id": 5692,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380944435491,
+    "wall_time_ns": 1793417515043515345,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380944916731,
+    "wall_time_ns": 1793417515043997186,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "logits_check",
+    "pid": 45673,
+    "monotonic_ns": 8380975138211,
+    "wall_time_ns": 1793417515074218185,
+    "shape": [
+      1,
+      151936
+    ],
+    "finite": true,
+    "allocated_bytes": 1599677440,
+    "reserved_bytes": 1673527296
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 45673,
+    "monotonic_ns": 8380976625316,
+    "wall_time_ns": 1793417515075705341,
+    "uid": 1,
+    "token_id": 525,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 45673,
+    "monotonic_ns": 8380977401205,
+    "wall_time_ns": 1793417515076481129,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 45674,
+    "monotonic_ns": 8380977883233,
+    "wall_time_ns": 1793417515076963037,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "frontend_failed",
+    "pid": 45645,
+    "monotonic_ns": 8381852487053,
+    "wall_time_ns": 1793417515951566887,
+    "reason": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "active_uids": [
+      1,
+      2
+    ]
+  },
+  {
+    "event": "frontend_abort_start",
+    "pid": 45645,
+    "monotonic_ns": 8381855275612,
+    "wall_time_ns": 1793417515954355225,
+    "uid": 2
+  },
+  {
+    "event": "frontend_abort_sent",
+    "pid": 45645,
+    "monotonic_ns": 8381855688523,
+    "wall_time_ns": 1793417515954768237,
+    "uid": 2,
+    "ack_uids": [
+      1
+    ],
+    "event_uids": [
+      1
+    ]
+  },
+  {
+    "event": "frontend_rejected",
+    "pid": 45645,
+    "monotonic_ns": 8381884824206,
+    "wall_time_ns": 1793417515983903800,
+    "external_id": "post_fault_admission",
+    "status_code": 503,
+    "admitted_uids": [
+      1,
+      2
+    ]
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8381896561014,
+    "wall_time_ns": 1793417515995640798,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8381952233332,
+    "wall_time_ns": 1793417516051313287,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382008940228,
+    "wall_time_ns": 1793417516108020392,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382065563099,
+    "wall_time_ns": 1793417516164642883,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382130736003,
+    "wall_time_ns": 1793417516229815747,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382187492505,
+    "wall_time_ns": 1793417516286572519,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382246029877,
+    "wall_time_ns": 1793417516345109481,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382302313572,
+    "wall_time_ns": 1793417516401393226,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382359639063,
+    "wall_time_ns": 1793417516458718807,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382415947857,
+    "wall_time_ns": 1793417516515027481,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382472902524,
+    "wall_time_ns": 1793417516571983390,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382529593963,
+    "wall_time_ns": 1793417516628673716,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382586046799,
+    "wall_time_ns": 1793417516685126502,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382642114845,
+    "wall_time_ns": 1793417516741194549,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382698302297,
+    "wall_time_ns": 1793417516797382031,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382752894095,
+    "wall_time_ns": 1793417516851973698,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382807681599,
+    "wall_time_ns": 1793417516906761252,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382861935502,
+    "wall_time_ns": 1793417516961015096,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382916722892,
+    "wall_time_ns": 1793417517015802535,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8382970849378,
+    "wall_time_ns": 1793417517069929021,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383025680253,
+    "wall_time_ns": 1793417517124759857,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383079682238,
+    "wall_time_ns": 1793417517178761931,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383134165931,
+    "wall_time_ns": 1793417517233246026,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383189095745,
+    "wall_time_ns": 1793417517288175378,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383243127478,
+    "wall_time_ns": 1793417517342207032,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383297855294,
+    "wall_time_ns": 1793417517396934837,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [
+      1,
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "workers_stopped",
+    "pid": 45645,
+    "monotonic_ns": 8383348414494,
+    "wall_time_ns": 1793417517447494067,
+    "workers": [
+      {
+        "pid": 45673,
+        "name": "minisgl-TP0-scheduler"
+      },
+      {
+        "pid": 45674,
+        "name": "minisgl-detokenizer-0"
+      }
+    ],
+    "seconds": 1.494178594000914,
+    "signals": [
+      {
+        "pid": 45674,
+        "signal": "SIGINT"
+      }
+    ],
+    "escalated": false,
+    "surviving_pids": [],
+    "exitcodes": {
+      "45673": -15,
+      "45674": 0
+    }
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 45645,
+    "monotonic_ns": 8383356371329,
+    "wall_time_ns": 1793417517455451003,
+    "uid_counter": 3,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": false,
+    "failure": "Worker minisgl-TP0-scheduler (pid=45673) exited (-15)",
+    "backend_done_uids": []
+  },
+  {
+    "event": "workers_stopped",
+    "pid": 45645,
+    "monotonic_ns": 8383639157459,
+    "wall_time_ns": 1793417517738237023,
+    "workers": [
+      {
+        "pid": 45673,
+        "name": "minisgl-TP0-scheduler"
+      },
+      {
+        "pid": 45674,
+        "name": "minisgl-detokenizer-0"
+      }
+    ],
+    "seconds": 1.494178594000914,
+    "signals": [
+      {
+        "pid": 45674,
+        "signal": "SIGINT"
+      }
+    ],
+    "escalated": false,
+    "surviving_pids": [],
+    "exitcodes": {
+      "45673": -15,
+      "45674": 0
+    }
+  }
+]

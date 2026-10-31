@@ -1,0 +1,692 @@
+{
+  "stage": "I1",
+  "scenario": "healthy",
+  "status": "acceptance_failed",
+  "lifecycle_complete": false,
+  "performance_claims_allowed": false,
+  "scope": "TP1, shared tokenizer, overlap/graph off; finite logits are not reference equivalence",
+  "checks": {
+    "frozen_sources": {
+      "status": "pass"
+    },
+    "frozen_config": {
+      "status": "pass"
+    },
+    "replayable_patch_identity": {
+      "status": "pass"
+    },
+    "raw_logs": {
+      "status": "pass"
+    },
+    "runner_completed": {
+      "status": "pass"
+    },
+    "frozen_single_gpu_scope": {
+      "status": "pass"
+    },
+    "server_events_match_raw": {
+      "status": "pass"
+    },
+    "client_events_match_raw": {
+      "status": "pass"
+    },
+    "every_offered_request_has_one_terminal": {
+      "status": "pass"
+    },
+    "frozen_payload_and_prompt_hashes": {
+      "status": "pass"
+    },
+    "response_uid_eos_short": {
+      "status": "pass"
+    },
+    "response_uid_max_tokens_32": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_0": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_1": {
+      "status": "pass"
+    },
+    "response_uid_concurrent_2": {
+      "status": "pass"
+    },
+    "response_uid_queue_blocker": {
+      "status": "pass"
+    },
+    "response_uid_decode_disconnect": {
+      "status": "pass"
+    },
+    "response_uid_decode_deadline": {
+      "status": "pass"
+    },
+    "response_uid_nonstream_eos": {
+      "status": "pass"
+    },
+    "response_uid_nonstream_length": {
+      "status": "pass"
+    },
+    "response_uid_post_cancel_probe": {
+      "status": "pass"
+    },
+    "response_uid_context_last_slot": {
+      "status": "pass"
+    },
+    "response_uid_repeated_header_1": {
+      "status": "pass"
+    },
+    "response_uid_repeated_header_2": {
+      "status": "pass"
+    },
+    "response_uid_overload_6": {
+      "status": "pass"
+    },
+    "response_uid_overload_7": {
+      "status": "pass"
+    },
+    "response_uid_overload_8": {
+      "status": "pass"
+    },
+    "response_uid_overload_9": {
+      "status": "pass"
+    },
+    "response_uid_post_overload_probe": {
+      "status": "pass"
+    },
+    "tokenizer_matches_prompts": {
+      "status": "pass"
+    },
+    "real_kernel_and_finite_logits": {
+      "status": "pass",
+      "checked_batches": 747
+    },
+    "completed_requests_release_once_and_report_real_reason": {
+      "status": "pass"
+    },
+    "short_request_eos": {
+      "status": "pass"
+    },
+    "admission_always_bounded": {
+      "status": "pass",
+      "limit": 4,
+      "peak": 4
+    },
+    "settled_frontend_refs_empty": {
+      "status": "pass"
+    },
+    "settled_table_kv_and_detokenizer_refs": {
+      "status": "pass",
+      "settlements": 12
+    },
+    "normal_matrix_finished": {
+      "status": "pass"
+    },
+    "stream_and_nonstream_length_budgets": {
+      "status": "pass"
+    },
+    "invalid_parameters_rejected_before_uid": {
+      "status": "pass"
+    },
+    "context_overflow_and_equal_explicitly_rejected": {
+      "status": "pass"
+    },
+    "cancellation_stops_backend_cleans_detok_then_releases_admission": {
+      "status": "pass",
+      "requests": {
+        "queued_cancel": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.016098042,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "decode_disconnect": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.040022055,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "decode_deadline": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.052783992,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        },
+        "nonstream_cancel": {
+          "abort_count": 1,
+          "detokenizer_end_count": 1,
+          "delay_s": 0.073364465,
+          "after_abort_work": 0,
+          "release_after_detok": true
+        }
+      }
+    },
+    "queued_cancel_never_executes": {
+      "status": "pass"
+    },
+    "active_cancellations_free_once": {
+      "status": "pass"
+    },
+    "overload_rejects_and_recovers": {
+      "status": "pass"
+    },
+    "external_id_contract_is_fresh_uid": {
+      "status": "pass",
+      "boundary": "External X-Request-ID is a correlation header; no idempotence guarantee"
+    },
+    "workers_stopped_without_internal_escalation": {
+      "status": "fail",
+      "reports": [
+        {
+          "event": "workers_stopped",
+          "pid": 44584,
+          "monotonic_ns": 8118882315007,
+          "wall_time_ns": 1793417252981395001,
+          "workers": [
+            {
+              "pid": 44643,
+              "name": "minisgl-TP0-scheduler"
+            },
+            {
+              "pid": 44644,
+              "name": "minisgl-detokenizer-0"
+            }
+          ],
+          "seconds": 2.850787045999823,
+          "signals": [
+            {
+              "pid": 44643,
+              "signal": "SIGINT"
+            },
+            {
+              "pid": 44644,
+              "signal": "SIGINT"
+            },
+            {
+              "pid": 44643,
+              "signal": "SIGTERM"
+            }
+          ],
+          "escalated": true,
+          "surviving_pids": [],
+          "exitcodes": {
+            "44643": -15,
+            "44644": 0
+          }
+        }
+      ]
+    },
+    "bounded_shutdown_without_runner_force": {
+      "status": "pass",
+      "shutdown": {
+        "seconds": 3.1802876400006426,
+        "forced_cleanup": false,
+        "returncode": -15,
+        "tracked_pids": [
+          44584,
+          44642,
+          44643,
+          44644
+        ],
+        "surviving_pids": []
+      }
+    },
+    "gpu_memory_returned_to_idle": {
+      "status": "pass",
+      "gpu_after": "NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB, 0 MiB, 610.88"
+    }
+  },
+  "failed_checks": [
+    "workers_stopped_without_internal_escalation"
+  ],
+  "requests": {
+    "eos_short": {
+      "uid": 0,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8088907298045
+    },
+    "max_tokens_32": {
+      "uid": 1,
+      "state": "finished",
+      "output_tokens": 32,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8090170440091
+    },
+    "concurrent_0": {
+      "uid": 2,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8090473904134
+    },
+    "concurrent_1": {
+      "uid": 3,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8090794666820
+    },
+    "concurrent_2": {
+      "uid": 4,
+      "state": "finished",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8091200603282
+    },
+    "queue_blocker": {
+      "uid": 5,
+      "state": "finished",
+      "output_tokens": 384,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8104274939158
+    },
+    "queued_cancel": {
+      "uid": 6,
+      "state": "cancelled",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": null,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8091576249316
+    },
+    "decode_disconnect": {
+      "uid": 7,
+      "state": "cancelled",
+      "output_tokens": 5,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8104460272765
+    },
+    "decode_deadline": {
+      "uid": 8,
+      "state": "cancelled",
+      "output_tokens": 9,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8104874867474
+    },
+    "nonstream_cancel": {
+      "uid": 9,
+      "state": "cancelled",
+      "output_tokens": 10,
+      "backend_terminal_tokens": 0,
+      "backend_reason": "unfinished",
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": null,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8105293966092
+    },
+    "nonstream_eos": {
+      "uid": 10,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8105495690004
+    },
+    "nonstream_length": {
+      "uid": 11,
+      "state": "finished",
+      "output_tokens": 8,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8105810898867
+    },
+    "post_cancel_probe": {
+      "uid": 12,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8105941957829
+    },
+    "invalid_type": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 422,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8105980757141
+    },
+    "zero_budget": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 422,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106039964469
+    },
+    "context_overflow": {
+      "uid": 13,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 400,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8106097104393
+    },
+    "context_equal": {
+      "uid": 14,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 400,
+      "free_events": 0,
+      "input_ids_match": true,
+      "terminal_ns": 8106159220081
+    },
+    "context_last_slot": {
+      "uid": 15,
+      "state": "finished",
+      "output_tokens": 1,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8106440897081
+    },
+    "repeated_header_1": {
+      "uid": 16,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8106584364640
+    },
+    "repeated_header_2": {
+      "uid": 17,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8106681848182
+    },
+    "overload_0": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106785364624
+    },
+    "overload_1": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106789409611
+    },
+    "overload_2": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106790734129
+    },
+    "overload_3": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106792448865
+    },
+    "overload_4": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106793716144
+    },
+    "overload_5": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106787801397
+    },
+    "overload_6": {
+      "uid": 18,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8108700210582
+    },
+    "overload_7": {
+      "uid": 19,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8110690468155
+    },
+    "overload_8": {
+      "uid": 20,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8112792808783
+    },
+    "overload_9": {
+      "uid": 21,
+      "state": "finished",
+      "output_tokens": 64,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "length",
+      "wire_reason": "length",
+      "client_reason": "length",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8115558661516
+    },
+    "overload_10": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106781836264
+    },
+    "overload_11": {
+      "uid": null,
+      "state": "rejected",
+      "output_tokens": 0,
+      "backend_terminal_tokens": 0,
+      "backend_reason": null,
+      "wire_reason": null,
+      "client_reason": null,
+      "http_status": 429,
+      "free_events": 0,
+      "input_ids_match": null,
+      "terminal_ns": 8106783271261
+    },
+    "post_overload_probe": {
+      "uid": 22,
+      "state": "finished",
+      "output_tokens": 2,
+      "backend_terminal_tokens": 1,
+      "backend_reason": "stop",
+      "wire_reason": "stop",
+      "client_reason": "stop",
+      "http_status": 200,
+      "free_events": 1,
+      "input_ids_match": true,
+      "terminal_ns": 8115714122140
+    }
+  },
+  "client_terminal_counts": {
+    "finished": 17,
+    "cancelled": 4,
+    "rejected": 12
+  },
+  "evidence_sha256": {
+    "frontend_snapshots.json": "ebde2b4cdc87320141910383653a793fb4f21ac0d2ea25ff4dd18d943c6ccfab",
+    "provenance.json": "12a1693fac4ec890b2a829197abf294461a2893427e9ec12c1a694dfb5643d6d",
+    "requests.json": "49d42d0f8f54435333528cd395417b64cbe814388af16eab706e3c7160ce882f",
+    "run.json": "522d87bc4a1cc134a689d1ccce466ba1f4afedf691195ec9fb52f86f4444d6ba",
+    "scenario.json": "2bd11f50b8c86787345433917c688a348215d1b2995acdf2427dbb11b3db65a6",
+    "server_events.json": "ddd0ac1e40539aee2c43f5bf92dda2209e3dbafa46b5dfcfe84a592874cb4802",
+    "settlements.json": "f4f3dacd4e07fb673dacca3e5e17c997cdf605dd57e826dcf5832cd4ca5d0f0b",
+    "toolchain_patch.json": "8e08705994258498ef51a912bbdad4eb23153e61d37c60d1bfb30d44ab246b59",
+    "upstream_files.json": "dd1ef40b6dbb5861c070efbe1d6b09b8cee49076596a03b28c57155e914bb167",
+    "workload.json": "fe0af0055c2a0e3005e7408aecad3f1ccc4bbeec38bfe7ac23a11cf55ef96dc5"
+  }
+}
