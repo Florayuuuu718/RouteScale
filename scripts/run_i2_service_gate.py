@@ -138,7 +138,7 @@ def worker(config,attempt,variant):
     output.mkdir(parents=True,exist_ok=False)
     raw.mkdir(parents=True,exist_ok=False)
     settings=config['variants'][variant]
-    args=[sys.executable,'scripts/launch_i2_service.py','--model',str(ROOT/config['model_path']),
+    args=[sys.executable,config.get('service_launcher','scripts/launch_i2_service.py'),'--model',str(ROOT/config['model_path']),
         '--host','127.0.0.1','--port','1929','--dtype','bfloat16','--attention-backend','fi','--page-size','1',
         '--num-pages','2048','--max-running-requests','4','--max-seq-len-override','1024',
         '--max-prefill-length',str(settings['chunk']),'--cache-type',settings['cache'],'--num-tokenizer','0',

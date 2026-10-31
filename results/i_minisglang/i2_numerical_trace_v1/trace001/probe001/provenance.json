@@ -1,0 +1,24 @@
+{
+  "source_sha256": {
+    "scripts/probe_i2_attention_plan.py": "7b91e2b0131d925005f81f3f6c0c8e49cbdfddac224bad66b227801047f57235",
+    "serving/i2_attention_reference.py": "0642973e00f2abed22d3db56518d43a06cada9bd3ff1b469a8f2e2710d6da6b0",
+    "docs/i2_attention_probe_protocol.md": "e3bccae92aa5afdbd3679004191e81c0d1eace8a0f9e694f783f72c53ce9bd4d"
+  },
+  "validation_dir": "runs/validation/i2_numerical_trace_v1/trace001/probe001",
+  "inputs": {
+    "naive_full": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace001/naive_full_trace.pt",
+      "sha256": "80e61635894b926f18da3ec4c3d0fe0752f644ddf22bd8653f75bd36c8c20d19"
+    },
+    "radix_full": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace001/radix_full_trace.pt",
+      "sha256": "696aa852e0693c821266d30305ca36102733239e00c6dcacc1d78031d4daaf3e"
+    }
+  },
+  "trace_audit_sha256": "3d02b01035a0f616c0e739f768464a7f0d3b11a42a5137d6467edbdde2e08ef2",
+  "performance_allowed": false,
+  "library_source_sha256": {
+    "runs/envs/mini-sglang/lib/python3.11/site-packages/flashinfer/prefill.py": "b4a51047d4ddcc5fd9deda930fe165c622b00eb183a7a958a6f3f812b6bd402d",
+    "runs/envs/mini-sglang/lib/python3.11/site-packages/flashinfer/data/include/flashinfer/attention/scheduler.cuh": "b1fb27078084262158ed070e220ad317467306d1f0b32e0d9624bf85e6ef97ce"
+  }
+}

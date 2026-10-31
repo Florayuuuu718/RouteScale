@@ -532,7 +532,14 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 12 项 CPU 测试），含 Overlap 的在途取消扩展。首项全模型数值门槛未通过，
 1024 个 Naive 向量全部有限但均超出冻结门槛，正式性能进程为 0/21。
 [失败、隔离诊断与后续定位](../results/i_minisglang/i2_single_gpu_v1/README.md)保持可审计；
-I2 尚未验收，不能把 HTTP 检查或诊断当成数值/性能通过。
+该 HF 参考范围尚未验收，不能把 HTTP 检查或诊断当成全模型 HF 等价通过。
+
+后续独立范围已完成：首分叉定位到 FlashInfer 自动 split-KV 及 BF16 GEMM 行形状，
+共同 prefill no-split + linear tile512 后，新seed/768-token输入及七配置共12544个
+向量全部 exact；同策略 HTTP 84请求/280检查、21/21正式进程与160项性能审计通过。
+见[根因说明](i2_numerical_findings.md)与[本机 FI/TP1 形状控制范围报告](../results/i_minisglang/i2_shape_performance_v1/README.md)。
+结果包含额外填充成本和不确定性；原HF FP32失败保持不变，FA4/TRTLLM在当前锁定栈中
+实际探针不可用，未使用fallback比较。TP2/4仍留待集中租卡；下一本机阶段为I3。
 
 ### I3. 在线负载协议
 

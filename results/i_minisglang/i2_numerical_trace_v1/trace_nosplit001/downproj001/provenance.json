@@ -1,0 +1,23 @@
+{
+  "source_sha256": {
+    "scripts/probe_i2_down_projection.py": "145a2706d88275decfbc1d0bce59830b4189780991a2e0b09186e8f42fcec749",
+    "serving/i2_attention_reference.py": "0642973e00f2abed22d3db56518d43a06cada9bd3ff1b469a8f2e2710d6da6b0",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "docs/i2_shape_policy_protocol.md": "7e40242dd8b4113451dccd7cf34453fabb5d1c4f26a2d427dba94e419ae9a701"
+  },
+  "validation_dir": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/downproj001",
+  "inputs": {
+    "naive_full": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/naive_full_trace.pt",
+      "sha256": "80e61635894b926f18da3ec4c3d0fe0752f644ddf22bd8653f75bd36c8c20d19"
+    },
+    "radix_full": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/radix_full_trace.pt",
+      "sha256": "5a51017003bdc7894b3351fdb58819cb985f95bc14e19fdc4cb0262f2b3e84ae"
+    }
+  },
+  "trace_audit_sha256": "895fc9716a37d8f1c80cd28c075ecc45160bd7f8872e6d9d32f4033f51149b1e",
+  "checkpoint": "runs/models/Qwen3-0.6B/model.safetensors",
+  "checkpoint_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+  "performance_allowed": false
+}

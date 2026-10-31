@@ -1,0 +1,82 @@
+{
+  "variant": "radix_full",
+  "evidence_class": "unmodified_native_layer_trace",
+  "performance_allowed": false,
+  "rows": [
+    {
+      "phase": "cold",
+      "requests": [
+        {
+          "request_id": "b1_shared_cold_0",
+          "uid": 0,
+          "cached_tokens": 0,
+          "output_tokens": 64,
+          "output_sha256": "bbc9a1ebe85db5ddee43ec948a8dac251b2f3afcfe3f8f1dde8557238e89e28d",
+          "first_result_ms": 2680.324289,
+          "terminal_ms": 4435.936722,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 1473,
+        "prefix_total": 575,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    },
+    {
+      "phase": "warm",
+      "requests": [
+        {
+          "request_id": "b1_shared_warm_0",
+          "uid": 1,
+          "cached_tokens": 384,
+          "output_tokens": 64,
+          "output_sha256": "09e93e0ed2f01157810163102a63f9d3ac7027fa7b7dd6a79e6a6bb991fa8a47",
+          "first_result_ms": 212.168794,
+          "terminal_ms": 1832.723837,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 1282,
+        "prefix_total": 766,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    }
+  ],
+  "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "tensors": {
+    "trace": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/radix_full_trace.pt",
+      "sha256": "5a51017003bdc7894b3351fdb58819cb985f95bc14e19fdc4cb0262f2b3e84ae"
+    },
+    "logits": {
+      "path": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/radix_full_logits.pt",
+      "sha256": "89916fa873559ad702ed69b04d076b6cbacec855213afba384d5cd8c894a1f31"
+    }
+  },
+  "gpu_end": "NVIDIA GeForce RTX 5060 Laptop GPU, 2088 MiB, 44, 225 MHz, 9001 MHz, 6.56 W, P4, 0 %, 610.88"
+}

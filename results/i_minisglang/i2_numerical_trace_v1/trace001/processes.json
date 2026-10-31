@@ -1,0 +1,42 @@
+[
+  {
+    "label": "naive_full",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "-m",
+      "serving.i2_trace_worker",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_numerical_trace_v1/trace001",
+      "--variant",
+      "naive_full"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793423573848194478,
+    "pid": 60204,
+    "returncode": 0,
+    "seconds": 35.57869764800125,
+    "log": "runs/logs/i_minisglang/i2_numerical_trace_v1/trace001/naive_full.log",
+    "log_sha256": "b5f08a0b26233a3305cf5c7352362892f56119c8b672d638da94aa672da9b38f",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "radix_full",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "-m",
+      "serving.i2_trace_worker",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_numerical_trace_v1/trace001",
+      "--variant",
+      "radix_full"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793423609853630288,
+    "pid": 60311,
+    "returncode": 0,
+    "seconds": 28.146929989001364,
+    "log": "runs/logs/i_minisglang/i2_numerical_trace_v1/trace001/radix_full.log",
+    "log_sha256": "3ae7b757708c8a27e6265740de46ad287e407519054817adc0d3cffc2ed6a14d",
+    "gpu_after": "0 MiB"
+  }
+]

@@ -1,0 +1,70 @@
+{
+  "variant": "naive_full",
+  "policy": "fi_fa2_prefill_no_split_v1",
+  "linear_tile512": true,
+  "rows": [
+    {
+      "phase": "cold",
+      "requests": [
+        {
+          "request_id": "b1_shared_cold_0",
+          "uid": 0,
+          "cached_tokens": 0,
+          "output_tokens": 64,
+          "output_sha256": "bbc9a1ebe85db5ddee43ec948a8dac251b2f3afcfe3f8f1dde8557238e89e28d",
+          "first_result_ms": 2686.75149,
+          "terminal_ms": 4660.194561,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 2048,
+        "prefix_total": 0,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    },
+    {
+      "phase": "warm",
+      "requests": [
+        {
+          "request_id": "b1_shared_warm_0",
+          "uid": 1,
+          "cached_tokens": 0,
+          "output_tokens": 64,
+          "output_sha256": "09e93e0ed2f01157810163102a63f9d3ac7027fa7b7dd6a79e6a6bb991fa8a47",
+          "first_result_ms": 36.142162,
+          "terminal_ms": 1760.745518,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 2048,
+        "prefix_total": 0,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    }
+  ],
+  "tensor": {
+    "path": "runs/validation/i2_numerical_trace_v1/cache_shape001/naive_full.pt",
+    "sha256": "99cb43f4b2776755c44c61fb5b9ff183e6d2d3ca3c5689cc30491e06fb8f116c"
+  },
+  "performance_allowed": false
+}

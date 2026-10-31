@@ -1,0 +1,27 @@
+{
+  "new_tests_passed": 12,
+  "runs": [
+    {
+      "name": "attention_policy",
+      "tests": 8,
+      "returncode": 0,
+      "log": "cpu_attention_policy.log",
+      "sha256": "f8e6cd6394f6624e71c4ba28ec9e9b360ce6e7b387422de2f78b80e863568269"
+    },
+    {
+      "name": "performance_admission",
+      "tests": 4,
+      "returncode": 0,
+      "log": "cpu_performance_admission.log",
+      "sha256": "0ae78ae23de7fe98f09d2de995339c2300504515869119f3332299c8d31a01bc"
+    }
+  ],
+  "source_sha256": {
+    "tests/test_i2_attention_reference.py": "b6a380d485dafd6702afa30f1e13b1dc1b7404a99ef4442915f0042fa5ed1ab0",
+    "tests/test_i2_performance_gate.py": "80e9391a1f4ee763d1021f7e650b7c63668e3a7661afbd9d6e8c1fef2011a894",
+    "serving/i2_attention_reference.py": "0642973e00f2abed22d3db56518d43a06cada9bd3ff1b469a8f2e2710d6da6b0",
+    "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "scripts/run_i2_shape_performance.py": "778e08c705a325a328dfc79ec5c24056585cb06f9b9f7e71a6e550b48f39f9fe"
+  }
+}

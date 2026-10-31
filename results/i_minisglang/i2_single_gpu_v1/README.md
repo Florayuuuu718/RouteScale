@@ -43,9 +43,12 @@ reduced-precision reduction 和 TF32。Naive 最大绝对误差 0.52038、最大
 
 这些都是诊断，`performance_allowed=false`。没有使用 FP32 诊断吞吐冒充 BF16 性能，
 没有把 top-1 接近、文本合理、孤立算子通过或 HTTP 正常当成全模型数值通过。
-下一步仍是数值定位：对齐 Naive/Radix 首个分叉层的 Q/K/V、prefix 页内容与实际 attention
-调用形状，分别核对地址/因果语义和 BF16 舍入传播。若需要新的数值策略或参考范围，必须
-先另立协议、用未参与定位的输入验证并重新执行全部门槛，不能覆写 v1 失败后继续计时。
+
+后续更新：上述首分叉已在独立新目录定位到自动split-KV和BF16 GEMM行形状，见
+[逐层与同输入干预](../i2_numerical_trace_v1/README.md)。两侧共同控制后，另立协议，
+使用新seed/长度与全部七配置验证，并在明确的引擎内部策略等价范围完成
+[21进程系统消融](../i2_shape_performance_v1/README.md)。本页的HF FP32失败、旧gate和0/21
+仍保持原结论；新范围没有追认这轮数值等价或性能。
 
 ## 文件与复现
 

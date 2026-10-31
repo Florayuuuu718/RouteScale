@@ -1,0 +1,27 @@
+{
+  "backend": "fa4",
+  "evidence_class": "explicit_kernel_API_capability_only",
+  "fallback_used": false,
+  "full_model_qualified": false,
+  "performance_allowed": false,
+  "capability": [
+    12,
+    0
+  ],
+  "shape": {
+    "query": 32,
+    "kv": 128,
+    "qheads": 16,
+    "kvheads": 8,
+    "head_dim": 128,
+    "page_size": 64,
+    "dtype": "bfloat16"
+  },
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "status": "kernel_API_unavailable_in_this_pinned_stack",
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/probe_i2_backend_capability.py\", line 36, in worker\n    result=_fa_sgl_impl(q,keys,values,table,seq,cu_q,cu_k,32,128**-.5,version=4)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/vendor/mini-sglang-i2/python/minisgl/attention/fa.py\", line 158, in _fa_sgl_impl\n    from sgl_kernel.flash_attn import flash_attn_with_kvcache\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/sgl_kernel/flash_attn.py\", line 14, in <module>\n    from ._fa4_interface import flash_attn_varlen_func as flash_attn_varlen_func_v4\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/sgl_kernel/_fa4_interface.py\", line 23, in <module>\n    from flash_attn_origin.cute import utils\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flash_attn_origin/cute/__init__.py\", line 7, in <module>\n    from .interface import (\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flash_attn_origin/cute/interface.py\", line 34, in <module>\n    from flash_attn_origin.cute import utils\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flash_attn_origin/cute/utils.py\", line 20, in <module>\n    fma_packed_f32x2 = partial(cute.arch.fma_packed_f32x2, rnd=nvvm.RoundingModeKind.RN)\n                                                               ^^^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'cutlass._mlir.dialects.nvvm' has no attribute 'RoundingModeKind'\n"
+}

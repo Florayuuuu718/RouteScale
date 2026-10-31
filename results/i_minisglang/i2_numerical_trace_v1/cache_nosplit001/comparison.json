@@ -1,0 +1,28 @@
+{
+  "evidence_class": "common_prefill_policy_full_model_diagnostic",
+  "performance_allowed": false,
+  "within_native_pair_passed": false,
+  "rows": [
+    {
+      "request_id": "b1_shared_cold_0",
+      "exact": true,
+      "vectors": 64,
+      "passed": true,
+      "max_relative_rmse": 0.0,
+      "max_abs": 0.0
+    },
+    {
+      "request_id": "b1_shared_warm_0",
+      "exact": false,
+      "vectors": 64,
+      "passed": false,
+      "max_relative_rmse": 0.04004483297467232,
+      "max_abs": 0.3125
+    }
+  ],
+  "tensor_sha256": {
+    "naive_full": "99cb43f4b2776755c44c61fb5b9ff183e6d2d3ca3c5689cc30491e06fb8f116c",
+    "radix_full": "87b7a3e5d7f4c1603bf65ee068d057518224af372dd5bec497429867d4388e26"
+  },
+  "policy_not_HF_equivalence": true
+}

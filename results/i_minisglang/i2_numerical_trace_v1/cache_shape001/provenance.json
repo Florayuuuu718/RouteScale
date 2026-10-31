@@ -1,0 +1,119 @@
+{
+  "config": {
+    "stage": "I2",
+    "scope": "single_gpu_fixed_token_scheduler_replay_v1",
+    "i1_config": "config/serving/i1_repaired.json",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "seed": 20261031,
+    "batch_sizes": [
+      1,
+      3
+    ],
+    "prompt_tokens": 512,
+    "output_tokens": 64,
+    "shared_prefix_tokens": 384,
+    "workload_path": "runs/workloads/i2_single_gpu_v1/workload.json",
+    "validation_dir": "runs/validation/i2_single_gpu_v1",
+    "results_dir": "results/i_minisglang/i2_single_gpu_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i2_single_gpu_v1",
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi",
+      "dtype": "bfloat16"
+    },
+    "numerics": {
+      "reference": "bf16_weights_fp32_math_hf_eager",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    },
+    "variants": {
+      "naive_full": {
+        "cache": "naive",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_full": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk256": {
+        "cache": "radix",
+        "chunk": 256,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk128": {
+        "cache": "radix",
+        "chunk": 128,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      },
+      "radix_graph13": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          3
+        ]
+      },
+      "radix_overlap": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": true,
+        "graph_bs": []
+      }
+    },
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "subprocess_timeout_s": 900,
+    "cleanup_s": 5,
+    "shutdown_s": 10,
+    "performance_boundary": "scheduler cohort submission through host terminal; includes forced-token controller and host result processing; excludes HTTP/tokenizer/startup/JIT; no online SLO claim",
+    "paid_resources_used": false
+  },
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "source_sha256": {
+    "scripts/verify_i2_cache_policy.py": "406bece0cd67f32b1fce479c2c9a49ad1cd7faf05eafb8db17ae0fd9bed8d868",
+    "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "docs/i2_prefill_policy_protocol.md": "d28dd663ce4b60d83aacbf073e64f87240cf3a7eec6f16b9c8351715b77f090f",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "docs/i2_shape_policy_protocol.md": "7e40242dd8b4113451dccd7cf34453fabb5d1c4f26a2d427dba94e419ae9a701"
+  },
+  "workload_sha256": "cc71f0b16b8d9e24d65537167dc1a9d7e79e6fbd97b9809d1435bb5cee6cbaed",
+  "validation_dir": "runs/validation/i2_numerical_trace_v1/cache_shape001",
+  "linear_tile512": true,
+  "performance_allowed": false
+}

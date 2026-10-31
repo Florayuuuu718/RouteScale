@@ -38,7 +38,8 @@ def main():
                 ax.set_xticks(np.arange(len(names)),labels,rotation=30,ha='right')
                 ax.set_ylabel(unit);ax.grid(axis='y',alpha=.2);ax.set_axisbelow(True)
                 if row==0 and col==0:ax.legend(frameon=False)
-        fig.suptitle(title+'\n3 independent processes; median and min/max of process means',fontsize=14)
+        scope='\nBF16 shape-controlled: prefill no-split + linear tile512' if report.get('scope')=='shape_controlled_native_BF16_systems_ablation' else ''
+        fig.suptitle(title+scope+'\n3 independent processes; median and min/max of process means',fontsize=14)
         for suffix in ('svg','png'):fig.savefig(args.directory/f'{metric}.{suffix}',dpi=180)
         plt.close(fig)
     evidence=dict(plotter_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),

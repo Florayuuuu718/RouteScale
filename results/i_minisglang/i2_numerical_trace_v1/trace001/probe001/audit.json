@@ -1,0 +1,38 @@
+{
+  "integrity_passed": false,
+  "checks": {
+    "sources": true,
+    "input_hashes": true,
+    "library_source_hashes": true,
+    "output_hash": true,
+    "independent_CPU_FP64_math": true,
+    "math32_vs_math64": false,
+    "reproduce_original_naive_full": true,
+    "reproduce_original_radix_full": true,
+    "auto_full_vs_suffix": true,
+    "auto_full_vs_math32": true,
+    "auto_suffix_vs_math32": true,
+    "auto_plan_metadata": true,
+    "no_split_full_vs_suffix": true,
+    "no_split_full_vs_math32": true,
+    "no_split_suffix_vs_math32": true,
+    "no_split_plan_metadata": true,
+    "fixed128_full_vs_suffix": true,
+    "fixed128_full_vs_math32": true,
+    "fixed128_suffix_vs_math32": true,
+    "fixed128_plan_metadata": true,
+    "auto_changes_split": true,
+    "no_split_removes_local_difference": true,
+    "common_fixed128_removes_local_difference": true,
+    "clean_process": true
+  },
+  "CPU_FP64_max_abs": 1.199040866595169e-14,
+  "performance_allowed": false,
+  "scope": "layer0_same_QKV_planning_only",
+  "source_sha256": {
+    "scripts/audit_i2_attention_probe.py": "c9e45571a753b69c9cbca9b6987e0e9112f315be16862dff5671b8dc5a7870a4",
+    "serving/i2_attention_reference.py": "0642973e00f2abed22d3db56518d43a06cada9bd3ff1b469a8f2e2710d6da6b0"
+  },
+  "result_sha256": "370368f7479e69c89eb95c79b3b3320554a524c89030392f10fce16c108609a8",
+  "provenance_sha256": "9138f6868ae74b2673f82e36904dd0f2f3a91191326a38bf0213f44ce4466d5f"
+}

@@ -1,0 +1,58 @@
+{
+  "evidence_class": "same_input_BF16_down_projection_geometry",
+  "performance_allowed": false,
+  "full_reproduces_trace": {
+    "finite": true,
+    "exact": true,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "different_elements": 0
+  },
+  "short_reproduces_trace": {
+    "finite": true,
+    "exact": true,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "different_elements": 0
+  },
+  "full_vs_short": {
+    "finite": true,
+    "exact": false,
+    "max_abs": 0.001953125,
+    "relative_l2": 0.00010720923455664888,
+    "different_elements": 251
+  },
+  "full_vs_controlled": {
+    "finite": true,
+    "exact": true,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "different_elements": 0
+  },
+  "full_vs_math32": {
+    "finite": true,
+    "exact": false,
+    "max_abs": 0.003883838653564453,
+    "relative_l2": 0.0016634317580610514,
+    "different_elements": 131071
+  },
+  "short_vs_math32": {
+    "finite": true,
+    "exact": false,
+    "max_abs": 0.003883838653564453,
+    "relative_l2": 0.0016634291969239712,
+    "different_elements": 131071
+  },
+  "input_shape": [
+    128,
+    3072
+  ],
+  "weight_shape": [
+    1024,
+    3072
+  ],
+  "output": {
+    "path": "runs/validation/i2_numerical_trace_v1/trace_nosplit001/downproj001/outputs.pt",
+    "sha256": "743ccdc04d93a58409309816abb06565b54a7bdf7f8cb4e30df1c28cf7f07203"
+  }
+}

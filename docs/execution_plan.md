@@ -8,8 +8,9 @@ Progress on 2026-10-31: **I1 accepted** for TP1, shared tokenizer and
 Graph/Overlap off, with seven replayable patches, bounded admission, 40 local
 tests and four independently audited real-GPU scenarios (130 checks).
 See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
-and [runbook](i1_lifecycle_repairs.md). I2/I3, H3 replication and
-delivery preparation below remain pending. No paid resources have been used.
+and [runbook](i1_lifecycle_repairs.md). The bounded I2 FI/TP1 shape-controlled
+scope below is also accepted. I3, H3 replication and delivery preparation remain
+pending. No paid resources have been used.
 
 I2 v1 has now started. Two replayable I2 patches, 12 CPU tests and seven real
 HTTP lifecycle profiles passed (84 requests, 280 checks, including overlap
@@ -17,7 +18,18 @@ cancellation). The first full-model numerical gate failed: all 1024 Naive
 vectors are finite, but none meet the frozen tolerance against the FP32
 reference. Independent diagnostics and the failure are preserved in the
 [I2 report](../results/i_minisglang/i2_single_gpu_v1/README.md). Formal performance
-processes: **0/21**. I2 remains incomplete; numerical localization precedes I3.
+processes: **0/21** for that original HF-reference scope. Those failures remain unchanged.
+
+Subsequent localization found two successive first divergences: FA2 automatic
+split-KV planning and BF16 GEMM row geometry. A new explicit common policy
+(prefill no-split + linear tile512) qualified all 12544 full-vocabulary vectors
+exactly, including held-out seed/length/batch inputs; seven real HTTP profiles
+passed 280 checks. The separately frozen FI/TP1 performance scope completed
+21/21 processes and 160 audit checks. See the [scoped report](../results/i_minisglang/i2_shape_performance_v1/README.md).
+Some process CVs reach 21.4%; small gains remain uncertain. The original HF FP32
+equivalence is still failed, and these results include the padding cost. FA4 and
+TRTLLM were explicitly probed and unavailable in the pinned stack; no fallback
+was ranked. TP2/4 remain deferred. **I3 is the next local stage.**
 
 ## Local work before renting GPUs
 

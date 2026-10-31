@@ -1,0 +1,70 @@
+{
+  "variant": "radix_full",
+  "policy": "fi_fa2_prefill_no_split_v1",
+  "linear_tile512": true,
+  "rows": [
+    {
+      "phase": "cold",
+      "requests": [
+        {
+          "request_id": "b1_shared_cold_0",
+          "uid": 0,
+          "cached_tokens": 0,
+          "output_tokens": 64,
+          "output_sha256": "bbc9a1ebe85db5ddee43ec948a8dac251b2f3afcfe3f8f1dde8557238e89e28d",
+          "first_result_ms": 3075.183525,
+          "terminal_ms": 5000.648265,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 1473,
+        "prefix_total": 575,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    },
+    {
+      "phase": "warm",
+      "requests": [
+        {
+          "request_id": "b1_shared_warm_0",
+          "uid": 1,
+          "cached_tokens": 384,
+          "output_tokens": 64,
+          "output_sha256": "09e93e0ed2f01157810163102a63f9d3ac7027fa7b7dd6a79e6a6bb991fa8a47",
+          "first_result_ms": 41.558773,
+          "terminal_ms": 1678.445291,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 1282,
+        "prefix_total": 766,
+        "prefix_protected": 0,
+        "num_pages": 2048,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+      }
+    }
+  ],
+  "tensor": {
+    "path": "runs/validation/i2_numerical_trace_v1/cache_shape001/radix_full.pt",
+    "sha256": "85af3a6c2b51f7435185e8461bf8722eaa90f0737d0c8b1c1b68285809bb5d69"
+  },
+  "performance_allowed": false
+}

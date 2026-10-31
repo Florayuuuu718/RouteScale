@@ -1,0 +1,291 @@
+{
+  "evidence_class": "fixed_QKV_FA2_planning_intervention",
+  "performance_allowed": false,
+  "original_trace_reproduced": {
+    "naive_full": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "different_elements": 0
+    },
+    "radix_full": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "relative_l2": 0.0,
+      "different_elements": 0
+    }
+  },
+  "rows": [
+    {
+      "policy": "auto",
+      "plans": {
+        "naive_full": {
+          "vector": [
+            8,
+            512,
+            0,
+            128,
+            0,
+            32,
+            64,
+            0,
+            96,
+            104,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "cta_tile_q": 128,
+          "split_kv": false,
+          "kv_chunk_size": 512,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {}
+        },
+        "radix_full": {
+          "vector": [
+            6,
+            128,
+            0,
+            128,
+            0,
+            32,
+            64,
+            112,
+            96,
+            104,
+            0,
+            3145728,
+            0,
+            0,
+            1
+          ],
+          "cta_tile_q": 128,
+          "split_kv": true,
+          "kv_chunk_size": 171,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {}
+        }
+      },
+      "full_vs_suffix": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.0078125,
+        "relative_l2": 0.002179656643420458,
+        "different_elements": 60794
+      },
+      "full_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.003804922103881836,
+        "relative_l2": 0.0015245653921738267,
+        "different_elements": 262138
+      },
+      "suffix_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.006263613700866699,
+        "relative_l2": 0.001914478838443756,
+        "different_elements": 262138
+      }
+    },
+    {
+      "policy": "no_split",
+      "plans": {
+        "naive_full": {
+          "vector": [
+            8,
+            512,
+            0,
+            128,
+            0,
+            32,
+            64,
+            0,
+            96,
+            104,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "cta_tile_q": 128,
+          "split_kv": false,
+          "kv_chunk_size": -1,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {
+            "disable_split_kv": true
+          }
+        },
+        "radix_full": {
+          "vector": [
+            2,
+            128,
+            0,
+            128,
+            0,
+            16,
+            32,
+            0,
+            48,
+            56,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "cta_tile_q": 128,
+          "split_kv": false,
+          "kv_chunk_size": -1,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {
+            "disable_split_kv": true
+          }
+        }
+      },
+      "full_vs_suffix": {
+        "finite": true,
+        "exact": true,
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "different_elements": 0
+      },
+      "full_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.003804922103881836,
+        "relative_l2": 0.0015245653921738267,
+        "different_elements": 262138
+      },
+      "suffix_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.003804922103881836,
+        "relative_l2": 0.0015245653921738267,
+        "different_elements": 262138
+      }
+    },
+    {
+      "policy": "fixed128",
+      "plans": {
+        "naive_full": {
+          "vector": [
+            32,
+            512,
+            0,
+            128,
+            0,
+            128,
+            256,
+            400,
+            384,
+            392,
+            0,
+            16777216,
+            0,
+            0,
+            1
+          ],
+          "cta_tile_q": 128,
+          "split_kv": true,
+          "kv_chunk_size": 128,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {
+            "fixed_split_size": 128
+          }
+        },
+        "radix_full": {
+          "vector": [
+            8,
+            128,
+            0,
+            128,
+            0,
+            32,
+            64,
+            112,
+            96,
+            104,
+            0,
+            4194304,
+            0,
+            0,
+            1
+          ],
+          "cta_tile_q": 128,
+          "split_kv": true,
+          "kv_chunk_size": 128,
+          "q_stride": [
+            4096,
+            128,
+            1
+          ],
+          "policy": {
+            "fixed_split_size": 128
+          }
+        }
+      },
+      "full_vs_suffix": {
+        "finite": true,
+        "exact": true,
+        "max_abs": 0.0,
+        "relative_l2": 0.0,
+        "different_elements": 0
+      },
+      "full_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.006263613700866699,
+        "relative_l2": 0.0019725754391402006,
+        "different_elements": 262138
+      },
+      "suffix_vs_math32": {
+        "finite": true,
+        "exact": false,
+        "max_abs": 0.006263613700866699,
+        "relative_l2": 0.0019725754391402006,
+        "different_elements": 262138
+      }
+    }
+  ],
+  "math32_vs_math64": {
+    "finite": true,
+    "exact": false,
+    "max_abs": 5.602836608886719e-06,
+    "relative_l2": 6.912776484568894e-07,
+    "different_elements": 262144
+  },
+  "output": {
+    "path": "runs/validation/i2_numerical_trace_v1/trace001/probe001/outputs.pt",
+    "sha256": "2e2eec8eedd77eec7443052ca452fd551a9f96a044ac4c3c41996d2e05ce4f1d"
+  },
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "flashinfer-python": "0.7.2.post1"
+  }
+}

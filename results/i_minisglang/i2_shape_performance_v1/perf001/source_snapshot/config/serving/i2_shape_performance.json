@@ -1,0 +1,17 @@
+{
+  "base_config": "config/serving/i2_single_gpu.json",
+  "qualification_directory": "results/i_minisglang/i2_shape_qualification_v1/qual001",
+  "lifecycle_directory": "results/i_minisglang/i2_shape_qualification_v1/lifecycle001",
+  "results_dir": "results/i_minisglang/i2_shape_performance_v1",
+  "runtime_dir": "runs/logs/i_minisglang/i2_shape_performance_v1",
+  "validation_dir": "runs/validation/i2_shape_performance_v1",
+  "workload_path": "runs/workloads/i2_shape_performance_v1/workload.json",
+  "warmup_repeats": 3,
+  "measure_repeats": 5,
+  "independent_runs": 3,
+  "reference_scope": "within_native_BF16_strategy_invariance",
+  "numerics": {"reference": "independent_shape_controlled_naive_BF16", "atol": 0.125, "rtol": 0.02, "max_relative_rmse": 0.005, "allow_bf16_reduced_precision_reduction": false},
+  "policy": "fi_prefill_no_split_linear512",
+  "performance_boundary": "scheduler cohort submission through host terminal and GPU completion; includes common no-split prefill and linear tile512 padding, sampling and fixed-token control; excludes HTTP/tokenizer/startup/JIT; scheduler first-result is not HTTP TTFT",
+  "paid_resources_used": false
+}

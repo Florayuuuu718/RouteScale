@@ -1,0 +1,142 @@
+{
+  "config": {
+    "stage": "I2",
+    "scope": "single_gpu_fixed_token_scheduler_replay_v1",
+    "i1_config": "config/serving/i1_repaired.json",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "seed": 20261031,
+    "batch_sizes": [
+      1,
+      3
+    ],
+    "prompt_tokens": 512,
+    "output_tokens": 64,
+    "shared_prefix_tokens": 384,
+    "workload_path": "runs/workloads/i2_shape_performance_v1/workload.json",
+    "validation_dir": "runs/validation/i2_shape_performance_v1",
+    "results_dir": "results/i_minisglang/i2_shape_performance_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i2_shape_performance_v1",
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi",
+      "dtype": "bfloat16"
+    },
+    "numerics": {
+      "reference": "independent_shape_controlled_naive_BF16",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    },
+    "variants": {
+      "naive_full": {
+        "cache": "naive",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_full": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk256": {
+        "cache": "radix",
+        "chunk": 256,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk128": {
+        "cache": "radix",
+        "chunk": 128,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      },
+      "radix_graph13": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          3
+        ]
+      },
+      "radix_overlap": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": true,
+        "graph_bs": []
+      }
+    },
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "subprocess_timeout_s": 900,
+    "cleanup_s": 5,
+    "shutdown_s": 10,
+    "performance_boundary": "scheduler cohort submission through host terminal and GPU completion; includes common no-split prefill and linear tile512 padding, sampling and fixed-token control; excludes HTTP/tokenizer/startup/JIT; scheduler first-result is not HTTP TTFT",
+    "paid_resources_used": false,
+    "qualification_directory": "results/i_minisglang/i2_shape_qualification_v1/qual001",
+    "lifecycle_directory": "results/i_minisglang/i2_shape_qualification_v1/lifecycle001",
+    "reference_scope": "within_native_BF16_strategy_invariance",
+    "policy": "fi_prefill_no_split_linear512"
+  },
+  "config_sha256": "d702b79d88b2f2687e26a9b526af9146a4fbaf6e9a152f23f03cbff0bb3799f2",
+  "workload_sha256": "04cb8aa9a1000d00fe27646ff1e210783b02ba978130741385dcdfc070c136b2",
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "source_sha256": {
+    "config/serving/i2_shape_performance.json": "e15373889770daa2eaa6783fcaafff27f74c365a3cb1313e7fa3e28b8b3effe1",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "docs/i2_shape_performance_protocol.md": "c77a17298c71c9bf067de9257c596bdf622eeb9bd6aad6d52b41d434ca57ca10",
+    "scripts/run_i2_shape_performance.py": "778e08c705a325a328dfc79ec5c24056585cb06f9b9f7e71a6e550b48f39f9fe",
+    "serving/i2_shape_worker.py": "9351770395f796791e08b818d999d92411e2d9eb5179c307e3538625d8c66cdc",
+    "serving/i2_shape_runtime.py": "a27068fcc2bfeddb0c61477c32541848baaa002d826e0d0ecc2507713dcbef70",
+    "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "scripts/run_i2_single_gpu.py": "6dc64e309c02b03d264349247cd446319ae982b543e7492299e43a1bab69659d",
+    "scripts/prepare_i2_minisglang.py": "276285172d5533e0814ddae7ccb0cb1f35c4e35d76f8f176f7a96bff1b678dc7",
+    "scripts/prepare_i1_lifecycle.py": "5d301f3887028d95b57dab4f77d37d651e43579c9547ebe26fe6cdc41a33b6ee",
+    "scripts/audit_i2_shape_performance.py": "6407a0682ee4cf31f41086262b8443fba75dad26c52e4916b1e5793e15a05e8c",
+    "scripts/audit_i2_shape_qualification.py": "82f9f04a1fac755f6f7ff05485124486f9bff195f8aaceb374e872421feedf47",
+    "scripts/audit_i2_shape_lifecycle.py": "87bf91926fe4887d119d529409063d6c8ad60d20fcb8118448a7b457953b7444",
+    "scripts/run_i2_service_gate.py": "cdf3243fbcb4651437e42aa95d00915fdbc10dbe0fd23675604238dd4632e597",
+    "scripts/launch_i2_shape_service.py": "ede488e80a40f3450170acabc92d9c5608f1b05a3678d5c2d14bd6f980d7652e",
+    "config/serving/i1_requirements.txt": "e431557741c7e8263934d5ae78a68311f15352d70f208a6c260b3536ed3cb921",
+    "tests/test_i2_attention_reference.py": "b6a380d485dafd6702afa30f1e13b1dc1b7404a99ef4442915f0042fa5ed1ab0",
+    "tests/test_i2_performance_gate.py": "80e9391a1f4ee763d1021f7e650b7c63668e3a7661afbd9d6e8c1fef2011a894"
+  },
+  "gates": {
+    "qualification_audit_sha256": "0788b0875f850dff60cef0db19d3f3e18f555d4800767c62136b7c53d99f8428",
+    "lifecycle_summary_sha256": "de628b895af77ea02eca14e0d67191b1473c043bf72bec445e6c2df75817929c",
+    "reference_scope": "within_native_BF16_strategy_invariance",
+    "compared_vectors": 12544,
+    "performance_allowed": true
+  },
+  "paid_resources_used": false
+}

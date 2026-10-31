@@ -1,0 +1,27 @@
+{
+  "backend": "trtllm",
+  "evidence_class": "explicit_kernel_API_capability_only",
+  "fallback_used": false,
+  "full_model_qualified": false,
+  "performance_allowed": false,
+  "capability": [
+    12,
+    0
+  ],
+  "shape": {
+    "query": 32,
+    "kv": 128,
+    "qheads": 16,
+    "kvheads": 8,
+    "head_dim": 128,
+    "page_size": 64,
+    "dtype": "bfloat16"
+  },
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "status": "kernel_API_unavailable_in_this_pinned_stack",
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/scripts/probe_i2_backend_capability.py\", line 40, in worker\n    result=trtllm_batch_context_with_kv_cache(query=q,kv_cache=(keys,values),workspace_buffer=workspace,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flashinfer/api_logging.py\", line 2369, in _auto_dump_wrapper\n    return _inner(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flashinfer/prefill.py\", line 7926, in trtllm_batch_context_with_kv_cache\n    run_func(*run_args)\n  File \"python/tvm_ffi/cython/function.pxi\", line 1038, in tvm_ffi.core.Function.__call__\nRuntimeError: Error in function 'TllmGenFmhaRunner' at /home/shunzi/projects/RouteScale/runs/envs/mini-sglang/lib/python3.11/site-packages/flashinfer/data/include/flashinfer/trtllm/fmha/fmhaRunner.cuh:37: Unsupported architecture\n"
+}
