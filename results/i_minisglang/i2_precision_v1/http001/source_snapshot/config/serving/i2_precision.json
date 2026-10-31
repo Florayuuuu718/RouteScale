@@ -1,0 +1,18 @@
+{
+  "base_config": "config/serving/i2_single_gpu.json",
+  "results_dir": "results/i_minisglang/i2_precision_v1",
+  "runtime_dir": "runs/logs/i_minisglang/i2_precision_v1",
+  "validation_dir": "runs/validation/i2_precision_v1",
+  "qualification_directory": "results/i_minisglang/i2_precision_v1/qual001",
+  "lifecycle_directory": "results/i_minisglang/i2_precision_v1/http001",
+  "suite_source": "results/i_minisglang/i2_shape_qualification_v1/qual001/workload.json",
+  "policy": "fi_nosplit_linear512_fp16_main_fp32_residual_norm",
+  "modes": ["bf16_control", "mixed"],
+  "numerics": {"reference": "bf16_weights_fp32_math_hf_eager", "atol": 0.125, "rtol": 0.02, "max_relative_rmse": 0.005, "allow_bf16_reduced_precision_reduction": false},
+  "warmup_repeats": 3,
+  "measure_repeats": 5,
+  "independent_runs": 3,
+  "subprocess_timeout_s": 900,
+  "performance_boundary": "scheduler cohort submission through host terminal and GPU completion; includes common no-split prefill and linear tile512 padding, precision/norm policy, native sampling and fixed-token control; excludes HTTP/tokenizer/startup/JIT; scheduler first-result is not HTTP TTFT",
+  "paid_resources_used": false
+}

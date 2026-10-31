@@ -1,0 +1,27 @@
+[
+  {
+    "label": "service_bf16_control_naive_full",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "scripts/run_i2_precision.py",
+      "--worker",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i2_precision_v1/http002",
+      "--kind",
+      "service",
+      "--mode",
+      "bf16_control",
+      "--variant",
+      "naive_full",
+      "--run",
+      "0"
+    ],
+    "status": "fail",
+    "wall_started_ns": 1793435691000048241,
+    "pid": 92369,
+    "returncode": 1,
+    "seconds": 57.39534774799904,
+    "log": "runs/logs/i_minisglang/i2_precision_v1/http002/service_bf16_control_naive_full.log",
+    "log_sha256": "cc1ebd6a6568c56f096ebc7e2c63f796ef961dd3e9e14c9d4611f692f79f1bfd",
+    "gpu_after": "0 MiB"
+  }
+]

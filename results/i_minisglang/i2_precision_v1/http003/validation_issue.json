@@ -1,0 +1,13 @@
+{
+  "accepted": false,
+  "reason": "All 14 profile lifecycle audits passed (168 requests / 560 checks), but independent process-journal audit rejects 92 MiB of unrelated Windows GPU occupancy after profiles 2\u201314.",
+  "failed_check": "fourteen_clean_service_processes",
+  "observed_external_process": {
+    "pid": 140772,
+    "executable": "C:/Install/Anaconda/python.exe",
+    "command": "python.exe -X utf8 -u work/fit_statistics_repr.py --budget-start-epoch 1793435748.088"
+  },
+  "action": "Do not stop unrelated user work without authorization. Wait for exclusive GPU and rerun full HTTP matrix in a fresh directory. Existing run, journal, frozen sources and failed independent audit remain unchanged.",
+  "numerical_qualification_changed": false,
+  "threshold_or_idle_requirement_relaxed": false
+}

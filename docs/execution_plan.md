@@ -41,6 +41,17 @@ Keep original BF16 failures and scoped performance acceptance separate. Before I
 freeze the selected precision policy and qualify its scheduling variants and HTTP
 lifecycle; a numerical precision candidate alone does not authorize performance.
 
+The seven-profile precision qualification is now independently accepted: mixed
+precision passes all 12544 vectors against the original HF FP32 thresholds
+(worst relative RMSE 0.3614%); the simultaneous BF16 control has 12544 exact
+internal vectors. All 14 HTTP profiles passed 168 requests and 560 functional
+checks, but the process-journal gate rejects an unrelated Windows Python GPU
+occupancy (92 MiB). Preserve that failed attempt; wait for exclusive GPU, rerun
+HTTP in a fresh directory, then complete the 42-process precision/cost matrix
+and final audit before I3. The 20 CPU checks passed. See the
+[current I2 report](../results/i_minisglang/i2_precision_v1/README.md) and
+[retry commands](i2_precision_retries.md). I2 local completion remains pending.
+
 ## Local work before renting GPUs
 
 1. **I1 lifecycle acceptance (accepted at the scope above).** Preserve the pinned upstream baseline in

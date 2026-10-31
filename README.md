@@ -64,6 +64,7 @@ JSON stage labels use the current numbering; see the
 - [ ] I3: online load experiments; I2 TP=2/4 deferred to the later rental session
 - I2 v1 progress: seven HTTP lifecycle profiles passed (84 requests, 280 checks; 12 CPU tests), but the first full-model numerical gate failed. Formal performance runs remain 0/21; see [the preserved failure and diagnostics](results/i_minisglang/i2_single_gpu_v1/README.md).
 - [x] I2 bounded FI/TP1 shape-controlled scope: two successive numerical divergences localized; 12,544 exact vectors, seven HTTP profiles and 21/21 formal processes accepted. Original BF16-to-HF-FP32 equivalence remains failed; padding cost and uncertainty are explicit in [the scoped report](results/i_minisglang/i2_shape_performance_v1/README.md). The [external HF precision follow-up](results/i_minisglang/i2_external_alignment_v1/README.md) is prioritized before I3; TP=2/4 remains deferred.
+- [ ] I2 final precision scope: all seven mixed profiles pass 12,544 vectors at the original HF FP32 threshold (worst relative RMSE 0.3614%); 20 CPU checks pass. HTTP functional checks pass, but unrelated Windows GPU occupancy rejects the process-journal gate. Exclusive HTTP retry and 42-process cost/performance acceptance remain before I3; see [current evidence and continuation](results/i_minisglang/i2_precision_v1/README.md).
 
 The native-weight integration, architecture mapping and remaining measurement
 boundaries are documented in

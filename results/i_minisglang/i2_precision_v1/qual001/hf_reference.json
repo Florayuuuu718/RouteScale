@@ -1,0 +1,31 @@
+{
+  "kind": "hf_reference",
+  "mode": "mixed",
+  "variant": "naive_full",
+  "status": "completed",
+  "passed": true,
+  "reference_scope": "external_HF_FP32",
+  "rows": [],
+  "errors": {},
+  "observed": {
+    "reference": "BF16 checkpoint promoted to FP32 HF eager"
+  },
+  "vectors": 1792,
+  "tensor": {
+    "path": "runs/validation/i2_precision_v1/qual001/hf_reference.pt",
+    "sha256": "29f3d6e54841d69a25f080629a8568a468e74eba286932bf9b6ed80d98f606cb"
+  },
+  "performance_allowed": false,
+  "precision": {
+    "tf32": false,
+    "bf16_reduced_reduction": false,
+    "fp16_reduced_reduction": false
+  },
+  "packages": {
+    "torch": "2.9.1+cu129",
+    "transformers": "4.57.3",
+    "flashinfer-python": "0.7.2.post1",
+    "sgl-kernel": "0.3.21"
+  },
+  "gpu_end": "NVIDIA GeForce RTX 5060 Laptop GPU, 2736 MiB, 45, 225 MHz, 405 MHz, 3.47 W, P8, 0 %, 610.88"
+}

@@ -1,0 +1,47 @@
+{
+  "command": [
+    "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+    "scripts/launch_i2_precision_shutdown_trace.py",
+    "--model",
+    "/home/shunzi/projects/RouteScale/runs/models/Qwen3-0.6B",
+    "--port",
+    "1939",
+    "--dtype",
+    "bfloat16",
+    "--attention-backend",
+    "fi",
+    "--page-size",
+    "1",
+    "--num-pages",
+    "2048",
+    "--max-running-requests",
+    "4",
+    "--max-seq-len-override",
+    "1024",
+    "--max-prefill-length",
+    "4096",
+    "--cache-type",
+    "naive",
+    "--num-tokenizer",
+    "0",
+    "--max-total-requests",
+    "8",
+    "--cuda-graph-max-bs",
+    "0"
+  ],
+  "performance_allowed": false,
+  "source_sha256": {
+    "scripts/diagnose_i2_precision_shutdown.py": "f2fdbb89d8b7cf96c7191e738dc16fbab6cd0fdb56ce41255104a8b56bd55470",
+    "scripts/launch_i2_precision_shutdown_trace.py": "2b244fbcd9fa3a89475c40a8fc3f980f36e1e16c3e8d50790134381ebf678b4b",
+    "scripts/launch_i2_precision_service.py": "10c8ca822a6aa894d5798161d8416f2bba61b5ec2d01c717aeea0847d42b4232",
+    "serving/i2_precision_policy.py": "7b94c6f96dda50834d32c62ca26c84517bd9372db633a98eb05a2764a26fb5b7"
+  },
+  "worker_pids": [
+    91746,
+    91747
+  ],
+  "shutdown_s": 3.0696412030010833,
+  "returncode": -15,
+  "log_sha256": "6a6803ec6978a09ae8e7fe4bcfc7d98e8d551a71fac6855114ed1a6cee387402",
+  "runtime_dir": "runs/logs/i_minisglang/i2_precision_v1/shutdown_trace001"
+}

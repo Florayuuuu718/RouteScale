@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "evidence_class": "CPU_process_fault_budget_not_model_inference",
+  "report": {
+    "seconds": 7.505211415998929,
+    "signals": [
+      {
+        "pid": 93341,
+        "signal": "SIGINT"
+      },
+      {
+        "pid": 93342,
+        "signal": "SIGINT"
+      },
+      {
+        "pid": 93341,
+        "signal": "SIGTERM"
+      },
+      {
+        "pid": 93342,
+        "signal": "SIGTERM"
+      },
+      {
+        "pid": 93341,
+        "signal": "SIGKILL"
+      },
+      {
+        "pid": 93342,
+        "signal": "SIGKILL"
+      }
+    ],
+    "escalated": true,
+    "surviving_pids": [],
+    "exitcodes": {
+      "93341": -9,
+      "93342": -9
+    }
+  },
+  "external_shutdown_budget_s": 10,
+  "source_sha256": {
+    "scripts/check_i2_shutdown_budget.py": "2d17f3af1579305b740cf404244474308b89094e2cbf9079b2cd90e2bd9b88b6",
+    "serving/i2_worker_shutdown.py": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27"
+  }
+}
