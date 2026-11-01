@@ -3,6 +3,11 @@
 本说明补充已冻结的 [精度协议](i2_precision_protocol.md)，不修改其计算策略、
 输入或数值阈值。数值资格验证后，服务关闭修复和重试编排单独归档。
 
+2026-11-01 最终状态：用户释放外部 GPU 占用后，http004、perf001 和
+[最终验收](../results/i_minisglang/i2_precision_v1/acceptance.json)均已通过。
+I2 本机 FI/TP1 完成，实际 HTTP 绑定为 http004；以下命令保留为执行记录，
+已有目录不可覆盖，继续实验须选择新目录并签发对应门槛。
+
 `config/serving/i2_precision.json` 中 `lifecycle_directory=http001` 是首次尝试的
 默认位置。该尝试失败后，不能覆盖失败目录，也不能为了改位置而修改数值验收
 所绑定的配置。后续使用 `run_i2_precision_followup.py`，在 provenance 的

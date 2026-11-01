@@ -8,12 +8,14 @@ Progress on 2026-10-31: **I1 accepted** for TP1, shared tokenizer and
 Graph/Overlap off, with seven replayable patches, bounded admission, 40 local
 tests and four independently audited real-GPU scenarios (130 checks).
 See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
-and [runbook](i1_lifecycle_repairs.md). The bounded I2 FI/TP1 shape-controlled
-scope below is also accepted. I3, H3 replication and delivery preparation remain
-pending. No paid resources have been used.
+and [runbook](i1_lifecycle_repairs.md). **I2 local FI/TP1 is now complete**:
+the shape-controlled scope and the subsequent HF-qualified mixed-precision
+scope are accepted. I3, H3 replication and delivery preparation remain pending.
+No paid resources have been used.
 
-I2 v1 has now started. Two replayable I2 patches, 12 CPU tests and seven real
-HTTP lifecycle profiles passed (84 requests, 280 checks, including overlap
+The original I2 v1 attempt is a preserved rejected BF16/HF scope. Two replayable
+I2 patches, 12 CPU tests and seven real HTTP lifecycle profiles passed
+(84 requests, 280 checks, including overlap
 cancellation). The first full-model numerical gate failed: all 1024 Naive
 vectors are finite, but none meet the frozen tolerance against the FP32
 reference. Independent diagnostics and the failure are preserved in the
@@ -37,20 +39,22 @@ the layer0 RMSNorm rounding boundary; HF BF16 itself also fails all 1024 vectors
 against the original FP32 threshold. See the [precision follow-up](../results/i_minisglang/i2_external_alignment_v1/README.md).
 An explicit FP16 main path with FP32 residual and layer/final norm passed all
 2048 Naive/Radix vectors at the original threshold (worst relative RMSE 0.322%).
-Keep original BF16 failures and scoped performance acceptance separate. Before I3,
-freeze the selected precision policy and qualify its scheduling variants and HTTP
-lifecycle; a numerical precision candidate alone does not authorize performance.
+The original BF16 failures and scoped performance acceptance remain separate.
+That candidate required a frozen policy, seven scheduling variants and HTTP
+qualification before performance; the full acceptance is recorded below.
 
-The seven-profile precision qualification is now independently accepted: mixed
+On 2026-11-01 the full seven-profile precision scope is independently accepted: mixed
 precision passes all 12544 vectors against the original HF FP32 thresholds
 (worst relative RMSE 0.3614%); the simultaneous BF16 control has 12544 exact
-internal vectors. All 14 HTTP profiles passed 168 requests and 560 functional
-checks, but the process-journal gate rejects an unrelated Windows Python GPU
-occupancy (92 MiB). Preserve that failed attempt; wait for exclusive GPU, rerun
-HTTP in a fresh directory, then complete the 42-process precision/cost matrix
-and final audit before I3. The 20 CPU checks passed. See the
+internal vectors. After the unrelated Windows workload released the GPU,
+http004 passed 168 requests, 560 checks and all 14 process/cleanup gates.
+The balanced 42-process performance/cost matrix, 347 independent audit checks,
+20 CPU tests and final acceptance passed; 112 statistics cells, 56 precision
+costs and 96 system comparisons are exported. All experiment processes exited
+and the GPU returned to 0 MiB / 0%. The rejected http001–003 attempts and the
+original BF16 HF failure remain preserved. See the
 [current I2 report](../results/i_minisglang/i2_precision_v1/README.md) and
-[retry commands](i2_precision_retries.md). I2 local completion remains pending.
+[retry commands](i2_precision_retries.md). I3 is next; TP2/4 remains deferred.
 
 ## Local work before renting GPUs
 
@@ -61,8 +65,9 @@ and final audit before I3. The 20 CPU checks passed. See the
    Deliver replayable patches, focused tests, real single-GPU normal/fault runs,
    request-state and process diagrams, a runbook and an independent audit. A
    client terminal alone does not prove backend termination or resource release.
-2. **I2 single-GPU ablations.** Compare Naive/Radix caches with zero/shared prefixes
-   and cold/warm caches; then Chunked Prefill, Overlap Scheduling and CUDA Graph
+2. **I2 single-GPU ablations (accepted at the local FI/TP1 scope).** Compare
+   Naive/Radix caches with zero/shared prefixes and cold/warm caches; then
+   Chunked Prefill, Overlap Scheduling and CUDA Graph
    buckets. Change one variable at a time. Recheck correctness and cancellation
    when scheduling changes. Compare attention backends only when supported.
 3. **I3 online loads.** Freeze a common arrival schedule and low/near-saturation/

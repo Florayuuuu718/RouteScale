@@ -1,0 +1,66 @@
+{
+  "stage": "I2",
+  "scope": "local_FI_TP1_mixed_precision_and_same_shape_BF16_cost_control",
+  "local_single_gpu_complete": true,
+  "checks": {
+    "performance_acceptance": true,
+    "numerical_acceptance": true,
+    "HTTP_acceptance": true,
+    "CPU_acceptance": true,
+    "CPU_sources_unchanged": true,
+    "shutdown_CPU_tests": true,
+    "retry_gate_CPU_tests": true,
+    "real_fault_budget": true,
+    "shutdown_audit": true,
+    "exported_all_cells": true,
+    "export_binding": true,
+    "export_hashes": true,
+    "historical_failure_preserved": true,
+    "BF16_failure_not_relabelled": true,
+    "qualification_no_process_residue": true,
+    "qualification_source_snapshots": true,
+    "qualification_auditor_snapshot": true,
+    "HTTP_no_process_residue": true,
+    "HTTP_source_snapshots": true,
+    "HTTP_auditor_snapshot": true,
+    "performance_no_process_residue": true,
+    "performance_source_snapshots": true,
+    "performance_auditor_snapshot": true,
+    "unchanged_native_tree": true,
+    "GPU_idle": true
+  },
+  "numerical_vectors": {
+    "mixed_external_HF": 12544,
+    "BF16_internal_control": 12544
+  },
+  "HTTP_requests": 168,
+  "HTTP_checks": 560,
+  "formal_processes": 42,
+  "CPU_tests": 20,
+  "original_BF16_external_HF_passed": false,
+  "TP2_4_complete": false,
+  "paid_resources_used": false,
+  "GPU_end": "0 MiB, 0 %",
+  "process_journals": {
+    "qualification": {
+      "processes": 16,
+      "sha256": "dbf643f38a9d3a70d9f267b07c29631189c522df49545145a2461cf7e7202d44"
+    },
+    "HTTP": {
+      "processes": 14,
+      "sha256": "aaed06e6af433d1940e7a47c68362872193cc00ec5e1d58107a09051a6fad248"
+    },
+    "performance": {
+      "processes": 42,
+      "sha256": "cb01327a1780960db22f38c608d3bb5fbe7298bd527b4cd93fed6727f740cb39"
+    }
+  },
+  "evidence_sha256": {
+    "results/i_minisglang/i2_precision_v1/qual001/audit.json": "94c299909e596b66398619431cc85a9add5a24d789827df5df45b9aa63983b9b",
+    "results/i_minisglang/i2_precision_v1/http004/audit.json": "4aeea75111b3cefbc85172bd32c2e8d9f4412855b1ff027d1c844b9bd10ae946",
+    "results/i_minisglang/i2_precision_v1/perf001/audit.json": "ad78e95aeeac5cf91bcae60ae9e411f8cf3b113d47b4608b1c4793ba394441c9",
+    "results/i_minisglang/i2_precision_v1/perf001/export.json": "de1fa0561e008f4c4dd0208b37ae325c7242c73d7e4c2355443a48cfbad5f2a4",
+    "results/i_minisglang/i2_precision_v1/cpu_tests.json": "0e09b16ee441e69b27a80f161419a7c9d00cfc6a7b3a458bc475ee56a7895958"
+  },
+  "source_sha256": "c00ed053b37d1a41a9290e9d097995756f425971317ae6a43fd9c2fe5b7920d1"
+}

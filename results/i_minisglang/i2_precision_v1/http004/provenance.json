@@ -1,0 +1,163 @@
+{
+  "stage": "http",
+  "config": {
+    "stage": "I2",
+    "scope": "single_gpu_fixed_token_scheduler_replay_v1",
+    "i1_config": "config/serving/i1_repaired.json",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "seed": 20261031,
+    "batch_sizes": [
+      1,
+      3
+    ],
+    "prompt_tokens": 512,
+    "output_tokens": 64,
+    "shared_prefix_tokens": 384,
+    "workload_path": "runs/workloads/i2_single_gpu_v1/workload.json",
+    "validation_dir": "runs/validation/i2_precision_v1",
+    "results_dir": "results/i_minisglang/i2_precision_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i2_precision_v1",
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi",
+      "dtype": "bfloat16"
+    },
+    "numerics": {
+      "reference": "bf16_weights_fp32_math_hf_eager",
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005,
+      "allow_bf16_reduced_precision_reduction": false
+    },
+    "variants": {
+      "naive_full": {
+        "cache": "naive",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_full": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk256": {
+        "cache": "radix",
+        "chunk": 256,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_chunk128": {
+        "cache": "radix",
+        "chunk": 128,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "radix_graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      },
+      "radix_graph13": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          3
+        ]
+      },
+      "radix_overlap": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": true,
+        "graph_bs": []
+      }
+    },
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "subprocess_timeout_s": 900,
+    "cleanup_s": 5,
+    "shutdown_s": 10,
+    "performance_boundary": "scheduler cohort submission through host terminal and GPU completion; includes common no-split prefill and linear tile512 padding, precision/norm policy, native sampling and fixed-token control; excludes HTTP/tokenizer/startup/JIT; scheduler first-result is not HTTP TTFT",
+    "paid_resources_used": false,
+    "base_config": "config/serving/i2_single_gpu.json",
+    "qualification_directory": "results/i_minisglang/i2_precision_v1/qual001",
+    "lifecycle_directory": "results/i_minisglang/i2_precision_v1/http001",
+    "suite_source": "results/i_minisglang/i2_shape_qualification_v1/qual001/workload.json",
+    "policy": "fi_nosplit_linear512_fp16_main_fp32_residual_norm",
+    "modes": [
+      "bf16_control",
+      "mixed"
+    ]
+  },
+  "config_sha256": "cfb4ca4101af3e7104c087ad95a2de9d2e5a161a2286f16a0300b7acd89c105a",
+  "source_sha256": {
+    "config/serving/i2_precision.json": "cfa5ed73c816d3b76b7882ff1cbbc3774928bc080e33eb435c5627796cc740d3",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "docs/i2_precision_protocol.md": "64a5c6c95e6beae2208325638391c90977363d473c2361b8a114e6b61c66f13f",
+    "scripts/run_i2_precision.py": "978f63258c4a629e9f4bf9f0f95d1ac9d577a04bca2c150dd2ed66642604c89e",
+    "serving/i2_precision_policy.py": "7b94c6f96dda50834d32c62ca26c84517bd9372db633a98eb05a2764a26fb5b7",
+    "serving/i2_precision_runtime.py": "9e7af2378dc741f26de5287de33012d7b63333d45eb57a702884e2e7dcca985d",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "scripts/run_i2_single_gpu.py": "6dc64e309c02b03d264349247cd446319ae982b543e7492299e43a1bab69659d",
+    "scripts/prepare_i2_minisglang.py": "276285172d5533e0814ddae7ccb0cb1f35c4e35d76f8f176f7a96bff1b678dc7",
+    "tests/test_i2_precision_policy.py": "f9b70f5e0424d2049818a1d5189a5412ea6a6c8db6ee4ae42763bb9e2488b826",
+    "scripts/launch_i2_precision_service.py": "b87e12482e8f813b1202642d21ca6c56f91fcac80e2895e6013b457ed91e9a76",
+    "scripts/launch_i2_service.py": "94a2d87efe5869825724d4cb00b4841302caeadb51ce210b934edb416d552d15",
+    "scripts/run_i2_service_gate.py": "cdf3243fbcb4651437e42aa95d00915fdbc10dbe0fd23675604238dd4632e597",
+    "serving/minisgl_observer.py": "5020157f739af8fb057e29ef9e2f0f05b81b8257c5fadc7e77a64885f3b1bb76",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "scripts/run_i1_lifecycle.py": "cbd3cbe396b94699eb209684ee2fb62f976cb8bffc26f04e2964d13f25e77287",
+    "scripts/run_i1_repaired.py": "83e8b21a65e4c261266658e9b52376c62a9063600d002755009cecce25409309",
+    "scripts/run_i2_precision_followup.py": "32d37bf27a3d20c387b9715df1622ca5030253cc10befd9b342f88435abc0a4d",
+    "serving/i2_worker_shutdown.py": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27",
+    "tests/test_i2_worker_shutdown.py": "202a32191b0d211d42a30e2c2c4791ff907d4e27f93f6a6e8ecc554cefedd6cc",
+    "tests/test_i2_precision_followup.py": "5a8e39181d770aaa1817b7700cf9a79898cf0e23b933aaccf2e4c8efebc6b3ef"
+  },
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "model_sha256": {
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "1ab64a26fcb3b461423b89a433a8c858f1bf8d4086f979cbb3ff878d47cf20e9",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    ".gitattributes": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+  },
+  "validation_dir": "runs/validation/i2_precision_v1/http004",
+  "workload_sha256": "4a45b65cb0c479d7b76198803a60ec01c0616130f2b2a0dd8637294261e83fa0",
+  "paid_resources_used": false,
+  "performance_allowed": false,
+  "artifact_bindings": {
+    "qualification_directory": "results/i_minisglang/i2_precision_v1/qual001",
+    "lifecycle_directory": "results/i_minisglang/i2_precision_v1/http004"
+  },
+  "qualification_audit_sha256": "94c299909e596b66398619431cc85a9add5a24d789827df5df45b9aa63983b9b"
+}

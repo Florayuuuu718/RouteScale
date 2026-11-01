@@ -516,7 +516,7 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 2026-10-31：本机 TP1、共享 tokenizer、Graph/Overlap 关闭的 I1 生命周期验收通过；
 七个可重放补丁、四个真实 GPU 场景、130 项场景检查和 40 项本机测试见
 [修复报告](../results/i_minisglang/i1_repaired/README.md)及
-[源码说明与运行手册](i1_lifecycle_repairs.md)。I2 已开展；I3 与 TP2/4 仍待执行。
+[源码说明与运行手册](i1_lifecycle_repairs.md)。I2 本机范围后续已验收；I3 与 TP2/4 仍待执行。
 
 ### I2. 调度与缓存消融
 
@@ -543,17 +543,21 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 
 用户追加优先核对原HF FP32门槛：[外部参考与精度方案验证](../results/i_minisglang/i2_external_alignment_v1/README.md)。
 完整原批次复现后，首个外部分叉定位到layer0 RMSNorm舍入；HF自身BF16也未满足原0.5%门槛。
-保持旧BF16失败，单独验证提高精度的候选方案；候选方案需补对应调度与HTTP验收后再进入I3，
-不得直接套用原BF16性能结果。
-FP16主路径配合FP32残差及层间/最终norm，已在Naive/Radix合计2048个向量上满足原阈值，
+当时保留旧BF16失败，先单独验证提高精度的候选方案，并要求补齐调度与HTTP验收后进入I3，
+不直接套用原BF16性能结果；完整验收见下段。
+FP16主路径配合FP32残差及层间/最终norm，候选阶段在Naive/Radix合计2048个向量上满足原阈值，
 最坏相对RMSE为0.322%；纯FP16在Radix仍有1个越界向量，其失败也保留。
 
 新精度已扩展到全部七配置：12544/12544个混合精度向量通过原HF FP32门槛，
 最坏相对RMSE为0.3614%；同期BF16内部对照12544向量exact，新增20项CPU检查通过。
-两模式共14个HTTP配置的168请求、560项功能检查通过，但Windows另一个Python
-实验占用92 MiB显存，独立进程日志门槛拒绝该轮。需等GPU独占后新目录重验HTTP，
-再完成42进程性能/精度成本矩阵与最终审计，**当前I2本机仍未关闭，I3未启动**。
-见[本轮工程报告](../results/i_minisglang/i2_precision_v1/README.md)与
+此前Windows另一个Python实验占用92 MiB显存，第三轮HTTP被进程日志门槛拒绝；
+用户释放GPU后，2026-11-01的http004独立通过两模式14配置、168请求、560检查，
+关闭预算及无残留检查也通过。42/42正式性能进程、347项独立审计、完整图表/CSV
+及最终验收全部完成，**I2本机FI/TP1已关闭，可开始I3；TP2/4仍后置**。
+b3 shared warm中，mixed Graph[1,2,4]相对mixed Radix的配对吞吐中位为5.36倍，
+保留同期BF16对照约95.3%吞吐；norm多kernel实现成本、范围与最大21.19%的进程CV
+均明示，不能据此宣称通用最优或在线SLO收益。原BF16/HF失败和三轮HTTP失败保留。
+见[最终工程报告](../results/i_minisglang/i2_precision_v1/README.md)与
 [重试目录及独占GPU说明](i2_precision_retries.md)。
 
 ### I3. 在线负载协议
