@@ -1,0 +1,63 @@
+{
+  "stage": "I3",
+  "scope": "local_FI_TP1_open_arrivals_upper_FP32_v2",
+  "local_single_gpu_complete": true,
+  "checks": {
+    "final_audit": true,
+    "numerical": true,
+    "diagnostic_pilot": true,
+    "complete_matrix": true,
+    "CPU_tests": true,
+    "CPU_sources": true,
+    "exports": true,
+    "export_artifacts": true,
+    "original_I2": true,
+    "unchanged_native_tree": true,
+    "pilot_processes": true,
+    "pilot_sources": true,
+    "pilot_auditor": true,
+    "pilot_service_shutdown": true,
+    "qualification_processes": true,
+    "qualification_sources": true,
+    "qualification_auditor": true,
+    "qualification_service_shutdown": true,
+    "formal_processes": true,
+    "formal_sources": true,
+    "formal_auditor": true,
+    "formal_service_shutdown": true,
+    "GPU_idle": true
+  },
+  "qualification_vectors": 3840,
+  "formal_processes": 18,
+  "offered_requests": 864,
+  "CPU_tests": 26,
+  "statistics_cells": 6,
+  "finite_trace": true,
+  "steady_state_claimed": false,
+  "TP2_4_complete": false,
+  "paid_resources_used": false,
+  "GPU_end": "0 MiB, 0 %",
+  "max_service_shutdown_s": 4.735058928999933,
+  "process_journals": {
+    "pilot": {
+      "processes": 2,
+      "sha256": "6581cd3c5641033658d98808b60f019832a20c54c74817eaff7e9ea11046b9bf"
+    },
+    "qualification": {
+      "processes": 4,
+      "sha256": "09ba7adf0aa70415910e6b02fab2c9ff6754782b9a381d82d2c3a6bb66e16fcf"
+    },
+    "formal": {
+      "processes": 18,
+      "sha256": "8bd2ae6bebdef2267d40c1673578a446a72025da9dea289880443b1e594be2d7"
+    }
+  },
+  "evidence_sha256": {
+    "results/i_minisglang/i3_online_v2/qual001/audit.json": "85e28f867af71363f3aee1f46a9365596427a2210489f35f2569e84ba785574c",
+    "results/i_minisglang/i3_online_v2/pilot002/audit.json": "009a325e6041b6b8cfb9e75c1547569af2482d298bb8d356cb221817a9642d9e",
+    "results/i_minisglang/i3_online_v2/online001/audit.json": "568f50d29ae284af28c2186355433f85701a6e80a793afac1673ac3814521b64",
+    "results/i_minisglang/i3_online_v2/online001/export.json": "47486b27465c65862f220aeef1fce989e9062fa8a6a0ba47647c213f180c6256",
+    "results/i_minisglang/i3_online_v2/cpu_tests.json": "4a045e6945f6b02ebcae2bf3f2d18c11b886192f6d1077b1e12513dbece4b84e"
+  },
+  "source_sha256": "03431e8ac9c567d47cc35a18053b0ad664aa91fa671dfaf22b60651199ac6721"
+}

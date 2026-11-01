@@ -1,0 +1,77 @@
+{
+  "stage": "I3",
+  "scope": "local_FI_TP1_open_arrivals_upper_FP32_v2",
+  "model_path": "runs/models/Qwen3-0.6B",
+  "environment": "runs/envs/mini-sglang",
+  "checkout": "runs/vendor/mini-sglang-i2",
+  "results_dir": "results/i_minisglang/i3_online_v2",
+  "runtime_dir": "runs/logs/i_minisglang/i3_online_v2",
+  "validation_dir": "runs/validation/i3_online_v2",
+  "I2_acceptance": "results/i_minisglang/i2_precision_v1/acceptance.json",
+  "seed": 20261101,
+  "requests": 48,
+  "engine": {
+    "num_pages": 2048,
+    "max_running_requests": 4,
+    "max_seq_len": 1024,
+    "page_size": 1,
+    "attention_backend": "fi"
+  },
+  "variants": {
+    "radix": {
+      "cache": "radix",
+      "chunk": 4096,
+      "overlap": false,
+      "graph_bs": []
+    },
+    "graph124": {
+      "cache": "radix",
+      "chunk": 4096,
+      "overlap": false,
+      "graph_bs": [
+        1,
+        2,
+        4
+      ]
+    }
+  },
+  "numerics": {
+    "atol": 0.125,
+    "rtol": 0.02,
+    "max_relative_rmse": 0.005
+  },
+  "latency_objectives_s": {
+    "first_text": 1.0,
+    "e2e": 8.0,
+    "amortized_tpot": 0.1
+  },
+  "client_timeout_s": 15,
+  "server_timeout_s": 20,
+  "max_total_requests": 8,
+  "cleanup_s": 10,
+  "shutdown_s": 10,
+  "subprocess_timeout_s": 1200,
+  "independent_runs": 3,
+  "rate_rule": {
+    "low_min_capacity_multiplier": 0.25,
+    "near_min_capacity_multiplier": 0.9,
+    "overload_max_capacity_multiplier": 1.5
+  },
+  "arrival_jitter_s": {
+    "p95_max": 0.05,
+    "max": 0.25
+  },
+  "paid_resources_used": false,
+  "qualification_seed": 20261102,
+  "qualification_holdout_requests": 8,
+  "precision": {
+    "policy": "fp16_lower_fp32_upper16_head_fp16_FI_KV",
+    "upper_fp32_layers": 16,
+    "lower_dtype": "float16",
+    "upper_dtype": "float32",
+    "head_dtype": "float32",
+    "attention_dtype": "float16",
+    "KV_dtype": "float16",
+    "TF32": false
+  }
+}

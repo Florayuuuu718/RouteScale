@@ -1,0 +1,94 @@
+[
+  {
+    "label": "qualification_radix",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "scripts/i3_service_worker.py",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i3_online_v1/qual001",
+      "--label",
+      "qualification_radix",
+      "--variant",
+      "radix",
+      "--stage",
+      "qualification",
+      "--rate",
+      "",
+      "--run",
+      "0"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793533000358402959,
+    "pid": 26601,
+    "returncode": 0,
+    "seconds": 106.34606636900025,
+    "log": "runs/logs/i_minisglang/i3_online_v1/qual001/qualification_radix.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "qualification_graph124",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "scripts/i3_service_worker.py",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i3_online_v1/qual001",
+      "--label",
+      "qualification_graph124",
+      "--variant",
+      "graph124",
+      "--stage",
+      "qualification",
+      "--rate",
+      "",
+      "--run",
+      "0"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793533107805914670,
+    "pid": 26751,
+    "returncode": 0,
+    "seconds": 59.07514110499869,
+    "log": "runs/logs/i_minisglang/i3_online_v1/qual001/qualification_graph124.log",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "hf_radix",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "scripts/i3_reference_worker.py",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i3_online_v1/qual001",
+      "--variant",
+      "radix"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793533167985053085,
+    "pid": 26853,
+    "returncode": 0,
+    "seconds": 154.70829469300043,
+    "log": "runs/logs/i_minisglang/i3_online_v1/qual001/hf_radix.log",
+    "log_sha256": "04385cfa0577bc847e7afcece8028ced2ccca7fd8124f0109236734a0fbd826b",
+    "gpu_after": "0 MiB"
+  },
+  {
+    "label": "hf_graph124",
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "scripts/i3_reference_worker.py",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/results/i_minisglang/i3_online_v1/qual001",
+      "--variant",
+      "graph124"
+    ],
+    "status": "pass",
+    "wall_started_ns": 1793533323162095198,
+    "pid": 27043,
+    "returncode": 0,
+    "seconds": 152.50337963499987,
+    "log": "runs/logs/i_minisglang/i3_online_v1/qual001/hf_graph124.log",
+    "log_sha256": "746ae5465d5739408b6a62be1757b80ad1b5af6277903347512f4ba88df609b5",
+    "gpu_after": "0 MiB"
+  }
+]

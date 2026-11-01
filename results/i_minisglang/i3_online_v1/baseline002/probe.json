@@ -1,0 +1,597 @@
+{
+  "upper_layers": -1,
+  "passed": true,
+  "max_relative_rmse": 0.004277687519788742,
+  "vectors": 12,
+  "observed": [],
+  "rows": [
+    {
+      "label": "cold_single",
+      "requests": [
+        "load_015"
+      ],
+      "work": {
+        "seconds": 1.701724626,
+        "requests": [
+          {
+            "request_id": "load_015",
+            "uid": 0,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 1701.4681,
+            "terminal_ms": 1701.4681,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1636,
+          "prefix_total": 412,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 412,
+        "graph_replays": 0,
+        "batch_trace_sha256": "53a6478e75cdbf076c06833212ffcbe91bac92e825f7810f51131fc9126c10e2"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 0,
+              "cached": 0,
+              "extend": 412,
+              "chunked": false
+            }
+          ],
+          "padded": 1,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_015": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.03851461410522461,
+            "relative_rmse": 0.003142374800518155,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "warm_single",
+      "requests": [
+        "load_015"
+      ],
+      "work": {
+        "seconds": 0.078070872,
+        "requests": [
+          {
+            "request_id": "load_015",
+            "uid": 2,
+            "cached_tokens": 390,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 77.892284,
+            "terminal_ms": 77.892284,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1614,
+          "prefix_total": 434,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 22,
+        "graph_replays": 0,
+        "batch_trace_sha256": "0a206b87835a4ed68cf59d75ff39cfe18ea3194a45fd825e969024c83d361ce3"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 2,
+              "cached": 390,
+              "extend": 22,
+              "chunked": false
+            }
+          ],
+          "padded": 1,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_015": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.02796638011932373,
+            "relative_rmse": 0.0017624384490773082,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "cold_single",
+      "requests": [
+        "load_023"
+      ],
+      "work": {
+        "seconds": 0.086015016,
+        "requests": [
+          {
+            "request_id": "load_023",
+            "uid": 3,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 85.886472,
+            "terminal_ms": 85.886472,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1636,
+          "prefix_total": 412,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 412,
+        "graph_replays": 0,
+        "batch_trace_sha256": "cda591b9feec912111fcc53d7b105c8395f9b8dcd3da59dbbfee47efbec27bd1"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 3,
+              "cached": 0,
+              "extend": 412,
+              "chunked": false
+            }
+          ],
+          "padded": 1,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_023": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.0311623215675354,
+            "relative_rmse": 0.0020083244889974594,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "warm_single",
+      "requests": [
+        "load_023"
+      ],
+      "work": {
+        "seconds": 0.066243643,
+        "requests": [
+          {
+            "request_id": "load_023",
+            "uid": 5,
+            "cached_tokens": 390,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 66.11521,
+            "terminal_ms": 66.11521,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1614,
+          "prefix_total": 434,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 22,
+        "graph_replays": 0,
+        "batch_trace_sha256": "6437b522d6c402da400d33a65b7a22b4290b97851a553b8763c2dd47bfccd6ad"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 5,
+              "cached": 390,
+              "extend": 22,
+              "chunked": false
+            }
+          ],
+          "padded": 1,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_023": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.05104482173919678,
+            "relative_rmse": 0.004277687519788742,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "cold_batch4",
+      "requests": [
+        "load_015",
+        "load_023",
+        "load_001",
+        "load_032"
+      ],
+      "work": {
+        "seconds": 0.086951062,
+        "requests": [
+          {
+            "request_id": "load_015",
+            "uid": 6,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 86.829692,
+            "terminal_ms": 86.829692,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_023",
+            "uid": 7,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 86.829692,
+            "terminal_ms": 86.829692,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_001",
+            "uid": 8,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 86.829692,
+            "terminal_ms": 86.829692,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_032",
+            "uid": 9,
+            "cached_tokens": 0,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 86.829692,
+            "terminal_ms": 86.829692,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1417,
+          "prefix_total": 631,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 1029,
+        "graph_replays": 0,
+        "batch_trace_sha256": "1b3bcbf29d652450fef089d038658834e63bae217e1066e26278ec8237482818"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 6,
+              "cached": 0,
+              "extend": 412,
+              "chunked": false
+            },
+            {
+              "uid": 7,
+              "cached": 0,
+              "extend": 412,
+              "chunked": false
+            },
+            {
+              "uid": 8,
+              "cached": 0,
+              "extend": 102,
+              "chunked": false
+            },
+            {
+              "uid": 9,
+              "cached": 0,
+              "extend": 103,
+              "chunked": false
+            }
+          ],
+          "padded": 4,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_015": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.03851461410522461,
+            "relative_rmse": 0.003142374800518155,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_023": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.0311623215675354,
+            "relative_rmse": 0.0020083244889974594,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_001": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.028510570526123047,
+            "relative_rmse": 0.0012676178012043238,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_032": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.0334625244140625,
+            "relative_rmse": 0.001371118938550353,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "warm_batch4",
+      "requests": [
+        "load_015",
+        "load_023",
+        "load_001",
+        "load_032"
+      ],
+      "work": {
+        "seconds": 0.074586944,
+        "requests": [
+          {
+            "request_id": "load_015",
+            "uid": 11,
+            "cached_tokens": 390,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 74.469482,
+            "terminal_ms": 74.469482,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_023",
+            "uid": 12,
+            "cached_tokens": 390,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 74.469482,
+            "terminal_ms": 74.469482,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_001",
+            "uid": 13,
+            "cached_tokens": 3,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 74.469482,
+            "terminal_ms": 74.469482,
+            "reason": "length",
+            "free_count": 1
+          },
+          {
+            "request_id": "load_032",
+            "uid": 14,
+            "cached_tokens": 3,
+            "output_tokens": 1,
+            "output_sha256": "d0bca111f8628137adc4c16f123496dcdd1d590d06cb5d9acd68b39fe656fb97",
+            "first_result_ms": 74.469482,
+            "terminal_ms": 74.469482,
+            "reason": "length",
+            "free_count": 1
+          }
+        ],
+        "released": {
+          "pending": [],
+          "running": [],
+          "tables": 4,
+          "free_pages": 1395,
+          "prefix_total": 653,
+          "prefix_protected": 0,
+          "num_pages": 2048,
+          "retired": [],
+          "table_slots_unique": true,
+          "page_indices_unique": true,
+          "page_indices_sha256": "543693fdb4160b22116ba25f324b87fa3cd302a11fecbb160d3a6b54ab1fcdd7"
+        },
+        "prefill_batches": 1,
+        "decode_batches": 0,
+        "computed_prefill_tokens": 243,
+        "graph_replays": 0,
+        "batch_trace_sha256": "65462d98ccdf436ea2aa31b345c7d266333da1c4bb89f1553ccac8f9fd86a633"
+      },
+      "batches": [
+        {
+          "phase": "prefill",
+          "requests": [
+            {
+              "uid": 11,
+              "cached": 390,
+              "extend": 22,
+              "chunked": false
+            },
+            {
+              "uid": 12,
+              "cached": 390,
+              "extend": 22,
+              "chunked": false
+            },
+            {
+              "uid": 13,
+              "cached": 3,
+              "extend": 99,
+              "chunked": false
+            },
+            {
+              "uid": 14,
+              "cached": 3,
+              "extend": 100,
+              "chunked": false
+            }
+          ],
+          "padded": 4,
+          "graph_eligible": false
+        }
+      ],
+      "errors": {
+        "load_015": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.03851461410522461,
+            "relative_rmse": 0.003142374800518155,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_023": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.0311623215675354,
+            "relative_rmse": 0.0020083244889974594,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_001": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.04809165000915527,
+            "relative_rmse": 0.001464695786125958,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ],
+        "load_032": [
+          {
+            "step": 0,
+            "finite": true,
+            "max_abs": 0.030337095260620117,
+            "relative_rmse": 0.0015306524001061916,
+            "tolerance_violations": 0,
+            "top1_equal": true,
+            "passed": true
+          }
+        ]
+      }
+    }
+  ],
+  "diagnostic_only": true,
+  "performance_allowed": false,
+  "source_sha256": {
+    "scripts/probe_i3_precision.py": "0f3c8f2d91bcc724f65258afb827605cc6e3b2d30adb1814d68703be93fc5400",
+    "serving/i3_precision_v2.py": "f5f38c74365856d64aa180f3e7e5ee9ad2f22c3b7b3c3d39e1fbbbad97d6b2da"
+  }
+}

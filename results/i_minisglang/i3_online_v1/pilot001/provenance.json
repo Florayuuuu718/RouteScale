@@ -1,0 +1,135 @@
+{
+  "stage": "pilot",
+  "config": {
+    "stage": "I3",
+    "scope": "local_FI_TP1_open_arrivals_mixed_precision",
+    "model_path": "runs/models/Qwen3-0.6B",
+    "environment": "runs/envs/mini-sglang",
+    "checkout": "runs/vendor/mini-sglang-i2",
+    "results_dir": "results/i_minisglang/i3_online_v1",
+    "runtime_dir": "runs/logs/i_minisglang/i3_online_v1",
+    "validation_dir": "runs/validation/i3_online_v1",
+    "I2_acceptance": "results/i_minisglang/i2_precision_v1/acceptance.json",
+    "seed": 20261101,
+    "requests": 48,
+    "engine": {
+      "num_pages": 2048,
+      "max_running_requests": 4,
+      "max_seq_len": 1024,
+      "page_size": 1,
+      "attention_backend": "fi"
+    },
+    "variants": {
+      "radix": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": []
+      },
+      "graph124": {
+        "cache": "radix",
+        "chunk": 4096,
+        "overlap": false,
+        "graph_bs": [
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    "numerics": {
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005
+    },
+    "latency_objectives_s": {
+      "first_text": 1.0,
+      "e2e": 8.0,
+      "amortized_tpot": 0.1
+    },
+    "client_timeout_s": 15,
+    "server_timeout_s": 20,
+    "max_total_requests": 8,
+    "cleanup_s": 10,
+    "shutdown_s": 10,
+    "subprocess_timeout_s": 1200,
+    "independent_runs": 3,
+    "rate_rule": {
+      "low_min_capacity_multiplier": 0.25,
+      "near_min_capacity_multiplier": 0.9,
+      "overload_max_capacity_multiplier": 1.5
+    },
+    "arrival_jitter_s": {
+      "p95_max": 0.05,
+      "max": 0.25
+    },
+    "paid_resources_used": false
+  },
+  "config_sha256": "8823c00fd91e17f4aa7db9232fe84f88edca2b252360a72f6d78fac9d9c6581b",
+  "workload_sha256": "44436832693cf6e3ef03065609641fe302da42aa8d07e25fa00f4a604209dce7",
+  "source_sha256": {
+    "config/serving/i2_precision.json": "cfa5ed73c816d3b76b7882ff1cbbc3774928bc080e33eb435c5627796cc740d3",
+    "config/serving/i2_single_gpu.json": "8d07c0241ee83c09cc96b43098c57ef6de70b5fae2d2ee342cf7cea49b2273e1",
+    "config/serving/i3_online.json": "67f8242bdefe31c617ac2aa14f774878400321bc3b8242bb6647a90a6f518ff9",
+    "docs/i2_precision_protocol.md": "64a5c6c95e6beae2208325638391c90977363d473c2361b8a114e6b61c66f13f",
+    "docs/i3_online_protocol.md": "3edee414b972dd44fa70cd01109fb29aea3d95309a16bce96777fa6bb3ea18af",
+    "scripts/audit_i2_precision.py": "20b98c7e5db36d208b8feedafee7ee51854b3eb64326c7ea46ce820861dd7579",
+    "scripts/audit_i2_precision_final.py": "83f8069b5fe6ab1460188fdc63d5a05a97c3e9172b807d2af06650f33dbb80bb",
+    "scripts/audit_i2_precision_shutdown.py": "57af969141cdcc59c5a74d07525019c0298acede72917948333b17b22b081e97",
+    "scripts/audit_i3_qualification.py": "9fbf444bf0f0e363be62036ea9af80f98baeb72e3cc7ccc31d9a7e0ba18c43b1",
+    "scripts/i3_reference_worker.py": "e0c6b2286489def546cba04bf9913cab343d985ea8c14ebb0e885614a777cc17",
+    "scripts/i3_service_worker.py": "69ff469696ea48736514e0b5e9d16bdbf337131d2e8eb9b86559aacd51df1e61",
+    "scripts/launch_i2_precision_service.py": "b87e12482e8f813b1202642d21ca6c56f91fcac80e2895e6013b457ed91e9a76",
+    "scripts/launch_i2_service.py": "94a2d87efe5869825724d4cb00b4841302caeadb51ce210b934edb416d552d15",
+    "scripts/launch_i3_service.py": "9f0b3478d33edcdf92fa89784a4f042bb3e320475349fc26b2f82f6e675aef43",
+    "scripts/prepare_i2_minisglang.py": "276285172d5533e0814ddae7ccb0cb1f35c4e35d76f8f176f7a96bff1b678dc7",
+    "scripts/run_i1_lifecycle.py": "cbd3cbe396b94699eb209684ee2fb62f976cb8bffc26f04e2964d13f25e77287",
+    "scripts/run_i1_repaired.py": "83e8b21a65e4c261266658e9b52376c62a9063600d002755009cecce25409309",
+    "scripts/run_i2_precision.py": "978f63258c4a629e9f4bf9f0f95d1ac9d577a04bca2c150dd2ed66642604c89e",
+    "scripts/run_i2_precision_followup.py": "32d37bf27a3d20c387b9715df1622ca5030253cc10befd9b342f88435abc0a4d",
+    "scripts/run_i2_service_gate.py": "cdf3243fbcb4651437e42aa95d00915fdbc10dbe0fd23675604238dd4632e597",
+    "scripts/run_i2_single_gpu.py": "6dc64e309c02b03d264349247cd446319ae982b543e7492299e43a1bab69659d",
+    "scripts/run_i3_online.py": "8a8b381a81255fdb5e9c72f90cf0d5955099b2d8a6384d65c37f0e41940726ac",
+    "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326",
+    "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+    "serving/i2_precision_policy.py": "7b94c6f96dda50834d32c62ca26c84517bd9372db633a98eb05a2764a26fb5b7",
+    "serving/i2_precision_runtime.py": "9e7af2378dc741f26de5287de33012d7b63333d45eb57a702884e2e7dcca985d",
+    "serving/i2_runtime.py": "b18cb1e6fba647e358573b21f877a4cf4a3bb3c815aad5b6c09822b1ec10c163",
+    "serving/i2_worker.py": "fa35f6419129cc233cf25b869271c0744fa41ff0644e95466c75ed1d80e42626",
+    "serving/i2_worker_shutdown.py": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27",
+    "serving/i2_workloads.py": "1341c3ab4112150316d53e48f71764ebf4ffec547e2abe431a497da99fbd4a4e",
+    "serving/i3_audit.py": "92d937a73680f479ff30c48ef47ef93430ffe599724359bf3786deed5fdf401d",
+    "serving/i3_metrics.py": "8dc19a6c99d4603109c5f826a6326597641eb50f33573b96b0b66ddbada997be",
+    "serving/i3_observer.py": "81a1bd88efc4d7bcc2363653b65822969f5c7d8253f263c079247c5c4b040887",
+    "serving/i3_workloads.py": "de45c39359b07b1d6ce5f14d23d74a13dc56358df48ffcd1ff9dfe0f5032834e",
+    "serving/minisgl_observer.py": "5020157f739af8fb057e29ef9e2f0f05b81b8257c5fadc7e77a64885f3b1bb76",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "tests/test_i2_precision_followup.py": "5a8e39181d770aaa1817b7700cf9a79898cf0e23b933aaccf2e4c8efebc6b3ef",
+    "tests/test_i2_precision_policy.py": "f9b70f5e0424d2049818a1d5189a5412ea6a6c8db6ee4ae42763bb9e2488b826",
+    "tests/test_i2_worker_shutdown.py": "202a32191b0d211d42a30e2c2c4791ff907d4e27f93f6a6e8ecc554cefedd6cc",
+    "tests/test_i3_online.py": "9f02a5b571ac1107dce5c04cbf1df11b26d3203f36f02d50fa0c2908b2023ed3"
+  },
+  "series": {
+    "base_i1_tree": "5ccf53dfad63b7905532de0a402647eaa07c4481",
+    "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+    "patch_sha256": {
+      "0001-fix-overlap-retire-speculative-results-only-after-in.patch": "44dd5b573e353754a37200f166091142bfb55ba6fe269e1d9fa469355cda4f74",
+      "0002-feat-config-expose-explicit-CUDA-Graph-bucket-lists.patch": "0735ffdbcf707f168e0af5906c491ab0cd05fb761dd173642bd13a94927597b1"
+    }
+  },
+  "model_sha256": {
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "config.json": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+    "LICENSE": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+    "README.md": "1ab64a26fcb3b461423b89a433a8c858f1bf8d4086f979cbb3ff878d47cf20e9",
+    "model.safetensors": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    ".gitattributes": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+  },
+  "I2_acceptance_sha256": "0c2017a73165150836a4746b44f27b68f530c43f57e03bfa9f670ccc92f805e6",
+  "paid_resources_used": false,
+  "performance_allowed": false
+}

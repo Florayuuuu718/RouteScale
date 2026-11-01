@@ -10,7 +10,8 @@ tests and four independently audited real-GPU scenarios (130 checks).
 See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
 and [runbook](i1_lifecycle_repairs.md). **I2 local FI/TP1 is now complete**:
 the shape-controlled scope and the subsequent HF-qualified mixed-precision
-scope are accepted. I3, H3 replication and delivery preparation remain pending.
+scope are accepted. **I3 local FI/TP1 is also accepted** at the finite-trace
+scope recorded below. H3 replication and delivery preparation remain pending.
 No paid resources have been used.
 
 The original I2 v1 attempt is a preserved rejected BF16/HF scope. Two replayable
@@ -54,7 +55,21 @@ costs and 96 system comparisons are exported. All experiment processes exited
 and the GPU returned to 0 MiB / 0%. The rejected http001–003 attempts and the
 original BF16 HF failure remain preserved. See the
 [current I2 report](../results/i_minisglang/i2_precision_v1/README.md) and
-[retry commands](i2_precision_retries.md). I3 is next; TP2/4 remains deferred.
+[retry commands](i2_precision_retries.md). TP2/4 remains deferred.
+
+I3 completed on 2026-11-01. Its new text workload exposed three numerical
+failures under the original I2 precision, so that failed scope and an exact
+975-batch/1664-vector replay are preserved. A separately declared precision
+policy (FP16 lower 12 layers, FP32 upper 16 layers/head, FP16 FI attention/KV)
+passed all 3840 qualification vectors at the unchanged threshold, including
+eight new held-out requests per policy. Fresh pilot and lifecycle audits passed.
+The balanced 18-process open-arrival matrix accounts for all 864 offers:
+744 completions and 120 rejections, with no unexpected failures or timeouts.
+All 3889 final audit checks, 26 CPU tests, full exports and final acceptance
+passed. See the [I3 report](../results/i_minisglang/i3_online_v2/README.md) and
+[precision/online protocol](i3_online_protocol_v2.md). The GPU is idle and no
+paid resources were used. This is a finite local workload, not a steady-state
+or production-tail claim; H3 timing replication is the next local task.
 
 ## Local work before renting GPUs
 
@@ -70,7 +85,7 @@ original BF16 HF failure remain preserved. See the
    Chunked Prefill, Overlap Scheduling and CUDA Graph
    buckets. Change one variable at a time. Recheck correctness and cancellation
    when scheduling changes. Compare attention backends only when supported.
-3. **I3 online loads.** Freeze a common arrival schedule and low/near-saturation/
+3. **I3 online loads (accepted at the bounded local scope above).** Freeze a common arrival schedule and low/near-saturation/
    overload rates after pilot runs. A first bounded matrix is one mixed workload,
    three rates, baseline versus one policy, three independent service processes:
    18 runs. Freeze latency objectives before comparing goodput. Account for every

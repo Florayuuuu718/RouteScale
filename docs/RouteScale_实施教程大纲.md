@@ -516,7 +516,7 @@ smoke 与采集脚本，窗口内在同一台机器补跑 TP=1 基线。不以�
 2026-10-31：本机 TP1、共享 tokenizer、Graph/Overlap 关闭的 I1 生命周期验收通过；
 七个可重放补丁、四个真实 GPU 场景、130 项场景检查和 40 项本机测试见
 [修复报告](../results/i_minisglang/i1_repaired/README.md)及
-[源码说明与运行手册](i1_lifecycle_repairs.md)。I2 本机范围后续已验收；I3 与 TP2/4 仍待执行。
+[源码说明与运行手册](i1_lifecycle_repairs.md)。I2/I3 本机范围后续已验收；TP2/4 仍待执行。
 
 ### I2. 调度与缓存消融
 
@@ -553,7 +553,7 @@ FP16主路径配合FP32残差及层间/最终norm，候选阶段在Naive/Radix�
 此前Windows另一个Python实验占用92 MiB显存，第三轮HTTP被进程日志门槛拒绝；
 用户释放GPU后，2026-11-01的http004独立通过两模式14配置、168请求、560检查，
 关闭预算及无残留检查也通过。42/42正式性能进程、347项独立审计、完整图表/CSV
-及最终验收全部完成，**I2本机FI/TP1已关闭，可开始I3；TP2/4仍后置**。
+及最终验收全部完成，**I2本机FI/TP1已关闭；I3验收见下段，TP2/4仍后置**。
 b3 shared warm中，mixed Graph[1,2,4]相对mixed Radix的配对吞吐中位为5.36倍，
 保留同期BF16对照约95.3%吞吐；norm多kernel实现成本、范围与最大21.19%的进程CV
 均明示，不能据此宣称通用最优或在线SLO收益。原BF16/HF失败和三轮HTTP失败保留。
@@ -566,6 +566,21 @@ b3 shared warm中，mixed Graph[1,2,4]相对mixed Radix的配对吞吐中位为5
 throughput、input/output token throughput、TTFT、ITL/TPOT、E2E p50/p95/p99、
 排队时间、cache hit rate、抢占/重算和满足延迟目标的 goodput。离线吞吐与在线延迟
 使用不同结果表，不互相替代。
+
+2026-11-01：**I3本机FI/TP1已完成**。新文本在旧I2精度下暴露3个数值越界，
+保留失败并按975个实际批次精确复现1664个向量。另立FP16下12层、FP32上16层/head、
+FP16 FlashInfer attention/KV的明确精度范围，3840个全词表向量通过原阈值，含未参与
+诊断的新seed/长度输入；重新pilot和生命周期验收通过，原I2源码与结果不改。
+
+三档共同开放到达率为0.411/1.480/7.920 req/s，Radix与Graph[1,2,4]各三独立服务，
+18/18进程完成，864个offer全部入账（744完成、120拒绝，无意外失败/超时取消），
+3889项独立审计、26项CPU及最终验收通过。near档Graph全部满足冻结SLO，Radix为
+87.5%–91.7%；overload档Graph为70.8%–72.9%，Radix为6.25%–16.67%。所有失败仍
+留在offered分母，条件延迟与全部offer达标率分开；后端token发射ITL与SSE块间隔
+分别报告。48请求/进程、三样本的经验分位数不外推为生产稳态或可靠的长期p99。
+见[完整报告/CSV/图表/复现](../results/i_minisglang/i3_online_v2/README.md)及
+[新精度与在线协议](i3_online_protocol_v2.md)。下一步本机H3计时稳定性复验及交付准备，
+TP2/4仍集中租卡；复盘和面试材料仍在全部实验结束后统一整理。
 
 ### I 阶段验收
 
