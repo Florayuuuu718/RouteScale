@@ -11,7 +11,8 @@ See [the acceptance record](../results/i_minisglang/i1_repaired/acceptance.json)
 and [runbook](i1_lifecycle_repairs.md). **I2 local FI/TP1 is now complete**:
 the shape-controlled scope and the subsequent HF-qualified mixed-precision
 scope are accepted. **I3 local FI/TP1 is also accepted** at the finite-trace
-scope recorded below. H3 replication and delivery preparation remain pending.
+scope recorded below. The bounded H3 replication investigation is complete,
+with residual timing variability explicitly retained; delivery preparation remains pending.
 No paid resources have been used.
 
 The original I2 v1 attempt is a preserved rejected BF16/HF scope. Two replayable
@@ -69,7 +70,21 @@ All 3889 final audit checks, 26 CPU tests, full exports and final acceptance
 passed. See the [I3 report](../results/i_minisglang/i3_online_v2/README.md) and
 [precision/online protocol](i3_online_protocol_v2.md). The GPU is idle and no
 paid resources were used. This is a finite local workload, not a steady-state
-or production-tail claim; H3 timing replication is the next local task.
+or production-tail claim. The subsequent H3 replication is recorded below.
+
+H3 timing replication completed on 2026-11-02 at the bounded investigation scope.
+The v5 source, numerical policy and tokens remain unchanged. A read-only full v5
+audit reproduced, and fresh qualification passed 1728 vectors plus 576 exact
+eager/Graph vectors. The two noisiest cases completed 36 independent processes,
+six balanced path permutations, 20 warmup and 20 measured waves per scope.
+All 301 audit checks, 23 CPU tests, exports and final engineering acceptance
+passed. All twelve six-process throughput max/min ratios are <=1.247 and all
+paired-ratio CVs are <=15%, but 17/72 process scopes exceed the 15% within-process
+CV limit; only 3/12 cells meet the full stability rule. Investigation completion
+does not establish precise steady-state gains. See the
+[replication report](../results/h_nanovllm/h3_timing_replication_v1/README.md).
+The GPU is idle, historical evidence is unchanged, and no paid resources were
+used. Local framework delivery and TP preparation are the next work item.
 
 ## Local work before renting GPUs
 
@@ -91,7 +106,7 @@ or production-tail claim; H3 timing replication is the next local task.
    18 runs. Freeze latency objectives before comparing goodput. Account for every
    offered request, including failures, timeouts, cancellations and rejections.
    Report SSE chunk intervals as such unless actual token timestamps exist.
-4. **H3 timing replication.** Keep the v5 numerical policy and workload; prioritize
+4. **H3 timing replication (bounded investigation accepted; residual variability retained).** Keep the v5 numerical policy and workload; prioritize
    the noisiest case, balance execution order and record temperature, clock and
    power state. Preserve historical observations. Report uncertainty when a
    precise steady-state speedup is not supported.

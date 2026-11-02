@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "tests": 23,
+  "command": "OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 PYTHONPATH=tests runs/envs/nano-vllm/bin/python -m unittest test_h3_stability test_h3_performance -v",
+  "log": "results/h_nanovllm/h3_timing_replication_v1/cpu_tests.txt",
+  "log_sha256": "c62bb4916b3bc6b0d37ba2b530e7a18dea95f88aa76e18a90934b71c096e6450",
+  "source_sha256": {
+    "tests/test_h3_stability.py": "9bd4b0efe4ba1aa48741a5a9b24651b0d27cbf2bd44dcc89f8fe9020e4dbd108",
+    "tests/test_h3_performance.py": "50f19f6b2b6618e2068bfbc1e888c1bbe3e16a8dd29127a46067101736ccfdc9",
+    "serving/h3_stability.py": "83d68b41a2092d14377c39992fc794e6b811bf1961925ec3fe3c265af94085d1",
+    "serving/h3_performance.py": "f567c8151cf9b44d8cc6c12cbc6ac69c27653409295533b8cf74f3bee7f769db",
+    "scripts/summarize_h3_performance.py": "ae1c7d95110cb2183354e7dedd09f3fbb1c61b2ba8bb579fe9df3e29d61dc556"
+  }
+}

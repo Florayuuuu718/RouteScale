@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "stage": "H3",
+  "scope": "v5_fixed_tokens_bf16_timing_replication_v1",
+  "base_config": "config/serving/h3_performance_v5.json",
+  "results_dir": "results/h_nanovllm/h3_timing_replication_v1",
+  "validation_dir": "runs/validation/h3_timing_replication_v1",
+  "protocol": "docs/h3_stability_protocol.md",
+  "case_ids": ["long_prefill", "batch_short"],
+  "variants": ["native_kv", "paged_eager", "paged_graph"],
+  "rounds": 6,
+  "warmup_repeats": 20,
+  "measure_repeats": 20,
+  "sensor_every_waves": 5,
+  "subprocess_timeout_seconds": 900,
+  "require_AC": true,
+  "max_within_process_cv": 0.15,
+  "max_between_process_throughput_ratio": 1.25,
+  "max_paired_ratio_cv": 0.15
+}

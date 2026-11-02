@@ -485,6 +485,17 @@ nano-vLLM 用作“机制显微镜”。其上游源码保留在独立环境或 
 3. 用 G 阶段 reference logits 和 greedy token 验证模型层、KV 写入和采样语义。
 4. 对照 RouteScale native cached path 与 nano-vLLM 的吞吐、TTFT、显存和并发能力。
 
+2026-11-02：H3本机计时稳定性有界复验调查完成，原v5计算源码、权重、输入和数值
+策略未改。完整旧审计只读复现；新1728数值向量、576个eager/Graph exact向量、
+23项CPU测试通过。对long_prefill/batch_short使用六种路径排列、36个新进程，
+每scope预热20波/测量20波；301项独立审计检查及最终工程验收通过。
+六进程吞吐max/min全部<=1.247，所有配对比CV<=15%，Graph收益方向在六轮一致；
+但17/72个进程scope的波内CV仍>15%，只有3/12格满足完整稳定性标准。
+调查完成不等于精确稳态加速幅度已证明，所有长尾均保留，未改电源或时钟设置。
+见[完整结果、传感器、CSV与图表](../results/h_nanovllm/h3_timing_replication_v1/README.md)
+及[复验协议](h3_stability_protocol.md)。下一项本机工作是完整框架交付与TP准备，
+多卡仍后置集中租用。
+
 ### H 阶段验收
 
 能够脱离文档解释 Scheduler、BlockManager、ModelRunner 和 Paged KV Cache 的职责；
@@ -579,7 +590,8 @@ FP16 FlashInfer attention/KV的明确精度范围，3840个全词表向量通过
 留在offered分母，条件延迟与全部offer达标率分开；后端token发射ITL与SSE块间隔
 分别报告。48请求/进程、三样本的经验分位数不外推为生产稳态或可靠的长期p99。
 见[完整报告/CSV/图表/复现](../results/i_minisglang/i3_online_v2/README.md)及
-[新精度与在线协议](i3_online_protocol_v2.md)。下一步本机H3计时稳定性复验及交付准备，
+[新精度与在线协议](i3_online_protocol_v2.md)。H3本机计时复验调查已完成并保留残余波动，
+下一步完整框架交付与TP准备，
 TP2/4仍集中租卡；复盘和面试材料仍在全部实验结束后统一整理。
 
 ### I 阶段验收

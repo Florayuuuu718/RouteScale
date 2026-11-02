@@ -56,7 +56,7 @@ JSON stage labels use the current numbering; see the
 - [x] Bounded negative-control follow-up (48 balanced full-path traces, 27 CUDA-stream probes, 3,072 exact vectors; historical slowdown not stably reproduced, no runtime fix claimed)
 - [x] RouteScale Dense / nano-vLLM first-scope integration correctness (792 native-BF16 logit vectors, 264 exact eager/Graph vectors and independent weight/API/lifetime audit; initial scope excludes timing)
 - [x] H3 same-model controlled performance matrix (2,592 BF16 target vectors, 864 exact eager/Graph vectors, 6/6 pilots, 36/36 formal processes and independent audit; explicit GEMM reduction policy, fixed-token replay)
-- [ ] H3 timing-stability replication before claiming precise steady-state speedups
+- [x] H3 bounded timing-stability investigation: two cases, 36 fresh processes, 1,728 new numerical vectors, 576 exact Graph vectors, 301 audit checks and 23 CPU tests. Process medians are more concentrated; 17/72 process scopes still exceed 15% CV, so precise steady-state speedups remain unproven. See [the replication report](results/h_nanovllm/h3_timing_replication_v1/README.md).
 - [ ] H2: multi-GPU TP=2/4 ablations (deferred to the consolidated rental session with I2)
 - [ ] I: Mini-SGLang online serving experiments
 - [x] Mini-SGLang pinned single-GPU HTTP/SSE baseline (15 requests, 463 finite-logit checks; six lifecycle acceptance gaps retained in the [I1 report](results/i_minisglang/i1_lifecycle/README.md))
@@ -73,6 +73,9 @@ The subsequent [H3 controlled performance report](results/h_nanovllm/h3_performa
 includes numerical-policy failures, the complete matrix, independent-process
 ranges and a paired timing diagnosis. Graph improves observed replay throughput;
 TTFT does not improve, and substantial timing variability limits precise rankings.
+The [subsequent six-round replication](results/h_nanovllm/h3_timing_replication_v1/README.md)
+retains all warmup and measured waves: Graph gains have consistent direction in
+these samples, but within-process long tails keep the full stability criterion failed.
 
 The frozen D-stage single-GPU experiment contract and D1/D2 mechanism boundaries
 are recorded in [`docs/d_stage_protocol.md`](docs/d_stage_protocol.md). D1
