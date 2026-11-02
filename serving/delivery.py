@@ -66,7 +66,9 @@ def check_ports(host, port):
     sockets = []
     try:
         for number in (port, port+1):
-            s = socket.socket(); sockets.append(s); s.bind((host,number))
+            s = socket.socket(); sockets.append(s)
+            s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+            s.bind((host,number))
     finally:
         for s in sockets: s.close()
 

@@ -48,6 +48,18 @@ class DeliveryTests(unittest.TestCase):
         self.assertIsNotNone(identity(os.getpid()))
         self.assertIsNone(identity(99999999))
 
+    def test_recently_closed_server_can_restart_during_time_wait(self):
+        listener=socket.socket();listener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+        listener.bind(('127.0.0.1',0));port=listener.getsockname()[1]
+        if port>=65534:listener.close();self.skipTest('ephemeral range edge')
+        with socket.socket() as neighbor:
+            try:neighbor.bind(('127.0.0.1',port+1))
+            except OSError:listener.close();self.skipTest('neighboring ephemeral port busy')
+        listener.listen(1)
+        client=socket.create_connection(('127.0.0.1',port));peer,_=listener.accept()
+        peer.close();client.close();listener.close()
+        check_ports('127.0.0.1',port)
+
     def test_stale_stop_refuses_signal(self):
         with tempfile.TemporaryDirectory() as tmp:
             write(Path(tmp)/'status.json',dict(state='ready',supervisor_pid=os.getpid(),supervisor_identity='wrong',config=load()))

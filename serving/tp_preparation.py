@@ -66,6 +66,8 @@ def launch(command,log,timeout,env):
     with log.open('x') as stream:
         process=subprocess.Popen(command,cwd=ROOT,env=env,stdout=stream,stderr=subprocess.STDOUT,start_new_session=True)
         start=time.monotonic();escalated=[]
+        record=dict(pid=process.pid,command=command,status='running')
+        write(log.with_suffix('.process.json'),record)
         try:rc=process.wait(timeout=timeout)
         except BaseException:
             for sig,budget in ((signal.SIGINT,5),(signal.SIGTERM,3),(signal.SIGKILL,2)):
@@ -75,7 +77,13 @@ def launch(command,log,timeout,env):
                 except ProcessLookupError:break
                 try:process.wait(timeout=budget)
                 except subprocess.TimeoutExpired:pass
+            record.update(status='failed',returncode=process.poll(),escalated=escalated,
+                seconds=time.monotonic()-start,log_sha256=sha(log))
+            write(log.with_suffix('.process.json'),record)
             raise
+    record.update(status='pass' if rc==0 else 'failed',returncode=rc,seconds=time.monotonic()-start,
+        escalated=escalated,log_sha256=sha(log))
+    write(log.with_suffix('.process.json'),record)
     if rc:raise RuntimeError(f'TP child rc={rc}: {log}')
     return dict(pid=process.pid,returncode=rc,seconds=time.monotonic()-start,escalated=escalated,log_sha256=sha(log))
 

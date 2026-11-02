@@ -31,6 +31,11 @@ def audit(directory,local=False):
             checks[key+'/accounting']=set(expected)==set(actual) and len(r['waves'])==4
             checks[key+'/outputs']=all(q['output_tokens']==len(expected[rid]['continuation_ids']) and
                 (q.get('actual_tokens',expected[rid]['continuation_ids'])==expected[rid]['continuation_ids']) for rid,q in actual.items())
+            if job['variant'] in ('eager_no_prefix','graph_no_prefix','naive_full'):
+                checks[key+'/no_prefix']=all(q['cached_tokens']==0 for q in actual.values())
+            else:
+                shared=[q for wave in r['waves'] if wave['case_id']=='b3_p512_shared' and wave['phase']=='warm' for q in wave['requests']]
+                checks[key+'/warm_prefix_reused']=bool(shared) and all(q['cached_tokens']>=256 for q in shared)
             if 'tensor_file' not in r:
                 if not (job['framework']=='nano' and rank>0):raise ValueError('Missing rank logits')
                 continue

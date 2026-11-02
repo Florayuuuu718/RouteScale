@@ -13,6 +13,9 @@ import torch.distributed as dist
 
 
 def create(c,variant,world,rank,numeric):
+    import torch._dynamo.config as dynamo
+    dynamo.recompile_limit=64
+    dynamo.fail_on_recompile_limit_hit=True
     from datetime import timedelta
     from nanovllm.config import Config
     from nanovllm.engine.model_runner import ModelRunner
@@ -55,7 +58,7 @@ def create(c,variant,world,rank,numeric):
         def wave(self,requests):
             from nanovllm import SamplingParams
             from nanovllm.utils.context import reset_context
-            self.scheduler=self.scheduler or Scheduler(runner.config)
+            if self.scheduler is None:self.reset()
             seqs=[Sequence(r['input_ids'],SamplingParams(temperature=.6,max_tokens=len(r['continuation_ids']),ignore_eos=True)) for r in requests]
             mapping={s.seq_id:r for s,r in zip(seqs,requests)};steps={s.seq_id:0 for s in seqs};values={r['request_id']:[] for r in requests}
             for s in seqs:self.scheduler.add(s)
