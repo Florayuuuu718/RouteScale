@@ -40,7 +40,8 @@ async def exercise(c,run,output,scenario):
                 f=(await client.get('/debug/i1/frontend')).json();es=events(run)
                 idle=next((r for r in reversed(es) if r['event']=='scheduler_idle'),None)
                 detok=next((r for r in reversed(es) if r['event'] in ('detokenizer_end','detokenizer_state')),None)
-                if all(not f[k] for k in ('ack_uids','event_uids','deadline_uids','admitted_uids','aborting_uids','backend_done_uids')) and idle and not idle['pending_uids'] and not idle['running_uids'] and detok and not detok['active_uids']:
+                last=max((r['monotonic_ns'] for r in es if r['event'] in ('scheduler_token','scheduler_end')),default=0)
+                if all(not f[k] for k in ('ack_uids','event_uids','deadline_uids','admitted_uids','aborting_uids','backend_done_uids')) and idle and idle['monotonic_ns']>=last and not idle['pending_uids'] and not idle['running_uids'] and detok and not detok['active_uids']:
                     snapshots.append(dict(label=label,frontend=f,idle=idle,detokenizer=detok));write(output/'snapshots.json',snapshots);return
                 if time.monotonic()>deadline:raise TimeoutError('Unreleased resources after '+label)
                 await asyncio.sleep(.05)
@@ -58,16 +59,17 @@ async def exercise(c,run,output,scenario):
         if scenario=='healthy':
             normal=await run_requests([request('stream')]);assert normal[0]['state']=='finished'
             payload=request('plain').payload
-            r=await client.post('/v1/chat/completions',json=dict(payload,stream=False));r.raise_for_status()
+            r=await client.post('/v1/chat/completions',json=dict(payload,stream=False),headers={'X-Request-ID':'plain'});r.raise_for_status()
             write(output/'nonstream.json',r.json());assert r.json()['choices'][0]['finish_reason']=='length'
             await settle('normal')
-            bad=await client.post('/v1/chat/completions',json=dict(payload,max_tokens=0));assert bad.status_code==422
-            over=await client.post('/v1/chat/completions',json=dict(payload,prompt='hello '*2000));assert over.status_code==400
+            bad=await client.post('/v1/chat/completions',json=dict(payload,max_tokens=0),headers={'X-Request-ID':'invalid_budget'});assert bad.status_code==422
+            over=await client.post('/v1/chat/completions',json=dict(payload,prompt='hello '*2000),headers={'X-Request-ID':'over_context'});assert over.status_code==400
+            write(output/'http_checks.json',dict(nonstream_status=r.status_code,invalid_budget_status=bad.status_code,over_context_status=over.status_code))
             await settle('validation')
             cancelled=await run_requests([request('disconnect',tokens=128,disconnect_after_chunks=4)])
             assert cancelled[0]['state']=='cancelled';await settle('cancel')
             deadline=await run_requests([request('client_deadline',tokens=256,timeout_s=.1)])
-            assert deadline[0]['state']=='timed_out';await settle('deadline')
+            assert deadline[0]['state']=='cancelled' and deadline[0]['reason']=='deadline';await settle('deadline')
             load_rows=await run_requests([request(f'overload_{i}',tokens=128) for i in range(12)])
             assert any(r['state']=='rejected' for r in load_rows)
             assert all(r['state'] in ('finished','rejected') for r in load_rows)
