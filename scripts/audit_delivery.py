@@ -22,6 +22,10 @@ def audit(directory):
     policies=[r for r in events if r['event']=='i3_precision_policy'];i2=[r for r in events if r['event']=='i2_precision_policy']
     checks['I3_actual_policy']=len(policies)==1 and policies[0]['upper_layers']==16 and policies[0]['head_weight_dtype']=='torch.float32' and policies[0]['captured_graph_keys']==[1,2,4] and policies[0]['TF32'] is False
     checks['I2_actual_policy']=len(i2)==1 and i2[0]['graph_install']['norms_installed']==57 and i2[0]['dtype']=='torch.float16' and i2[0]['kv_dtype']=='torch.float16'
+    warm_start=[r for r in events if r['event']=='delivery_warmup_start'];warm_end=[r for r in events if r['event']=='delivery_warmup_end']
+    first_external=min((r['monotonic_ns'] for r in events if r['event']=='frontend_new_user' and r['external_id']),default=0)
+    checks['startup_prefill_before_traffic']=(len(warm_start)==len(warm_end)==1 and warm_end[0]['monotonic_ns']<first_external
+        and warm_end[0]['public_request_timeout_s']==20 and warm_end[0]['tokens']==2)
     stopped=[r for r in events if r['event']=='workers_stopped']
     checks['workers_stopped']=bool(stopped) and all(not r['escalated'] and not r['surviving_pids'] for r in stopped)
     if stopped:
