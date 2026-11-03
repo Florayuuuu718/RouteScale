@@ -1,8 +1,8 @@
 FROM python@sha256:00f0ecbf74ff8f915020d5a40c4bc6a83f46cd7b83f47db51c7e204f0d8a3ec2
 RUN rm -rf /usr/local/lib/python3.11/site-packages/*
-ADD sglang-environment.tar /usr/local/lib/python3.11/site-packages/
+ADD sglang-environment.tar.gz /usr/local/lib/python3.11/site-packages/
 COPY console-scripts/ /usr/local/bin/
-ADD cuda-toolchain.tar /opt/cuda/
+ADD cuda-toolchain.tar.gz /opt/cuda/
 RUN ln -s targets/x86_64-linux/include /opt/cuda/include && ln -s targets/x86_64-linux/lib /opt/cuda/lib64
 WORKDIR /workspace/RouteScale
 COPY serving/ ./serving/
