@@ -1,189 +1,45 @@
 #0 building with "desktop-linux" instance using docker driver
 
-#1 [internal] load build definition from Dockerfile.offline
-#1 transferring dockerfile:
-#1 transferring dockerfile: 1.16kB 0.0s done
-#1 DONE 0.2s
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 418B 0.0s done
+#1 DONE 0.1s
 
-#2 [internal] load metadata for docker.io/library/python@sha256:00f0ecbf74ff8f915020d5a40c4bc6a83f46cd7b83f47db51c7e204f0d8a3ec2
+#2 [internal] load metadata for docker.io/library/routescale-sglang:m5-018cbae
 #2 DONE 0.1s
 
-#3 [ 1/14] FROM docker.io/library/python@sha256:00f0ecbf74ff8f915020d5a40c4bc6a83f46cd7b83f47db51c7e204f0d8a3ec2
-#3 resolve docker.io/library/python@sha256:00f0ecbf74ff8f915020d5a40c4bc6a83f46cd7b83f47db51c7e204f0d8a3ec2 0.0s done
-#3 DONE 0.4s
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
 
-#4 [ 2/14] RUN rm -rf /usr/local/lib/python3.11/site-packages/*
-#4 DONE 1.6s
+#4 [internal] load build context
+#4 transferring context: 49.42kB 0.0s done
+#4 DONE 0.1s
 
-#5 [internal] load .dockerignore
-#5 transferring context: 2B done
-#5 DONE 0.1s
+#5 [1/5] FROM docker.io/library/routescale-sglang:m5-018cbae@sha256:e02f8ea10fa3d3923058740fb5ccc005cccdf5555ae59335389fa00bf5cd01b4
+#5 resolve docker.io/library/routescale-sglang:m5-018cbae@sha256:e02f8ea10fa3d3923058740fb5ccc005cccdf5555ae59335389fa00bf5cd01b4 0.1s done
+#5 DONE 1.0s
 
-#6 [internal] load build context
-#6 transferring context: 75.15MB 5.1s
-#6 transferring context: 139.06MB 10.1s
-#6 transferring context: 211.34MB 15.2s
-#6 transferring context: 284.20MB 20.3s
-#6 transferring context: 352.31MB 25.4s
-#6 transferring context: 416.68MB 30.4s
-#6 transferring context: 483.94MB 35.5s
-#6 transferring context: 553.06MB 40.6s
-#6 transferring context: 622.81MB 45.7s
-#6 transferring context: 687.22MB 50.8s
-#6 transferring context: 761.69MB 55.8s
-#6 transferring context: 819.60MB 60.8s
-#6 transferring context: 893.09MB 65.9s
-#6 transferring context: 943.27MB 70.9s
-#6 transferring context: 1.02GB 76.0s
-#6 transferring context: 1.07GB 81.1s
-#6 transferring context: 1.15GB 86.3s
-#6 transferring context: 1.19GB 91.3s
-#6 transferring context: 1.26GB 96.4s
-#6 transferring context: 1.33GB 101.5s
-#6 transferring context: 1.41GB 106.5s
-#6 transferring context: 1.48GB 111.7s
-#6 transferring context: 1.57GB 116.7s
-#6 transferring context: 1.64GB 121.8s
-#6 transferring context: 1.72GB 126.9s
-#6 transferring context: 1.79GB 131.9s
-#6 transferring context: 1.87GB 137.0s
-#6 transferring context: 1.95GB 142.1s
-#6 transferring context: 2.03GB 147.2s
-#6 transferring context: 2.09GB 152.2s
-#6 transferring context: 2.17GB 157.3s
-#6 transferring context: 2.23GB 162.4s
-#6 transferring context: 2.31GB 167.5s
-#6 transferring context: 2.38GB 172.6s
-#6 transferring context: 2.46GB 177.7s
-#6 transferring context: 2.52GB 182.7s
-#6 transferring context: 2.59GB 187.8s
-#6 transferring context: 2.66GB 192.9s
-#6 transferring context: 2.74GB 198.0s
-#6 transferring context: 2.81GB 203.1s
-#6 transferring context: 2.88GB 208.1s
-#6 transferring context: 2.95GB 213.2s
-#6 transferring context: 3.02GB 218.3s
-#6 transferring context: 3.10GB 223.4s
-#6 transferring context: 3.18GB 228.4s
-#6 transferring context: 3.26GB 233.5s
-#6 transferring context: 3.34GB 238.6s
-#6 transferring context: 3.41GB 243.6s
-#6 transferring context: 3.48GB 248.7s
-#6 transferring context: 3.56GB 253.8s
-#6 transferring context: 3.64GB 258.8s
-#6 transferring context: 3.71GB 263.9s
-#6 transferring context: 3.79GB 269.0s
-#6 transferring context: 3.86GB 274.1s
-#6 transferring context: 3.92GB 279.2s
-#6 transferring context: 4.00GB 284.3s
-#6 transferring context: 4.08GB 289.3s
-#6 transferring context: 4.16GB 294.5s
-#6 transferring context: 4.23GB 299.6s
-#6 transferring context: 4.30GB 304.7s
-#6 transferring context: 4.37GB 309.8s
-#6 transferring context: 4.43GB 314.9s
-#6 transferring context: 4.49GB 320.0s
-#6 transferring context: 4.55GB 325.2s
-#6 transferring context: 4.62GB 330.4s
-#6 transferring context: 4.68GB 335.5s
-#6 transferring context: 4.73GB 340.5s
-#6 transferring context: 4.79GB 345.6s
-#6 transferring context: 4.84GB 350.6s
-#6 transferring context: 4.89GB 355.7s
-#6 transferring context: 4.95GB 360.8s
-#6 transferring context: 4.99GB 365.8s
-#6 transferring context: 5.03GB 370.9s
-#6 transferring context: 5.06GB 376.0s
-#6 transferring context: 5.09GB 381.1s
-#6 transferring context: 5.14GB 386.1s
-#6 transferring context: 5.18GB 391.2s
-#6 transferring context: 5.23GB 396.3s
-#6 transferring context: 5.28GB 401.3s
-#6 transferring context: 5.33GB 406.4s
-#6 transferring context: 5.37GB 411.5s
-#6 transferring context: 5.42GB 416.5s
-#6 transferring context: 5.48GB 421.6s
-#6 transferring context: 5.54GB 426.7s
-#6 transferring context: 5.60GB 431.8s
-#6 transferring context: 5.65GB 436.9s
-#6 transferring context: 5.70GB 442.0s
-#6 transferring context: 5.75GB 447.1s
-#6 transferring context: 5.81GB 452.3s
-#6 transferring context: 5.87GB 457.4s
-#6 transferring context: 5.93GB 462.5s
-#6 transferring context: 6.00GB 467.7s
-#6 transferring context: 6.05GB 472.7s
-#6 transferring context: 6.11GB 477.7s
-#6 transferring context: 6.18GB 482.8s
-#6 transferring context: 6.24GB 488.0s
-#6 transferring context: 6.28GB 493.0s
-#6 transferring context: 6.32GB 498.0s
-#6 transferring context: 6.36GB 503.2s
-#6 transferring context: 6.42GB 508.2s
-#6 transferring context: 6.47GB 513.2s
-#6 transferring context: 6.52GB 518.4s
-#6 transferring context: 6.57GB 523.5s
-#6 transferring context: 6.63GB 528.6s
-#6 transferring context: 6.69GB 533.7s
-#6 transferring context: 6.75GB 538.7s
-#6 transferring context: 6.80GB 543.8s
-#6 transferring context: 6.84GB 548.8s
-#6 transferring context: 6.88GB 553.9s
-#6 transferring context: 6.92GB 558.9s
-#6 transferring context: 6.97GB 564.0s
-#6 transferring context: 7.02GB 569.2s
-#6 transferring context: 7.07GB 574.4s
-#6 transferring context: 7.13GB 579.5s
-#6 transferring context: 7.18GB 584.5s
-#6 transferring context: 7.23GB 589.5s
-#6 transferring context: 7.28GB 594.6s
-#6 transferring context: 7.29GB 596.0s done
-#6 DONE 596.1s
+#6 [2/5] COPY scripts/check_framework_container.py /workspace/RouteScale/scripts/check_framework_container.py
+#6 DONE 0.1s
 
-#7 [ 3/14] ADD sglang-environment.tar.gz /usr/local/lib/python3.11/site-packages/
-#7 DONE 253.5s
+#7 [3/5] COPY scripts/audit_framework_container.py /workspace/RouteScale/scripts/audit_framework_container.py
+#7 DONE 0.1s
 
-#8 [ 4/14] COPY console-scripts/ /usr/local/bin/
-#8 DONE 1.9s
+#8 [4/5] COPY docs/sglang_container_protocol.md /workspace/RouteScale/docs/sglang_container_protocol.md
+#8 DONE 0.1s
 
-#9 [ 5/14] ADD cuda-toolchain.tar.gz /opt/cuda/
-#9 DONE 84.7s
+#9 [5/5] COPY framework_bundle.json /image_manifest.json
+#9 DONE 0.1s
 
-#10 [ 6/14] RUN ln -s targets/x86_64-linux/include /opt/cuda/include && ln -s targets/x86_64-linux/lib /opt/cuda/lib64
-#10 DONE 0.6s
-
-#11 [ 7/14] WORKDIR /workspace/RouteScale
-#11 DONE 0.1s
-
-#12 [ 8/14] COPY serving/ ./serving/
-#12 DONE 0.2s
-
-#13 [ 9/14] COPY scripts/ ./scripts/
-#13 DONE 0.1s
-
-#14 [10/14] COPY deploy/ ./deploy/
-#14 DONE 0.1s
-
-#15 [11/14] COPY config/ ./config/
-#15 DONE 0.1s
-
-#16 [12/14] COPY docs/ ./docs/
-#16 DONE 0.1s
-
-#17 [13/14] COPY results/ ./results/
-#17 DONE 0.1s
-
-#18 [14/14] COPY framework_bundle.json /image_manifest.json
-#18 DONE 0.1s
-
-#19 exporting to image
-#19 exporting layers 0.0s done
-#19 exporting manifest sha256:db13ea10afce43e8990c274c261090cf929433653d4e39fab1e1e6415be5fc5b done
-#19 exporting config sha256:df1f1c8da290a688b529d010ea424f7591b6e0c61c93d70a80b89a8521d08f1d done
-#19 exporting attestation manifest sha256:60a27cd23742af1789e19970fa61d11f799958a8d1c76c93286f9f13726cda44 0.0s done
-#19 exporting manifest list sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad
-#19 exporting manifest list sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad 0.0s done
-#19 naming to docker.io/library/routescale-sglang:m5-2b4cbfc 0.1s done
-#19 unpacking to docker.io/library/routescale-sglang:m5-2b4cbfc
-#19 unpacking to docker.io/library/routescale-sglang:m5-2b4cbfc 61.2s done
-#19 DONE 61.5s
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.4s done
+#10 exporting manifest sha256:a2464b1045db0672f09cd45581789273fd2b44fd30753d00dd75f45cd50094a4 0.0s done
+#10 exporting config sha256:db9907a82795d98d0bd97cbcfb212612b5dc7b7d51437014cfea33c02d65ba46 0.0s done
+#10 exporting attestation manifest sha256:b9321cb524c030ce1d3262c277410a147c7c9d76ef0bc7412a039bf41806a49d 0.0s done
+#10 exporting manifest list sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d
+#10 exporting manifest list sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d 0.0s done
+#10 naming to docker.io/library/routescale-sglang:m5-ba060c7 done
+#10 unpacking to docker.io/library/routescale-sglang:m5-ba060c7
+#10 unpacking to docker.io/library/routescale-sglang:m5-ba060c7 0.2s done
+#10 DONE 1.0s

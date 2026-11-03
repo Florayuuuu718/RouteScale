@@ -91,12 +91,14 @@ curl -N http://127.0.0.1:1971/v1/chat/completions \
 
 ```bash
 export ROUTESCALE_MODEL_DIR=/absolute/path/to/Qwen3-0.6B
-docker compose -f deploy/local/sglang/compose.json up --build
-docker compose -f deploy/local/sglang/compose.json down
+docker compose -f deploy/local/sglang/compose.json -f deploy/local/sglang/compose.init.json up --build
+docker compose -f deploy/local/sglang/compose.json -f deploy/local/sglang/compose.init.json down
 ```
 
 Compose只声明GPU0和localhost1971/1972，模型bind只读，状态和编译缓存独立卷，
-stop grace30秒覆盖监督器20秒关闭。模型不嵌入镜像。
+stop grace30秒覆盖监督器20秒关闭。init叠加配置使PID1负责回收孤儿进程并向监督器
+转发信号；Python监督器直接作为PID1的实际停机失败保留，不忽略遗留进程组。
+模型不嵌入镜像。
 
 离线配方在已安装且通过doctor的环境中打包精确依赖和工具链。先提交源码保证干净
 checkout，再执行；输出目录需有充足空间，归档和镜像均不入Git：
@@ -105,7 +107,7 @@ checkout，再执行；输出目录需有充足空间，归档和镜像均不入
 python3 scripts/prepare_framework_bundle.py --directory /absolute/path/to/new-build-context
 docker build -f /absolute/path/to/new-build-context/deploy/local/sglang/Dockerfile.offline \
   -t routescale-sglang:offline-v1 /absolute/path/to/new-build-context
-docker run --name routescale-local001 --gpus '"device=0"' --shm-size=1g \
+docker run --init --name routescale-local001 --gpus '"device=0"' --shm-size=1g \
   -p 127.0.0.1:1971:1971 -p 127.0.0.1:1972:1972 \
   --mount type=bind,source="$ROUTESCALE_MODEL_DIR",target=/models/Qwen3-0.6B,readonly \
   routescale-sglang:offline-v1
@@ -118,6 +120,9 @@ docker stop --time 30 routescale-local001
 镜像内 `/image_manifest.json` 记录干净源码commit和来源。Windows Docker Desktop未
 开启WSL集成时，构建目录及权重先复制到Windows可见的任务目录并核对SHA，传入Windows
 绝对路径，不需要修改WSL设置。只停止/移除本次自己创建的实例。
+从WSL调用Windows `docker.exe`时，可用显式`--env-file`传入Compose变量；不要依赖
+WSL的export自动传给Windows进程。本机实测宿主机端口21971/21972映射容器1971/1972，
+避免占用现有1971监听。实际单卡容器、独立审计与init停机收据见交付报告。
 
 ## 重放验收与 CPU CI
 

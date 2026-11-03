@@ -11,7 +11,7 @@ def check():
     files=[p for base in ('serving','scripts','tests/delivery') for p in (ROOT/base).glob('*.py')]
     for p in files:ast.parse(p.read_text(),filename=str(p))
     configs=[ROOT/n for n in ('config/delivery/local.json','config/delivery/tp_matrix.json',
-        'config/delivery/model.json','deploy/local/sglang/runtime.json','deploy/local/sglang/compose.json','deploy/local/sglang/image.lock.json','deploy/local/sglang/upstream_sources.json')]
+        'config/delivery/model.json','deploy/local/sglang/runtime.json','deploy/local/sglang/compose.json','deploy/local/sglang/compose.init.json','deploy/local/sglang/image.lock.json','deploy/local/sglang/upstream_sources.json')]
     for p in configs:json.loads(p.read_text())
     docs=[ROOT/n for n in ('docs/delivery_protocol.md','docs/serving_delivery.md','docs/sglang_delivery_protocol.md',
         'docs/sglang_serving_delivery.md','docs/sglang_cancel_sourcewalk.md','docs/sglang_container_protocol.md','results/delivery/local_v1/README.md')]

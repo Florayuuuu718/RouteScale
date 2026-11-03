@@ -16,6 +16,12 @@ the separate v5 controlled scope has its own passed performance gate.
 
 ## I1: Mini-SGLang single-GPU lifecycle acceptance
 
+The subsequent [local delivery report](delivery/local_v1/README.md) accepts full
+SGLang native and container serving, real inflight Docker stop with init,
+explicit shape preparation, monitoring and 54 CPU tests. Mini-SGLang delivery
+and 640-vector TP preparation are separate scopes; multi-GPU experiments remain
+unrun and no paid resources have been used.
+
 The pinned Mini-SGLang / Qwen3-0.6B HTTP/SSE baseline ran 15 requests with
 463 finite-logit batch checks. Cancellation reaches the scheduler and active
 table/KV references are released. The upstream baseline retained six gaps that

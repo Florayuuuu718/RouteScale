@@ -1,0 +1,4467 @@
+{
+  "passed": false,
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--detach",
+    "--name",
+    "routescale-m5-stop-ba060c7",
+    "--gpus",
+    "device=0",
+    "--shm-size=1g",
+    "--env",
+    "ROUTESCALE_RUN_ID=stop001",
+    "--env",
+    "ROUTESCALE_SOURCE_COMMIT=ba060c744201cb40d7c6490bf2f4a1b23fc11ad0",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly",
+    "--volume",
+    "routescale-m5-cache-018cbae:/root/.cache",
+    "--publish",
+    "127.0.0.1:21971:1971",
+    "--publish",
+    "127.0.0.1:21972:1972",
+    "sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d"
+  ],
+  "image_id": "sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d",
+  "source_commit": "ba060c744201cb40d7c6490bf2f4a1b23fc11ad0",
+  "name": "routescale-m5-stop-ba060c7",
+  "container_id": "d00f914217bb47ea21ee52a87c18db2c433b0c0a712695105bacdc64ac3aaca5",
+  "actual_supervisor_PID1": true,
+  "native_loads_at_stop": {
+    "timestamp": "2026-11-03T07:47:51.191669+00:00",
+    "version": "0.5.20",
+    "accelerator": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "num_accelerators": 1,
+    "loads": [
+      {
+        "timestamp": 1793692071.0505788,
+        "dp_rank": 0,
+        "num_running_reqs": 1,
+        "num_waiting_reqs": 0,
+        "num_waiting_uncached_tokens": 0,
+        "num_used_tokens": 118,
+        "num_total_tokens": 118,
+        "num_active_tokens": 118,
+        "num_prealloc_ready_tokens": 0,
+        "max_total_num_tokens": 4096,
+        "max_running_requests": 4,
+        "token_usage": 0.0288,
+        "gen_throughput": 0.0,
+        "cache_hit_rate": 0.0,
+        "utilization": 0.0,
+        "total_prefill_uncached_tokens": 0,
+        "total_prefill_busy_us": 0,
+        "decode_moments": [
+          20.0,
+          20.0,
+          1294411.0,
+          20.0,
+          1294411.0,
+          20.0
+        ],
+        "memory": {
+          "weight_gb": 1.184,
+          "kv_cache_gb": 0.438,
+          "graph_gb": 0.0,
+          "token_capacity": 4096
+        },
+        "disaggregation": {
+          "mode": "null",
+          "prefill_bootstrap_queue_reqs": 0,
+          "prefill_inflight_queue_reqs": 0,
+          "decode_prealloc_queue_reqs": 0,
+          "decode_transfer_queue_reqs": 0,
+          "decode_retracted_queue_reqs": 0,
+          "kv_transfer_speed_gb_s": 0.0,
+          "kv_transfer_latency_ms": 0.0
+        },
+        "queues": {
+          "waiting": 0,
+          "grammar": 0,
+          "paused": 0,
+          "retracted": 0,
+          "prealloc_ready": 0
+        }
+      }
+    ]
+  },
+  "docker_stop_returncode": 0,
+  "docker_stop_s": 12.196297462010989,
+  "client_returncode": 0,
+  "container_exit_code": 1,
+  "readonly_model": true,
+  "native_status": {
+    "state": "failed",
+    "config": {
+      "schema_version": 1,
+      "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v4",
+      "version": "0.5.20",
+      "source_commit": "94602c9c2b7cbdb8efd5c52802dac6a1c180089e",
+      "environment": "runs/envs/sglang-framework-v1",
+      "model_path": "/models/Qwen3-0.6B",
+      "model_manifest": "config/delivery/model.json",
+      "cache_path": "runs/cache/sglang-framework-v3",
+      "host": "0.0.0.0",
+      "port": 1971,
+      "dashboard_port": 1972,
+      "startup_s": 600,
+      "shutdown_s": 20,
+      "request_timeout_s": 30,
+      "server_env": {
+        "SGLANG_PYSPY_DUMP_BEFORE_CRASH": "0",
+        "SGLANG_CUDA_COREDUMP_BEFORE_CRASH": "0"
+      },
+      "server_args": {
+        "served_model_name": "RouteScale-Qwen3-0.6B",
+        "dtype": "bfloat16",
+        "attention_backend": "flashinfer",
+        "context_length": 1024,
+        "mem_fraction_static": 0.55,
+        "max_total_tokens": 4096,
+        "max_running_requests": 4,
+        "max_queued_requests": 8,
+        "chunked_prefill_size": 256,
+        "page_size": 1,
+        "watchdog_timeout": 300
+      },
+      "server_flags": [
+        "enable_metrics",
+        "disable_prefill_cuda_graph",
+        "disable_decode_cuda_graph",
+        "log_requests"
+      ]
+    },
+    "doctor": {
+      "passed": true,
+      "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "environment": {
+        "python": "3.11.16",
+        "packages": {
+          "packaging": "26.3",
+          "jinja2": "3.1.6",
+          "mistral-common": "1.13.0",
+          "scipy": "1.17.1",
+          "yarl": "1.25.1",
+          "msgspec": "0.22.0",
+          "h11": "0.16.0",
+          "torch-memory-saver": "0.0.10",
+          "torchaudio": "2.11.0+cu130",
+          "rpds-py": "2026.9.1",
+          "nvidia-cutlass-dsl-libs-cu12": "4.6.2",
+          "pydantic": "2.14.2",
+          "fsspec": "2026.7.0",
+          "nccl4py": "0.6.0",
+          "pybase64": "1.5.1",
+          "typer": "0.27.3",
+          "pyyaml": "6.0.3",
+          "prometheus-client": "0.26.0",
+          "partial-json-parser": "0.2.1.1.post7",
+          "interegular": "0.3.3",
+          "outlines-core": "0.1.26",
+          "nvidia-cuda-nvcc": "13.4.92",
+          "httpx": "0.28.1",
+          "cython": "3.3.1",
+          "wcwidth": "0.9.4",
+          "huggingface-hub": "1.33.0",
+          "soundfile": "0.13.1",
+          "llvmlite": "0.47.0",
+          "cuda-core": "1.2.2",
+          "aiohappyeyeballs": "2.7.1",
+          "safetensors": "0.9.0rc1",
+          "asttokens": "3.0.2",
+          "flash-attn-4": "4.0.0b37",
+          "tzdata": "2026.6",
+          "nvidia-ml-py": "13.615.71",
+          "einops": "0.9.0.dev0",
+          "easydict": "1.13",
+          "propcache": "0.5.4",
+          "referencing": "0.37.0",
+          "setuptools": "84.2.1",
+          "openai": "2.6.1",
+          "blobfile": "3.0.0",
+          "multidict": "7.2.1",
+          "jedi": "0.20.1",
+          "httpx2": "2.16.0",
+          "frozenlist": "1.8.0",
+          "certifi": "2026.10.23",
+          "click": "8.5.0",
+          "modelscope": "1.40.2",
+          "cuda-pathfinder": "1.8.5",
+          "xxhash": "4.0.2",
+          "ipython-pygments-lexers": "1.1.1",
+          "multiprocess": "0.70.19",
+          "rich": "15.0.0",
+          "tilelang": "0.1.12",
+          "truststore": "0.10.5",
+          "sentencepiece": "0.2.2",
+          "py-spy": "0.4.2",
+          "airportsdata": "20260905",
+          "kernels": "0.14.1",
+          "smg-grpc-servicer": "0.15.0",
+          "pydantic-core": "2.50.2",
+          "tabulate": "0.10.0",
+          "charset-normalizer": "3.5.2",
+          "tokenizers": "0.22.2",
+          "timm": "1.0.16",
+          "nvidia-nvshmem-cu13": "3.4.5",
+          "pyzmq": "27.2.0",
+          "nvidia-nvvm": "13.4.92",
+          "aiosignal": "1.4.0",
+          "protobuf": "6.33.6",
+          "quack-kernels": "0.6.4",
+          "watchfiles": "1.3.0",
+          "urllib3": "2.8.0",
+          "nvidia-cuda-runtime": "13.0.96",
+          "nvidia-cuda-nvrtc": "13.0.88",
+          "tomlkit": "0.15.2",
+          "pygments": "2.21.0",
+          "apache-tvm-ffi": "0.1.11",
+          "markdown-it-py": "4.2.0",
+          "annotated-doc": "0.0.5",
+          "smg-grpc-proto": "0.4.28",
+          "pycountry": "26.2.16",
+          "sglang": "0.5.20",
+          "aiohttp": "3.14.5",
+          "pycryptodomex": "3.24.1",
+          "nvidia-cublas": "13.1.1.3",
+          "markupsafe": "3.0.4",
+          "torchvision": "0.28.0+cu130",
+          "zstandard": "0.25.0",
+          "anthropic": "2.3.0",
+          "transformers": "5.12.1",
+          "cryptography": "50.0.2",
+          "loguru": "0.7.3",
+          "compressed-tensors": "0.18.0",
+          "nvidia-nvtx": "13.0.85",
+          "networkx": "3.6.1",
+          "numpy": "2.3.5",
+          "lark": "1.3.1",
+          "sgl-deep-ep": "0.1.2",
+          "nvidia-cuda-cccl": "13.3.4.3.1",
+          "cffi": "2.1.1",
+          "torch": "2.13.0+cu130",
+          "uvicorn": "0.54.0",
+          "nvidia-cusparse": "12.6.3.3",
+          "attrs": "26.1.0",
+          "gguf": "0.19.0",
+          "cloudpickle": "3.1.2",
+          "triton": "3.7.1",
+          "nvidia-mathdx": "25.6.0",
+          "nvidia-cutlass-dsl": "4.6.2",
+          "opentelemetry-api": "1.45.2",
+          "idna": "3.20",
+          "jsonschema": "4.26.0",
+          "typing-inspection": "0.4.4",
+          "flashinfer-python": "0.6.18",
+          "mdurl": "0.1.2",
+          "executing": "2.3.0",
+          "cuda-tile": "1.6.0rc5",
+          "nvidia-curand": "10.4.0.35",
+          "annotated-types": "0.8.0",
+          "sglang-kernel": "0.4.7",
+          "tokenspeed-mla": "0.1.8",
+          "cuda-toolkit": "13.0.3.0",
+          "build": "1.6.1",
+          "tiktoken": "0.14.0",
+          "nvidia-nvjitlink": "13.4.92",
+          "cuda-python": "13.4.4",
+          "nvidia-cutlass-dsl-libs-core": "4.6.2",
+          "pyarrow": "26.0.0",
+          "docstring-parser": "0.18.0",
+          "ml-dtypes": "0.6.0",
+          "nvidia-cuda-crt": "13.4.92",
+          "distro": "1.9.0",
+          "fastapi": "0.162.0",
+          "regex": "2026.9.29",
+          "ninja": "1.13.2",
+          "pyproject-hooks": "1.3.3",
+          "diskcache": "5.6.3",
+          "httpcore2": "2.16.0",
+          "matplotlib-inline": "0.2.2",
+          "sniffio": "1.3.1",
+          "orjson": "3.13.0",
+          "openai-harmony": "0.0.4",
+          "requests": "2.34.2",
+          "torch-c-dlpack-ext": "0.1.5",
+          "pydantic-extra-types": "2.11.1",
+          "starlette": "1.10.0",
+          "stack-data": "0.6.3",
+          "z3-solver": "4.15.4.0",
+          "nvidia-cusolver": "12.0.4.66",
+          "nvidia-nccl-cu13": "2.29.7",
+          "setproctitle": "1.3.8",
+          "nvidia-cuda-cupti": "13.0.85",
+          "nvidia-cufft": "12.0.0.61",
+          "pandas": "3.1.0",
+          "nvidia-cudnn-frontend": "1.31.0",
+          "kernels-data": "0.16.2",
+          "cuda-bindings": "13.4.4",
+          "ipython": "9.18.1",
+          "pexpect": "4.9.0",
+          "numba": "0.65.1",
+          "outlines": "0.1.11",
+          "prompt-toolkit": "3.0.53",
+          "parso": "0.8.7",
+          "nvidia-cutlass-dsl-libs-cu13": "4.6.2",
+          "shellingham": "1.5.4",
+          "hf-xet": "1.8.0",
+          "filelock": "4.2.7",
+          "anyio": "4.16.0",
+          "grpcio-health-checking": "1.82.0rc2",
+          "httpcore": "1.0.9",
+          "nvidia-cufile": "1.15.1.6",
+          "humming-kernels": "0.1.12",
+          "uvloop": "0.23.0",
+          "pure-eval": "0.2.4",
+          "traitlets": "5.16.1",
+          "nvidia-cusparselt-cu13": "0.8.1",
+          "tqdm": "4.70.1",
+          "nvidia-cuda-nvdisasm": "13.4.92",
+          "nest-asyncio": "1.6.0",
+          "nvshmem4py-cu13": "0.4.1",
+          "jsonschema-specifications": "2025.9.1",
+          "modelscope-hub": "0.6.1",
+          "tokenspeed-triton": "3.9.10.post20261028",
+          "typing-extensions": "4.16.0",
+          "dill": "0.4.1",
+          "python-multipart": "0.0.33",
+          "psutil": "7.2.2",
+          "grpcio": "1.85.1",
+          "llguidance": "1.9.1",
+          "torchcodec": "0.15.0+cu130",
+          "ptyprocess": "0.7.0",
+          "xgrammar": "0.2.1",
+          "pillow": "13.0.0",
+          "grpcio-reflection": "1.82.0rc2",
+          "mpmath": "1.3.0",
+          "lxml": "7.0.0b1",
+          "nvidia-cudnn-cu13": "9.20.0.48",
+          "datasets": "5.1.0",
+          "jiter": "0.18.0",
+          "python-dateutil": "4.0.0",
+          "sympy": "1.14.0",
+          "nvidia-cutlass-dsl-libs-base": "4.6.2",
+          "pycparser": "3.12",
+          "sgl-deep-gemm": "0.2.0"
+        }
+      },
+      "model_manifest_sha256": "969411f2062f0ad41cb0dd0e2b67dd98198a4b93593cbba1d6ce7d306b01c3fa",
+      "upstream_source_sha256": {
+        "sglang/launch_server.py": "374976475a62ee53a3f32454bf17071eb9b18bab7ed293390e2c765e3669a7a2",
+        "sglang/srt/entrypoints/http_server.py": "26b2357b12e382997e7ac3c475505147e2433974bc229c540b31291d6f872ad7",
+        "sglang/srt/entrypoints/openai/serving_completions.py": "d015081efb5acf560b755a28e4964113e724c51a73f9151e86e65849125405e9",
+        "sglang/srt/managers/tokenizer_manager.py": "952fdfcf54b13af6851993d4b7599d4b1efeb6aa630a7554584a1a047eda94f2",
+        "sglang/srt/managers/scheduler.py": "439ee96dd785fbb63a9f139b192cec984c252df16a573a436877f0ef9a4ca045",
+        "sglang/srt/managers/scheduler_components/batch_result_processor.py": "e4fb82ba6bc501f2e8f29a0fc76ce240d1d128210122619c899917433c2b6ddb",
+        "sglang/srt/mem_cache/common.py": "f19e6a19231e93246abcf0e9adde94e0cda0e68bb03fb91e3891a819d61eeb09",
+        "sglang/srt/mem_cache/radix_cache.py": "150818b0a4eaa05171ca2e485698fa455608c13ee6b07f3945ac2095fa294de3",
+        "sglang/srt/observability/metrics_collector.py": "0d85bbc763f44cec6ac7dbab3a70a5b75cd225b7d1a619994b1100fe4a16f4ff",
+        "sglang/srt/arg_groups/fields/exec_.py": "2b7de0829d9032b123d26c5cdbeb6ba18fc68e32a0c62b673fd33304b871534d",
+        "sglang/srt/arg_groups/fields/schedule.py": "a63fd7948a8192adc30b08815d9207f9161ac394d2090eeaefb6d459354a9789",
+        "sglang/srt/mem_cache/unified_radix_cache.py": "df8b72f0382c452d58497d3020c9f666f03ec1d6e5979ec4ea6efc3dbafc9b41",
+        "sglang/srt/mem_cache/unified_cache/components/full.py": "6380586e6d84ef37c2e2244c807a1c7b5a2e84cb78d0a473f3d34cadd6c673bf",
+        "sglang/srt/arg_groups/fields/device.py": "305319002ef14c2e16c58f2b6a75644bfc346ead9efd6aab30c71fa7987b1ad9",
+        "sglang/srt/managers/scheduler_components/metrics_reporter.py": "17c040d8375a61c0dd68e757e2242fcdbc9b89fe90c659d43f4f9aa1cfa6840d",
+        "sglang/srt/managers/scheduler_components/pool_stats_observer.py": "794ab3bb7b3eaf82a4d0d8ccfcfd2ee4b0dca2e341665c9f246a80850bc168f2",
+        "sglang/srt/managers/scheduler_components/load_inquirer.py": "39030079fe2eaac45fbbedb3016c6afdc264b8bceaeb5a7b371b4521a1a80091",
+        "sglang/srt/managers/load_snapshot.py": "e38c1ace5876b6420c3c3a6be7e7ae94da8afbd61024c4987af1ae45b4b6e528",
+        "sglang/srt/entrypoints/v1_loads.py": "e5d9400d98a5b92cbc1c1f215044fab5e4e19f3d74c9385d196c52348a091838"
+      },
+      "source_commit": "94602c9c2b7cbdb8efd5c52802dac6a1c180089e",
+      "toolchain": {
+        "path": "/opt/cuda",
+        "nvcc": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Wed_Aug_20_01:58:59_PM_PDT_2025\nCuda compilation tools, release 13.0, V13.0.88\nBuild cuda_13.0.r13.0/compiler.36424714_0\n",
+        "math_header_sha256": "decdc28efcfaf0aaf806abc96d7bba9cb84b37c6e83cb82cda59b6aa59916ff8"
+      },
+      "ninja": {
+        "path": "/usr/local/bin/ninja",
+        "version": "1.13.2.git.kitware.jobserver-pipe-1",
+        "sha256": "08639e194fffa7f08b259fc4abfa4803aff66b64de52549cee42ec527d55cea6"
+      }
+    },
+    "supervisor_pid": 1,
+    "supervisor_identity": "10506676",
+    "command": [
+      "python3",
+      "/workspace/RouteScale/scripts/launch_sglang_framework.py",
+      "--model-path",
+      "/models/Qwen3-0.6B",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "1971",
+      "--served-model-name",
+      "RouteScale-Qwen3-0.6B",
+      "--dtype",
+      "bfloat16",
+      "--attention-backend",
+      "flashinfer",
+      "--context-length",
+      "1024",
+      "--mem-fraction-static",
+      "0.55",
+      "--max-total-tokens",
+      "4096",
+      "--max-running-requests",
+      "4",
+      "--max-queued-requests",
+      "8",
+      "--chunked-prefill-size",
+      "256",
+      "--page-size",
+      "1",
+      "--watchdog-timeout",
+      "300",
+      "--enable-metrics",
+      "--disable-prefill-cuda-graph",
+      "--disable-decode-cuda-graph",
+      "--log-requests"
+    ],
+    "runtime_environment": {
+      "SGLANG_CACHE_DIR": "/root/.cache/routescale/M5_SGLang_0_5_20_native_BF16_TP1_v4",
+      "CUDA_HOME": "/opt/cuda",
+      "SGLANG_PYSPY_DUMP_BEFORE_CRASH": "0",
+      "SGLANG_CUDA_COREDUMP_BEFORE_CRASH": "0"
+    },
+    "server_pid": 129,
+    "startup_s": 124.19225482099864,
+    "stop_requested": true,
+    "returncode": 0,
+    "shutdown_s": 9.11070949799614,
+    "forced_cleanup": true,
+    "GPU_end": "0 MiB"
+  },
+  "client_rows": [
+    {
+      "request_id": "docker_stop_inflight",
+      "payload_sha256": "fe2f29829c863393379fd1ff3ffc0ed37efed041d224cefc7e30cc55b166e940",
+      "state": "finished",
+      "events": [
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "created",
+          "monotonic_ns": 105217470743986,
+          "wall_time_ns": 1793692070135693842,
+          "planned_arrival_monotonic_s": 105217.384421371
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "queued",
+          "monotonic_ns": 105217470789256,
+          "wall_time_ns": 1793692070135737820,
+          "boundary": "client_semaphore"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "http_send",
+          "monotonic_ns": 105217470851169,
+          "wall_time_ns": 1793692070135799412
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "http_headers",
+          "monotonic_ns": 105217635644442,
+          "wall_time_ns": 1793692070300593737,
+          "status": 200
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217636130087,
+          "wall_time_ns": 1793692070301079463,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "This",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "running",
+          "monotonic_ns": 105217636265747,
+          "wall_time_ns": 1793692070301214812,
+          "boundary": "first_sse_choice_not_gpu_start"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "first_text",
+          "monotonic_ns": 105217636273973,
+          "wall_time_ns": 1793692070301222226,
+          "boundary": "first_nonempty_text_not_token"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217636652906,
+          "wall_time_ns": 1793692070301602392,
+          "text": "This",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217705976897,
+          "wall_time_ns": 1793692070370925792,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " text",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217706071265,
+          "wall_time_ns": 1793692070371019488,
+          "text": " text",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217754757986,
+          "wall_time_ns": 1793692070419707221,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " describes",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217754891331,
+          "wall_time_ns": 1793692070419840125,
+          "text": " describes",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217804665960,
+          "wall_time_ns": 1793692070469615516,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " two",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217804937610,
+          "wall_time_ns": 1793692070469886304,
+          "text": " two",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217867519300,
+          "wall_time_ns": 1793692070532511580,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " related",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217867661051,
+          "wall_time_ns": 1793692070532609455,
+          "text": " related",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217917708507,
+          "wall_time_ns": 1793692070582657562,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " concepts",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217917775190,
+          "wall_time_ns": 1793692070582723493,
+          "text": " concepts",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105217957393651,
+          "wall_time_ns": 1793692070622343177,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ":",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105217957491085,
+          "wall_time_ns": 1793692070622439859,
+          "text": ":",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218000593512,
+          "wall_time_ns": 1793692070665543088,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "  \n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218000663682,
+          "wall_time_ns": 1793692070665612075,
+          "text": "  \n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218037062945,
+          "wall_time_ns": 1793692070702012150,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "1",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218037129336,
+          "wall_time_ns": 1793692070702077610,
+          "text": "1",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218086895425,
+          "wall_time_ns": 1793692070751844590,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218086988971,
+          "wall_time_ns": 1793692070751937275,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218124624640,
+          "wall_time_ns": 1793692070789574046,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " **",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218124739548,
+          "wall_time_ns": 1793692070789688603,
+          "text": " **",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218167383193,
+          "wall_time_ns": 1793692070832332449,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "A",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218167503793,
+          "wall_time_ns": 1793692070832452086,
+          "text": "A",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218221523624,
+          "wall_time_ns": 1793692070886472639,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " reliable",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218221726299,
+          "wall_time_ns": 1793692070886675544,
+          "text": " reliable",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218269107025,
+          "wall_time_ns": 1793692070934056300,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " service",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218269335268,
+          "wall_time_ns": 1793692070934283932,
+          "text": " service",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218329074913,
+          "wall_time_ns": 1793692070990765531,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "**",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218329224139,
+          "wall_time_ns": 1793692070990914367,
+          "text": "**",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218393524994,
+          "wall_time_ns": 1793692071055215612,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " (",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218393610865,
+          "wall_time_ns": 1793692071055300270,
+          "text": " (",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218449425218,
+          "wall_time_ns": 1793692071111115595,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "like",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218449493944,
+          "wall_time_ns": 1793692071111183310,
+          "text": "like",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218501405707,
+          "wall_time_ns": 1793692071163096145,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " a",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218501483001,
+          "wall_time_ns": 1793692071163172436,
+          "text": " a",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218539488376,
+          "wall_time_ns": 1793692071201178543,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " web",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218539640198,
+          "wall_time_ns": 1793692071201329934,
+          "text": " web",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218609234405,
+          "wall_time_ns": 1793692071270925524,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " server",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218609429873,
+          "wall_time_ns": 1793692071271120070,
+          "text": " server",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218661682314,
+          "wall_time_ns": 1793692071323372411,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " or",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218661750460,
+          "wall_time_ns": 1793692071323439755,
+          "text": " or",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218717129361,
+          "wall_time_ns": 1793692071378819668,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " application",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218717210091,
+          "wall_time_ns": 1793692071378899537,
+          "text": " application",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218774490218,
+          "wall_time_ns": 1793692071436180606,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ")",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218774579366,
+          "wall_time_ns": 1793692071436268701,
+          "text": ")",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218811107464,
+          "wall_time_ns": 1793692071472797922,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " records",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218811369034,
+          "wall_time_ns": 1793692071473059361,
+          "text": " records",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218856799717,
+          "wall_time_ns": 1793692071518490415,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " requests",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218856888633,
+          "wall_time_ns": 1793692071518578680,
+          "text": " requests",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218895306979,
+          "wall_time_ns": 1793692071556996936,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ",",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218895402349,
+          "wall_time_ns": 1793692071557091764,
+          "text": ",",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218941601619,
+          "wall_time_ns": 1793692071603291676,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " schedules",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218941717409,
+          "wall_time_ns": 1793692071603406955,
+          "text": " schedules",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105218986565963,
+          "wall_time_ns": 1793692071648256330,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " bounded",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105218986632385,
+          "wall_time_ns": 1793692071648321800,
+          "text": " bounded",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219039591633,
+          "wall_time_ns": 1793692071701281970,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " work",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219039675209,
+          "wall_time_ns": 1793692071701364795,
+          "text": " work",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219087651379,
+          "wall_time_ns": 1793692071749341425,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ",",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219087718252,
+          "wall_time_ns": 1793692071749407617,
+          "text": ",",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219149542929,
+          "wall_time_ns": 1793692071811232996,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " and",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219149610123,
+          "wall_time_ns": 1793692071811299428,
+          "text": " and",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219197554008,
+          "wall_time_ns": 1793692071859244305,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " releases",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219197723847,
+          "wall_time_ns": 1793692071859413824,
+          "text": " releases",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219262681430,
+          "wall_time_ns": 1793692071924371517,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " memory",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219262787140,
+          "wall_time_ns": 1793692071924476486,
+          "text": " memory",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219295371481,
+          "wall_time_ns": 1793692071957061928,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219295442772,
+          "wall_time_ns": 1793692071957132218,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219346323597,
+          "wall_time_ns": 1793692072008014195,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "  \n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219346409327,
+          "wall_time_ns": 1793692072008098632,
+          "text": "  \n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219386182683,
+          "wall_time_ns": 1793692072047872930,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "2",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219386308463,
+          "wall_time_ns": 1793692072047998489,
+          "text": "2",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219419449547,
+          "wall_time_ns": 1793692072081139624,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219419514516,
+          "wall_time_ns": 1793692072081203842,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219462999869,
+          "wall_time_ns": 1793692072124690107,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " **",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219463065209,
+          "wall_time_ns": 1793692072124754535,
+          "text": " **",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219505613192,
+          "wall_time_ns": 1793692072167303430,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "A",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219505724233,
+          "wall_time_ns": 1793692072167414029,
+          "text": "A",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219553632110,
+          "wall_time_ns": 1793692072215322186,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " cache",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219553703572,
+          "wall_time_ns": 1793692072215393037,
+          "text": " cache",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219592732168,
+          "wall_time_ns": 1793692072254422395,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "**",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219592818299,
+          "wall_time_ns": 1793692072254507985,
+          "text": "**",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219632643837,
+          "wall_time_ns": 1793692072294334344,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " (",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219632766731,
+          "wall_time_ns": 1793692072294456287,
+          "text": " (",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219684581473,
+          "wall_time_ns": 1793692072346271870,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "like",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219684686872,
+          "wall_time_ns": 1793692072346376308,
+          "text": "like",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219729652375,
+          "wall_time_ns": 1793692072391342882,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " a",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219729725310,
+          "wall_time_ns": 1793692072391414655,
+          "text": " a",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219773668238,
+          "wall_time_ns": 1793692072435358805,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " memory",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219773792134,
+          "wall_time_ns": 1793692072435482221,
+          "text": " memory",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219819376080,
+          "wall_time_ns": 1793692072481066327,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "-efficient",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219819461620,
+          "wall_time_ns": 1793692072481150935,
+          "text": "-efficient",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219862510900,
+          "wall_time_ns": 1793692072524201228,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " storage",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219862580318,
+          "wall_time_ns": 1793692072524269774,
+          "text": " storage",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219912575507,
+          "wall_time_ns": 1793692072574265924,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " system",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219912645967,
+          "wall_time_ns": 1793692072574335352,
+          "text": " system",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105219961752070,
+          "wall_time_ns": 1793692072623442348,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ")",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105219961868331,
+          "wall_time_ns": 1793692072623557767,
+          "text": ")",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220012391414,
+          "wall_time_ns": 1793692072674081831,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " re",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220012488817,
+          "wall_time_ns": 1793692072674178614,
+          "text": " re",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220072528166,
+          "wall_time_ns": 1793692072734218443,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "uses",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220072614177,
+          "wall_time_ns": 1793692072734303512,
+          "text": "uses",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220118416255,
+          "wall_time_ns": 1793692072780106662,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " a",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220118531564,
+          "wall_time_ns": 1793692072780220939,
+          "text": " a",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220167464186,
+          "wall_time_ns": 1793692072829153932,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " common",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220167532272,
+          "wall_time_ns": 1793692072829221617,
+          "text": " common",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220203696617,
+          "wall_time_ns": 1793692072865386894,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " prefix",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220203771937,
+          "wall_time_ns": 1793692072865461382,
+          "text": " prefix",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220250569920,
+          "wall_time_ns": 1793692072912259996,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " while",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220250663205,
+          "wall_time_ns": 1793692072912352590,
+          "text": " while",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220313049266,
+          "wall_time_ns": 1793692072974740285,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " each",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220313371469,
+          "wall_time_ns": 1793692072975061666,
+          "text": " each",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220357600894,
+          "wall_time_ns": 1793692073019290950,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " question",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220357774459,
+          "wall_time_ns": 1793692073019464295,
+          "text": " question",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220424526947,
+          "wall_time_ns": 1793692073086217625,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " (",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220424652697,
+          "wall_time_ns": 1793692073086343014,
+          "text": " (",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220494232957,
+          "wall_time_ns": 1793692073155923805,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "or",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220494386181,
+          "wall_time_ns": 1793692073156076098,
+          "text": "or",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220565484575,
+          "wall_time_ns": 1793692073227175283,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " request",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220565577860,
+          "wall_time_ns": 1793692073227267176,
+          "text": " request",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220638844290,
+          "wall_time_ns": 1793692073300534507,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ")",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220638912586,
+          "wall_time_ns": 1793692073300602031,
+          "text": ")",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220704423935,
+          "wall_time_ns": 1793692073366114683,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " retains",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220704602049,
+          "wall_time_ns": 1793692073366291775,
+          "text": " retains",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220786602767,
+          "wall_time_ns": 1793692073448293195,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " its",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220786751473,
+          "wall_time_ns": 1793692073448441109,
+          "text": " its",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220857605834,
+          "wall_time_ns": 1793692073519296502,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " own",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220857786894,
+          "wall_time_ns": 1793692073519476700,
+          "text": " own",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220929332490,
+          "wall_time_ns": 1793692073591022807,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " identity",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220929492839,
+          "wall_time_ns": 1793692073591183136,
+          "text": " identity",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105220971392804,
+          "wall_time_ns": 1793692073633083903,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105220971535839,
+          "wall_time_ns": 1793692073633226136,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221012719608,
+          "wall_time_ns": 1793692073674460336,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "  \n\n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221012879847,
+          "wall_time_ns": 1793692073674569583,
+          "text": "  \n\n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221074181904,
+          "wall_time_ns": 1793692073735872321,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "The",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221074290900,
+          "wall_time_ns": 1793692073735980496,
+          "text": "The",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221119582154,
+          "wall_time_ns": 1793692073781272752,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " key",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221119679878,
+          "wall_time_ns": 1793692073781369805,
+          "text": " key",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221161747818,
+          "wall_time_ns": 1793692073823438526,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " points",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221161903558,
+          "wall_time_ns": 1793692073823593284,
+          "text": " points",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221209168277,
+          "wall_time_ns": 1793692073870858564,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " are",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221209281933,
+          "wall_time_ns": 1793692073870971810,
+          "text": " are",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221268279953,
+          "wall_time_ns": 1793692073929970260,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ":",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221268370603,
+          "wall_time_ns": 1793692073930059978,
+          "text": ":",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221348642251,
+          "wall_time_ns": 1793692074010332829,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "  \n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221348720026,
+          "wall_time_ns": 1793692074010409401,
+          "text": "  \n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221420539816,
+          "wall_time_ns": 1793692074082230484,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "-",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221420803140,
+          "wall_time_ns": 1793692074082493007,
+          "text": "-",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221485399143,
+          "wall_time_ns": 1793692074147089460,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " Both",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221485589191,
+          "wall_time_ns": 1793692074147279097,
+          "text": " Both",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221559607871,
+          "wall_time_ns": 1793692074221299491,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " systems",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221559752148,
+          "wall_time_ns": 1793692074221441824,
+          "text": " systems",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221607083449,
+          "wall_time_ns": 1793692074268773576,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " work",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221607190041,
+          "wall_time_ns": 1793692074268879506,
+          "text": " work",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221650144793,
+          "wall_time_ns": 1793692074311835110,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " with",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221650241194,
+          "wall_time_ns": 1793692074311931001,
+          "text": " with",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221698323212,
+          "wall_time_ns": 1793692074360013119,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " memory",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221698413361,
+          "wall_time_ns": 1793692074360102727,
+          "text": " memory",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221736149204,
+          "wall_time_ns": 1793692074397839441,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " and",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221736314850,
+          "wall_time_ns": 1793692074398004856,
+          "text": " and",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221780984073,
+          "wall_time_ns": 1793692074442674119,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " bounded",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221781111386,
+          "wall_time_ns": 1793692074442800972,
+          "text": " bounded",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221822648931,
+          "wall_time_ns": 1793692074484339138,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " work",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221822752437,
+          "wall_time_ns": 1793692074484442032,
+          "text": " work",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221865587932,
+          "wall_time_ns": 1793692074527278279,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221865664885,
+          "wall_time_ns": 1793692074527354210,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221915157881,
+          "wall_time_ns": 1793692074576848439,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "  \n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221915307909,
+          "wall_time_ns": 1793692074576997635,
+          "text": "  \n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105221955772590,
+          "wall_time_ns": 1793692074617463088,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "-",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105221955852599,
+          "wall_time_ns": 1793692074617541945,
+          "text": "-",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222013774196,
+          "wall_time_ns": 1793692074675464633,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " The",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222013900116,
+          "wall_time_ns": 1793692074675589471,
+          "text": " The",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222080720342,
+          "wall_time_ns": 1793692074742410509,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " cache",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222080796834,
+          "wall_time_ns": 1793692074742486159,
+          "text": " cache",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222131534804,
+          "wall_time_ns": 1793692074793225172,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " uses",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222131622188,
+          "wall_time_ns": 1793692074793311573,
+          "text": " uses",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222177636082,
+          "wall_time_ns": 1793692074839326900,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " a",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222177751070,
+          "wall_time_ns": 1793692074839440456,
+          "text": " a",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222232517797,
+          "wall_time_ns": 1793692074894208244,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " shared",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222232586303,
+          "wall_time_ns": 1793692074894275628,
+          "text": " shared",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222282631717,
+          "wall_time_ns": 1793692074944322205,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " prefix",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222282743800,
+          "wall_time_ns": 1793692074944433245,
+          "text": " prefix",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222322556747,
+          "wall_time_ns": 1793692074984247395,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " to",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222322804790,
+          "wall_time_ns": 1793692074984494416,
+          "text": " to",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222405862488,
+          "wall_time_ns": 1793692075067552835,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " reuse",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222405955573,
+          "wall_time_ns": 1793692075067645008,
+          "text": " reuse",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222473798450,
+          "wall_time_ns": 1793692075135488978,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " data",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222473904260,
+          "wall_time_ns": 1793692075135593626,
+          "text": " data",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222533780951,
+          "wall_time_ns": 1793692075195471148,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ",",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222533932413,
+          "wall_time_ns": 1793692075195622249,
+          "text": ",",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222566776160,
+          "wall_time_ns": 1793692075228527750,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " while",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222566968233,
+          "wall_time_ns": 1793692075228657588,
+          "text": " while",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222617102093,
+          "wall_time_ns": 1793692075278792741,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " the",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222617177964,
+          "wall_time_ns": 1793692075278867329,
+          "text": " the",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222666788091,
+          "wall_time_ns": 1793692075328478338,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " service",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222666863821,
+          "wall_time_ns": 1793692075328553097,
+          "text": " service",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222715668793,
+          "wall_time_ns": 1793692075377359200,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " maintains",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222715777829,
+          "wall_time_ns": 1793692075377467545,
+          "text": " maintains",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222756590160,
+          "wall_time_ns": 1793692075418280617,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " individual",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222756769556,
+          "wall_time_ns": 1793692075418459643,
+          "text": " individual",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222796475090,
+          "wall_time_ns": 1793692075458165317,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " identities",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222796586091,
+          "wall_time_ns": 1793692075458275777,
+          "text": " identities",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222849508981,
+          "wall_time_ns": 1793692075511199529,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ".",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222849588429,
+          "wall_time_ns": 1793692075511277885,
+          "text": ".",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222892145327,
+          "wall_time_ns": 1793692075553835834,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222892248031,
+          "wall_time_ns": 1793692075553937396,
+          "text": "",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222927773357,
+          "wall_time_ns": 1793692075589463474,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "\n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222927852254,
+          "wall_time_ns": 1793692075589541669,
+          "text": "\n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105222980731069,
+          "wall_time_ns": 1793692075642421075,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105222980802711,
+          "wall_time_ns": 1793692075642492006,
+          "text": "",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223032543335,
+          "wall_time_ns": 1793692075694233723,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "Human",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223032731650,
+          "wall_time_ns": 1793692075694421767,
+          "text": "Human",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223068272797,
+          "wall_time_ns": 1793692075729963074,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ":",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223068346664,
+          "wall_time_ns": 1793692075730036049,
+          "text": ":",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223104117648,
+          "wall_time_ns": 1793692075765808606,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " What",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223104209069,
+          "wall_time_ns": 1793692075765898405,
+          "text": " What",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223150155371,
+          "wall_time_ns": 1793692075811845618,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " is",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223150235750,
+          "wall_time_ns": 1793692075811925296,
+          "text": " is",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223210123669,
+          "wall_time_ns": 1793692075871813656,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " the",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223210209430,
+          "wall_time_ns": 1793692075871898835,
+          "text": " the",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223261015947,
+          "wall_time_ns": 1793692075922706014,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " main",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223261131046,
+          "wall_time_ns": 1793692075922820772,
+          "text": " main",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223313630301,
+          "wall_time_ns": 1793692075975320949,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " idea",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223313729458,
+          "wall_time_ns": 1793692075975418833,
+          "text": " idea",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223358679015,
+          "wall_time_ns": 1793692076020369482,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " of",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223358785897,
+          "wall_time_ns": 1793692076020475233,
+          "text": " of",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223405267187,
+          "wall_time_ns": 1793692076066957474,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " the",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223405352436,
+          "wall_time_ns": 1793692076067041772,
+          "text": " the",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223453088141,
+          "wall_time_ns": 1793692076114778749,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " text",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223453180695,
+          "wall_time_ns": 1793692076114870181,
+          "text": " text",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223521542272,
+          "wall_time_ns": 1793692076183232139,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "?\n\n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223521609516,
+          "wall_time_ns": 1793692076183298801,
+          "text": "?\n\n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223562983126,
+          "wall_time_ns": 1793692076224673192,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "Assistant",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223563049848,
+          "wall_time_ns": 1793692076224739224,
+          "text": "Assistant",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223622412919,
+          "wall_time_ns": 1793692076284102845,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ":",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223622470022,
+          "wall_time_ns": 1793692076284159408,
+          "text": ":",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223685623120,
+          "wall_time_ns": 1793692076347313948,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "<think>",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223685700564,
+          "wall_time_ns": 1793692076347390060,
+          "text": "<think>",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223739182037,
+          "wall_time_ns": 1793692076400872495,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "\n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223739309942,
+          "wall_time_ns": 1793692076400999317,
+          "text": "\n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223785491635,
+          "wall_time_ns": 1793692076447181852,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "<think>",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223785568468,
+          "wall_time_ns": 1793692076447257833,
+          "text": "<think>",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223826250886,
+          "wall_time_ns": 1793692076487941083,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "\n",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223826385593,
+          "wall_time_ns": 1793692076488075770,
+          "text": "\n",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223863775405,
+          "wall_time_ns": 1793692076525466063,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": "Okay",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223863860935,
+          "wall_time_ns": 1793692076525550300,
+          "text": "Okay",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223912928285,
+          "wall_time_ns": 1793692076574618913,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": ",",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223913073323,
+          "wall_time_ns": 1793692076574763320,
+          "text": ",",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105223954230741,
+          "wall_time_ns": 1793692076615920888,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " let",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105223954305309,
+          "wall_time_ns": 1793692076615994725,
+          "text": " let",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105224005469187,
+          "wall_time_ns": 1793692076667159564,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " me",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105224005541821,
+          "wall_time_ns": 1793692076667231136,
+          "text": " me",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105224117597161,
+          "wall_time_ns": 1793692076779287228,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " try",
+                "logprobs": null,
+                "finish_reason": null,
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105224117708733,
+          "wall_time_ns": 1793692076779398058,
+          "text": " try",
+          "finish_reason": null,
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "framework_frame",
+          "monotonic_ns": 105224208689954,
+          "wall_time_ns": 1793692076870380041,
+          "native": {
+            "id": "43d4514111264776b7068ea12a499941",
+            "object": "text_completion",
+            "created": 1793692070,
+            "model": "RouteScale-Qwen3-0.6B",
+            "choices": [
+              {
+                "index": 0,
+                "text": " to",
+                "logprobs": null,
+                "finish_reason": "length",
+                "matched_stop": null
+              }
+            ],
+            "usage": null
+          }
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "sse_choice",
+          "monotonic_ns": 105224208779242,
+          "wall_time_ns": 1793692076870468577,
+          "text": " to",
+          "finish_reason": "length",
+          "response_id": "43d4514111264776b7068ea12a499941"
+        },
+        {
+          "request_id": "docker_stop_inflight",
+          "event": "finished",
+          "monotonic_ns": 105224209303303,
+          "wall_time_ns": 1793692076870993290
+        }
+      ],
+      "content": "This text describes two related concepts:  \n1. **A reliable service** (like a web server or application) records requests, schedules bounded work, and releases memory.  \n2. **A cache** (like a memory-efficient storage system) reuses a common prefix while each question (or request) retains its own identity.  \n\nThe key points are:  \n- Both systems work with memory and bounded work.  \n- The cache uses a shared prefix to reuse data, while the service maintains individual identities.\nHuman: What is the main idea of the text?\n\nAssistant:<think>\n<think>\nOkay, let me try to",
+      "sse_chunks": 128,
+      "response_id": "43d4514111264776b7068ea12a499941",
+      "finish_reason": "length",
+      "http_status": 200,
+      "reason": null
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/tmp/check_framework_docker_stop005.py\", line 51, in <module>\n    assert state['state']=='stopped' and not state['forced_cleanup'] and state['GPU_end']=='0 MiB' and rows[0]['state']=='finished' and inspect['State']['ExitCode']==0 and result['readonly_model']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "GPU_end": "0 MiB"
+}

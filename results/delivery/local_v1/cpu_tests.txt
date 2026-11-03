@@ -39,6 +39,9 @@ test_ttft_mean_uses_native_count_not_chunk_count (test_framework.NativeMetricsTe
 test_client_dashboard_is_missing_without_a_ledger (test_framework.SummaryTests.test_client_dashboard_is_missing_without_a_ledger) ... ok
 test_native_processed_is_not_used_to_invent_client_success (test_framework.SummaryTests.test_native_processed_is_not_used_to_invent_client_success) ... ok
 test_offer_denominator_and_chunk_boundary_fixture (test_framework.SummaryTests.test_offer_denominator_and_chunk_boundary_fixture) ... ok
+test_deadline_closes_stream_without_observation (test_gate_client.GateClientTests.test_deadline_closes_stream_without_observation) ... ok
+test_native_finish_before_gate_is_preserved (test_gate_client.GateClientTests.test_native_finish_before_gate_is_preserved) ... ok
+test_observation_gate_closes_real_stream_once (test_gate_client.GateClientTests.test_observation_gate_closes_real_stream_once) ... ok
 test_changed_source_rejected (test_tp_preparation.TPPreparationTests.test_changed_source_rejected) ... ok
 test_complete_tp1234_matrix_is_separate_from_historical_gates (test_tp_preparation.TPPreparationTests.test_complete_tp1234_matrix_is_separate_from_historical_gates) ... ok
 test_explicit_engine_store_does_not_reuse_torchrun_agent_store (test_tp_preparation.TPPreparationTests.test_explicit_engine_store_does_not_reuse_torchrun_agent_store) ... ok
@@ -51,6 +54,6 @@ test_only_startup_request_uses_startup_budget (test_warmup.WarmupTests.test_only
 test_warmup_error_aborts_and_does_not_publish_end (test_warmup.WarmupTests.test_warmup_error_aborts_and_does_not_publish_end) ... ok
 
 ----------------------------------------------------------------------
-Ran 51 tests in 0.285s
+Ran 54 tests in 0.290s
 
 OK

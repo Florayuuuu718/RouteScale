@@ -3,7 +3,7 @@
 2026-11-03。本目录保存新的工程交付证据；不覆盖 G/H/I 的计算实验，不将
 Mini-SGLang 加固等同规划 M5 的完整框架迁移。正式 SGLang 采用下述独立范围。
 
-本轮独立无Torch的CPU环境运行51项测试通过；额外TP词表gather的3项CPU张量测试通过。
+本轮独立无Torch的CPU环境运行54项测试通过；额外TP词表gather的3项CPU张量测试通过。
 见 [CPU日志](cpu_tests.txt)、[轻量环境](cpu_environment.json) 和
 [张量测试](tp_head_tests.txt)。CPU结果不替代真实GPU证据。
 
@@ -79,6 +79,57 @@ PyPI分段下载八个大型wheel，再核对完整文件SHA；
 [头文件失败](sglang_container_failed_header/native_server.txt)。容器改用原始CUDA13头，
 本机兼容头不改，二者各记SHA；所有失败GPU均归零，没有把未ready当作验收通过。
 
+## 实际容器与显式准备
+
+固定Python3.11.16-bookworm基础摘要`00f0ecbf…d8a3ec2`，使用同一206依赖、19份上游
+关键源及只读十文件模型。最终健康验收镜像为
+`sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d`，
+交付源commit `ba060c7`；96份交付文件、stock CUDA头及继承文件层已在容器内核对。
+所有镜像留本机，没有发布到镜像仓库。官方SGLang大镜像拉取中止，仍未GPU验证；
+镜像锁里的准备时标记保留，实际验证状态看本目录验收与运行收据。
+
+冷准备使用独立命名缓存，模型启动372.153秒，28个内部请求全部完成，关闭7.398秒，
+无强制清理且GPU0。内部预热使用剩余启动预算；其中900输出实际约50秒，不能冒充
+正式30秒客户端通过。正式健康场景复用该明确缓存，运行源、依赖、模型与头文件均
+相同，仅诊断改为观测到queue后关闭连接。服务预算和原48请求trace不改。
+
+正式容器健康场景71个规范offer全部入账：64完成、3取消、4失败（均为实际队列拒绝），
+616项独立检查全部通过。启动121.195秒、关闭5.946秒，无强制清理，GPU0。
+排队诊断维持原256token阻塞请求；观测queue1后真实关闭HTTP，再显式abort，
+在另4个仍running时queue归零，随后原生flush与实际pool/KV归零。窗口失败、900超期、
+旧源码快照和原始客户端事件完整保留，不追认失败。
+
+容器内部1971/1972映射Windows本机21971/21972，实际ready、models与仪表盘均200。
+未修改已有1971监听进程、WSL设置或四个既有Immich容器。模型mount实际RW=false，
+GPU仅声明device0。原生SGLang的`/ready`不保证所有新形状免首次编译；复现流程先执行
+显式准备，不以反复失败代替准备。范围和命令见[容器协议](../../../docs/sglang_container_protocol.md)
+及[运行手册](../../../docs/sglang_serving_delivery.md)。
+
+[默认入口实际停机](sglang_docker_stop_result.json)通过：Docker init为PID1，监督器PID7、
+父PID1，真正生成中的128token请求完成后容器exit0。`docker stop`14.017秒，内部关闭
+11.417秒，无强制清理，GPU0。首次Python直接作为PID1时，客户端虽完成、原生父进程
+exit0且GPU0，但进程组仍被探测为存在，严格清理判失败；原记录保存在
+[未启用init的失败](sglang_docker_stop_no_init_issue.json)。部署现在使用`--init`或
+[Compose init叠加配置](../../../deploy/local/sglang/compose.init.json)，不忽略清理失败。
+
+[容器独立审计](sglang_container_healthy/audit.json)、
+[28请求准备](sglang_container_warmup/warmup.json)、
+[镜像与挂载收据](sglang_container_result.json)、
+[全部文件与父层核对](sglang_container_files_proof.json)及
+[Windows实际访问](sglang_windows_host_probe.json)已归档。准备源commit018cbae的计算源、
+模型、环境与头文件与最终镜像一致，复用缓存`routescale-m5-cache-018cbae`明确记录在
+manifest和运行收据中；变化仅在独立诊断夹具。总体门槛与逐文件证据哈希由
+`acceptance.json`记录，重查命令：
+
+```bash
+python3 scripts/accept_local_delivery.py --check-only \
+  --tp-runtime runs/tp_delivery/local004 \
+  --bundle-directory /mnt/d/RouteScale-local-delivery-20261103/build002
+```
+
+大张量、两份环境/SDK归档、权重和镜像留本机，不入Git。新机器需按手册重建这些声明
+资源；本机完整交付通过不代表TP2/4、多卡性能或任意新形状首次访问都已验收。
+
 ## Mini-SGLang 交付验收
 
 同 I3 v2 的模型和计算源码，九补丁独立重放 tree
@@ -146,6 +197,6 @@ local004完整重跑。各目录均保留实际source snapshot。全量张量不
 
 ## 保护范围
 
-[历史清单](historical.json)固定1498份旧 G/H/I JSON的SHA256，本轮结束须全部逐文件
+[历史清单](historical.json)固定1498份旧 G/H/I JSON的SHA256，本轮已全部逐文件
 复核。旧失败和数值门槛不追认。TP2/4和付费资源尚未验收；正式 SGLang 使用不同
 原生 BF16 范围，不能继承上述 I3 混合精度数值结论。个人复盘和面试材料仍等待实验完成。

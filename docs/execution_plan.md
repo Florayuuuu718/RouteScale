@@ -12,7 +12,8 @@ and [runbook](i1_lifecycle_repairs.md). **I2 local FI/TP1 is now complete**:
 the shape-controlled scope and the subsequent HF-qualified mixed-precision
 scope are accepted. **I3 local FI/TP1 is also accepted** at the finite-trace
 scope recorded below. The bounded H3 replication investigation is complete,
-with residual timing variability explicitly retained; delivery preparation remains pending.
+with residual timing variability explicitly retained. Local delivery and TP preparation
+are accepted at the bounded scope below.
 No paid resources have been used.
 
 The original I2 v1 attempt is a preserved rejected BF16/HF scope. Two replayable
@@ -84,7 +85,20 @@ CV limit; only 3/12 cells meet the full stability rule. Investigation completion
 does not establish precise steady-state gains. See the
 [replication report](../results/h_nanovllm/h3_timing_replication_v1/README.md).
 The GPU is idle, historical evidence is unchanged, and no paid resources were
-used. Local framework delivery and TP preparation are the next work item.
+used. Local framework delivery and TP preparation are now accepted below.
+
+Local delivery completed on 2026-11-03. Mini-SGLang has 131 audited checks;
+full SGLang0.5.20 has three native GPU scenarios (75 canonical requests, 705
+checks), a separately declared container queue-handshake scope (71 requests,
+616 checks), explicit 28-request shape preparation and a real default-entrypoint
+Docker stop with init, successful inflight completion and GPU release. The
+CPU-only suite passes 54 tests. Native BF16 does not inherit I3 HF qualification.
+The offline image, fixed dependencies, source/weight hashes, dashboards, failed
+attempts and limits are in [the delivery report](../results/delivery/local_v1/README.md).
+TP preparation passed 640 local vectors and 70 checks; the same-host TP1/2/4
+matrix has 30 qualifications and 90 three-run performance processes prepared.
+Actual multi-GPU qualifications, performance and traces remain unrun. No paid
+resources are authorized, and personal reviews/interview guides remain deferred.
 
 ## Local work before renting GPUs
 
@@ -110,7 +124,7 @@ used. Local framework delivery and TP preparation are the next work item.
    the noisiest case, balance execution order and record temperature, clock and
    power state. Preserve historical observations. Report uncertainty when a
    precise steady-state speedup is not supported.
-5. **Local delivery preparation.** Prepare one full serving framework, dependency
+5. **Local delivery preparation (accepted at the local scope above).** Prepare one full serving framework, dependency
    or container instructions, health/readiness, shutdown, monitoring, CPU CI and
    GPU smoke where locally feasible. Check a clean checkout. Prepare all TP
    configurations, correctness checks, timeouts and collection scripts before
@@ -125,7 +139,8 @@ No paid resources are authorized by this plan alone. Unrun cases remain pending.
 
 ## Final acceptance and learning material
 
-Finish full-framework validation and the J/M7 training-to-serving review. Compare
+Full-framework local validation is accepted above. Finish the remaining
+multi-GPU experiments and the J/M7 training-to-serving review. Compare
 RouteScale Dense native/recompute/paged paths separately from the common Qwen
 nano-vLLM/Mini-SGLang paths. Keep hardware, precision and timing boundaries clear.
 Include gains, negative results, limitations, reproduction and fault demonstrations.

@@ -4,9 +4,9 @@ root=Path.cwd();cli='/mnt/d/APP/Docker/resources/bin/docker.exe';prior=root/'run
 while not prior.exists():
  if time.monotonic()-start>6000:raise TimeoutError('Container healthy prerequisite')
  time.sleep(5)
-healthy=json.loads(prior.read_text());assert healthy['passed'];image=healthy['image_id'];commit=healthy['source_commit'];name='routescale-m5-stop-'+commit[:7];cache='routescale-m5-cache-'+commit[:7]
+healthy=json.loads(prior.read_text());assert healthy['passed'];image=healthy['image_id'];commit=healthy['source_commit'];name='routescale-m5-stop-'+commit[:7]+'-init002';cache=healthy.get('cache_volume','routescale-m5-cache-'+commit[:7])
 model=r'type=bind,source=D:\RouteScale-local-delivery-20261103\models\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly'
-cmd=[cli,'run','--detach','--name',name,'--gpus','device=0','--shm-size=1g','--env','ROUTESCALE_RUN_ID=stop001','--env','ROUTESCALE_SOURCE_COMMIT='+commit,'--mount',model,'--volume',cache+':/root/.cache','--publish','127.0.0.1:21971:1971','--publish','127.0.0.1:21972:1972',image]
+cmd=[cli,'run','--init','--detach','--name',name,'--gpus','device=0','--shm-size=1g','--env','ROUTESCALE_RUN_ID=stop001','--env','ROUTESCALE_SOURCE_COMMIT='+commit,'--mount',model,'--volume',cache+':/root/.cache','--publish','127.0.0.1:21971:1971','--publish','127.0.0.1:21972:1972',image]
 result=dict(passed=False,command=cmd,image_id=image,source_commit=commit,name=name)
 def inside(code):return subprocess.check_output([cli,'exec',name,'python3','-c',code],text=True,stderr=subprocess.STDOUT,timeout=20)
 with (root/'runs/tmp/h2_runner.lock').open('a+') as lock:
@@ -22,7 +22,7 @@ with (root/'runs/tmp/h2_runner.lock').open('a+') as lock:
    if state.get('state')=='failed':raise RuntimeError('Default entrypoint failed before readiness')
    time.sleep(1)
   else:raise TimeoutError('Default entrypoint readiness')
-  assert state['supervisor_pid']==1;result['actual_supervisor_PID1']=True
+  init=json.loads(subprocess.check_output([cli,'inspect',name],text=True,timeout=20))[0];pid=state['supervisor_pid'];parent=int(inside(f"from pathlib import Path;s=Path('/proc/{pid}/stat').read_text();print(s[s.rfind(')')+2:].split()[1])").strip());assert init['HostConfig']['Init'] and pid!=1 and parent==1;result.update(actual_container_PID1_init=True,supervisor_pid=pid,supervisor_parent_pid=parent)
   code="""import asyncio,json,pathlib,time
 from serving.framework_client import CompletionClient
 from serving.online_client import OnlineRequest
@@ -45,8 +45,8 @@ rows=asyncio.run(CompletionClient('http://127.0.0.1:1971',concurrency=1,sink=sin
   assert stop.returncode==0;client.wait(timeout=15);log.close();result['client_returncode']=client.returncode
   inspect=json.loads(subprocess.check_output([cli,'inspect',cid],text=True,timeout=20))[0]
   result.update(container_exit_code=inspect['State']['ExitCode'],readonly_model=not next(m for m in inspect['Mounts'] if m['Destination']=='/models/Qwen3-0.6B')['RW'])
-  dest=Path('/mnt/d/RouteScale-local-delivery-20261103/container_stop001');dest.mkdir(exist_ok=False)
-  subprocess.run([cli,'cp',cid+':/state',r'D:\RouteScale-local-delivery-20261103\container_stop001'],check=True,timeout=60)
+  dest=Path('/mnt/d/RouteScale-local-delivery-20261103/container_stop002');dest.mkdir(exist_ok=False)
+  subprocess.run([cli,'cp',cid+':/state',r'D:\RouteScale-local-delivery-20261103\container_stop002'],check=True,timeout=60)
   state=json.loads((dest/'state/stop001/status.json').read_text());rows=json.loads((dest/'state/stop_client.json').read_text());result['native_status']=state;result['client_rows']=rows
   assert state['state']=='stopped' and not state['forced_cleanup'] and state['GPU_end']=='0 MiB' and rows[0]['state']=='finished' and inspect['State']['ExitCode']==0 and result['readonly_model']
   result['passed']=True

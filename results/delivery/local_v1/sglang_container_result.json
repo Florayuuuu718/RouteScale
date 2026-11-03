@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "name": "routescale-m5-healthy-ba060c7",
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--name",
+    "routescale-m5-healthy-ba060c7",
+    "--gpus",
+    "device=0",
+    "--shm-size=1g",
+    "--env",
+    "ROUTESCALE_SOURCE_COMMIT=ba060c744201cb40d7c6490bf2f4a1b23fc11ad0",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\container_provenance007.json,target=/provenance.json,readonly",
+    "--volume",
+    "routescale-m5-cache-018cbae:/root/.cache",
+    "--publish",
+    "127.0.0.1:21971:1971",
+    "--publish",
+    "127.0.0.1:21972:1972",
+    "--entrypoint",
+    "sh",
+    "sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d",
+    "-c",
+    "python3 scripts/check_framework_container.py --scenario healthy --directory /state/healthy001 && cp /provenance.json /state/healthy001/container_provenance.json && python3 scripts/audit_framework_container.py --directory /state/healthy001"
+  ],
+  "build_command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "build",
+    "--pull=false",
+    "--network=none",
+    "--progress=plain",
+    "--file",
+    "D:\\RouteScale-local-delivery-20261103\\build006-handshake-v2\\Dockerfile",
+    "--tag",
+    "routescale-sglang:m5-ba060c7",
+    "D:\\RouteScale-local-delivery-20261103\\build006-handshake-v2"
+  ],
+  "source_commit": "ba060c744201cb40d7c6490bf2f4a1b23fc11ad0",
+  "image_id": "sha256:e71b4125f99579782b1348c905f2714cb1a6d35c68e9320b2feddfe3e0f8b62d",
+  "build_attempt": 6,
+  "build_log": "runs/tmp/framework_container_build006-handshake-v2.log",
+  "container_id": "f94f2edf56858a2731ea865fd91b4036ae0e2d06ff3f6ca0d03b4b655ecbb163",
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B",
+      "Destination": "/models/Qwen3-0.6B",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\container_provenance007.json",
+      "Destination": "/provenance.json",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "volume",
+      "Name": "routescale-m5-cache-018cbae",
+      "Source": "/var/lib/docker/volumes/routescale-m5-cache-018cbae/_data",
+      "Destination": "/root/.cache",
+      "Driver": "local",
+      "Mode": "z",
+      "RW": true,
+      "Propagation": ""
+    }
+  ],
+  "devices": [
+    {
+      "Driver": "",
+      "Count": 0,
+      "DeviceIDs": [
+        "0"
+      ],
+      "Capabilities": [
+        [
+          "gpu"
+        ]
+      ],
+      "Options": {}
+    }
+  ],
+  "ports": {
+    "1971/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21971"
+      }
+    ],
+    "1972/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21972"
+      }
+    ]
+  },
+  "returncode": 0,
+  "evidence_directory": "/mnt/d/RouteScale-local-delivery-20261103/container_evidence007/healthy001",
+  "warmup_directory": "/mnt/d/RouteScale-local-delivery-20261103/container_evidence006/warmup001",
+  "cache_volume": "routescale-m5-cache-018cbae",
+  "prepared_cache_source_commit": "018cbae24f70816edd67b1d42a73a4028900e15e",
+  "GPU_end": "0 MiB"
+}
