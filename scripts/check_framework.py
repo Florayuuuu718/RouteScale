@@ -17,7 +17,7 @@ import traceback
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from serving.delivery import read,sha,write
 from serving.framework_client import CompletionClient
-from serving.framework_metrics import HTML,parse,parse_loads
+from serving.framework_metrics import HTML,parse,parse_loads,queue_rejection
 from serving.online_client import OnlineRequest,canonical_hash
 from serving.sglang_framework import load
 
@@ -139,7 +139,7 @@ async def exercise(c,run,out,scenario):
             rows=await tasks;write(out/'queue_observation.json',observed)
             assert any(m['queued'] is not None and m['queued']>0 for m in observed)
             assert all(m['running'] is None or m['running']<=4 for m in observed)
-            assert any(r['http_status'] in (429,503) for r in rows)
+            assert any(queue_rejection(r) for r in rows)
             await settle('burst')
             # Same 48 prompt strings, output budgets and frozen arrival order as I3.
             source={r['request_id']:r for r in workload['requests']};requests=[];mapping=[]
@@ -192,7 +192,8 @@ def summarize(rows):
     def stats(values):
         values=sorted(values)
         return dict(count=len(values),median=values[len(values)//2] if values else None,p95=values[min(len(values)-1,int(.95*len(values)))] if values else None)
-    return dict(offered=len(rows),terminal_counts=dict(Counter(r['state'] for r in rows)),first_text_TTFT_s=stats(ttft),SSE_nonempty_chunk_interval_s=stats(intervals),native_token_ITL_claimed=False)
+    return dict(offered=len(rows),terminal_counts=dict(Counter(r['state'] for r in rows)),queue_rejections=sum(queue_rejection(r) for r in rows),
+        first_text_TTFT_s=stats(ttft),SSE_nonempty_chunk_interval_s=stats(intervals),native_token_ITL_claimed=False)
 
 
 def main():

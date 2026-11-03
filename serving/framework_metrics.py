@@ -49,6 +49,18 @@ def parse_loads(body):
     return out
 
 
+def queue_rejection(row):
+    """Keep transport status separate from the pinned native SSE queue error."""
+    candidates=[]
+    for event in row.get('events',[]):
+        if event.get('event')=='framework_frame':candidates.append(event['native'].get('error'))
+        if isinstance(event.get('response'),str):
+            try:candidates.append(json.loads(event['response']).get('error'))
+            except (ValueError,AttributeError):pass
+    return any(isinstance(e,dict) and e.get('code',row.get('http_status')) in (429,503)
+        and isinstance(e.get('message'),str) and 'request queue is full' in e['message'].lower() for e in candidates)
+
+
 HTML='''<!doctype html><html lang="zh"><meta charset="utf-8"><title>RouteScale SGLang</title>
 <style>body{font:16px system-ui;max-width:1100px;margin:36px auto;background:#f4f6f9;color:#162237}h1{font-size:25px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:22px;background:white;border-radius:12px}.value{font-size:30px;font-weight:650}small{color:#52617a}pre{white-space:pre-wrap;font-size:12px}</style>
 <h1>RouteScale · SGLang 原生指标</h1><p id="state">读取中</p><h2>实时调度器状态 /v1/loads</h2><pre id="loads">尚未采集</pre><h2>原生exporter批次指标</h2><div class="grid" id="cards"></div>

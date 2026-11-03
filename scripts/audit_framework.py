@@ -6,7 +6,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from serving.delivery import identity,read,sha,write
-from serving.framework_metrics import parse,parse_loads
+from serving.framework_metrics import parse,parse_loads,queue_rejection
 from serving.online_client import TERMINAL,canonical_hash
 from scripts.check_framework import SCHEDULE,WORKLOAD,sha_text,summarize
 
@@ -74,7 +74,7 @@ def audit(directory):
         checks['disconnect']=byid['disconnect']['state']=='cancelled'
         checks['deadline']=byid['deadline']['state']=='cancelled' and byid['deadline']['reason']=='deadline'
         burst=[v for k,v in byid.items() if k.startswith('burst_')]
-        checks['overload_accounted']=len(burst)==14 and any(x['http_status'] in (429,503) for x in burst)
+        checks['overload_accounted']=len(burst)==14 and any(queue_rejection(x) for x in burst)
         observed=read(d/'queue_observation.json')
         checks['actual_queue']=any(x['queued'] is not None and x['queued']>0 for x in observed)
         checks['running_bound']=all(x['running'] is None or x['running']<=4 for x in observed)

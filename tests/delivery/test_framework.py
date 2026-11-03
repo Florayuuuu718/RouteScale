@@ -11,6 +11,13 @@ from serving.sglang_framework import command,environment,load,runtime_bin
 
 
 class NativeMetricsTests(unittest.TestCase):
+    def test_native_queue_error_inside_HTTP200_is_admission_failure(self):
+        from serving.framework_metrics import queue_rejection
+        row=dict(http_status=200,events=[dict(event='framework_frame',native=dict(error=dict(code=503,type='SERVICE_UNAVAILABLE',message='The request queue is full.')))])
+        self.assertTrue(queue_rejection(row))
+    def test_other_native_503_is_not_disguised_as_queue_rejection(self):
+        from serving.framework_metrics import queue_rejection
+        self.assertFalse(queue_rejection(dict(http_status=503,events=[dict(event='framework_frame',native=dict(error=dict(code=503,message='Worker failed')))])))
     def test_live_load_schema_does_not_use_a_stale_exporter_running_gauge(self):
         from serving.framework_metrics import parse_loads
         body=dict(loads=[dict(dp_rank=0,num_running_reqs=4,num_waiting_reqs=1,num_used_tokens=700,max_total_num_tokens=4096,token_usage=.17,timestamp=123)])
@@ -83,6 +90,8 @@ class CompletionSchemaTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaisesRegex(ValueError,'without DONE'):await self.invoke([dict(choices=[dict(text='partial',finish_reason=None)])])
     async def test_malformed_native_choice_is_a_bounded_client_error(self):
         with self.assertRaisesRegex(ValueError,'Malformed native completion choice'):await self.invoke([dict(choices=['bad'])])
+    async def test_HTTP200_native_error_frame_is_never_a_completion(self):
+        with self.assertRaisesRegex(ValueError,'Server error'):await self.invoke([dict(error=dict(code=503,message='The request queue is full.'))])
 
 
 class SummaryTests(unittest.TestCase):

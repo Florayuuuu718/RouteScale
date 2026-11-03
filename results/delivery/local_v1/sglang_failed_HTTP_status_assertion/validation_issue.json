@@ -1,0 +1,7 @@
+{
+  "accepted": false,
+  "actual_native_behavior": "22 offered requests accounted; actual running4, queued1->0 while4running, native abort and pool release passed. Burst12 finished and2 correctly failed with HTTP200 + nativeSSE error503 queue-full.",
+  "reason": "Checker incorrectly required an HTTP429/503 status even though pinned native streaming reports overload after HTTP200 headers.",
+  "fix": "Recognize actual native queue error object without changing wire status or client failed state; preserve both transport and application evidence.",
+  "GPU_end": "0 MiB"
+}
