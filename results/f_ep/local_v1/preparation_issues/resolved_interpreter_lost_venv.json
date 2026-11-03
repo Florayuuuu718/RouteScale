@@ -1,0 +1,42 @@
+{
+  "formal": false,
+  "gpt": false,
+  "trace": false,
+  "label": "cpu2",
+  "world": 2,
+  "device": "cpu",
+  "dtype": "float64",
+  "returncode": 1,
+  "timed_out": false,
+  "wall_s": 0.11735146699356847,
+  "command": [
+    "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/bin/python3.11",
+    "-m",
+    "torch.distributed.run",
+    "--standalone",
+    "--nproc_per_node=2",
+    "--max-restarts=0",
+    "scripts/f_ep_worker.py",
+    "--device",
+    "cpu",
+    "--dtype",
+    "float64",
+    "--output",
+    "/home/shunzi/projects/RouteScale/runs/f_ep/debug001/cpu2"
+  ],
+  "source_sha256": {
+    "expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/f_ep_worker.py": "9d3ed86a71e11cbcf416a7f5cbadc1fc9e5579d2068e89d4340f3818df32d6e2",
+    "scripts/audit_f_ep.py": "ee89eb44f9aa3dbf6796ce25f8b41b634d39a7f186f64b4d3c5eb8260c9bcb0b",
+    "scripts/prepare_f_ep.py": "48b624bc72d0e9d2d68f1714d39e9cd238175077b99866d493b397aff63a4280",
+    "config/f_ep_matrix.json": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+    "docs/f_stage_protocol.md": "e068648fa224fc2af7d000d8f71f8d3731f3da8ea6c6aecde687f8e23871b7fe"
+  },
+  "config_sha256": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+  "gpu_before": null,
+  "host": "localhost",
+  "source_commit": "7ad7c5df87a28a450184140efaadca9cf9301629"
+}

@@ -1,0 +1,103 @@
+{
+  "rank": 0,
+  "world": 2,
+  "backend": "gloo",
+  "device": "cpu",
+  "dtype": "float64",
+  "torch": "2.12.1+cu129",
+  "python": "3.11.16",
+  "cuda": "12.9",
+  "nccl": null,
+  "device_name": "x86_64",
+  "peak_allocated": 0,
+  "entries": [
+    {
+      "case": "balanced",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2_trace/balanced_rank0.pt",
+      "sha256": "863ce6538d79d096f33220960541e7c34e7a1261f916ac88ec26076efaac2335",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    }
+  ],
+  "trace": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2_trace/trace_rank0.json",
+  "events": [
+    {
+      "key": "ep/routing_counts_all_gather",
+      "count": 3,
+      "cpu_time_total_us": 11440.582000000024,
+      "self_cpu_time_total_us": 10753.404000000024
+    },
+    {
+      "key": "ep/split_counts_all_to_all",
+      "count": 3,
+      "cpu_time_total_us": 3823.8590000000113,
+      "self_cpu_time_total_us": 3426.623999999996
+    },
+    {
+      "key": "c10d::alltoall_base_",
+      "count": 18,
+      "cpu_time_total_us": 2003.1270000000732,
+      "self_cpu_time_total_us": 2003.1270000000732
+    },
+    {
+      "key": "ep/expert_ids_all_to_all",
+      "count": 3,
+      "cpu_time_total_us": 2990.5200000000114,
+      "self_cpu_time_total_us": 2521.8649999999543
+    },
+    {
+      "key": "ep/dispatch",
+      "count": 3,
+      "cpu_time_total_us": 3530.2289999999994,
+      "self_cpu_time_total_us": 338.978999999963
+    },
+    {
+      "key": "_AllToAll",
+      "count": 6,
+      "cpu_time_total_us": 5865.072000000022,
+      "self_cpu_time_total_us": 335.9030000000348
+    },
+    {
+      "key": "ep/activation_all_to_all",
+      "count": 6,
+      "cpu_time_total_us": 5529.168999999987,
+      "self_cpu_time_total_us": 4774.136999999966
+    },
+    {
+      "key": "ep/local_experts",
+      "count": 3,
+      "cpu_time_total_us": 2720.676999999996,
+      "self_cpu_time_total_us": 1284.7109999999593
+    },
+    {
+      "key": "ep/combine",
+      "count": 3,
+      "cpu_time_total_us": 3059.344999999972,
+      "self_cpu_time_total_us": 192.23099999997066
+    },
+    {
+      "key": "autograd::engine::evaluate_function: _AllToAllBackward",
+      "count": 6,
+      "cpu_time_total_us": 11035.46599999992,
+      "self_cpu_time_total_us": 101.44899999992776
+    },
+    {
+      "key": "_AllToAllBackward",
+      "count": 6,
+      "cpu_time_total_us": 10934.016999999993,
+      "self_cpu_time_total_us": 386.98399999999674
+    },
+    {
+      "key": "ep/gradient_all_to_all",
+      "count": 6,
+      "cpu_time_total_us": 10547.032999999996,
+      "self_cpu_time_total_us": 9866.719000000005
+    }
+  ]
+}

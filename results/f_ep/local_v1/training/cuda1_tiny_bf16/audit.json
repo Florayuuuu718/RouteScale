@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": 967,
+  "failures": [],
+  "raw_sha256": {
+    "/home/shunzi/projects/RouteScale/runs/f_ep/training_v1/cuda1_tiny_bf16/reference_rank0.pt": "64e2cc59f71945bd14da52b5e468bb982d281def1c9ffe9f2fb9a4a84a7f856f",
+    "/home/shunzi/projects/RouteScale/runs/f_ep/training_v1/cuda1_tiny_bf16/replicated_rank0.pt": "41b984bdbeccbc8012cbfedc1ed7bf760b1d21870b16312daf4bfba97e2d3b3f",
+    "/home/shunzi/projects/RouteScale/runs/f_ep/training_v1/cuda1_tiny_bf16/ep_rank0.pt": "dba3933d360ff6504980ededf48ff78c146d7de8aac92b60cb22e02f071fe399"
+  },
+  "report_sha256": {
+    "rank0.json": "0285d62be8ad892ddd6422c5fb486e19ca86332301ad866efce261cf28958f24"
+  },
+  "job_sha256": "cc6bdba53b696884101669cce75ebb9e05f0fd4ae2c363f401e84f84afbc64e5",
+  "source_sha256": {
+    "ep_training.py": "5d45db3e92e9597a4c7b9a80b82fd940342c714eae4a9da4e62cfe9b3ee18a80",
+    "expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/f_ep_training.py": "d707e953d90dcbe2ad4bc26f81ff7b5a2ad0aeff225379904c464b37c2aceddc",
+    "scripts/audit_f_ep_training.py": "0472a21c70c5f8d9050d3a37f4fa157543950a243cf533588fdbaeb457b001fc",
+    "scripts/prepare_f_training.py": "1a191addbf80cd5dca40f7493b1958f3b6f38c82038693e6a6a6c5761b6ed5c4",
+    "scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179",
+    "config/f_ep_rental_requirements.json": "6035d9d76965c5431296dddb0223f34857d0dee067efdbbe3a2e1dc6a3f31063",
+    "docs/f_training_preparation.md": "2ec810cce5249b8611bf99f4d7c0c4cecd6a3eb758d2c08853348e3a6952a387"
+  },
+  "max_absolute_error": 0.0,
+  "rows": [
+    {
+      "rank": 0,
+      "mode": "replicated",
+      "loss": 4.163846969604492,
+      "global_grad_norm_before": 0.8998758526945025,
+      "owned_parameters": 42
+    },
+    {
+      "rank": 0,
+      "mode": "ep",
+      "loss": 4.163846969604492,
+      "global_grad_norm_before": 0.8998758526945025,
+      "owned_parameters": 42
+    }
+  ],
+  "real_multigpu": false
+}

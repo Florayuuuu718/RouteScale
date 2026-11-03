@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "controls": [
+    {
+      "control": "wrong_output",
+      "rejected": true,
+      "checks": 7843,
+      "failures": [
+        "rank0/balanced/0/output/numeric"
+      ]
+    },
+    {
+      "control": "wrong_split",
+      "rejected": true,
+      "checks": 7843,
+      "failures": [
+        "rank0/balanced/0/send counts",
+        "rank0/balanced/0/accepted tokens",
+        "balanced/0/split transpose/0/0"
+      ]
+    },
+    {
+      "control": "absent_gradient_replaced_by_zero",
+      "rejected": true,
+      "checks": 7843,
+      "failures": [
+        "rank0/all_to_one/0/EP/gradients/experts.1.c_fc.weight/absent",
+        "rank0/all_to_one/0/unused gradient absent/experts.1.c_fc.weight"
+      ]
+    }
+  ]
+}

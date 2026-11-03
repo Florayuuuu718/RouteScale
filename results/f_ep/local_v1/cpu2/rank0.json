@@ -1,0 +1,108 @@
+{
+  "rank": 0,
+  "world": 2,
+  "backend": "gloo",
+  "device": "cpu",
+  "dtype": "float64",
+  "torch": "2.12.1+cu129",
+  "python": "3.11.16",
+  "cuda": "12.9",
+  "nccl": null,
+  "device_name": "x86_64",
+  "peak_allocated": 0,
+  "entries": [
+    {
+      "case": "balanced",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/balanced_rank0.pt",
+      "sha256": "863ce6538d79d096f33220960541e7c34e7a1261f916ac88ec26076efaac2335",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "uneven",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/uneven_rank0.pt",
+      "sha256": "cdf003cb782c47efeb320e2f2a3d4140d8d6aaa1bb73573460a413ae161e4df7",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "all_to_one",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/all_to_one_rank0.pt",
+      "sha256": "bc53a9bc4844619f4db3225f22a3d3739ea805d3ffc94d0059162a0948ac04ba",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "empty_origin",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/empty_origin_rank0.pt",
+      "sha256": "c8f2a31d4a8997759cb1daa093427e9f1b2e531f69ecf05b4d18dd0343a1ed86",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "capacity_observe",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/capacity_observe_rank0.pt",
+      "sha256": "5245399d1014ada989282928ffa509af8613572cfdc6b13602d42fd2bec0a437",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "capacity_drop",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/capacity_drop_rank0.pt",
+      "sha256": "404df506b2352d693d0d1d93c879c84e4bc58e15f164e42039f5ba6056ef6e80",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    },
+    {
+      "case": "changing_routes",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cpu2/changing_routes_rank0.pt",
+      "sha256": "212ff1e389bcfe27f5c4d7fbde464833c3d1f082f69863a739bd2a305d8e9aeb",
+      "owned_experts": [
+        "0",
+        "1"
+      ],
+      "owned_parameters": 1140,
+      "replicated_parameters": 2244
+    }
+  ],
+  "trace": null,
+  "events": []
+}

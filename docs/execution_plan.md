@@ -132,9 +132,29 @@ resources are authorized, and personal reviews/interview guides remain deferred.
 
 ## Consolidated multi-GPU session
 
+F local preparation was also accepted on 2026-11-03 after the user's request:
+12 jobs, 18 real worker processes, Gloo world1/2/4, NCCL1 FP32/BF16, D/E expert
+shapes and small complete GPT updates passed 62,892 numerical/state checks.
+60 CPU contract tests and 17 original MoE regressions passed; 5,204 historical
+evidence files stayed byte-identical. The protocol, launcher, independent tensor
+audit, eight-job same-host CUDA qualification matrix, data hash preflight and
+full-training rental requirements are ready. See the
+[F preparation report](../results/f_ep/local_v1/README.md) and
+[runbook](f_ep_runbook.md). This completes bounded local preparation, not F's
+two-card acceptance: EP2 GPU qualification/performance/communication traces are
+all zero. Subsequent full-training preparation passed four additional jobs and
+4,996 checks, including Gloo2 accumulated/shared gradients, active global norm
+clipping and a real full D/E TinyStories 16,384-token update against the original
+GPT. The full training runner and nine-process gated benchmark plus trace entry
+point are prepared; the final CPU suite passes 64 tests. See the
+[training protocol](f_training_preparation.md). Rerun these qualifiers on CUDA1/2
+of the target host before timing; no paid resources are authorized.
+
 After local prerequisites pass, freeze the pending H2/I2 TP=1/2/4 matrix, resource
 budget and stopping rules. Re-run TP=1 on the same rented host. Record topology,
 NCCL, per-rank memory, numerical checks and computation/communication traces.
+Include F EP2 qualification and the separately gated MoE training matrix in the
+same authorized session where resources fit; do not conflate EP with serving TP.
 No paid resources are authorized by this plan alone. Unrun cases remain pending.
 
 ## Final acceptance and learning material

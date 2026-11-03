@@ -1,0 +1,62 @@
+[
+  {
+    "job": "cpu2_trace",
+    "rank": 0,
+    "backend": "gloo",
+    "trace_sha256": "c8fde05ab8c18221ea6f247291a681dd4f84f6f42826a079a09a2ac7b7640737",
+    "trace_bytes": 4438420,
+    "categories": {
+      "metadata": 62,
+      "user_annotation": 189,
+      "cpu_op": 15931,
+      "fwdbwd": 966,
+      "cuda_runtime": 1,
+      "ac2g": 1,
+      "Trace": 1
+    },
+    "cross_gpu_communication": false,
+    "timing_is_profiled_and_contains_cold_start": true
+  },
+  {
+    "job": "cpu2_trace",
+    "rank": 1,
+    "backend": "gloo",
+    "trace_sha256": "5e20f3b74609830bed16cd5df7e8f9ea92d898010c1bc6727970225abefaff66",
+    "trace_bytes": 4438822,
+    "categories": {
+      "metadata": 62,
+      "user_annotation": 189,
+      "cpu_op": 15931,
+      "fwdbwd": 966,
+      "cuda_runtime": 1,
+      "ac2g": 1,
+      "Trace": 1
+    },
+    "cross_gpu_communication": false,
+    "timing_is_profiled_and_contains_cold_start": true
+  },
+  {
+    "job": "cuda1_trace",
+    "rank": 0,
+    "backend": "nccl",
+    "trace_sha256": "0601bac51d79d7c4709cbe98af1ea6b8c360aabb798bfab631a01c638aefe294",
+    "trace_bytes": 14639998,
+    "categories": {
+      "metadata": 64,
+      "cpu_op": 19486,
+      "fwdbwd": 978,
+      "user_annotation": 189,
+      "cuda_runtime": 9121,
+      "ac2g": 14122,
+      "overhead": 275,
+      "gpu_memcpy": 1189,
+      "kernel": 3114,
+      "cuda_driver": 459,
+      "gpu_memset": 239,
+      "gpu_user_annotation": 40,
+      "Trace": 1
+    },
+    "cross_gpu_communication": false,
+    "timing_is_profiled_and_contains_cold_start": true
+  }
+]

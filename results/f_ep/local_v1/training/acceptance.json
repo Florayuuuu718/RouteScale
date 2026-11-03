@@ -1,0 +1,162 @@
+{
+  "scope": "F_complete_training_local_v1",
+  "passed": true,
+  "checks": 92,
+  "failures": [],
+  "jobs": [
+    {
+      "label": "cpu2_tiny",
+      "checks": 1744,
+      "max_absolute_error": 9.5367431640625e-07,
+      "rows": [
+        {
+          "rank": 0,
+          "mode": "replicated",
+          "loss": 4.163034439086914,
+          "global_grad_norm_before": 0.8993806076313471,
+          "owned_parameters": 42
+        },
+        {
+          "rank": 0,
+          "mode": "ep",
+          "loss": 4.163034439086914,
+          "global_grad_norm_before": 0.8993806088434853,
+          "owned_parameters": 34
+        },
+        {
+          "rank": 1,
+          "mode": "replicated",
+          "loss": 4.163034439086914,
+          "global_grad_norm_before": 0.8993806076313471,
+          "owned_parameters": 42
+        },
+        {
+          "rank": 1,
+          "mode": "ep",
+          "loss": 4.163034439086914,
+          "global_grad_norm_before": 0.8993806088434853,
+          "owned_parameters": 34
+        }
+      ]
+    },
+    {
+      "label": "cuda1_tiny_fp32",
+      "checks": 967,
+      "max_absolute_error": 0.0,
+      "rows": [
+        {
+          "rank": 0,
+          "mode": "replicated",
+          "loss": 4.163033962249756,
+          "global_grad_norm_before": 0.8993806060963265,
+          "owned_parameters": 42
+        },
+        {
+          "rank": 0,
+          "mode": "ep",
+          "loss": 4.163033962249756,
+          "global_grad_norm_before": 0.8993806060963265,
+          "owned_parameters": 42
+        }
+      ]
+    },
+    {
+      "label": "cuda1_tiny_bf16",
+      "checks": 967,
+      "max_absolute_error": 0.0,
+      "rows": [
+        {
+          "rank": 0,
+          "mode": "replicated",
+          "loss": 4.163846969604492,
+          "global_grad_norm_before": 0.8998758526945025,
+          "owned_parameters": 42
+        },
+        {
+          "rank": 0,
+          "mode": "ep",
+          "loss": 4.163846969604492,
+          "global_grad_norm_before": 0.8998758526945025,
+          "owned_parameters": 42
+        }
+      ]
+    },
+    {
+      "label": "cuda1_full",
+      "checks": 1318,
+      "max_absolute_error": 0.00058731809258461,
+      "rows": [
+        {
+          "rank": 0,
+          "mode": "replicated",
+          "loss": 10.941254615783691,
+          "global_grad_norm_before": 12.897874325828315,
+          "owned_parameters": 58
+        },
+        {
+          "rank": 0,
+          "mode": "ep",
+          "loss": 10.941254615783691,
+          "global_grad_norm_before": 12.897796947411248,
+          "owned_parameters": 58
+        }
+      ]
+    }
+  ],
+  "numerical_checks": 4996,
+  "paid_resources_used": false,
+  "full_multigpu_accepted": false,
+  "performance_execution_allowed": false,
+  "performance_processes": 0,
+  "source_sha256": {
+    "ep_training.py": "5d45db3e92e9597a4c7b9a80b82fd940342c714eae4a9da4e62cfe9b3ee18a80",
+    "expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/f_ep_training.py": "d707e953d90dcbe2ad4bc26f81ff7b5a2ad0aeff225379904c464b37c2aceddc",
+    "scripts/audit_f_ep_training.py": "0472a21c70c5f8d9050d3a37f4fa157543950a243cf533588fdbaeb457b001fc",
+    "scripts/prepare_f_training.py": "1a191addbf80cd5dca40f7493b1958f3b6f38c82038693e6a6a6c5761b6ed5c4",
+    "scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179",
+    "config/f_ep_rental_requirements.json": "6035d9d76965c5431296dddb0223f34857d0dee067efdbbe3a2e1dc6a3f31063",
+    "docs/f_training_preparation.md": "2ec810cce5249b8611bf99f4d7c0c4cecd6a3eb758d2c08853348e3a6952a387"
+  },
+  "evidence_sha256": {
+    "cuda1_full/rank0.json": "e1f344f8d0e172b277a3e3bf1d0284b3567042b0c5cecb67c615af59a70e762b",
+    "cuda1_full/job.json": "b2485caabaeab0ffae3b72afa15686abed20646ff2656c1710e15848407e8a6a",
+    "cuda1_full/audit.json": "0dd74c5d58dcfd44b7117254b51544d99c6864e0e9ba86e7d817c11a94419f35",
+    "cuda1_full/worker.log": "10a0457ef23083d86183953e874c9413ec5a00309626ed715aa5f8ce3b59b4ba",
+    "cuda1_full/audit.log": "87c3c5bb13aff20ab53ec272ac831bee1f33d254f9c3749d1c9e1b72a8bf626c",
+    "cuda1_tiny_fp32/rank0.json": "81fb74335a489948f77a3afa95461d111872d4daf895ec64fa73da1ce861fdea",
+    "cuda1_tiny_fp32/job.json": "3d3a769e3d28d4d6f7d451d62e21d4d9feb7a60c1a7a1f7920551a0944776666",
+    "cuda1_tiny_fp32/audit.json": "55054ee20fd9ed0e48ce808bbf2d68f31fef3a9b48c36d6c0d9c0ade894c7616",
+    "cuda1_tiny_fp32/worker.log": "2b45474531ce4165545a3f959687fc87ae045ec8a0fe33b115cb3eab8762e867",
+    "cuda1_tiny_fp32/audit.log": "dffb987ef1a7fd96baee0d66542edb451ace5ceddd4d1b43751f464ac77bbdca",
+    "source_snapshot/ep_training.py": "5d45db3e92e9597a4c7b9a80b82fd940342c714eae4a9da4e62cfe9b3ee18a80",
+    "source_snapshot/triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "source_snapshot/moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "source_snapshot/expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "source_snapshot/model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "cpu2_tiny/rank1.json": "2d42108e2e84b0ca750cfa29a45be39f456dd6452ec51d42db013cc08431b4c3",
+    "cpu2_tiny/rank0.json": "e994bf301ee79622e9b3a8518713c9fc8805e33b887c1d579e9993519c199170",
+    "cpu2_tiny/job.json": "3e8304b59279aa920e84a924062ad18ef52e40ceedf386a6884a9b9379fb55ea",
+    "cpu2_tiny/audit.json": "237dd383a4ba9483fcd0ca3ea7ed2eaed70e76f323139b021488dac4a2f702b3",
+    "cpu2_tiny/worker.log": "6437d104b31b91b451afaf8014e27e5b1c14858a8e86267985ee682352346f05",
+    "cpu2_tiny/audit.log": "41f698c1e0142cefd4b94292a607721b7d012a082516a0a60ac260fe9ab7fab4",
+    "cuda1_tiny_bf16/rank0.json": "0285d62be8ad892ddd6422c5fb486e19ca86332301ad866efce261cf28958f24",
+    "cuda1_tiny_bf16/job.json": "cc6bdba53b696884101669cce75ebb9e05f0fd4ae2c363f401e84f84afbc64e5",
+    "cuda1_tiny_bf16/audit.json": "3f5651799c08cbef0976e0b8b2c3e1744be5e6df727067b8f3a643c38ea59e39",
+    "cuda1_tiny_bf16/worker.log": "2b45474531ce4165545a3f959687fc87ae045ec8a0fe33b115cb3eab8762e867",
+    "cuda1_tiny_bf16/audit.log": "dffb987ef1a7fd96baee0d66542edb451ace5ceddd4d1b43751f464ac77bbdca",
+    "source_snapshot/config/f_ep_rental_requirements.json": "6035d9d76965c5431296dddb0223f34857d0dee067efdbbe3a2e1dc6a3f31063",
+    "source_snapshot/docs/f_training_preparation.md": "2ec810cce5249b8611bf99f4d7c0c4cecd6a3eb758d2c08853348e3a6952a387",
+    "source_snapshot/scripts/accept_f_training_preparation.py": "e4c78d4f3054a4df29d281395beec28bef692cf07ca353a43374a745477d646b",
+    "source_snapshot/scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "source_snapshot/scripts/f_ep_training.py": "d707e953d90dcbe2ad4bc26f81ff7b5a2ad0aeff225379904c464b37c2aceddc",
+    "source_snapshot/scripts/collect_f_ep_trace.py": "412d591cfe2833147900c343d46208c6b15130a994206094ca5148b98ac6f75f",
+    "source_snapshot/scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179",
+    "source_snapshot/scripts/prepare_f_training.py": "1a191addbf80cd5dca40f7493b1958f3b6f38c82038693e6a6a6c5761b6ed5c4",
+    "source_snapshot/scripts/audit_f_ep_training.py": "0472a21c70c5f8d9050d3a37f4fa157543950a243cf533588fdbaeb457b001fc"
+  }
+}

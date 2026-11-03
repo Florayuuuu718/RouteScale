@@ -14,6 +14,22 @@ H2/I2 multi-GPU work is deferred to a later consolidated rental session.
 The original H3 correctness gate retains `performance_execution_allowed=false`;
 the separate v5 controlled scope has its own passed performance gate.
 
+## F: local EP preparation accepted, real two-GPU experiments pending
+
+[F local preparation](f_ep/local_v1/README.md) passed 12 jobs / 18 worker
+processes, 62,892 numerical/state checks, 60 CPU tests and 17 original MoE
+regressions. Real Gloo world1/2/4 and CUDA NCCL1 cover outputs, gradients,
+global capacity and unused-expert optimizer semantics, including D/E expert
+shapes and small complete GPT updates. The two-GPU qualification launcher,
+protocol and rental requirements are prepared. Actual EP2 GPU qualification,
+performance and inter-GPU traces remain zero; full F is not accepted and no
+paid resources were used. Historical evidence is unchanged.
+An additional four full-training qualifiers passed 4,996 checks, including
+accumulation, active global clipping and a real full-model TinyStories update.
+The final CPU suite passes 64 tests; full training, nine-process gated timing
+and separate two-GPU trace launchers are prepared, with actual multi-GPU work
+still unrun.
+
 ## I1: Mini-SGLang single-GPU lifecycle acceptance
 
 The subsequent [local delivery report](delivery/local_v1/README.md) accepts full

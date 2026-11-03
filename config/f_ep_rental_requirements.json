@@ -1,0 +1,47 @@
+{
+  "scope": "F_pending_two_gpu_training",
+  "status": "requirements_prepared_experiments_not_run",
+  "paid_resources_authorized": false,
+  "performance_execution_allowed": false,
+  "required_same_host_baselines": ["single_gpu_loop_moe", "replicated_full_experts", "ep2_owned_experts"],
+  "required_numerical_jobs": "scripts/prepare_f_ep.py --host-qualification",
+  "model": {"n_layer": 8, "n_head": 8, "n_embd": 512, "vocab_size": 50257, "block_size": 512, "bias": false, "dropout": 0.0},
+  "moe": {"num_experts": 4, "layer_index": 4, "dispatch": "ragged_loop", "capacity_factor": 1.25, "drop_tokens": true, "balance_loss_weight": 0.01},
+  "training": {
+    "initialization_seed": 1337,
+    "data_seed": 20260920,
+    "global_microbatch": 8,
+    "accumulation_steps": 4,
+    "global_tokens_per_update": 16384,
+    "single_gpu_local_microbatch": 8,
+    "two_gpu_local_microbatch": 4,
+    "dtype": "bfloat16_autocast_fp32_weights",
+    "compile": false,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "betas": [0.9, 0.95],
+    "weight_decay": 0.1,
+    "global_grad_clip": 1.0,
+    "warmup_updates": 20,
+    "measured_updates": 100,
+    "independent_processes_per_variant": 3
+  },
+  "data": {
+    "manifest": "data/tinystories_full/manifest.json",
+    "train_sha256": "66c5c49a38ebcab576854f2f58fad55e06b2bb29ecbc34fa421910e4beb37500",
+    "validation_sha256": "f0d47c000fdf2f7fbae1159832002b079a338cfde9ce4c5f65413da68386f5be",
+    "rank_partition": "disjoint slices of identical frozen global windows",
+    "capacity_order": "rank then flattened local token within each global microbatch"
+  },
+  "before_performance": [
+    "Explicit budget, rental host and stopping rules agreed",
+    "All same-host module and small GPT numerical audits pass in both FP32 and BF16",
+    "Full-shape and complete GPT TinyStories update/optimizer-state equivalence pass",
+    "Accumulated router/shared gradients are summed once; owned experts are not reduced again",
+    "Global gradient norm counts replicated parameters once and sharded experts across ranks; verify clipping against reference",
+    "Native DDP reducer control is separately qualified or explicitly labelled manual reduction",
+    "Per-rank memory fits, data and window hashes match, GPU topology and NCCL captured"
+  ],
+  "stop_on": ["numerical_mismatch", "oom", "timeout", "unexpected_gpu_occupancy", "budget_limit"],
+  "required_evidence": ["all_offered_updates_and_failures", "per_rank_memory", "unprofiled_raw_update_times", "expert_loads", "communication_trace_separate_from_timing", "topology_and_environment", "process_exit_and_gpu_release"]
+}

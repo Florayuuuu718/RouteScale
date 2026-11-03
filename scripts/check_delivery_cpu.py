@@ -9,12 +9,15 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def check():
     files=[p for base in ('serving','scripts','tests/delivery') for p in (ROOT/base).glob('*.py')]
+    files.append(ROOT/'expert_parallel.py')
+    files.append(ROOT/'ep_training.py')
     for p in files:ast.parse(p.read_text(),filename=str(p))
-    configs=[ROOT/n for n in ('config/delivery/local.json','config/delivery/tp_matrix.json',
+    configs=[ROOT/n for n in ('config/f_ep_matrix.json','config/f_ep_rental_requirements.json','config/delivery/local.json','config/delivery/tp_matrix.json',
         'config/delivery/model.json','deploy/local/sglang/runtime.json','deploy/local/sglang/compose.json','deploy/local/sglang/compose.init.json','deploy/local/sglang/image.lock.json','deploy/local/sglang/upstream_sources.json')]
     for p in configs:json.loads(p.read_text())
     docs=[ROOT/n for n in ('docs/delivery_protocol.md','docs/serving_delivery.md','docs/sglang_delivery_protocol.md',
-        'docs/sglang_serving_delivery.md','docs/sglang_cancel_sourcewalk.md','docs/sglang_container_protocol.md','results/delivery/local_v1/README.md')]
+        'docs/sglang_serving_delivery.md','docs/sglang_cancel_sourcewalk.md','docs/sglang_container_protocol.md','results/delivery/local_v1/README.md',
+        'docs/f_stage_protocol.md','docs/f_ep_runbook.md')]
     links=0
     for p in docs:
         for target in re.findall(r'\]\(([^)]+)\)',p.read_text()):

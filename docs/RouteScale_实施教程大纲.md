@@ -405,6 +405,19 @@ token/s，是 compiled Dense 的 96.92%。但 compiled
 
 两卡 All-to-All 正确；能够用 trace 说明通信代价；清楚区分 DDP MoE 与 Expert Parallel。
 
+截至 2026-11-03，F 的本机准备已验收：真实 Gloo world=1/2/4、单卡
+NCCL1 FP32/BF16、D/E expert shape 和小型完整 GPT 更新，共 12 个任务、
+62,892 项数值/状态检查；60 项 CPU 测试、原有 17 项 MoE 回归通过。
+全局 capacity、输出顺序、router/输入/expert 梯度、空 expert 的 AdamW
+状态均有参考对照。两卡配置、资格启动器、审计、数据前置核对和租卡约束已准备。
+**真实两卡资格、性能和跨卡 trace 尚未运行，F 阶段整体仍未完成**；无付费资源。
+见 [F 工程报告](../results/f_ep/local_v1/README.md)、
+[协议](f_stage_protocol.md)和[运行说明](f_ep_runbook.md)。
+随后补齐完整训练入口、梯度累积和全局梯度裁剪，另四个任务通过 4,996 项检查，
+包含真实完整 TinyStories 模型的 16,384-token 更新；最新 CPU 测试为 64 项。
+两卡训练九进程计时矩阵与独立 trace 入口已准备，仍须同租用主机 CUDA1/2
+数值资格后方可执行，见[训练准备协议](f_training_preparation.md)。
+
 ---
 
 ## G. 从训练 checkpoint 到增量推理

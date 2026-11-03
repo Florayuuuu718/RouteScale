@@ -1,0 +1,133 @@
+{
+  "rank": 0,
+  "world": 1,
+  "backend": "nccl",
+  "device": "cuda:0",
+  "dtype": "float32",
+  "torch": "2.12.1+cu129",
+  "python": "3.11.16",
+  "cuda": "12.9",
+  "nccl": [
+    2,
+    29,
+    7
+  ],
+  "device_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "peak_allocated": 67322368,
+  "entries": [
+    {
+      "case": "balanced",
+      "rank": 0,
+      "steps": 3,
+      "raw": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cuda1_trace/balanced_rank0.pt",
+      "sha256": "27ed0e0fbbf4d55e1c35be3e0f829e6a079b4e0881130e9718809a86308002b5",
+      "owned_experts": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "owned_parameters": 2244,
+      "replicated_parameters": 2244
+    }
+  ],
+  "trace": "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cuda1_trace/trace_rank0.json",
+  "events": [
+    {
+      "key": "ep/routing_counts_all_gather",
+      "count": 3,
+      "cpu_time_total_us": 1084653.6850000003,
+      "self_cpu_time_total_us": 785.375
+    },
+    {
+      "key": "ep/routing_counts_all_gather",
+      "count": 1,
+      "cpu_time_total_us": 0,
+      "self_cpu_time_total_us": 0
+    },
+    {
+      "key": "ep/split_counts_all_to_all",
+      "count": 3,
+      "cpu_time_total_us": 1593.4860000000335,
+      "self_cpu_time_total_us": 593.8659999999218
+    },
+    {
+      "key": "c10d::alltoall_base_",
+      "count": 18,
+      "cpu_time_total_us": 10377.272999999113,
+      "self_cpu_time_total_us": 1463.2870000000112
+    },
+    {
+      "key": "ep/expert_ids_all_to_all",
+      "count": 3,
+      "cpu_time_total_us": 5590.198999999557,
+      "self_cpu_time_total_us": 629.9580000010319
+    },
+    {
+      "key": "ep/expert_ids_all_to_all",
+      "count": 3,
+      "cpu_time_total_us": 0,
+      "self_cpu_time_total_us": 0
+    },
+    {
+      "key": "ep/dispatch",
+      "count": 3,
+      "cpu_time_total_us": 5672.405999999959,
+      "self_cpu_time_total_us": 314.14199999999255
+    },
+    {
+      "key": "ep/dispatch",
+      "count": 3,
+      "cpu_time_total_us": 0,
+      "self_cpu_time_total_us": 0
+    },
+    {
+      "key": "_AllToAll",
+      "count": 6,
+      "cpu_time_total_us": 3966.75,
+      "self_cpu_time_total_us": 345.4769999999553
+    },
+    {
+      "key": "ep/activation_all_to_all",
+      "count": 6,
+      "cpu_time_total_us": 3621.2730000000447,
+      "self_cpu_time_total_us": 1136.4589999997988
+    },
+    {
+      "key": "ep/local_experts",
+      "count": 3,
+      "cpu_time_total_us": 16831.771000000183,
+      "self_cpu_time_total_us": 2851.45800000336
+    },
+    {
+      "key": "ep/local_experts",
+      "count": 3,
+      "cpu_time_total_us": 0,
+      "self_cpu_time_total_us": 0
+    },
+    {
+      "key": "ep/combine",
+      "count": 3,
+      "cpu_time_total_us": 1945.7030000002123,
+      "self_cpu_time_total_us": 221.41800000006333
+    },
+    {
+      "key": "autograd::engine::evaluate_function: _AllToAllBackward",
+      "count": 6,
+      "cpu_time_total_us": 5085.750999999698,
+      "self_cpu_time_total_us": 177.59099999954924
+    },
+    {
+      "key": "_AllToAllBackward",
+      "count": 6,
+      "cpu_time_total_us": 4908.160000000149,
+      "self_cpu_time_total_us": 715.3889999999665
+    },
+    {
+      "key": "ep/gradient_all_to_all",
+      "count": 6,
+      "cpu_time_total_us": 4192.7710000001825,
+      "self_cpu_time_total_us": 1579.3070000004955
+    }
+  ]
+}

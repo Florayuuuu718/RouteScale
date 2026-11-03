@@ -1,0 +1,37 @@
+name: F EP CPU numerical contracts
+on: [push, pull_request]
+jobs:
+  gloo:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.16'
+      - name: Pinned CPU Torch, without CUDA or model downloads
+        run: python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch==2.12.1+cpu'
+      - name: Array reader for the synthetic complete-training qualifier
+        run: python -m pip install 'numpy>=1.26,<3'
+      - name: Real Gloo exchanges and global GPT update
+        run: >-
+          python scripts/prepare_f_ep.py --python "$(command -v python)"
+          --execute --output runs/f_ep/ci --labels cpu1 cpu2 cpu4 cpu2_gpt
+      - name: Accumulation and global gradient clipping in complete GPT
+        run: >-
+          python scripts/prepare_f_training.py --python "$(command -v python)"
+          --execute --output runs/f_ep/ci_training --labels cpu2_tiny
+      - name: Preserve compact diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f-ep-cpu
+          path: |
+            runs/f_ep/ci/**/job.json
+            runs/f_ep/ci/**/rank*.json
+            runs/f_ep/ci/**/audit.json
+            runs/f_ep/ci/**/*.log
+            runs/f_ep/ci_training/**/job.json
+            runs/f_ep/ci_training/**/rank*.json
+            runs/f_ep/ci_training/**/audit.json
+            runs/f_ep/ci_training/**/*.log

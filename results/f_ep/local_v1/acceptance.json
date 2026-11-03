@@ -1,0 +1,362 @@
+{
+  "scope": "F_local_preparation_v1",
+  "passed": true,
+  "local_preparation_complete": true,
+  "f_stage_complete": false,
+  "real_multigpu_accepted": false,
+  "paid_resources_used": false,
+  "performance_execution_allowed": false,
+  "checks": 5507,
+  "failures": [],
+  "numerical_audit_checks": 62892,
+  "rank_updates": 204,
+  "jobs": [
+    {
+      "label": "cpu1",
+      "checks": 7843,
+      "rank_updates": 21,
+      "max_absolute_error": 1.538706939641088e-10,
+      "cases": [
+        "all_to_one",
+        "balanced",
+        "capacity_drop",
+        "capacity_observe",
+        "changing_routes",
+        "empty_origin",
+        "uneven"
+      ],
+      "world": 1,
+      "device": "cpu"
+    },
+    {
+      "label": "cpu2",
+      "checks": 12330,
+      "rank_updates": 42,
+      "max_absolute_error": 1.538706939641088e-10,
+      "cases": [
+        "all_to_one",
+        "balanced",
+        "capacity_drop",
+        "capacity_observe",
+        "changing_routes",
+        "empty_origin",
+        "uneven"
+      ],
+      "world": 2,
+      "device": "cpu"
+    },
+    {
+      "label": "cpu4",
+      "checks": 21430,
+      "rank_updates": 84,
+      "max_absolute_error": 1.538706939641088e-10,
+      "cases": [
+        "all_to_one",
+        "balanced",
+        "capacity_drop",
+        "capacity_observe",
+        "changing_routes",
+        "empty_origin",
+        "uneven"
+      ],
+      "world": 4,
+      "device": "cpu"
+    },
+    {
+      "label": "cpu2_gpt",
+      "checks": 790,
+      "rank_updates": 2,
+      "max_absolute_error": 4.76837158203125e-07,
+      "cases": [
+        "gpt"
+      ],
+      "world": 2,
+      "device": "cpu"
+    },
+    {
+      "label": "cuda1_float32_small",
+      "checks": 7843,
+      "rank_updates": 21,
+      "max_absolute_error": 3.6670826375484467e-09,
+      "cases": [
+        "all_to_one",
+        "balanced",
+        "capacity_drop",
+        "capacity_observe",
+        "changing_routes",
+        "empty_origin",
+        "uneven"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cuda1_float32_formal",
+      "checks": 248,
+      "rank_updates": 1,
+      "max_absolute_error": 0.0,
+      "cases": [
+        "balanced"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cuda1_float32_gpt",
+      "checks": 490,
+      "rank_updates": 1,
+      "max_absolute_error": 0.0,
+      "cases": [
+        "gpt"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cuda1_bfloat16_small",
+      "checks": 7843,
+      "rank_updates": 21,
+      "max_absolute_error": 0.0,
+      "cases": [
+        "all_to_one",
+        "balanced",
+        "capacity_drop",
+        "capacity_observe",
+        "changing_routes",
+        "empty_origin",
+        "uneven"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cuda1_bfloat16_formal",
+      "checks": 248,
+      "rank_updates": 1,
+      "max_absolute_error": 0.0,
+      "cases": [
+        "balanced"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cuda1_bfloat16_gpt",
+      "checks": 490,
+      "rank_updates": 1,
+      "max_absolute_error": 0.0,
+      "cases": [
+        "gpt"
+      ],
+      "world": 1,
+      "device": "cuda"
+    },
+    {
+      "label": "cpu2_trace",
+      "checks": 2046,
+      "rank_updates": 6,
+      "max_absolute_error": 1.538706939641088e-10,
+      "cases": [
+        "balanced"
+      ],
+      "world": 2,
+      "device": "cpu"
+    },
+    {
+      "label": "cuda1_trace",
+      "checks": 1291,
+      "rank_updates": 3,
+      "max_absolute_error": 2.3283064365386963e-10,
+      "cases": [
+        "balanced"
+      ],
+      "world": 1,
+      "device": "cuda"
+    }
+  ],
+  "historical_immutable_files": 5204,
+  "historical_sha256": "30b93ebfe2cc6afda258e8404f5e503d0220bbb1e8384ce836ef49dcdd42e6e0",
+  "cpu_checks": {
+    "passed": true,
+    "tests": 60,
+    "existing_moe_regressions": 17,
+    "semantic_negative_controls": 3,
+    "delivery_python": "runs/envs/delivery-cpu-ci/bin/python (3.11.16)",
+    "training_python": ".venv/bin/python (3.11.16)",
+    "static": {
+      "passed": true,
+      "python_AST": 232,
+      "JSON_configs": 9,
+      "local_doc_links": 78,
+      "requires_GPU": false
+    }
+  },
+  "pending_host_qualifications": [
+    {
+      "label": "cuda1_float32",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda1_float32_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda1_bfloat16",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda1_bfloat16_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda2_float32",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda2_float32_gpt",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda2_bfloat16",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda2_bfloat16_gpt",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    }
+  ],
+  "source_sha256": {
+    "expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "scripts/audit_f_ep.py": "90eaf0af1066f958e59920c59891eeae53ab34d6cf24ab917d48385ed4cf2de6",
+    "scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179",
+    "scripts/accept_f_ep_preparation.py": "a3483d2377a50b6424a2e3be08e7cea57b17096bd6a934c08b3beac824752cc8",
+    "config/f_ep_matrix.json": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+    "docs/f_stage_protocol.md": "d1d2d82964bed55b350efdc3c7701a8362ba2a98fc4c4b18773628d33dfb64dc",
+    "docs/f_ep_runbook.md": "ff2918e9a615073257c201fb2990bf52872d1dd9812c8af76784d8ed776ddace"
+  },
+  "evidence_sha256": {
+    "historical_before.json": "30b93ebfe2cc6afda258e8404f5e503d0220bbb1e8384ce836ef49dcdd42e6e0",
+    "cpu_checks.json": "fa153c4dbc5f1a1e897fb9a4ee0b617ecb2d880015b5e682ed53153b34fac2a3",
+    "cpu4/rank1.json": "daf05c8136e3449ba921bf1ec3e710c9969c60e4948f992146e8672613c0d496",
+    "cpu4/rank0.json": "e6723a99deaec0315b434c527bf467fa23c9c7ca97434f1150265610fc1aade1",
+    "cpu4/rank2.json": "21f65c1f2101ad06bf0b9260c1c2ab24b9850d67828e677d2b1cf3cd2b37e21a",
+    "cpu4/job.json": "175609c135214aab2cca421884b76cdcd9b0ec6e07d3ffec7462f9ff1fe10cd2",
+    "cpu4/audit.json": "fe7a498cbd32c2646f1ec176e7f46c8df4eee2c9fa6d718c8bc29042db37b110",
+    "cpu4/rank3.json": "b3e4fda17734e6c982eff63c1cfb277157d4100526e924cea13034be8b5ae1f5",
+    "cpu4/worker.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cpu4/audit.log": "05529a83306b6284d08ef710a2e1cf2fdaf8ac66186820e5e1248d464fb57537",
+    "cuda1_trace/rank0.json": "1e9004be991116e138f06f0f0b5b8bee8891c65ad3cebea8ea11fb577ff7707e",
+    "cuda1_trace/job.json": "bd264d3e961c01407306085ff60fbcc70a9e08676edf37db58f5547d763c28a2",
+    "cuda1_trace/audit.json": "a7b60a122ba040e7047840e699abda548d605e301d89f90f0e1f1061311c9d6a",
+    "cuda1_trace/worker.log": "74c97270c226aa0c47c8504d1106cb1fc92c832f7a190e372252e3704da6c287",
+    "cuda1_trace/audit.log": "f565f69e52c4583df4b54a132a1d1e111aa4b4fa5f4872d6ef385f00d7899b2e",
+    "cpu2_trace/rank1.json": "3fd24fd8bd4cba5b8cc15291f567791fa030a4906c9848651cacc903324e90a3",
+    "cpu2_trace/rank0.json": "3d5b885760b20e4369f64a1e7a71369fc680cf19af368e95fd2dbc024c2d8f64",
+    "cpu2_trace/job.json": "97658da40dc9d58d6ecd695c91c4b6717d4721f7e6fcf2acf3710ab3fef427c6",
+    "cpu2_trace/audit.json": "745617e774f126eec5f109b8ec6c7e72cd1a6f9434916a66b65e4a2a754ade85",
+    "cpu2_trace/worker.log": "726e6a80633e6ff6755e8a24bcb01ee31757ba2f6beb1f898ffef7cd1fc5c79c",
+    "cpu2_trace/audit.log": "6b38a9378c578dce95721a58a82ddafc74c1e0eb1cfa0488491f4c935b8161fb",
+    "cuda1_float32_formal/rank0.json": "f5f9297391dfedc2672b29aaf2bd1e63888a9309cc66ef06ee32f9c6d55f3918",
+    "cuda1_float32_formal/job.json": "1d04f36bd4889fa6a2275b5b00d58593d52a05546cf9db431147de8e424db9ee",
+    "cuda1_float32_formal/audit.json": "7857b17d62b310d0612ba640b23033c1dfa84455e8e549baef75fa251fe4e4cd",
+    "cuda1_float32_formal/worker.log": "5cf1cb9b2ab65001d3d2532ab7a10b61c3ac600ede617a2632f57235f09719fa",
+    "cuda1_float32_formal/audit.log": "40c58f3dd2b5e606af72dfbb1072cfc88925bb3c49c8ea2fcb55279ac02918cb",
+    "cpu2/rank1.json": "78758a97dc0665407b562ed62c9433124fd0983cf1ee92c820401eea32e5ef7c",
+    "cpu2/rank0.json": "0a80472209e7a3eb254a1a2743071c579bcf098bd67da51e5ae814872041efda",
+    "cpu2/job.json": "31836fb840673650af0813b6bb7bc51fc987b3177e686881c26dda93f2b35ec9",
+    "cpu2/audit.json": "12de71acdddd17eb0a4ff6381835af225a80d1e7d6ed3f7aeb3877b3a9a1c948",
+    "cpu2/worker.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cpu2/audit.log": "80c03fc56b137d51599387ad9a2dca77245bda76db39910048f03e76ab7ad5d9",
+    "cpu1/rank0.json": "2f5e7f434dee599e5b65a3f4f42db7d08dac1ac1e0fb0e7c8082583be34daf7d",
+    "cpu1/job.json": "3572d31fe0b0700680b086a698e2fee488cda8deb4a27ef815f2d228f8b8eced",
+    "cpu1/audit.json": "25bed39ca61df89ec2e89e3b9faa746e764ebeb6ac04d3db4a8975f11526d29c",
+    "cpu1/worker.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cpu1/audit.log": "f4ebacea5c59325911126757fdea5627e465af6adeab6181b431f1fab4328a52",
+    "cuda1_float32_small/rank0.json": "bd6db2028ad20b0fe3403a5209ef9e4bd11d5de8d4eb7c83b33d1dc7e7468d24",
+    "cuda1_float32_small/job.json": "397d377e4e68ba8ccc3fbe4b6e66896a620d1b1fac9518fbc3bba42cc3479353",
+    "cuda1_float32_small/audit.json": "c8cecd9a23a7f21822fd4b6ff4b968d7972dab6d8888d9d2034aefdcbba80368",
+    "cuda1_float32_small/worker.log": "5cf1cb9b2ab65001d3d2532ab7a10b61c3ac600ede617a2632f57235f09719fa",
+    "cuda1_float32_small/audit.log": "3eeb4b6d7fbe694208c774bd4473f4b1f7961a6f4d236170f4155c725834429d",
+    "cuda1_bfloat16_gpt/rank0.json": "21665f0a03caaa819ff64b30db13d01aaa151ae3c37edd9a33bc68a60207c36a",
+    "cuda1_bfloat16_gpt/job.json": "81e069d59714d4e55b0fc948b417a3a67cb6f8af49ed86d0a02f47e037f7a9fd",
+    "cuda1_bfloat16_gpt/audit.json": "b2d2012621a3c89e651daf44a686a1b55911c3c3acd810bf663603c396072061",
+    "cuda1_bfloat16_gpt/worker.log": "49ed139c1114d9b0411d08d08d0c379f3fcbca84a14d6fbbf732bbe79029a83a",
+    "cuda1_bfloat16_gpt/audit.log": "9c6a7cdf6dfae0997f8653703922327a5c95a3427282b0956868abdcd7c4b6c6",
+    "cuda1_bfloat16_formal/rank0.json": "43cf4bfb38874a073ef9a3d1a18a999a5252588907f657ea8691889a130693f4",
+    "cuda1_bfloat16_formal/job.json": "07c1f95267c86237f22b8101bbef53656841dda9d38008fd3adcdc38919d2269",
+    "cuda1_bfloat16_formal/audit.json": "8659749bc3a244f2839da20fc611701c8f3afaa9cd6fd087107449e2c39e7344",
+    "cuda1_bfloat16_formal/worker.log": "5cf1cb9b2ab65001d3d2532ab7a10b61c3ac600ede617a2632f57235f09719fa",
+    "cuda1_bfloat16_formal/audit.log": "40c58f3dd2b5e606af72dfbb1072cfc88925bb3c49c8ea2fcb55279ac02918cb",
+    "source_snapshot/triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "source_snapshot/moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "source_snapshot/expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "source_snapshot/model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "cpu2_gpt/rank1.json": "ab7923fdfb46fa55c3f5c407596e3fc10f5093f13d2b81892df28726c4c50565",
+    "cpu2_gpt/rank0.json": "47f5637880d45bae0887c7220027203b82069b7217b79ba46c9f0f8257db3e14",
+    "cpu2_gpt/job.json": "0d6b4eca762bd8fa601d495fdab47646a9c05665273bd299c0817b96093501f0",
+    "cpu2_gpt/audit.json": "c50f68068a60cc27d868bb9f2ce5458c26b1f6c29ddddfa2e8ef64cf4259ce19",
+    "cpu2_gpt/worker.log": "388d81afdd70ff5c43f5880190481384560401b8599cbb5f1b313f6f6b191baa",
+    "cpu2_gpt/audit.log": "977e5a2011d88cf45e272925ced0b72244f2bca65c764ce35fddf2767e0108b1",
+    "cuda1_float32_gpt/rank0.json": "4f683fb2d5776e861cd3eafe2344f33f083296847a5e6469611f9bd8b5e1661d",
+    "cuda1_float32_gpt/job.json": "97d0b8a2645a2d851fa0c419b9eb18b77f01cdc377f1d8d9a4780ab95efc3c28",
+    "cuda1_float32_gpt/audit.json": "968ee5c1d8707322dc4d157bff0f43684f17b7a38dd71fc2911f9277448e7573",
+    "cuda1_float32_gpt/worker.log": "49ed139c1114d9b0411d08d08d0c379f3fcbca84a14d6fbbf732bbe79029a83a",
+    "cuda1_float32_gpt/audit.log": "9c6a7cdf6dfae0997f8653703922327a5c95a3427282b0956868abdcd7c4b6c6",
+    "cuda1_bfloat16_small/rank0.json": "bab2e8ec7e01f22316c45cb1f1a6debef91d1b20549ec9f825e1f027ce1a6421",
+    "cuda1_bfloat16_small/job.json": "0918828fd8a767a469ee2cd44dad1c7918f8da4afc354c57f59950d86de616d7",
+    "cuda1_bfloat16_small/audit.json": "8011034017edeaadc266243aef06ed039f589cc7bde3d86fb06a375baa19b44f",
+    "cuda1_bfloat16_small/worker.log": "5cf1cb9b2ab65001d3d2532ab7a10b61c3ac600ede617a2632f57235f09719fa",
+    "cuda1_bfloat16_small/audit.log": "e29bb21a598bcd2008944646157018beb2b1438d97e57508c16810018774e7ad",
+    "source_snapshot/config/f_ep_matrix.json": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+    "source_snapshot/docs/f_stage_protocol.md": "d1d2d82964bed55b350efdc3c7701a8362ba2a98fc4c4b18773628d33dfb64dc",
+    "source_snapshot/docs/f_ep_runbook.md": "ff2918e9a615073257c201fb2990bf52872d1dd9812c8af76784d8ed776ddace",
+    "source_snapshot/scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "source_snapshot/scripts/audit_f_ep.py": "90eaf0af1066f958e59920c59891eeae53ab34d6cf24ab917d48385ed4cf2de6",
+    "source_snapshot/scripts/accept_f_ep_preparation.py": "a3483d2377a50b6424a2e3be08e7cea57b17096bd6a934c08b3beac824752cc8",
+    "source_snapshot/scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179"
+  }
+}

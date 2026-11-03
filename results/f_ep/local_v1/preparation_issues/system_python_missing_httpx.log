@@ -1,0 +1,74 @@
+test_atomic_json_and_hash (test_delivery.DeliveryTests.test_atomic_json_and_hash) ... ok
+test_bounded_health_settings (test_delivery.DeliveryTests.test_bounded_health_settings) ... ok
+test_command_reuses_qualified_launcher_flags (test_delivery.DeliveryTests.test_command_reuses_qualified_launcher_flags) ... ok
+test_graceful_owned_subprocess_teardown (test_delivery.DeliveryTests.test_graceful_owned_subprocess_teardown) ... ok
+test_identity_detects_absent_pid (test_delivery.DeliveryTests.test_identity_detects_absent_pid) ... ok
+test_ignored_sigterm_is_killed_within_budget (test_delivery.DeliveryTests.test_ignored_sigterm_is_killed_within_budget) ... ok
+test_ports_reject_another_listener_without_touching_it (test_delivery.DeliveryTests.test_ports_reject_another_listener_without_touching_it) ... ok
+test_qualified_scope_rejects_unvalidated_tp_dtype_and_admission (test_delivery.DeliveryTests.test_qualified_scope_rejects_unvalidated_tp_dtype_and_admission) ... ok
+test_recently_closed_server_can_restart_during_time_wait (test_delivery.DeliveryTests.test_recently_closed_server_can_restart_during_time_wait) ... ok
+test_stale_stop_refuses_signal (test_delivery.DeliveryTests.test_stale_stop_refuses_signal) ... ok
+test_stop_is_idempotent_after_exit (test_delivery.DeliveryTests.test_stop_is_idempotent_after_exit) ... ok
+test_backend_admission_gauge_is_independent_of_http (test_delivery.MetricsTests.test_backend_admission_gauge_is_independent_of_http) ... ok
+test_cardinality_is_bounded_for_arbitrary_paths (test_delivery.MetricsTests.test_cardinality_is_bounded_for_arbitrary_paths) ... ok
+test_disconnect_is_not_labeled_successful_inference (test_delivery.MetricsTests.test_disconnect_is_not_labeled_successful_inference) ... ok
+test_exception_releases_active_metric (test_delivery.MetricsTests.test_exception_releases_active_metric) ... ok
+test_metric_route_has_no_self_scrape_feedback (test_delivery.MetricsTests.test_metric_route_has_no_self_scrape_feedback) ... ok
+test_sse_entire_transport_lifetime_and_429 (test_delivery.MetricsTests.test_sse_entire_transport_lifetime_and_429) ... ok
+test_ep1_or_cpu_evidence_does_not_unlock_ep2 (test_f_preparation.FPreparationTests.test_ep1_or_cpu_evidence_does_not_unlock_ep2) ... ok
+test_failed_audit_and_changed_raw_or_reports_rejected (test_f_preparation.FPreparationTests.test_failed_audit_and_changed_raw_or_reports_rejected) ... ok
+test_insufficient_or_busy_gpu_rejected_before_torch_launch (test_f_preparation.FPreparationTests.test_insufficient_or_busy_gpu_rejected_before_torch_launch) ... ok
+test_matrix_distinguishes_local_processes_from_distinct_gpus (test_f_preparation.FPreparationTests.test_matrix_distinguishes_local_processes_from_distinct_gpus) ... ok
+test_scope_substitution_rejected (test_f_preparation.FPreparationTests.test_scope_substitution_rejected) ... ok
+test_timeout_retains_log_and_exits_child_process (test_f_preparation.FPreparationTests.test_timeout_retains_log_and_exits_child_process) ... ok
+test_framework (unittest.loader._FailedTest.test_framework) ... ERROR
+test_gate_client (unittest.loader._FailedTest.test_gate_client) ... ERROR
+test_changed_source_rejected (test_tp_preparation.TPPreparationTests.test_changed_source_rejected) ... ok
+test_complete_tp1234_matrix_is_separate_from_historical_gates (test_tp_preparation.TPPreparationTests.test_complete_tp1234_matrix_is_separate_from_historical_gates) ... ok
+test_explicit_engine_store_does_not_reuse_torchrun_agent_store (test_tp_preparation.TPPreparationTests.test_explicit_engine_store_does_not_reuse_torchrun_agent_store) ... ok
+test_failed_gate_cannot_unlock_timing (test_tp_preparation.TPPreparationTests.test_failed_gate_cannot_unlock_timing) ... ok
+test_local_probe_cannot_unlock_multigpu_benchmark (test_tp_preparation.TPPreparationTests.test_local_probe_cannot_unlock_multigpu_benchmark) ... ok
+test_occupied_gpu_rejected (test_tp_preparation.TPPreparationTests.test_occupied_gpu_rejected) ... ok
+test_stale_gate_hash_rejected (test_tp_preparation.TPPreparationTests.test_stale_gate_hash_rejected) ... ok
+test_unavailable_tp2_rejected_before_launch (test_tp_preparation.TPPreparationTests.test_unavailable_tp2_rejected_before_launch) ... ok
+test_only_startup_request_uses_startup_budget (test_warmup.WarmupTests.test_only_startup_request_uses_startup_budget) ... ok
+test_warmup_error_aborts_and_does_not_publish_end (test_warmup.WarmupTests.test_warmup_error_aborts_and_does_not_publish_end) ... ok
+
+======================================================================
+ERROR: test_framework (unittest.loader._FailedTest.test_framework)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_framework
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/shunzi/projects/RouteScale/tests/delivery/test_framework.py", line 8, in <module>
+    from serving.framework_client import CompletionClient
+  File "/home/shunzi/projects/RouteScale/serving/framework_client.py", line 10, in <module>
+    from serving.online_client import OnlineClient
+  File "/home/shunzi/projects/RouteScale/serving/online_client.py", line 11, in <module>
+    import httpx
+ModuleNotFoundError: No module named 'httpx'
+
+
+======================================================================
+ERROR: test_gate_client (unittest.loader._FailedTest.test_gate_client)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_gate_client
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/unittest/loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.14/unittest/loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/shunzi/projects/RouteScale/tests/delivery/test_gate_client.py", line 2, in <module>
+    import httpx
+ModuleNotFoundError: No module named 'httpx'
+
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.758s
+
+FAILED (errors=2)

@@ -1,0 +1,189 @@
+{
+  "scope": "F_local_preparation_v1",
+  "paid_resources_authorized": false,
+  "jobs": [
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": false,
+      "label": "cpu1",
+      "world": 1,
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": false,
+      "label": "cpu2",
+      "world": 2,
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": false,
+      "label": "cpu4",
+      "world": 4,
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "formal": false,
+      "gpt": true,
+      "trace": false,
+      "label": "cpu2_gpt",
+      "world": 2,
+      "device": "cpu",
+      "dtype": "float32"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": false,
+      "label": "cuda1_float32_small",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32"
+    },
+    {
+      "formal": true,
+      "gpt": false,
+      "trace": false,
+      "label": "cuda1_float32_formal",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32"
+    },
+    {
+      "formal": false,
+      "gpt": true,
+      "trace": false,
+      "label": "cuda1_float32_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": false,
+      "label": "cuda1_bfloat16_small",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16"
+    },
+    {
+      "formal": true,
+      "gpt": false,
+      "trace": false,
+      "label": "cuda1_bfloat16_formal",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16"
+    },
+    {
+      "formal": false,
+      "gpt": true,
+      "trace": false,
+      "label": "cuda1_bfloat16_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": true,
+      "label": "cpu2_trace",
+      "world": 2,
+      "device": "cpu",
+      "dtype": "float64"
+    },
+    {
+      "formal": false,
+      "gpt": false,
+      "trace": true,
+      "label": "cuda1_trace",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32"
+    }
+  ],
+  "pending_host_qualifications": [
+    {
+      "label": "cuda1_float32",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda1_float32_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda1_bfloat16",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda1_bfloat16_gpt",
+      "world": 1,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda2_float32",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda2_float32_gpt",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "float32",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    },
+    {
+      "label": "cuda2_bfloat16",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": false,
+      "trace": false
+    },
+    {
+      "label": "cuda2_bfloat16_gpt",
+      "world": 2,
+      "device": "cuda",
+      "dtype": "bfloat16",
+      "formal": false,
+      "gpt": true,
+      "trace": false
+    }
+  ],
+  "performance_execution_allowed": false
+}

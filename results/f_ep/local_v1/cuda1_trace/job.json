@@ -1,0 +1,59 @@
+{
+  "formal": false,
+  "gpt": false,
+  "trace": true,
+  "label": "cuda1_trace",
+  "world": 1,
+  "device": "cuda",
+  "dtype": "float32",
+  "returncode": 0,
+  "timed_out": false,
+  "wall_s": 23.57544036800391,
+  "command": [
+    "/home/shunzi/projects/RouteScale/.venv/bin/python",
+    "-m",
+    "torch.distributed.run",
+    "--standalone",
+    "--nproc_per_node=1",
+    "--max-restarts=0",
+    "scripts/f_ep_worker.py",
+    "--device",
+    "cuda",
+    "--dtype",
+    "float32",
+    "--output",
+    "/home/shunzi/projects/RouteScale/runs/f_ep/local_v1/cuda1_trace",
+    "--trace"
+  ],
+  "source_sha256": {
+    "expert_parallel.py": "ea69c2dabd10e4e31aa689129d5581b52a84020e30ab9fd3a2ed033ed9c815b5",
+    "moe.py": "78737bdd67d49b0e27a842e033e9d7032ee2346cec04d5af73d32d2e20f696d5",
+    "model.py": "bcf31ef140e48fa07959af4ea794a447dfcc0b024b3842b8e45588983f8134f4",
+    "triton_grouped_gemm.py": "cc4d232dbc2d3335d06731583114822a11f91f79389a155c426e37e4a57205cc",
+    "scripts/f_ep_worker.py": "5cd5e0e067fccb0afe8247596693f26753c6a88d34f5cc2af070d0c62efe071c",
+    "scripts/audit_f_ep.py": "90eaf0af1066f958e59920c59891eeae53ab34d6cf24ab917d48385ed4cf2de6",
+    "scripts/prepare_f_ep.py": "3791f15a34858b4142a7285e55046c1128dfbdd326571bbce415f6c8b49bc179",
+    "scripts/accept_f_ep_preparation.py": "a3483d2377a50b6424a2e3be08e7cea57b17096bd6a934c08b3beac824752cc8",
+    "config/f_ep_matrix.json": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+    "docs/f_stage_protocol.md": "d1d2d82964bed55b350efdc3c7701a8362ba2a98fc4c4b18773628d33dfb64dc",
+    "docs/f_ep_runbook.md": "ff2918e9a615073257c201fb2990bf52872d1dd9812c8af76784d8ed776ddace"
+  },
+  "config_sha256": "2bbe4346bf8d8ae9368eac433ab6163d77ba0ab85613e9937d1ddaa67e30bea8",
+  "gpu_before": [
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "host": "localhost",
+  "source_commit": "7ad7c5df87a28a450184140efaadca9cf9301629",
+  "gpu_after": [
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "topology": "\t\u001b[4mGPU0\tCPU Affinity\tNUMA Affinity\tGPU NUMA ID\u001b[0m\nGPU0\t X \t\t\t\tN/A\n\nLegend:\n\n  X    = Self\n  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)\n  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node\n  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)\n  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)\n  PIX  = Connection traversing at most a single PCIe bridge\n  NV#  = Connection traversing a bonded set of # NVLinks\n"
+}
