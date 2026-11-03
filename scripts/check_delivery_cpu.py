@@ -14,7 +14,7 @@ def check():
         'config/delivery/model.json','deploy/local/sglang/runtime.json','deploy/local/sglang/compose.json','deploy/local/sglang/image.lock.json','deploy/local/sglang/upstream_sources.json')]
     for p in configs:json.loads(p.read_text())
     docs=[ROOT/n for n in ('docs/delivery_protocol.md','docs/serving_delivery.md','docs/sglang_delivery_protocol.md',
-        'docs/sglang_serving_delivery.md','docs/sglang_cancel_sourcewalk.md','results/delivery/local_v1/README.md')]
+        'docs/sglang_serving_delivery.md','docs/sglang_cancel_sourcewalk.md','docs/sglang_container_protocol.md','results/delivery/local_v1/README.md')]
     links=0
     for p in docs:
         for target in re.findall(r'\]\(([^)]+)\)',p.read_text()):

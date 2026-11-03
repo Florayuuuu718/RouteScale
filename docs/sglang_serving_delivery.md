@@ -134,7 +134,10 @@ runs/envs/sglang-framework-v1/bin/python scripts/audit_framework.py --directory 
 ```
 
 预热启动并关闭一个临时服务，用I3最短/最长可容纳256输出的prompt，分别发送并发4、
-输出32/64/256，共24个请求，逐请求保留事件与终态。复用同一明确缓存后再执行场景；
+输出32/64/256，另有短prompt并发4输出900，共28个请求，逐请求保留事件与终态。
+容器排队验收使用[单独握手协议](sglang_container_protocol.md)与
+`check_framework_container.py`、`audit_framework_container.py`；原生v4 checker不改。
+复用同一明确缓存后再执行场景；
 容器使用同一命名缓存卷先运行`--entrypoint python3 <image> scripts/warm_framework.py
 --directory /state/preparation001`，再正常启动。预热失败需要保留新目录并排查，不能
 把任意新形状都当作原生ready已覆盖。本范围不承诺所有形状首次访问均无编译开销。

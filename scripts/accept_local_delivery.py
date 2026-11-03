@@ -103,10 +103,17 @@ def accept(directory, tp_runtime, bundle_directory):
         and files['source_commit'] == bundle['source_commit'] and files['image_id'] == container['image_id']
         and files['derived_parent_image_id'] == bundle['derived_base_image_id'])
     warm = read(directory / 'sglang_container_warmup/warmup.json')
-    checks['declared_representative_warmup'] = (warm['passed'] and warm['requests'] == 24
+    checks['declared_representative_warmup'] = (warm['passed'] and warm['requests'] == 28
         and warm['public_client_budget_s'] == 30 and warm['shutdown_budget_s'] == 20
+        and warm['startup_budget_s'] == 600 and warm['internal_warmup_uses_remaining_startup_budget']
         and warm['native_status']['GPU_end'] == '0 MiB' and not warm['native_status']['forced_cleanup']
         and warm['warmup_source_sha256'] == sha(ROOT / 'scripts/warm_framework.py'))
+    warm_rows = read(directory / 'sglang_container_warmup/requests.json')
+    checks['warmup_28_native_terminal_proofs'] = len(warm_rows) == len({r['request_id'] for r in warm_rows}) == 28 and all(
+        r['state'] == 'finished' and r['finish_reason'] == 'length'
+        and sum(e['event'] == 'finished' for e in r['events']) == 1
+        and any(e['event'] == 'framework_frame' and (e['native'].get('choices') or [{}])[0].get('finish_reason') == 'length'
+                for e in r['events']) for r in warm_rows)
     checks['container_default_entrypoint_stop'] = (stop['passed'] and stop['actual_supervisor_PID1']
         and stop['readonly_model'] and stop['container_exit_code'] == 0
         and stop['docker_stop_returncode'] == 0 and stop['docker_stop_s'] < 30

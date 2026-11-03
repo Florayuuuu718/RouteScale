@@ -32,9 +32,15 @@ def plan(workload, model):
     if not candidates:
         raise ValueError('No bounded representative prompt')
     prompts = [min(candidates, key=lambda q: len(q['input_ids'])), max(candidates, key=lambda q: len(q['input_ids']))]
-    return [[OnlineRequest(f'warm_shape{s}_o{tokens}_{i}',
+    batches = [[OnlineRequest(f'warm_shape{s}_o{tokens}_{i}',
                 dict(q['payload'], model=model, max_tokens=tokens, ignore_eos=True), timeout_s=30)
              for i in range(4)] for s, q in enumerate(prompts) for tokens in (32, 64, 256)]
+    q = prompts[0]
+    if len(q['input_ids']) + 900 > 1024:
+        raise ValueError('Long queue fixture does not fit the fixed context')
+    batches.append([OnlineRequest(f'warm_queue900_{i}', dict(q['payload'], model=model,
+        max_tokens=900, ignore_eos=True), timeout_s=30) for i in range(4)])
+    return batches
 
 
 async def exercise(c, out, deadline):
@@ -66,7 +72,7 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     c = load()
     result = dict(passed=False, workload_sha256=sha(WORKLOAD), warmup_source_sha256=sha(Path(__file__)),
-        shapes='shortest/longest eligible I3 prompt; concurrency4; outputs32/64/256',
+        shapes='shortest/longest eligible I3 prompt; concurrency4; outputs32/64/256; shortest900',
         public_client_budget_s=30, shutdown_budget_s=c['shutdown_s'], arbitrary_cold_shapes_qualified=False)
     result['internal_warmup_uses_remaining_startup_budget'] = True
     result['startup_budget_s'] = c['startup_s']
@@ -90,7 +96,7 @@ def main():
             process.send_signal(signal.SIGTERM)
             process.wait(timeout=c['shutdown_s'] + 15)
             status = read(out / 'runtime/status.json')
-            result['passed'] = (len(rows) == 24 and process.returncode == 0 and status['state'] == 'stopped'
+            result['passed'] = (len(rows) == 28 and process.returncode == 0 and status['state'] == 'stopped'
                 and not status['forced_cleanup'] and status['GPU_end'] == '0 MiB')
     except BaseException:
         result['error'] = traceback.format_exc()
