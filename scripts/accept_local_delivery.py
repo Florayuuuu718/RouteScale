@@ -91,7 +91,7 @@ def accept(directory, tp_runtime, bundle_directory):
     container_doctor = read(directory / 'sglang_container_healthy/status.json')['doctor']
     checks['container_exact_environment'] = (container_doctor['environment'] == bundle['doctor']['environment']
         and container_doctor['upstream_source_sha256'] == bundle['doctor']['upstream_source_sha256']
-        and container_doctor['toolchain']['math_header_sha256'] == bundle['toolchain_header_sha256'])
+        and container_doctor['toolchain']['math_header_sha256'] == bundle['container_toolchain_header_sha256'])
     checks['container_source'] = (bundle['clean_source_checkout'] and not bundle['weights_embedded']
         and container['source_commit'] == stop['source_commit'] == bundle['source_commit']
         and hashes_match(ROOT, bundle['source_sha256']))
@@ -105,6 +105,15 @@ def accept(directory, tp_runtime, bundle_directory):
         and stop['native_status']['shutdown_s'] <= 20.5 and stop['client_returncode'] == 0
         and stop['native_status']['GPU_end'] == stop['GPU_end'] == '0 MiB'
         and stop['client_rows'][0]['state'] == 'finished')
+    row = stop['client_rows'][0]
+    frames = [e['native'] for e in row['events'] if e['event'] == 'framework_frame']
+    checks['container_stop_client_wire_proof'] = (len(stop['client_rows']) == 1 and bool(row['content'])
+        and sum(e['event'] == 'finished' for e in row['events']) == 1
+        and ''.join((f.get('choices') or [{}])[0].get('text') or '' for f in frames) == row['content']
+        and any((f.get('choices') or [{}])[0].get('finish_reason') == 'length' for f in frames))
+    probe = read(directory / 'sglang_windows_host_probe.json')
+    checks['published_API_and_dashboard'] = (probe['passed'] and probe['ready_status'] == probe['dashboard_status'] == 200
+        and probe['dashboard_has_cards'] and 'RouteScale-Qwen3-0.6B' in probe['model_ids'])
 
     historical = read(directory / 'historical.json')
     checks['1498_historical_JSON_unchanged'] = len(historical) == 1498 and hashes_match(ROOT, historical)

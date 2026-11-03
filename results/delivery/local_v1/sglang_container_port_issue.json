@@ -1,0 +1,107 @@
+{
+  "passed": false,
+  "name": "routescale-m5-healthy-2b4cbfc",
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--name",
+    "routescale-m5-healthy-2b4cbfc",
+    "--gpus",
+    "device=0",
+    "--shm-size=1g",
+    "--env",
+    "ROUTESCALE_SOURCE_COMMIT=2b4cbfc26f7417d0ce28f4939abcea48196407a3",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\container_provenance001.json,target=/provenance.json,readonly",
+    "--volume",
+    "routescale-m5-cache-2b4cbfc:/root/.cache",
+    "--publish",
+    "127.0.0.1:1971:1971",
+    "--publish",
+    "127.0.0.1:1972:1972",
+    "--entrypoint",
+    "sh",
+    "sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad",
+    "-c",
+    "python3 scripts/check_framework.py --scenario healthy --directory /state/healthy001 && cp /provenance.json /state/healthy001/container_provenance.json && python3 scripts/audit_framework.py --directory /state/healthy001"
+  ],
+  "build_command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "build",
+    "--pull=false",
+    "--network=none",
+    "--progress=plain",
+    "--file",
+    "D:\\RouteScale-local-delivery-20261103\\build002\\deploy\\local\\sglang\\Dockerfile.offline",
+    "--tag",
+    "routescale-sglang:m5-2b4cbfc",
+    "D:\\RouteScale-local-delivery-20261103\\build002"
+  ],
+  "source_commit": "2b4cbfc26f7417d0ce28f4939abcea48196407a3",
+  "image_id": "sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad",
+  "build_attempt": 2,
+  "build_log": "runs/tmp/framework_container_build002.log",
+  "container_id": "c45ddaf993de439201829034608fe77360b06af2d66011601d4d7edb4aab0e99",
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\container_provenance001.json",
+      "Destination": "/provenance.json",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "volume",
+      "Name": "routescale-m5-cache-2b4cbfc",
+      "Source": "/var/lib/docker/volumes/routescale-m5-cache-2b4cbfc/_data",
+      "Destination": "/root/.cache",
+      "Driver": "local",
+      "Mode": "z",
+      "RW": true,
+      "Propagation": ""
+    },
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B",
+      "Destination": "/models/Qwen3-0.6B",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ],
+  "devices": [
+    {
+      "Driver": "",
+      "Count": 0,
+      "DeviceIDs": [
+        "0"
+      ],
+      "Capabilities": [
+        [
+          "gpu"
+        ]
+      ],
+      "Options": {}
+    }
+  ],
+  "ports": {
+    "1971/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1971"
+      }
+    ],
+    "1972/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1972"
+      }
+    ]
+  },
+  "returncode": 125,
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/tmp/build_and_check_framework_container002.py\", line 38, in <module>\n    subprocess.run([cli,'cp',inspect['Id']+':/state/healthy001',target],timeout=120,check=True)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['/mnt/d/APP/Docker/resources/bin/docker.exe', 'cp', 'c45ddaf993de439201829034608fe77360b06af2d66011601d4d7edb4aab0e99:/state/healthy001', 'D:\\\\RouteScale-local-delivery-20261103\\\\container_evidence001']' returned non-zero exit status 1.\n",
+  "GPU_end": "0 MiB"
+}

@@ -45,6 +45,10 @@ def main():
         target=console/source.name;target.write_bytes(value);target.chmod(0o755);scripts[source.name]=sha(target)
     if 'ninja' not in scripts:raise ValueError('Native compiler requires the pinned Ninja executable')
     header='targets/x86_64-linux/include/crt/math_functions.h'
+    # Bookworm/glibc2.36 needs the stock header. The host glibc2.43
+    # compatibility declarations conflict with nvcc's older-glibc definitions.
+    stock_header=Path('/usr/local/cuda-13.0')/header
+    shutil.copy2(stock_header,out/'cuda-math-functions.h')
     # Small tar writes through WSL/NTFS are expensive. Stage/compress on Linux,
     # then copy each archive in large blocks to the explicit build directory.
     staging=ROOT/'runs/tmp';staging.mkdir(parents=True,exist_ok=True)
@@ -64,6 +68,7 @@ def main():
     write(out/'framework_bundle.json',dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         clean_source_checkout=True,source_sha256={n:sha(ROOT/n) for n in files},doctor=checked,
         requirements_sha256=sha(ROOT/'deploy/local/sglang/requirements.lock'),toolchain_header_sha256=sha(ROOT/'runs/toolchains/cuda-13.0-i1'/header),
+        container_toolchain_header_sha256=sha(stock_header),container_toolchain_profile='CUDA13_stock_header_bookworm_glibc2.36',
         archives_sha256={n:archive_sha(out/n) for n in ['sglang-environment.tar.gz','cuda-toolchain.tar.gz']},console_scripts_sha256=scripts,weights_embedded=False))
     print(json.dumps(dict(directory=str(out),weights_embedded=False,passed=True)))
 

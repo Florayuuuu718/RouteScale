@@ -1,0 +1,108 @@
+{
+  "passed": false,
+  "name": "routescale-m5-healthy-2b4cbfc-002",
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--name",
+    "routescale-m5-healthy-2b4cbfc-002",
+    "--gpus",
+    "device=0",
+    "--shm-size=1g",
+    "--env",
+    "ROUTESCALE_SOURCE_COMMIT=2b4cbfc26f7417d0ce28f4939abcea48196407a3",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\container_provenance002.json,target=/provenance.json,readonly",
+    "--volume",
+    "routescale-m5-cache-2b4cbfc:/root/.cache",
+    "--publish",
+    "127.0.0.1:21971:1971",
+    "--publish",
+    "127.0.0.1:21972:1972",
+    "--entrypoint",
+    "sh",
+    "sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad",
+    "-c",
+    "python3 scripts/check_framework.py --scenario healthy --directory /state/healthy001 && cp /provenance.json /state/healthy001/container_provenance.json && python3 scripts/audit_framework.py --directory /state/healthy001"
+  ],
+  "build_command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "build",
+    "--pull=false",
+    "--network=none",
+    "--progress=plain",
+    "--file",
+    "D:\\RouteScale-local-delivery-20261103\\build002\\deploy\\local\\sglang\\Dockerfile.offline",
+    "--tag",
+    "routescale-sglang:m5-2b4cbfc",
+    "D:\\RouteScale-local-delivery-20261103\\build002"
+  ],
+  "source_commit": "2b4cbfc26f7417d0ce28f4939abcea48196407a3",
+  "image_id": "sha256:4750c580f23ff6c9256f66f7eefac33b2dba09ea52ae27511f7bda00cf282dad",
+  "build_attempt": 2,
+  "build_log": "runs/tmp/framework_container_build002.log",
+  "container_id": "3ea12515a8a1345a06915676ed9a55388ad367200bd6a6b28f0814390ce4f879",
+  "mounts": [
+    {
+      "Type": "volume",
+      "Name": "routescale-m5-cache-2b4cbfc",
+      "Source": "/var/lib/docker/volumes/routescale-m5-cache-2b4cbfc/_data",
+      "Destination": "/root/.cache",
+      "Driver": "local",
+      "Mode": "z",
+      "RW": true,
+      "Propagation": ""
+    },
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B",
+      "Destination": "/models/Qwen3-0.6B",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\container_provenance002.json",
+      "Destination": "/provenance.json",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ],
+  "devices": [
+    {
+      "Driver": "",
+      "Count": 0,
+      "DeviceIDs": [
+        "0"
+      ],
+      "Capabilities": [
+        [
+          "gpu"
+        ]
+      ],
+      "Options": {}
+    }
+  ],
+  "ports": {
+    "1971/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21971"
+      }
+    ],
+    "1972/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21972"
+      }
+    ]
+  },
+  "returncode": 1,
+  "evidence_directory": "/mnt/d/RouteScale-local-delivery-20261103/container_evidence002/healthy001",
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/tmp/run_framework_container002.py\", line 39, in <module>\n    audit=json.loads((evidence/'healthy001/audit.json').read_text());assert process.returncode==0 and audit['passed']\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 788, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/mnt/d/RouteScale-local-delivery-20261103/container_evidence002/healthy001/audit.json'\n",
+  "GPU_end": "0 MiB"
+}

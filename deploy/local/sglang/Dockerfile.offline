@@ -3,6 +3,7 @@ RUN rm -rf /usr/local/lib/python3.11/site-packages/*
 ADD sglang-environment.tar.gz /usr/local/lib/python3.11/site-packages/
 COPY console-scripts/ /usr/local/bin/
 ADD cuda-toolchain.tar.gz /opt/cuda/
+COPY cuda-math-functions.h /opt/cuda/targets/x86_64-linux/include/crt/math_functions.h
 RUN ln -s targets/x86_64-linux/include /opt/cuda/include && ln -s targets/x86_64-linux/lib /opt/cuda/lib64
 WORKDIR /workspace/RouteScale
 COPY serving/ ./serving/

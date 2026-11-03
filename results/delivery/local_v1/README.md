@@ -73,6 +73,11 @@ PyPI分段下载八个大型wheel，再核对完整文件SHA；
 
 容器的最终检查收据在构建及实际GPU场景结束后归档；官方stock镜像与离线配方的验证
 状态分别记录，不能从Dockerfile存在推断运行通过。
+首次镜像导出触及1200秒构建超时；重试后成功获得固定镜像ID。首次容器又被Windows
+1971端口占用阻止，改宿主机21971/21972映射，不终止原监听进程。随后实际模型加载
+成功，但首次CUDA RoPE编译因较新glibc专用的头文件声明与Bookworm冲突而失败，见
+[头文件失败](sglang_container_failed_header/native_server.txt)。容器改用原始CUDA13头，
+本机兼容头不改，二者各记SHA；所有失败GPU均归零，没有把未ready当作验收通过。
 
 ## Mini-SGLang 交付验收
 

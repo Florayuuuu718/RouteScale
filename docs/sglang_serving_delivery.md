@@ -113,6 +113,8 @@ docker stop --time 30 routescale-local001
 ```
 
 离线基础为固定摘要Python3.11.16-bookworm；依赖归档和CUDA工具链归档逐一SHA绑定，
+容器使用CUDA13原始math_functions.h，另行记录SHA；本机较新glibc的兼容头仅供本机。
+两种头文件混用会导致nvcc的rsqrt/rsqrtf异常声明冲突，首次失败保留在交付报告。
 镜像内 `/image_manifest.json` 记录干净源码commit和来源。Windows Docker Desktop未
 开启WSL集成时，构建目录及权重先复制到Windows可见的任务目录并核对SHA，传入Windows
 绝对路径，不需要修改WSL设置。只停止/移除本次自己创建的实例。

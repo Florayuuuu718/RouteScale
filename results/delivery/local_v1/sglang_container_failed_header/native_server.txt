@@ -1,0 +1,402 @@
+[2026-11-03 06:30:36] server_args={'model_path': '/models/Qwen3-0.6B', 'tokenizer_path': '/models/Qwen3-0.6B', 'tokenizer_mode': 'auto', 'tokenizer_backend': 'huggingface', 'tokenizer_worker_num': 1, 'detokenizer_worker_num': 1, 'skip_tokenizer_init': False, 'load_format': 'auto', 'model_loader_extra_config': '{}', 'trust_remote_code': False, 'context_length': 1024, 'is_embedding': False, 'enable_multimodal': None, 'revision': None, 'model_impl': 'auto', 'model_config_parser': 'auto', 'json_model_override_args': '{}', 'dtype': 'bfloat16', 'quantization': None, 'quantization_param_path': None, 'kv_cache_dtype': 'auto', 'enable_fp32_lm_head': False, 'modelopt_quant': None, 'modelopt_checkpoint_restore_path': None, 'modelopt_checkpoint_save_path': None, 'modelopt_export_path': None, 'quantize_and_serve': False, 'rl_quant_profile': None, 'enable_tf32_matmul': False, 'mem_fraction_static': 0.55, 'max_running_requests': 4, 'max_queued_requests': 8, 'max_total_tokens': 4096, 'chunked_prefill_size': 256, 'prefill_decode_interval': 0, 'enable_dynamic_chunking': False, 'max_prefill_tokens': 16384, 'prefill_max_requests': None, 'schedule_policy': 'fcfs', 'enable_priority_scheduling': False, 'disable_priority_preemption': False, 'default_priority_value': None, 'abort_on_priority_when_disabled': False, 'schedule_low_priority_values_first': False, 'priority_scheduling_preemption_threshold': 10, 'retraction_policy': 'length', 'schedule_conservativeness': 1.0, 'page_size': 1, 'c128_page_size': 16, 'swa_full_tokens_ratio': 0.8, 'disable_hybrid_swa_memory': False, 'radix_eviction_policy': 'lru', 'radix_eviction_policy_config': None, 'prefill_only_disable_kv_cache': False, 'disable_radix_cache': False, 'enable_page_major_kv_layout': False, 'enable_unified_memory': False, 'disable_chunked_prefix_cache': False, 'disable_overlap_schedule': False, 'num_continuous_decode_steps': 1, 'scheduler_recv_interval': 1, 'enable_mixed_chunk': False, 'nccl_port': None, 'dist_timeout': None, 'dist_init_addr': None, 'gated_launch_port': None, 'nnodes': 1, 'node_rank': 0, 'tp_size': 1, 'dcp_size': 1, 'pp_size': 1, 'pp_max_micro_batch_size': None, 'pp_async_batch_depth': 0, 'dp_size': 1, 'load_balance_method': 'round_robin', 'attn_cp_size': 1, 'moe_dp_size': 1, 'dwdp_size': 1, 'dcp_comm_backend': 'ag_rs', 'dcp_replicate_q_proj': None, 'enable_prefill_cp': False, 'cp_strategy': None, 'enable_dsa_cache_layer_split': False, 'enable_cp_decode_attn_tp': False, 'enable_dp_attention': False, 'enable_dp_attention_local_control_broadcast': False, 'enable_dp_lm_head': False, 'enable_tp_lm_head_all_to_all': False, 'enable_attn_tp_input_scattered': False, 'enable_shared_experts_attn_tp': False, 'enable_dense_mlp_attn_tp': False, 'enable_layernorm_sp': False, 'disable_attn_tp_gather': False, 'enable_p2p_check': False, 'device': 'cuda', 'base_gpu_id': 0, 'gpu_id_step': 1, 'random_seed': 1068478246, 'mlx_enable_sampling': False, 'watchdog_timeout': 300.0, 'soft_watchdog_timeout': None, 'sleep_on_idle': False, 'use_ray': False, 'custom_sigquit_handler': None, 'numa_node': None, 'gc_threshold': None, 'host': '0.0.0.0', 'port': 1971, 'fastapi_root_path': '', 'smg_grpc_mode': False, 'grpc_mode': False, 'grpc_port': None, 'grpc_worker_threads': 4, 'sidecar': None, 'sidecar_args': None, 'skip_server_warmup': False, 'warmups': None, 'enable_http2': False, 'http2_max_concurrent_streams': 200, 'http2_initial_connection_window_size': 1048576, 'ssl_keyfile': None, 'ssl_certfile': None, 'ssl_ca_certs': None, 'ssl_keyfile_password': None, 'enable_ssl_refresh': False, 'api_key': None, 'admin_api_key': None, 'served_model_name': 'RouteScale-Qwen3-0.6B', 'weight_version': 'default', 'chat_template': None, 'hf_chat_template_name': None, 'completion_template': None, 'file_storage_path': 'sglang_storage', 'enable_cache_report': False, 'return_input_ids': False, 'return_output_ids': False, 'reasoning_parser': None, 'default_chat_template_kwargs': None, 'strip_thinking_cache': False, 'enable_strict_thinking': False, 'tool_call_parser': None, 'tool_server': None, 'sampling_defaults': 'model', 'asr_max_buffer_seconds': 60, 'asr_max_concurrent_sessions': 32, 'preferred_sampling_params': None, 'allow_auto_truncate': False, 'stream_interval': 1, 'batch_notify_size': 16, 'stream_response_default_include_usage': False, 'incremental_streaming_output': False, 'enable_streaming_session': False, 'enable_session_radix_cache': False, 'log_level': 'info', 'log_level_http': None, 'log_requests': True, 'log_requests_level': 2, 'log_requests_format': 'text', 'log_requests_target': None, 'uvicorn_access_log_exclude_prefixes': [], 'crash_dump_folder': None, 'show_time_cost': False, 'enable_metrics': True, 'smg_http_sidecar_port': None, 'enable_mfu_metrics': False, 'enable_metrics_for_all_schedulers': False, 'load_snapshot_publish_interval': 15, 'tokenizer_metrics_custom_labels_header': 'x-custom-labels', 'tokenizer_metrics_allowed_custom_labels': None, 'extra_metric_labels': None, 'bucket_time_to_first_token': None, 'bucket_inter_token_latency': None, 'bucket_e2e_request_latency': None, 'prompt_tokens_buckets': None, 'generation_tokens_buckets': None, 'gc_warning_threshold_secs': 0.0, 'decode_log_interval': 40, 'enable_request_time_stats_logging': False, 'kv_events_config': None, 'load_publish_endpoint': None, 'enable_forward_pass_metrics': False, 'forward_pass_metrics_worker_id': '', 'forward_pass_metrics_ipc_name': None, 'enable_trace': False, 'trace_modules': 'request', 'otlp_traces_endpoint': 'localhost:4317', 'export_metrics_to_file': False, 'export_metrics_to_file_dir': None, 'stat_loggers': None, 'constrained_json_whitespace_pattern': None, 'constrained_json_disable_any_whitespace': False, 'attention_backend': 'flashinfer', 'decode_attention_backend': None, 'enable_lean_attention': None, 'prefill_attention_backend': None, 'sampling_backend': 'flashinfer', 'grammar_backend': 'xgrammar', 'radix_cache_backend': None, 'mm_attention_backend': None, 'fp8_gemm_runner_backend': 'auto', 'fp4_gemm_runner_backend': 'auto', 'bf16_gemm_backend': 'auto', 'dsa_prefill_backend': None, 'dsv4_prefill_backend': 'auto', 'dsa_decode_backend': None, 'dsa_paged_mqa_logits_backend': 'auto', 'dsa_topk_backend': 'sgl-kernel', 'disable_flashinfer_autotune': False, 'flashinfer_autotune_skip_ops': None, 'mamba_backend': 'triton', 'cuda_graph_config': {'decode': {'backend': 'disabled', 'max_bs': 8, 'bs': [1, 2, 4, 8], 'tc_compiler': 'eager', 'full_prefill_max_req': None, 'full_prefill_prefix_chunk_tokens': None}, 'prefill': {'backend': 'disabled', 'max_bs': 256, 'bs': [4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256], 'tc_compiler': 'eager', 'full_prefill_max_req': None, 'full_prefill_prefix_chunk_tokens': None}}, 'cuda_graph_backend_decode': None, 'cuda_graph_backend_prefill': None, 'cuda_graph_max_bs_decode': None, 'cuda_graph_max_bs_prefill': None, 'cuda_graph_bs_decode': None, 'cuda_graph_bs_prefill': None, 'cuda_graph_tc_compiler': None, 'disable_prefill_cuda_graph': True, 'disable_decode_cuda_graph': True, 'disable_cuda_graph': False, 'disable_cuda_graph_padding': False, 'enable_profile_cuda_graph': False, 'enable_cudagraph_gc': False, 'debug_cuda_graph': False, 'enable_layerwise_nvtx_marker': False, 'enable_nccl_nvls': False, 'enable_symm_mem': False, 'triton_attention_reduce_in_fp32': False, 'triton_attention_num_kv_splits': 8, 'triton_attention_split_tile_size': None, 'flashinfer_mla_disable_ragged': False, 'enable_fused_qk_norm_rope': False, 'enable_precise_embedding_interpolation': False, 'enable_fused_moe_sum_all_reduce': False, 'enable_deepseek_v4_fp4_indexer': False, 'disable_custom_all_reduce': False, 'enable_mscclpp': False, 'enable_torch_symm_mem': False, 'enable_scattered_sconv': False, 'pre_warm_nccl': False, 'enable_quant_communications': False, 'enable_flashinfer_allreduce_fusion': False, 'enforce_disable_flashinfer_allreduce_fusion': False, 'flashinfer_allreduce_fusion_backend': None, 'enable_aiter_allreduce_fusion': False, 'enable_torch_compile': False, 'enable_torch_compile_debug_mode': False, 'torch_compile_max_bs': 32, 'speculative_algorithm': None, 'uno_lora_path': None, 'speculative_draft_model_path': None, 'speculative_draft_model_revision': None, 'speculative_draft_load_format': None, 'speculative_num_steps': None, 'speculative_eagle_topk': None, 'speculative_num_draft_tokens': None, 'speculative_dflash_block_size': None, 'speculative_dspark_block_size': None, 'speculative_dspark_sps_table_path': None, 'speculative_dspark_confidence_sts_path': None, 'speculative_dspark_align_verify_tokens_to_graph_tier': False, 'speculative_accept_threshold_single': 1.0, 'speculative_accept_threshold_acc': 1.0, 'speculative_use_rejection_sampling': False, 'speculative_token_map': None, 'speculative_attention_mode': 'prefill', 'speculative_draft_attention_backend': None, 'speculative_dsa_topk_backend': 'sgl-kernel', 'speculative_draft_kv_cache_dtype': None, 'speculative_draft_window_size': None, 'speculative_moe_runner_backend': 'auto', 'speculative_moe_a2a_backend': None, 'speculative_draft_model_quantization': None, '_speculative_draft_quantization_explicitly_set': False, 'speculative_skip_dp_mlp_sync': False, 'enable_multi_layer_eagle': False, 'speculative_adaptive': False, 'speculative_adaptive_config': None, 'decoupled_spec_bind_endpoint': None, 'decoupled_spec_connect_endpoints': None, 'decoupled_spec_rank': None, 'decoupled_spec_role': 'null', 'spec_trace_dir': None, 'speculative_ngram_min_bfs_breadth': 1, 'speculative_ngram_max_bfs_breadth': 10, 'speculative_ngram_match_type': 'BFS', 'speculative_ngram_max_trie_depth': 18, 'speculative_ngram_capacity': 10000000, 'speculative_ngram_external_corpus_path': None, 'speculative_ngram_external_sam_budget': 0, 'speculative_ngram_external_corpus_max_tokens': 10000000, 'ep_size': 1, 'moe_a2a_backend': 'none', 'enable_w4a4_mxfp4_megamoe': False, 'deepep_v2_mode': 'direct', 'moe_runner_backend': 'auto', 'flashinfer_mxfp4_moe_precision': 'default', 'deepep_mode': 'auto', 'fuseep_mode': 2, 'deepep_dispatcher_output_dtype': 'auto', 'ep_num_redundant_experts': 0, 'ep_dispatch_algorithm': None, 'init_expert_location': 'trivial', 'enable_eplb': False, 'eplb_algorithm': 'auto', 'eplb_rebalance_num_iterations': 1000, 'eplb_rebalance_layers_per_chunk': None, 'eplb_min_rebalancing_utilization_threshold': 1.0, 'expert_distribution_recorder_mode': None, 'expert_distribution_recorder_buffer_size': 1000, 'expert_balancedness_report_mode': 'off', 'deepep_config': None, 'moe_dense_tp_size': None, 'elastic_ep_backend': None, 'enable_elastic_expert_backup': False, 'mooncake_ib_device': None, 'enable_waterfill': False, 'ep_join_mode': None, 'ep_join_rank_offset': 0, 'elastic_ep_initial_size': None, 'max_ep_size': None, 'elastic_ep_scale_timeout': 600, 'elastic_ep_rejoin': False, 'disable_flashinfer_cutlass_moe_fp4_allgather': False, 'disable_shared_experts_fusion': False, 'enforce_shared_experts_fusion': False, 'max_mamba_cache_size': None, 'mamba_ssm_dtype': None, 'mamba_max_states_per_path': -1, 'enable_mamba_cache_stochastic_rounding': False, 'mamba_cache_philox_rounds': 0, 'mamba_full_memory_ratio': 0.9, 'mamba_radix_cache_strategy': 'auto', 'uses_mamba_radix_cache': False, 'mamba_track_interval': 256, 'enable_int8_mamba_checkpoint': False, 'int8_mamba_ckpt_size': None, 'linear_attn_backend': 'triton', 'linear_attn_decode_backend': None, 'linear_attn_prefill_backend': None, 'linear_attn_verify_backend': None, 'enable_linear_replayssm': False, 'linear_replayssm_cache_len': 16, 'enable_linear_replayssm_spec': False, 'enable_hierarchical_cache': False, 'hicache_host_memory_mode': 'cache', 'hicache_ratio': 2.0, 'hicache_size': 0, 'hicache_write_policy': 'write_through', 'hicache_io_backend': 'kernel', 'hicache_mem_layout': 'page_first', 'hicache_storage_backend': None, 'hicache_storage_prefetch_policy': 'timeout', 'hicache_storage_backend_extra_config': None, 'hicache_storage_prefetch_retry_poll_interval': 8, 'hicache_storage_prefetch_retry_max_attempts': 8, 'enable_unified_cache_external_linker': False, 'unified_cache_external_linker_backend': 'mooncake', 'enable_hisparse': False, 'hisparse_config': None, 'enable_broadcast_mm_inputs_process': False, 'enable_prefix_mm_cache': False, 'mm_enable_dp_encoder': False, 'mm_process_config': {}, 'mm_processor_worker_num': 0, 'mm_io_worker_num': 0, 'allowed_media_domains': [], 'media_url_max_file_size_mb': 64, 'mm_preprocess_cache_size_mb': None, 'trust_mm_content_hashes': False, 'limit_mm_data_per_request': None, 'enable_mm_global_cache': False, 'image_processor_backend': 'auto', 'mm_global_cache_backend': 'mooncake', 'disable_fast_image_processor': False, 'mm_feature_transport': 'cpu', 'keep_mm_feature_on_device': False, 'enable_lora': None, 'enable_lora_overlap_loading': None, 'max_lora_rank': None, 'lora_target_modules': None, 'lora_paths': None, 'max_loaded_loras': None, 'max_loras_per_batch': 8, 'lora_eviction_policy': 'lru', 'lora_backend': 'csgmv', 'max_lora_chunk_size': 16, 'experts_shared_outer_loras': None, 'lora_use_virtual_experts': False, 'lora_strict_loading': False, 'lora_drain_wait_threshold': 0.0, 'enable_two_batch_overlap': False, 'enable_single_batch_overlap': False, 'tbo_token_distribution_threshold': 0.48, 'cpu_offload_gb': 0, 'offload_group_size': -1, 'offload_num_in_group': 1, 'offload_prefetch_step': 1, 'offload_mode': 'cpu', 'enable_lmcache': False, 'lmcache_config_file': None, 'enable_flexkv': False, 'flexkv_config_file': None, 'kt_weight_path': None, 'kt_method': 'AMXINT4', 'kt_cpuinfer': None, 'kt_threadpool_count': 2, 'kt_num_gpu_experts': None, 'kt_max_deferred_experts_per_token': None, 'dllm_algorithm': None, 'dllm_algorithm_config': None, 'dllm_fdfo': True, 'disaggregation_mode': 'null', 'disaggregation_transfer_backend': 'mooncake', 'disaggregation_bootstrap_port': 8998, 'disaggregation_ib_device': None, 'disaggregation_decode_enable_radix_cache': False, 'disaggregation_decode_enable_offload_kvcache': False, 'disaggregation_decode_retraction_backup': None, 'num_reserved_decode_tokens': 512, 'disaggregation_decode_extra_slots': None, 'disaggregation_decode_polling_interval': 1, 'optimistic_prefill_attempts': 0, 'encoder_only': False, 'language_only': False, 'language_model_only': False, 'encoder_transfer_backend': 'zmq_to_scheduler', 'encoder_urls': [], 'encoder_bootstrap_port': 8997, 'encoder_register_urls': [], 'enable_adaptive_dispatch_to_encoder': False, 'enable_pdmux': False, 'pdmux_config_path': None, 'sm_group_num': 8, 'startup_weight_load_mode': 'serial', 'custom_weight_loader': [], 'weight_loader_disable_mmap': False, 'weight_loader_prefetch_checkpoints': False, 'weight_loader_prefetch_num_threads': 4, 'weight_loader_drop_cache_after_load': False, 'remote_instance_weight_loader_seed_instance_ip': None, 'remote_instance_weight_loader_seed_instance_service_port': None, 'remote_instance_weight_loader_send_weights_group_ports': None, 'remote_instance_weight_loader_backend': 'nccl', 'remote_instance_weight_loader_start_seed_via_transfer_engine': False, 'engine_info_bootstrap_port': 6789, 'modelexpress_config': None, 'download_dir': None, 'model_checksum': None, 'delete_ckpt_after_loading': False, 'decrypted_config_file': None, 'decrypted_draft_config_file': None, 'checkpoint_engine_wait_weights_before_ready': False, 'enable_prefill_delayer': False, 'prefill_delayer_max_delay_passes': 30, 'prefill_delayer_token_usage_low_watermark': None, 'prefill_delayer_forward_passes_buckets': None, 'prefill_delayer_wait_seconds_buckets': None, 'prefill_delayer_queue_min_ratio': None, 'prefill_delayer_max_delay_ms': None, 'min_free_slots_delay': None, 'enable_deterministic_inference': False, 'rl_on_policy_target': None, 'kv_canary': 'none', 'kv_canary_real_data': 'none', 'kv_canary_sweep_interval': 0, 'enable_dynamic_batch_tokenizer': False, 'dynamic_batch_tokenizer_batch_size': 32, 'dynamic_batch_tokenizer_batch_timeout': 0.002, 'enable_tokenizer_batch_encode': False, 'disable_tokenizer_batch_decode': False, 'debug_tensor_dump_output_folder': None, 'debug_tensor_dump_layers': None, 'debug_tensor_dump_input_file': None, 'enable_memory_saver': False, 'enable_weights_cpu_backup': False, 'enable_draft_weights_cpu_backup': False, 'enable_custom_logit_processor': False, 'enable_return_hidden_states': False, 'return_hidden_states_mode': None, 'enable_return_routed_experts': False, 'enable_return_indexer_topk': False, 'sampling_mask_max_tokens': 4096, 'disable_outlines_disk_cache': False, 'enable_mis': False, 'weight_cache_mode': 'off', 'weight_cache_socket': None, 'weight_cache_timeout': 1800, 'forward_hooks': None, 'msprobe_dump_config': None, 'ple_offload_embedding': None, 'ple_offload_backend': 'pinned', 'ple_offload_dir': None, 'speculative_domino_candidate_pool_size': 2048, 'flashinfer_a2a_dispatch_type': None, 'dsv4_attn_backend': 'auto', '_radix_eviction_policy_explicitly_set': False, 'enable_response_store': False}
+[2026-11-03 06:30:43] Using default HuggingFace chat template with detected content format: string
+[2026-11-03 06:30:43] Auto-detected template features: reasoning_config=ReasoningToggleConfig(toggle_param='enable_thinking', default_enabled=True, special_case=None, effort_kwarg=None), reasoning_parser=qwen3, tool_call_parser=qwen
+[2026-11-03 06:31:14] Init torch distributed begin.
+[2026-11-03 06:31:16] Init torch distributed ends. elapsed=1.04 s, mem usage=0.02 GB
+[2026-11-03 06:31:26] Load weight begin. avail mem=6.84 GB
+Multi-thread loading shards:   0% Completed | 0/1 [00:00<?, ?it/s][2026-11-03 06:31:28] Parameter lm_head.weight not found in params_dict
+Multi-thread loading shards: 100% Completed | 1/1 [00:28<00:00, 28.11s/it]Multi-thread loading shards: 100% Completed | 1/1 [00:28<00:00, 28.11s/it]
+[2026-11-03 06:31:56] Load weight end. elapsed=29.92 s, type=Qwen3ForCausalLM, avail mem=5.65 GB, mem usage=1.18 GB.
+[2026-11-03 06:31:59] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 4096, K size: 0.22 GB, V size: 0.22 GB
+[2026-11-03 06:31:59] Memory pool end. avail mem=5.11 GB
+[2026-11-03 06:32:00] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-11-03 06:32:00] max_total_num_tokens=4096, chunked_prefill_size=256, max_prefill_tokens=16384, max_running_requests=4, context_len=1024, available_gpu_mem=4.53 GB
+[2026-11-03 06:32:00] Init Unified Radix Cache. Components: (<ComponentType.FULL: 0>,). Tree Core: UnifiedTreeCore
+[2026-11-03 06:32:00] Tree cache initialized: source=default impl=UnifiedRadixCache hybrid_swa=False hybrid_ssm=False hicache_attached=False streaming_wrapped=False
+[2026-11-03 06:32:01] Engine startup timings (s): load_weight=29.92, kv_cache_allocation=0.82, scheduler_e2e=53.80, cuda_graph={prefill=0.00, decode=0.00, target_verify=0.00, draft_prefill=0.00, draft_decode=0.00, draft_extend=0.00}, tokenizer_e2e=84.55
+[2026-11-03 06:32:01] INFO:     Started server process [62]
+[2026-11-03 06:32:01] INFO:     Waiting for application startup.
+[2026-11-03 06:32:01] Using default chat sampling params from model generation config: {'temperature': 0.6, 'top_k': 20, 'top_p': 0.95}
+[2026-11-03 06:32:01] INFO:     Application startup complete.
+[2026-11-03 06:32:01] INFO:     Uvicorn running on http://0.0.0.0:1971 (Press CTRL+C to quit)
+[2026-11-03 06:32:01] INFO:     127.0.0.1:35688 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:02] INFO:     127.0.0.1:35692 - "GET /model_info HTTP/1.1" 200 OK
+[2026-11-03 06:32:02] Receive: obj=GenerateReqInput(rid='bbb6ac27b6f74192bb9b6b8bcac22a7b', session_id=None, text='The capital city of France is', input_ids=None, input_embeds=None, image_data=None, video_data=None, audio_data=None, mm_hashes=None, mm_content_hashes=None, use_audio_in_video=False, video_config=None, sampling_params={'temperature': 0, 'max_new_tokens': 8}, return_logprob=False, logprob_start_len=-1, top_logprobs_num=0, token_ids_logprob=None, return_sampling_mask=False, return_text_in_logprobs=False, return_flat_raw_top_logprobs=False, return_flat_raw_top_logprobs_b64=False, stream=False, log_metrics=True, return_hidden_states=False, return_routed_experts=False, routed_experts_start_len=0, return_indexer_topk=False, modalities=None, session_params=None, lora_path=None, lora_id=None, custom_logit_processor=None, positional_embed_overrides=None, bootstrap_host=None, bootstrap_port=None, bootstrap_room=None, bootstrap_pair_key=None, decode_tp_size=None, routed_dp_rank=None, data_parallel_rank=None, disagg_prefill_dp_rank=None, routing_key=None, conversation_id=None, http_worker_ipc=None, background=False, require_reasoning=False, max_thinking_tokens=None, priority=None, extra_key=None, no_logs=False, custom_labels=None, return_bytes=False, return_entropy=False, return_prompt_token_ids=False, external_trace_header=None, received_time=None, need_wait_for_mm_inputs=None, num_items_assigned=None, encoder_urls=None, max_dynamic_patch=None, min_dynamic_patch=None, image_max_dynamic_patch=None, video_max_dynamic_patch=None, images_config=None, multi_item_delimiter_indices=None, cache_salt=None)
+[2026-11-03 06:32:03] INFO:     127.0.0.1:35710 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:04] INFO:     127.0.0.1:35724 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:04] INFO:     172.17.0.1:55508 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:04] Triton kernel 'write_req_to_token_pool_triton' took 1.87 s to compile after serving started. Serving-time compilation can stall the engine; pre-compile it during engine init.
+[2026-11-03 06:32:05] INFO:     127.0.0.1:36658 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:05] INFO:     127.0.0.1:36674 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:06] INFO:     127.0.0.1:36686 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:07] INFO:     127.0.0.1:36692 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:08] INFO:     127.0.0.1:36694 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:09] INFO:     127.0.0.1:36706 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:09] INFO:     172.17.0.1:48676 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:10] INFO:     127.0.0.1:36720 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:10] INFO:     127.0.0.1:36732 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:11] INFO:     127.0.0.1:36740 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:12] INFO:     127.0.0.1:36742 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:13] INFO:     127.0.0.1:36752 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:14] INFO:     127.0.0.1:36768 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:14] INFO:     172.17.0.1:47242 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:15] INFO:     127.0.0.1:45734 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:15] INFO:     127.0.0.1:45744 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:16] INFO:     127.0.0.1:45758 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:17] INFO:     127.0.0.1:45764 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:18] INFO:     127.0.0.1:45780 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:19] INFO:     127.0.0.1:45788 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:20] INFO:     127.0.0.1:45792 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:20] INFO:     172.17.0.1:47252 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:21] INFO:     127.0.0.1:45800 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:21] INFO:     127.0.0.1:45808 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:22] INFO:     127.0.0.1:45812 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:23] INFO:     127.0.0.1:45828 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:24] INFO:     127.0.0.1:45838 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:25] INFO:     127.0.0.1:39486 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:25] INFO:     172.17.0.1:47846 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:26] INFO:     127.0.0.1:39498 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:26] INFO:     127.0.0.1:39506 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:27] INFO:     127.0.0.1:39512 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:28] INFO:     127.0.0.1:39526 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:29] INFO:     127.0.0.1:39534 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:30] INFO:     127.0.0.1:39536 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:30] INFO:     172.17.0.1:47860 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:31] INFO:     127.0.0.1:39546 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:31] INFO:     127.0.0.1:39552 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:32] INFO:     127.0.0.1:39554 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:33] INFO:     127.0.0.1:39564 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:34] INFO:     127.0.0.1:39572 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:35] INFO:     127.0.0.1:52008 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:35] INFO:     172.17.0.1:60056 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:36] INFO:     127.0.0.1:52016 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:37] INFO:     127.0.0.1:52018 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:37] INFO:     127.0.0.1:52034 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:38] INFO:     127.0.0.1:52036 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:39] INFO:     127.0.0.1:52038 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:40] INFO:     127.0.0.1:52042 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:41] INFO:     127.0.0.1:52058 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:41] INFO:     172.17.0.1:60068 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:42] INFO:     127.0.0.1:52062 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:42] INFO:     127.0.0.1:52074 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:43] INFO:     127.0.0.1:52084 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:44] INFO:     127.0.0.1:52090 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:45] INFO:     127.0.0.1:43858 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:46] INFO:     127.0.0.1:43864 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:46] INFO:     172.17.0.1:48336 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:47] INFO:     127.0.0.1:43868 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:47] INFO:     127.0.0.1:43878 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:48] INFO:     127.0.0.1:43882 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:49] INFO:     127.0.0.1:43892 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:50] INFO:     127.0.0.1:43896 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:51] INFO:     127.0.0.1:43904 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:51] INFO:     172.17.0.1:48338 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:52] INFO:     127.0.0.1:43920 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:52] INFO:     127.0.0.1:43924 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:53] INFO:     127.0.0.1:43938 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:54] INFO:     127.0.0.1:43950 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:55] INFO:     127.0.0.1:47820 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:56] INFO:     127.0.0.1:47832 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:56] INFO:     172.17.0.1:56264 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:57] INFO:     127.0.0.1:47836 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:58] INFO:     127.0.0.1:47850 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:58] INFO:     127.0.0.1:47860 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:32:59] INFO:     127.0.0.1:47870 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:00] INFO:     127.0.0.1:47886 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:01] INFO:     127.0.0.1:47898 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:02] INFO:     172.17.0.1:56266 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:02] INFO:     127.0.0.1:47908 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:03] INFO:     127.0.0.1:47918 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:03] INFO:     127.0.0.1:47924 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:04] INFO:     127.0.0.1:47938 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:05] INFO:     127.0.0.1:41818 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:06] INFO:     127.0.0.1:41834 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:07] INFO:     127.0.0.1:41850 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:07] INFO:     172.17.0.1:33532 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:08] INFO:     127.0.0.1:41858 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:08] INFO:     127.0.0.1:41868 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:09] INFO:     127.0.0.1:41876 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:10] INFO:     127.0.0.1:41890 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:11] INFO:     127.0.0.1:41900 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:12] INFO:     127.0.0.1:41908 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:12] INFO:     172.17.0.1:33534 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:13] INFO:     127.0.0.1:41918 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:14] INFO:     127.0.0.1:41930 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:14] INFO:     127.0.0.1:41936 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:15] INFO:     127.0.0.1:46586 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:16] INFO:     127.0.0.1:46594 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:17] INFO:     127.0.0.1:46604 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:17] INFO:     172.17.0.1:49396 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:18] INFO:     127.0.0.1:46616 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:19] INFO:     127.0.0.1:46626 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:19] INFO:     127.0.0.1:46636 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:20] INFO:     127.0.0.1:46644 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:21] INFO:     127.0.0.1:46654 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:22] INFO:     127.0.0.1:46670 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:23] INFO:     172.17.0.1:49406 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:23] INFO:     127.0.0.1:46674 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:24] INFO:     127.0.0.1:46680 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:24] INFO:     127.0.0.1:58490 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:25] INFO:     127.0.0.1:58496 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:26] INFO:     127.0.0.1:58500 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:27] INFO:     127.0.0.1:58510 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:28] INFO:     172.17.0.1:37178 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:28] INFO:     127.0.0.1:58514 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:29] INFO:     127.0.0.1:58524 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:29] INFO:     127.0.0.1:58532 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:30] INFO:     127.0.0.1:58534 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:31] INFO:     127.0.0.1:58540 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:32] INFO:     127.0.0.1:58546 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:33] INFO:     172.17.0.1:37180 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:33] INFO:     127.0.0.1:58558 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:34] INFO:     127.0.0.1:58564 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:34] INFO:     127.0.0.1:51452 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:35] INFO:     127.0.0.1:51456 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:36] INFO:     127.0.0.1:51462 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:37] INFO:     127.0.0.1:51472 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:38] INFO:     127.0.0.1:51474 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:38] INFO:     172.17.0.1:58158 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:39] INFO:     127.0.0.1:51482 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:40] INFO:     127.0.0.1:51488 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:40] INFO:     127.0.0.1:51502 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:41] INFO:     127.0.0.1:51504 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:42] INFO:     127.0.0.1:51520 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:43] INFO:     127.0.0.1:51526 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:43] INFO:     172.17.0.1:58164 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:44] INFO:     127.0.0.1:60748 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:45] INFO:     127.0.0.1:60758 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:45] INFO:     127.0.0.1:60762 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:46] INFO:     127.0.0.1:60772 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:47] INFO:     127.0.0.1:60786 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:48] INFO:     127.0.0.1:60798 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:48] INFO:     172.17.0.1:34912 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:49] INFO:     127.0.0.1:60810 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:50] INFO:     127.0.0.1:60820 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:50] INFO:     127.0.0.1:60836 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:51] INFO:     127.0.0.1:60848 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:52] INFO:     127.0.0.1:60850 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:53] INFO:     127.0.0.1:60854 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:53] INFO:     172.17.0.1:34918 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:54] INFO:     127.0.0.1:55054 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:55] INFO:     127.0.0.1:55060 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:55] INFO:     127.0.0.1:55070 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:56] INFO:     127.0.0.1:55080 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:57] INFO:     127.0.0.1:55082 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:58] INFO:     127.0.0.1:55096 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:58] INFO:     172.17.0.1:51964 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:33:59] INFO:     127.0.0.1:55098 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:00] INFO:     127.0.0.1:55110 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:01] INFO:     127.0.0.1:55120 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:01] INFO:     127.0.0.1:55124 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:02] INFO:     127.0.0.1:55134 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:03] INFO:     127.0.0.1:55136 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:04] INFO:     172.17.0.1:51980 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:04] INFO:     127.0.0.1:34834 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:05] INFO:     127.0.0.1:34842 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:06] INFO:     127.0.0.1:34850 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:06] INFO:     127.0.0.1:34862 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:07] INFO:     127.0.0.1:34864 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:08] INFO:     127.0.0.1:34866 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:09] INFO:     172.17.0.1:42422 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:09] INFO:     127.0.0.1:34874 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:10] INFO:     127.0.0.1:34876 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:11] INFO:     127.0.0.1:34882 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:11] INFO:     127.0.0.1:34894 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:12] INFO:     127.0.0.1:34908 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:13] INFO:     127.0.0.1:34918 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:14] INFO:     172.17.0.1:42436 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:14] INFO:     127.0.0.1:37234 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:15] INFO:     127.0.0.1:37240 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:16] INFO:     127.0.0.1:37252 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:16] INFO:     127.0.0.1:37264 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:17] INFO:     127.0.0.1:37272 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:18] INFO:     127.0.0.1:37280 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:19] INFO:     172.17.0.1:43942 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:19] INFO:     127.0.0.1:37294 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:20] INFO:     127.0.0.1:37306 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:21] INFO:     127.0.0.1:37316 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:22] INFO:     127.0.0.1:37328 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:22] INFO:     127.0.0.1:37336 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:23] INFO:     127.0.0.1:37352 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:24] Failed to load JIT QK-Norm kernel: Failed to build JIT module sgl_kernel_jit_qknorm_128_true_bf16_t in /root/.cache/sglang/jit/sm120f/sgl_kernel_jit_qknorm_128_true_bf16_t/build-3840cd95ae01772d/.staging-89a7c742c3a248b7be8ec6869aba36c7
+stdout:
+[1/2] /opt/cuda/bin/nvcc -MD -MF "cuda_0.o.d" -Xcompiler -fPIC -gencode=arch=compute_120f,code=sm_120f -DSGL_CUDA_ARCH=1200 -std=c++20 -O3 --expt-relaxed-constexpr -I/usr/local/lib/python3.11/site-packages/tvm_ffi/include -I/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/include -c "cuda.cu" -o "cuda_0.o"
+FAILED: [code=1] cuda_0.o 
+/opt/cuda/bin/nvcc -MD -MF "cuda_0.o.d" -Xcompiler -fPIC -gencode=arch=compute_120f,code=sm_120f -DSGL_CUDA_ARCH=1200 -std=c++20 -O3 --expt-relaxed-constexpr -I/usr/local/lib/python3.11/site-packages/tvm_ffi/include -I/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/include -c "cuda.cu" -o "cuda_0.o"
+In file included from /opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6038,
+                 from /opt/cuda/targets/x86_64-linux/include/crt/common_functions.h:303,
+                 from /opt/cuda/bin/../targets/x86_64-linux/include/crt/host_runtime.h:289,
+                 from /tmp/tmpxft_00000346_00000000-6_cuda.cudafe1.stub.c:8,
+                 from tmpxft_00000346_00000000-6_cuda.cudafe1.stub.c:1:
+/opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6046:1: error: declaration of ‘double rsqrt(double)’ has a different exception specifier
+ 6046 | __func__(double rsqrt(double a));
+      | ^~~~~~~~
+/opt/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.h:629:15: note: from previous declaration ‘double rsqrt(double) noexcept’
+  629 | extern __DEVICE_FUNCTIONS_DECL__ __device_builtin__ double                 rsqrt(double x) noexcept (true);
+      |               ^~~~~
+/opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6072:1: error: declaration of ‘float rsqrtf(float)’ has a different exception specifier
+ 6072 | __func__(float rsqrtf(float a));
+      | ^~~~~~~~
+/opt/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.h:653:14: note: from previous declaration ‘float rsqrtf(float) noexcept’
+  653 | extern __DEVICE_FUNCTIONS_DECL__ __device_builtin__ float                  rsqrtf(float x) noexcept (true);
+      |              ^~~~~~
+ninja: build stopped: subcommand failed.
+
+stderr:
+
+[2026-11-03 06:34:24] INFO:     172.17.0.1:43956 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:24] INFO:     127.0.0.1:55058 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:25] INFO:     127.0.0.1:55070 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:26] INFO:     127.0.0.1:55078 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:27] INFO:     127.0.0.1:55094 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:27] INFO:     127.0.0.1:55100 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:28] INFO:     127.0.0.1:55114 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:29] INFO:     172.17.0.1:49274 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:29] INFO:     127.0.0.1:55116 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:30] INFO:     127.0.0.1:55126 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:31] INFO:     127.0.0.1:55136 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:32] INFO:     127.0.0.1:55144 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:32] INFO:     127.0.0.1:55152 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:33] INFO:     127.0.0.1:55164 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:34] INFO:     172.17.0.1:38278 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:34] INFO:     127.0.0.1:33108 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:35] INFO:     127.0.0.1:33120 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:36] INFO:     127.0.0.1:33136 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:37] INFO:     127.0.0.1:33140 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:37] INFO:     127.0.0.1:33150 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:38] INFO:     127.0.0.1:33160 - "GET /ready HTTP/1.1" 503 Service Unavailable
+[2026-11-03 06:34:38] Scheduler hit an exception: Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/scheduler.py", line 5857, in run_scheduler_process
+    scheduler.run_event_loop()
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/scheduler.py", line 1893, in run_event_loop
+    dispatch_event_loop(self)
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/scheduler.py", line 5703, in dispatch_event_loop
+    scheduler.event_loop_overlap()
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/scheduler.py", line 1991, in event_loop_overlap
+    batch_result = self.run_batch(batch)
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/observability/scheduler_stage_metrics.py", line 155, in wrapper
+    return profiled_func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/utils/nvtx_utils.py", line 109, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/scheduler.py", line 4318, in run_batch
+    batch_result = self.model_worker.forward_batch_generation(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/managers/tp_worker.py", line 628, in forward_batch_generation
+    out = self.model_runner.forward(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/model_executor/model_runner.py", line 1675, in forward
+    output = self._forward_raw(
+             ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/model_executor/model_runner.py", line 1862, in _forward_raw
+    ret = self.eager_runner.execute(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/model_executor/runner/eager_runner.py", line 228, in execute
+    return self._execute_extend(forward_batch, pp_proxy_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/model_executor/runner/eager_runner.py", line 372, in _execute_extend
+    ret = model_runner.model.forward(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/models/qwen3.py", line 521, in forward
+    hidden_states = self.model(
+                    ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/models/qwen2.py", line 422, in forward
+    hidden_states, residual = layer(
+                              ^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/models/qwen3.py", line 404, in forward
+    hidden_states = self.self_attn(
+                    ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/models/qwen3.py", line 290, in forward
+    q, k, v = self.forward_prepare_native(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/models/qwen3.py", line 183, in forward_prepare_native
+    q, k = self.rotary_emb(positions, q, k)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/fused_op.py", line 659, in forward
+    result = method(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/srt/layers/rotary_embedding/base.py", line 388, in forward_cuda
+    apply_rope_with_cos_sin_cache_inplace(
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/ops/attention/rope.py", line 223, in apply_rope_with_cos_sin_cache_inplace
+    apply_rope_inplace(
+  File "/usr/local/lib/python3.11/site-packages/torch/_ops.py", line 1279, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/ops/attention/rope.py", line 140, in apply_rope_inplace
+    module = _jit_fused_rope_module(is_neox, rope_dim, k.dtype, q.dtype)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/utils/common.py", line 38, in wrapper
+    result_map[key] = fn(*args, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/ops/attention/rope.py", line 36, in _jit_fused_rope_module
+    return load_jit(
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 1446, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/utils/compile/loader.py", line 170, in load_jit
+    library = ninja.build(spec=spec, build_dir=staging, build_file=build_file)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/utils/compile/ninja.py", line 168, in build
+    raise RuntimeError(
+RuntimeError: Failed to build JIT module sgl_kernel_jit_fused_rope_true_128_true_bf16_t_bf16_t in /root/.cache/sglang/jit/sm120f/sgl_kernel_jit_fused_rope_true_128_true_bf16_t_bf16_t/build-86b74f1b2aa1194b/.staging-d38fbae297ac4de0bd791295450ef6cf
+stdout:
+[1/2] /opt/cuda/bin/nvcc -MD -MF "cuda_0.o.d" -Xcompiler -fPIC -gencode=arch=compute_120f,code=sm_120f -DSGL_CUDA_ARCH=1200 -std=c++20 -O3 --expt-relaxed-constexpr -I/usr/local/lib/python3.11/site-packages/tvm_ffi/include -I/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/include -c "cuda.cu" -o "cuda_0.o"
+FAILED: [code=1] cuda_0.o 
+/opt/cuda/bin/nvcc -MD -MF "cuda_0.o.d" -Xcompiler -fPIC -gencode=arch=compute_120f,code=sm_120f -DSGL_CUDA_ARCH=1200 -std=c++20 -O3 --expt-relaxed-constexpr -I/usr/local/lib/python3.11/site-packages/tvm_ffi/include -I/usr/local/lib/python3.11/site-packages/sglang/kernels/jit/include -c "cuda.cu" -o "cuda_0.o"
+In file included from /opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6038,
+                 from /opt/cuda/targets/x86_64-linux/include/crt/common_functions.h:303,
+                 from /opt/cuda/bin/../targets/x86_64-linux/include/crt/host_runtime.h:289,
+                 from /tmp/tmpxft_00000371_00000000-6_cuda.cudafe1.stub.c:8,
+                 from tmpxft_00000371_00000000-6_cuda.cudafe1.stub.c:1:
+/opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6046:1: error: declaration of ‘double rsqrt(double)’ has a different exception specifier
+ 6046 | __func__(double rsqrt(double a));
+      | ^~~~~~~~
+/opt/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.h:629:15: note: from previous declaration ‘double rsqrt(double) noexcept’
+  629 | extern __DEVICE_FUNCTIONS_DECL__ __device_builtin__ double                 rsqrt(double x) noexcept (true);
+      |               ^~~~~
+/opt/cuda/targets/x86_64-linux/include/crt/math_functions.h:6072:1: error: declaration of ‘float rsqrtf(float)’ has a different exception specifier
+ 6072 | __func__(float rsqrtf(float a));
+      | ^~~~~~~~
+/opt/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.h:653:14: note: from previous declaration ‘float rsqrtf(float) noexcept’
+  653 | extern __DEVICE_FUNCTIONS_DECL__ __device_builtin__ float                  rsqrtf(float x) noexcept (true);
+      |              ^~~~~~
+ninja: build stopped: subcommand failed.
+
+stderr:
+
+
+[2026-11-03 06:34:38] SIGQUIT received. signum=None, frame=None. It usually means one child failed.
+[2026-11-03 06:34:38] kill_process_tree called: parent_pid=62, include_parent=True, pid=62

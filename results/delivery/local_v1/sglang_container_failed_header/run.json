@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "scenario": "healthy",
+  "root_commit": "2b4cbfc26f7417d0ce28f4939abcea48196407a3",
+  "checkout_clean": false,
+  "container": true,
+  "source_sha256": {
+    "serving/sglang_framework.py": "05556316de11366073cc9e65fb8cad350dcdbc30c30ab86cde0e454ff4b27600",
+    "serving/framework_metrics.py": "565139da07d5ed0428e6eebd27f4f58487ded25bbc7a372ae77f6c7710d704e4",
+    "serving/framework_client.py": "8246650d809bcae6ccb74859ea5d94bb9d66d299c8e2460cf7697515cdc1c971",
+    "serving/framework_flush_metrics.py": "fe8fa11f0f9e6fba02ec0253098c424ce13e779fd8415a8b0cedfe35dd25b347",
+    "scripts/launch_sglang_framework.py": "32e657e549502984a12ba8cddbbbea5a8885c8ef917b8d09d1d131f9f52bef32",
+    "scripts/framework_service.py": "fa7b95482fb6f30fde667d16c9c9658ee3eccf8a2229a714609d0530420b7a96",
+    "scripts/check_framework.py": "557765968a379aed73f2b009544cf3038ffb915527f44636018c3c601c6d2344",
+    "scripts/audit_framework.py": "30c05721298165c195d19fae4d55de27a74165d981e8e78200abd09c633cb64d",
+    "serving/delivery.py": "e9aaddd045a0214d76423ab75bef60d67a04508be05f52808e7b09eebdabac21",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "deploy/local/sglang/runtime.json": "31a1d22f317296e5117c3526a2f37ad527eb3813ce02d81d0c3b78246f08ef9a",
+    "deploy/local/sglang/upstream_sources.json": "9bd088a210e789c0e844d2d973380939c3aca3405de5b3a457c8a9df7312051b",
+    "deploy/local/sglang/requirements.lock": "f355640c5b577e8665d67b6652c974d019719bb126a70e98c3898e79065e0f4d",
+    "docs/sglang_delivery_protocol.md": "97ec5db1530d59c83386d4a23d05456a0216140c50ef6144bae2df60863b5099",
+    "results/i_minisglang/i3_online_v2/workload002/workload.json": "e87891205739c63331a3adec84dd6dc59e5922a225312f864edb6eb86dee0c4f",
+    "results/i_minisglang/i3_online_v2/online001/schedule.json": "2f9ce535732679ba12124635a5596fd7b2642d1694ba9102ddc30102fa3a4062"
+  },
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v4",
+  "native_BF16_not_I3_numeric_qualification": true,
+  "error": "Traceback (most recent call last):\n  File \"/workspace/RouteScale/scripts/check_framework.py\", line 218, in main\n    if parent.poll() is not None:raise RuntimeError('SGLang supervisor exited before readiness')\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: SGLang supervisor exited before readiness\n"
+}
