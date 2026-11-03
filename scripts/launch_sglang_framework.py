@@ -9,5 +9,9 @@ from serving.framework_flush_metrics import install
 install()
 
 if __name__=='__main__':
-    from sglang.launch_server import main
-    main()
+    import os
+    from sglang.launch_server import load_plugins,prepare_server_args,run_server,kill_process_tree
+    load_plugins()
+    args=prepare_server_args(sys.argv[1:])
+    try:run_server(args)
+    finally:kill_process_tree(os.getpid(),include_parent=False)
