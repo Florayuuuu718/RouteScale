@@ -49,8 +49,16 @@ def select_worker(server_pid):
 
 async def exercise(c,run,out,scenario):
     import httpx
+    from transformers import AutoTokenizer
     base=f'http://127.0.0.1:{c["port"]}';ledger=[];snapshots=[]
     workload=read(ROOT/WORKLOAD);schedule=read(ROOT/SCHEDULE)
+    tok=AutoTokenizer.from_pretrained(ROOT/c['model_path'],local_files_only=True)
+    tokenization=[]
+    for q in workload['requests']:
+        ids=tok.encode(q['payload']['prompt'],add_special_tokens=False)
+        if ids!=q['input_ids']:raise ValueError('Installed tokenizer differs from the frozen I3 IDs: '+q['request_id'])
+        tokenization.append(dict(request_id=q['request_id'],prompt_sha256=sha_text(q['payload']['prompt']),input_ids=ids))
+    write(out/'tokenization.json',dict(passed=True,requests=tokenization))
     def request(rid,tokens=32,**options):
         payload=dict(workload['requests'][0]['payload'],model=c['server_args']['served_model_name'],max_tokens=tokens)
         return OnlineRequest(rid,payload,timeout_s=options.pop('timeout_s',c['request_timeout_s']),**options)

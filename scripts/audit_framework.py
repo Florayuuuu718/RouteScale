@@ -32,6 +32,10 @@ def audit(directory):
         checks['immutable_container_image']=build['image_id'].startswith('sha256:') and build['base_digest'] in bases
         checks['readonly_container_weights']=build['model_mount_readonly']
     for n,h in r['source_sha256'].items():checks['source_snapshot/'+n]=sha(d/'source_snapshot'/n)==h
+    tokenization=read(d/'tokenization.json');original=read(d/'source_snapshot'/WORKLOAD)
+    frozen={q['request_id']:q for q in original['requests']}
+    checks['tokenizer_48_unchanged_IDs']=tokenization['passed'] and len(tokenization['requests'])==48 and all(
+        q['input_ids']==frozen[q['request_id']]['input_ids'] and q['prompt_sha256']==sha_text(frozen[q['request_id']]['payload']['prompt']) for q in tokenization['requests'])
     for row in rows:
         rid=row['request_id'];es=row['events']
         checks[rid+'/one_terminal']=len([e for e in es if e['event'] in TERMINAL])==1
