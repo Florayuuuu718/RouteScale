@@ -13,6 +13,12 @@ from serving.delivery import ROOT,read,sha,write
 CONFIG=ROOT/'config/delivery/tp_matrix.json'
 
 
+def engine_rendezvous():
+    # torchrun's agent store belongs to MASTER_PORT; both native engines use
+    # their own explicit tcp://127.0.0.1:2333 store. Rank0 must create that store.
+    return os.environ.pop('TORCHELASTIC_USE_AGENT_STORE',None)
+
+
 def load_plan(path=CONFIG):
     c=read(path)
     if (c['world_sizes'] != [1,2,4] or c['independent_runs']!=3 or c['subprocess_timeout_s']>900

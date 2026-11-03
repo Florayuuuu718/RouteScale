@@ -1,0 +1,1028 @@
+{
+  "config": {
+    "schema_version": 1,
+    "status": "prepared_not_multigpu_accepted",
+    "scope": "new_host_serving_TP1_2_4_v1",
+    "world_sizes": [
+      1,
+      2,
+      4
+    ],
+    "model_path": "runs/models/Qwen3-0.6B",
+    "model_manifest": "config/delivery/model.json",
+    "seed": 20261103,
+    "port": 2333,
+    "subprocess_timeout_s": 900,
+    "shutdown_grace_s": 10,
+    "collective_timeout_s": 60,
+    "qualification_output_tokens": 8,
+    "warmup_repeats": 3,
+    "measure_repeats": 5,
+    "independent_runs": 3,
+    "numerics": {
+      "atol": 0.125,
+      "rtol": 0.02,
+      "max_relative_rmse": 0.005
+    },
+    "frameworks": {
+      "nano": {
+        "environment": "runs/envs/nano-vllm",
+        "checkout": "runs/vendor/nano-vllm",
+        "commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+        "policy": "bf16_reduction_false_static_tables_paged_prefill_decode_buckets124_new_TP_scope_v2",
+        "reference": "same_host_TP1_full_vocabulary_internal_agreement",
+        "variants": [
+          "eager_no_prefix",
+          "graph_no_prefix",
+          "eager_prefix"
+        ]
+      },
+      "mini": {
+        "environment": "runs/envs/mini-sglang",
+        "checkout": "runs/vendor/mini-sglang-i2",
+        "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+        "policy": "fp16_lower_FP32_upper16_residual_norm_TP_vocab_gather_v1",
+        "reference": "HF_FP32_same_checkpoint_forced_continuation_and_same_host_TP1",
+        "variants": [
+          "naive_full",
+          "radix_full",
+          "radix_chunk256",
+          "radix_chunk128",
+          "radix_overlap",
+          "radix_graph124",
+          "radix_graph13"
+        ]
+      }
+    },
+    "paid_resources_authorized": false,
+    "performance_requires_all_world_sizes_numerically_qualified": true,
+    "trace_is_separate_from_timing": true
+  },
+  "qualification": [
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp1_eager_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "graph_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp1_graph_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp1_eager_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp2_eager_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "graph_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp2_graph_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp2_eager_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp4_eager_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "graph_no_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp4_graph_no_prefix_qualify_run0"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_prefix",
+      "run": 0,
+      "stage": "qualify",
+      "label": "nano_tp4_eager_prefix_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "naive_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_naive_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk256",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_chunk256_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk128",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_chunk128_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_overlap",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_overlap_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph124",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_graph124_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph13",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp1_radix_graph13_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "naive_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_naive_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk256",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_chunk256_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk128",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_chunk128_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_overlap",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_overlap_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph124",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_graph124_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph13",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp2_radix_graph13_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "naive_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_naive_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_full",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_full_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk256",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_chunk256_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk128",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_chunk128_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_overlap",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_overlap_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph124",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_graph124_qualify_run0"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph13",
+      "run": 0,
+      "stage": "qualify",
+      "label": "mini_tp4_radix_graph13_qualify_run0"
+    }
+  ],
+  "benchmark": [
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "graph_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp1_graph_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "graph_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp1_graph_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "eager_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp1_eager_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 1,
+      "variant": "graph_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp1_graph_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "graph_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp2_graph_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "graph_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp2_graph_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "eager_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp2_eager_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 2,
+      "variant": "graph_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp2_graph_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "graph_no_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp4_graph_no_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_prefix",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_prefix_benchmark_run1"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "graph_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp4_graph_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_no_prefix",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_no_prefix_benchmark_run2"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "eager_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp4_eager_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "nano",
+      "world": 4,
+      "variant": "graph_no_prefix",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "nano_tp4_graph_no_prefix_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "naive_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_naive_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk256",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk256_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk128",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk128_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_overlap",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_overlap_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph124",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph124_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph13",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph13_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk256",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk256_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk128",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk128_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_overlap",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_overlap_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph124",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph124_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph13",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph13_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "naive_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp1_naive_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk256",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk256_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_chunk128",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_chunk128_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_overlap",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_overlap_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph124",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph124_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_graph13",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_graph13_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "naive_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_naive_full_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 1,
+      "variant": "radix_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp1_radix_full_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "naive_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_naive_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk256",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk256_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk128",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk128_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_overlap",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_overlap_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph124",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph124_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph13",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph13_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk256",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk256_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk128",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk128_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_overlap",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_overlap_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph124",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph124_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph13",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph13_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "naive_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp2_naive_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk256",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk256_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_chunk128",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_chunk128_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_overlap",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_overlap_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph124",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph124_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_graph13",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_graph13_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "naive_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_naive_full_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 2,
+      "variant": "radix_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp2_radix_full_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "naive_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_naive_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_full",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_full_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk256",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk256_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk128",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk128_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_overlap",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_overlap_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph124",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph124_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph13",
+      "run": 1,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph13_benchmark_run1"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk256",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk256_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk128",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk128_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_overlap",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_overlap_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph124",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph124_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph13",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph13_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "naive_full",
+      "run": 2,
+      "stage": "benchmark",
+      "label": "mini_tp4_naive_full_benchmark_run2"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk256",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk256_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_chunk128",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_chunk128_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_overlap",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_overlap_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph124",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph124_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_graph13",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_graph13_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "naive_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_naive_full_benchmark_run3"
+    },
+    {
+      "framework": "mini",
+      "world": 4,
+      "variant": "radix_full",
+      "run": 3,
+      "stage": "benchmark",
+      "label": "mini_tp4_radix_full_benchmark_run3"
+    }
+  ],
+  "config_sha256": "596d62794ea2b68eca876921909c08bc8b7d1befcbb58c58b399c3c9bf4d339b",
+  "paid_resources_authorized": false,
+  "multigpu_accepted": false
+}

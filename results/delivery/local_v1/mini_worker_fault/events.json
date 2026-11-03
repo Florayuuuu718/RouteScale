@@ -1,0 +1,2481 @@
+[
+  {
+    "event": "observer_installed",
+    "pid": 148871,
+    "monotonic_ns": 85551071238671,
+    "wall_time_ns": 1793640084113505205
+  },
+  {
+    "event": "observer_installed",
+    "pid": 148894,
+    "monotonic_ns": 85558308682758,
+    "wall_time_ns": 1793640091350949893
+  },
+  {
+    "event": "observer_installed",
+    "pid": 148895,
+    "monotonic_ns": 85558320747037,
+    "wall_time_ns": 1793640091363013680
+  },
+  {
+    "event": "i2_precision_policy",
+    "pid": 148894,
+    "monotonic_ns": 85570087292020,
+    "wall_time_ns": 1793640103129558313,
+    "mode": "mixed",
+    "policy": "fi_nosplit_linear512_fp16_main_fp32_residual_norm",
+    "dtype": "torch.float16",
+    "weight_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "residual_dtype": "torch.float32",
+    "graph_install": {
+      "norms_installed": 57,
+      "before_graph_constructor": true
+    },
+    "captured_buckets": [
+      1,
+      2,
+      4
+    ],
+    "captured_graph_keys": [
+      1,
+      2,
+      4
+    ],
+    "actual_backend": "FlashInferBackend",
+    "prefill_no_split": true,
+    "linear_tile": 512,
+    "source_sha256": {
+      "serving/i2_precision_policy.py": "7b94c6f96dda50834d32c62ca26c84517bd9372db633a98eb05a2764a26fb5b7",
+      "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+      "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326"
+    }
+  },
+  {
+    "event": "i3_precision_policy",
+    "pid": 148894,
+    "monotonic_ns": 85570087801525,
+    "wall_time_ns": 1793640103130067497,
+    "policy": "fp16_lower_fp32_upper16_head_fp16_FI_KV",
+    "upper_layers": 16,
+    "installed_before_graph": true,
+    "upper_linear_weight_dtype": "torch.float32",
+    "head_weight_dtype": "torch.float32",
+    "attention_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "TF32": false,
+    "FP32_rope_and_qk_norm": true,
+    "captured_graph_keys": [
+      1,
+      2,
+      4
+    ],
+    "source_sha256": "1d61f2ea55c7dbbbf021c7a0b9795bb2ffc789bd7021e5be492e5e9b7f74d116"
+  },
+  {
+    "event": "engine_ready",
+    "pid": 148894,
+    "monotonic_ns": 85570857474291,
+    "wall_time_ns": 1793640103899740714,
+    "backend": "FlashInferBackend",
+    "torch": "2.9.1+cu129",
+    "cuda": "12.9",
+    "capability": [
+      12,
+      0
+    ],
+    "dtype": "torch.float16",
+    "free_bytes": 4000317440,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 148894,
+    "monotonic_ns": 85570860965780,
+    "wall_time_ns": 1793640103903232353,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 148871,
+    "monotonic_ns": 85570891476941,
+    "wall_time_ns": 1793640103933743103,
+    "uid": 0,
+    "external_id": null,
+    "admitted_uids": [
+      0
+    ]
+  },
+  {
+    "event": "delivery_warmup_start",
+    "pid": 148871,
+    "monotonic_ns": 85570891796576,
+    "wall_time_ns": 1793640103934062378,
+    "uid": 0,
+    "budget_s": 600.0,
+    "public_request_timeout_s": 20.0
+  },
+  {
+    "event": "tokenized",
+    "pid": 148895,
+    "monotonic_ns": 85570905726065,
+    "wall_time_ns": 1793640103947992789,
+    "uid": 0,
+    "input_ids": [
+      32,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      362,
+      2613,
+      3743,
+      14858,
+      1119,
+      264,
+      13638,
+      323,
+      3229,
+      1059,
+      4780,
+      264,
+      6247,
+      3364,
+      13,
+      220
+    ]
+  },
+  {
+    "event": "i3_input",
+    "pid": 148894,
+    "monotonic_ns": 85570956766075,
+    "wall_time_ns": 1793640103999032418,
+    "uid": 0,
+    "prompt_tokens": 121,
+    "output_budget": 2
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 148894,
+    "monotonic_ns": 85570957216257,
+    "wall_time_ns": 1793640103999481949,
+    "uid": 0,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 148894,
+    "monotonic_ns": 85570957822595,
+    "wall_time_ns": 1793640104000088237,
+    "trigger": "UserMsg",
+    "uid": 0,
+    "pending_uids": [
+      0
+    ],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85570960866031,
+    "wall_time_ns": 1793640104003131923,
+    "phase": "prefill",
+    "uids": [
+      0
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85570961409449,
+    "wall_time_ns": 1793640104003675111,
+    "requested_pages": 121,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85570965448265,
+    "wall_time_ns": 1793640104007713897,
+    "phase": "prefill",
+    "requests": [
+      {
+        "uid": 0,
+        "cached": 0,
+        "extend": 121,
+        "device_len": 121
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": false
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85571148273226,
+    "wall_time_ns": 1793640104190539219,
+    "uid": 0,
+    "token_id": 362,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85571149168080,
+    "wall_time_ns": 1793640104191434073,
+    "phase": "decode",
+    "uids": [
+      0
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85571149560804,
+    "wall_time_ns": 1793640104191826486,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85571150310396,
+    "wall_time_ns": 1793640104192577170,
+    "uids": [
+      0
+    ],
+    "active_uids": [
+      0
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85571151841144,
+    "wall_time_ns": 1793640104194107017,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 0,
+        "cached": 121,
+        "extend": 1,
+        "device_len": 122
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85571152444407,
+    "wall_time_ns": 1793640104194710199,
+    "uids": [
+      0
+    ],
+    "padded": 1
+  },
+  {
+    "event": "request_free",
+    "pid": 148894,
+    "monotonic_ns": 85571177765758,
+    "wall_time_ns": 1793640104220031550,
+    "uid": 0,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1926,
+    "num_pages": 2048,
+    "prefix_total_tokens": 122,
+    "prefix_evictable_tokens": 122
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85571178232823,
+    "wall_time_ns": 1793640104220498545,
+    "uid": 0,
+    "token_id": 2613,
+    "finished": true,
+    "finish_reason": "length"
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 148894,
+    "monotonic_ns": 85571179162452,
+    "wall_time_ns": 1793640104221428435,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1926,
+    "num_pages": 2048,
+    "prefix_total_tokens": 122,
+    "prefix_evictable_tokens": 122
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85571179438890,
+    "wall_time_ns": 1793640104221705774,
+    "uids": [
+      0
+    ],
+    "active_uids": []
+  },
+  {
+    "event": "backend_terminal",
+    "pid": 148871,
+    "monotonic_ns": 85571180693162,
+    "wall_time_ns": 1793640104222959164,
+    "uid": 0,
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": []
+  },
+  {
+    "event": "admission_release",
+    "pid": 148871,
+    "monotonic_ns": 85571181342062,
+    "wall_time_ns": 1793640104223607914,
+    "uid": 0,
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "ack_uids": []
+  },
+  {
+    "event": "delivery_warmup_end",
+    "pid": 148871,
+    "monotonic_ns": 85571181619257,
+    "wall_time_ns": 1793640104223884849,
+    "uid": 0,
+    "tokens": 2,
+    "public_request_timeout_s": 20.0
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85571573854636,
+    "wall_time_ns": 1793640104616121050,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85572082915748,
+    "wall_time_ns": 1793640105125181781,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85572590396426,
+    "wall_time_ns": 1793640105632662519,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85573096870000,
+    "wall_time_ns": 1793640106139136213,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85573603771583,
+    "wall_time_ns": 1793640106646037695,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85574111314943,
+    "wall_time_ns": 1793640107153580876,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85574617552658,
+    "wall_time_ns": 1793640107659818680,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85575123770886,
+    "wall_time_ns": 1793640108166036839,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85575630658455,
+    "wall_time_ns": 1793640108672924678,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85576137279994,
+    "wall_time_ns": 1793640109179546127,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85576643388236,
+    "wall_time_ns": 1793640109685654469,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85577150561775,
+    "wall_time_ns": 1793640110192827868,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85577657540282,
+    "wall_time_ns": 1793640110699806485,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85578164409376,
+    "wall_time_ns": 1793640111206675769,
+    "uid_counter": 1,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 148871,
+    "monotonic_ns": 85578582858412,
+    "wall_time_ns": 1793640111625124725,
+    "uid": 1,
+    "external_id": "warmup",
+    "admitted_uids": [
+      1
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 148895,
+    "monotonic_ns": 85578585076278,
+    "wall_time_ns": 1793640111627342892,
+    "uid": 1,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      40451,
+      264,
+      2805,
+      3364,
+      911,
+      264,
+      3743,
+      323,
+      264,
+      13638,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "i3_input",
+    "pid": 148894,
+    "monotonic_ns": 85578586174647,
+    "wall_time_ns": 1793640111628440550,
+    "uid": 1,
+    "prompt_tokens": 23,
+    "output_budget": 16
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 148894,
+    "monotonic_ns": 85578586493521,
+    "wall_time_ns": 1793640111628759083,
+    "uid": 1,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 148894,
+    "monotonic_ns": 85578586820570,
+    "wall_time_ns": 1793640111629086082,
+    "trigger": "UserMsg",
+    "uid": 1,
+    "pending_uids": [
+      1
+    ],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1926,
+    "num_pages": 2048,
+    "prefix_total_tokens": 122,
+    "prefix_evictable_tokens": 122
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578587698101,
+    "wall_time_ns": 1793640111629963563,
+    "phase": "prefill",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578588149426,
+    "wall_time_ns": 1793640111630415158,
+    "requested_pages": 23,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578590152257,
+    "wall_time_ns": 1793640111632417819,
+    "phase": "prefill",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 0,
+        "extend": 23,
+        "device_len": 23
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": false
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85578671032231,
+    "wall_time_ns": 1793640111713298354,
+    "uid_counter": 2,
+    "ack_uids": [
+      1
+    ],
+    "event_uids": [
+      1
+    ],
+    "admitted_uids": [
+      1
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      1
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578723216096,
+    "wall_time_ns": 1793640111765482228,
+    "uid": 1,
+    "token_id": 641,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578723931520,
+    "wall_time_ns": 1793640111766197562,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578724348589,
+    "wall_time_ns": 1793640111766614241,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578724606307,
+    "wall_time_ns": 1793640111766873451,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578726078825,
+    "wall_time_ns": 1793640111768344366,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 23,
+        "extend": 1,
+        "device_len": 24
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578726614890,
+    "wall_time_ns": 1793640111768880722,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578737084476,
+    "wall_time_ns": 1793640111779350178,
+    "uid": 1,
+    "token_id": 279,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578737595253,
+    "wall_time_ns": 1793640111779860705,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578737951137,
+    "wall_time_ns": 1793640111780216739,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578738079762,
+    "wall_time_ns": 1793640111780346536,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578739710067,
+    "wall_time_ns": 1793640111781975749,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 24,
+        "extend": 1,
+        "device_len": 25
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578740241102,
+    "wall_time_ns": 1793640111782506604,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578753180291,
+    "wall_time_ns": 1793640111795446073,
+    "uid": 1,
+    "token_id": 4746,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578753701538,
+    "wall_time_ns": 1793640111795967129,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578753989974,
+    "wall_time_ns": 1793640111796255415,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578754177990,
+    "wall_time_ns": 1793640111796443882,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578755199073,
+    "wall_time_ns": 1793640111797464664,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 25,
+        "extend": 1,
+        "device_len": 26
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578755658402,
+    "wall_time_ns": 1793640111797923944,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578766170062,
+    "wall_time_ns": 1793640111808435905,
+    "uid": 1,
+    "token_id": 315,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578766792290,
+    "wall_time_ns": 1793640111809057932,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578767075857,
+    "wall_time_ns": 1793640111809341379,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578767357456,
+    "wall_time_ns": 1793640111809623258,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578768611652,
+    "wall_time_ns": 1793640111810877254,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 26,
+        "extend": 1,
+        "device_len": 27
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578769088475,
+    "wall_time_ns": 1793640111811354026,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578779589877,
+    "wall_time_ns": 1793640111821855930,
+    "uid": 1,
+    "token_id": 264,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578780303829,
+    "wall_time_ns": 1793640111822569681,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578780703716,
+    "wall_time_ns": 1793640111822969217,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578780727414,
+    "wall_time_ns": 1793640111822993176,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578782189238,
+    "wall_time_ns": 1793640111824454940,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 27,
+        "extend": 1,
+        "device_len": 28
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578782647085,
+    "wall_time_ns": 1793640111824912767,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578792742474,
+    "wall_time_ns": 1793640111835008266,
+    "uid": 1,
+    "token_id": 11340,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578793328657,
+    "wall_time_ns": 1793640111835594208,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578793650095,
+    "wall_time_ns": 1793640111835915978,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578793869146,
+    "wall_time_ns": 1793640111836134968,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578795000332,
+    "wall_time_ns": 1793640111837266044,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 28,
+        "extend": 1,
+        "device_len": 29
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578795451325,
+    "wall_time_ns": 1793640111837717067,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578805884637,
+    "wall_time_ns": 1793640111848150749,
+    "uid": 1,
+    "token_id": 13638,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578807166584,
+    "wall_time_ns": 1793640111849432205,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578807445982,
+    "wall_time_ns": 1793640111849711784,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578807505135,
+    "wall_time_ns": 1793640111849770937,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578809661927,
+    "wall_time_ns": 1793640111851927429,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 29,
+        "extend": 1,
+        "device_len": 30
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578810137247,
+    "wall_time_ns": 1793640111852402989,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578820203961,
+    "wall_time_ns": 1793640111862469663,
+    "uid": 1,
+    "token_id": 11,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578820695141,
+    "wall_time_ns": 1793640111862960592,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578820970823,
+    "wall_time_ns": 1793640111863236444,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578821189440,
+    "wall_time_ns": 1793640111863455132,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578823922490,
+    "wall_time_ns": 1793640111866188102,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 30,
+        "extend": 1,
+        "device_len": 31
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578824472151,
+    "wall_time_ns": 1793640111866737853,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578834438228,
+    "wall_time_ns": 1793640111876703820,
+    "uid": 1,
+    "token_id": 1380,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578834950718,
+    "wall_time_ns": 1793640111877216410,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578835228844,
+    "wall_time_ns": 1793640111877494286,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578835585453,
+    "wall_time_ns": 1793640111877851135,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578836759883,
+    "wall_time_ns": 1793640111879025374,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 31,
+        "extend": 1,
+        "device_len": 32
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578837435943,
+    "wall_time_ns": 1793640111879701555,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578847732085,
+    "wall_time_ns": 1793640111889998058,
+    "uid": 1,
+    "token_id": 279,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578848340457,
+    "wall_time_ns": 1793640111890606129,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578848635486,
+    "wall_time_ns": 1793640111890900937,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578848766357,
+    "wall_time_ns": 1793640111891032399,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578850087444,
+    "wall_time_ns": 1793640111892352936,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 32,
+        "extend": 1,
+        "device_len": 33
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578850565168,
+    "wall_time_ns": 1793640111892830910,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578860587286,
+    "wall_time_ns": 1793640111902852857,
+    "uid": 1,
+    "token_id": 12408,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578861044221,
+    "wall_time_ns": 1793640111903309852,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578861352564,
+    "wall_time_ns": 1793640111903618196,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578861499742,
+    "wall_time_ns": 1793640111903765504,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578862664468,
+    "wall_time_ns": 1793640111904930120,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 33,
+        "extend": 1,
+        "device_len": 34
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578863140078,
+    "wall_time_ns": 1793640111905405610,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578872288984,
+    "wall_time_ns": 1793640111914554586,
+    "uid": 1,
+    "token_id": 57266,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578872806824,
+    "wall_time_ns": 1793640111915072286,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578873117112,
+    "wall_time_ns": 1793640111915382563,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578873341290,
+    "wall_time_ns": 1793640111915607052,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578875378984,
+    "wall_time_ns": 1793640111917644495,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 34,
+        "extend": 1,
+        "device_len": 35
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578875922563,
+    "wall_time_ns": 1793640111918188235,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578884449509,
+    "wall_time_ns": 1793640111926715111,
+    "uid": 1,
+    "token_id": 23594,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578884977769,
+    "wall_time_ns": 1793640111927243311,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578885266125,
+    "wall_time_ns": 1793640111927531557,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578885451195,
+    "wall_time_ns": 1793640111927716877,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578886427023,
+    "wall_time_ns": 1793640111928692765,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 35,
+        "extend": 1,
+        "device_len": 36
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578886892294,
+    "wall_time_ns": 1793640111929157885,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578895011981,
+    "wall_time_ns": 1793640111937277583,
+    "uid": 1,
+    "token_id": 323,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578895498532,
+    "wall_time_ns": 1793640111937764064,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578895804832,
+    "wall_time_ns": 1793640111938070614,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578895943198,
+    "wall_time_ns": 1793640111938208880,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578897020784,
+    "wall_time_ns": 1793640111939286356,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 36,
+        "extend": 1,
+        "device_len": 37
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578897496214,
+    "wall_time_ns": 1793640111939761716,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578905783102,
+    "wall_time_ns": 1793640111948048794,
+    "uid": 1,
+    "token_id": 279,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578906252862,
+    "wall_time_ns": 1793640111948518513,
+    "phase": "decode",
+    "uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578906532291,
+    "wall_time_ns": 1793640111948797973,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578906696886,
+    "wall_time_ns": 1793640111948962628,
+    "uids": [
+      1
+    ],
+    "active_uids": [
+      1
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578908434465,
+    "wall_time_ns": 1793640111950700337,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 1,
+        "cached": 37,
+        "extend": 1,
+        "device_len": 38
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85578908906789,
+    "wall_time_ns": 1793640111951172451,
+    "uids": [
+      1
+    ],
+    "padded": 1
+  },
+  {
+    "event": "request_free",
+    "pid": 148894,
+    "monotonic_ns": 85578917290317,
+    "wall_time_ns": 1793640111959555929,
+    "uid": 1,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1888,
+    "num_pages": 2048,
+    "prefix_total_tokens": 160,
+    "prefix_evictable_tokens": 160
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85578917675997,
+    "wall_time_ns": 1793640111959941619,
+    "uid": 1,
+    "token_id": 3720,
+    "finished": true,
+    "finish_reason": "length"
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 148894,
+    "monotonic_ns": 85578918381633,
+    "wall_time_ns": 1793640111960647385,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1888,
+    "num_pages": 2048,
+    "prefix_total_tokens": 160,
+    "prefix_evictable_tokens": 160
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85578918724105,
+    "wall_time_ns": 1793640111960989796,
+    "uids": [
+      1
+    ],
+    "active_uids": []
+  },
+  {
+    "event": "backend_terminal",
+    "pid": 148871,
+    "monotonic_ns": 85578919720698,
+    "wall_time_ns": 1793640111961986951,
+    "uid": 1,
+    "admitted_uids": [
+      1
+    ],
+    "aborting_uids": []
+  },
+  {
+    "event": "admission_release",
+    "pid": 148871,
+    "monotonic_ns": 85578920645278,
+    "wall_time_ns": 1793640111962911030,
+    "uid": 1,
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "ack_uids": []
+  },
+  {
+    "event": "frontend_abort_start",
+    "pid": 148871,
+    "monotonic_ns": 85578921504525,
+    "wall_time_ns": 1793640111963770237,
+    "uid": 1
+  },
+  {
+    "event": "frontend_abort_sent",
+    "pid": 148871,
+    "monotonic_ns": 85578921776400,
+    "wall_time_ns": 1793640111964042192,
+    "uid": 1,
+    "ack_uids": [],
+    "event_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85578925028857,
+    "wall_time_ns": 1793640111967294369,
+    "uid_counter": 2,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 148871,
+    "monotonic_ns": 85578944266950,
+    "wall_time_ns": 1793640111986533073,
+    "uid": 2,
+    "external_id": "inflight",
+    "admitted_uids": [
+      2
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 148895,
+    "monotonic_ns": 85578946363971,
+    "wall_time_ns": 1793640111988629963,
+    "uid": 2,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      40451,
+      264,
+      2805,
+      3364,
+      911,
+      264,
+      3743,
+      323,
+      264,
+      13638,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "i3_input",
+    "pid": 148894,
+    "monotonic_ns": 85578947596243,
+    "wall_time_ns": 1793640111989862306,
+    "uid": 2,
+    "prompt_tokens": 23,
+    "output_budget": 512
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 148894,
+    "monotonic_ns": 85578947866184,
+    "wall_time_ns": 1793640111990131916,
+    "uid": 2,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 148894,
+    "monotonic_ns": 85578948350892,
+    "wall_time_ns": 1793640111990616493,
+    "trigger": "UserMsg",
+    "uid": 2,
+    "pending_uids": [
+      2
+    ],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 1888,
+    "num_pages": 2048,
+    "prefix_total_tokens": 160,
+    "prefix_evictable_tokens": 160
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85578949550162,
+    "wall_time_ns": 1793640111991816034,
+    "phase": "prefill",
+    "uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85578949925873,
+    "wall_time_ns": 1793640111992191595,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85578951706534,
+    "wall_time_ns": 1793640111993972036,
+    "phase": "prefill",
+    "requests": [
+      {
+        "uid": 2,
+        "cached": 22,
+        "extend": 1,
+        "device_len": 23
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": false
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85579046614386,
+    "wall_time_ns": 1793640112088880298,
+    "uid": 2,
+    "token_id": 641,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85579047243968,
+    "wall_time_ns": 1793640112089509730,
+    "phase": "decode",
+    "uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85579047587588,
+    "wall_time_ns": 1793640112089853501,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85579048136217,
+    "wall_time_ns": 1793640112090402029,
+    "uids": [
+      2
+    ],
+    "active_uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85579049033936,
+    "wall_time_ns": 1793640112091299769,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 2,
+        "cached": 23,
+        "extend": 1,
+        "device_len": 24
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85579049460504,
+    "wall_time_ns": 1793640112091726176,
+    "uids": [
+      2
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85579057644217,
+    "wall_time_ns": 1793640112099909809,
+    "uid": 2,
+    "token_id": 279,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85579058113506,
+    "wall_time_ns": 1793640112100378947,
+    "phase": "decode",
+    "uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85579058385621,
+    "wall_time_ns": 1793640112100651052,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85579058646991,
+    "wall_time_ns": 1793640112100912774,
+    "uids": [
+      2
+    ],
+    "active_uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85579060458665,
+    "wall_time_ns": 1793640112102724156,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 2,
+        "cached": 24,
+        "extend": 1,
+        "device_len": 25
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85579060919948,
+    "wall_time_ns": 1793640112103185620,
+    "uids": [
+      2
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85579069684450,
+    "wall_time_ns": 1793640112111950142,
+    "uid": 2,
+    "token_id": 4746,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85579070203563,
+    "wall_time_ns": 1793640112112469034,
+    "phase": "decode",
+    "uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85579070549848,
+    "wall_time_ns": 1793640112112815340,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85579070762281,
+    "wall_time_ns": 1793640112113028173,
+    "uids": [
+      2
+    ],
+    "active_uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85579072566352,
+    "wall_time_ns": 1793640112114831854,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 2,
+        "cached": 25,
+        "extend": 1,
+        "device_len": 26
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85579073078722,
+    "wall_time_ns": 1793640112115344254,
+    "uids": [
+      2
+    ],
+    "padded": 1
+  },
+  {
+    "event": "scheduler_token",
+    "pid": 148894,
+    "monotonic_ns": 85579082005822,
+    "wall_time_ns": 1793640112124271825,
+    "uid": 2,
+    "token_id": 315,
+    "finished": false,
+    "finish_reason": null
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 148894,
+    "monotonic_ns": 85579082604516,
+    "wall_time_ns": 1793640112124870478,
+    "phase": "decode",
+    "uids": [
+      2
+    ]
+  },
+  {
+    "event": "detokenizer_state",
+    "pid": 148895,
+    "monotonic_ns": 85579083177552,
+    "wall_time_ns": 1793640112125443505,
+    "uids": [
+      2
+    ],
+    "active_uids": [
+      2
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 148894,
+    "monotonic_ns": 85579083749186,
+    "wall_time_ns": 1793640112126014998,
+    "requested_pages": 1,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 148894,
+    "monotonic_ns": 85579087326769,
+    "wall_time_ns": 1793640112129592301,
+    "phase": "decode",
+    "requests": [
+      {
+        "uid": 2,
+        "cached": 26,
+        "extend": 1,
+        "device_len": 27
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": true
+  },
+  {
+    "event": "i3_graph_replay",
+    "pid": 148894,
+    "monotonic_ns": 85579087880518,
+    "wall_time_ns": 1793640112130146029,
+    "uids": [
+      2
+    ],
+    "padded": 1
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85579177146088,
+    "wall_time_ns": 1793640112219447617,
+    "uid_counter": 3,
+    "ack_uids": [
+      2
+    ],
+    "event_uids": [
+      2
+    ],
+    "admitted_uids": [
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      2
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 148871,
+    "monotonic_ns": 85579685279811,
+    "wall_time_ns": 1793640112727545754,
+    "uid_counter": 3,
+    "ack_uids": [
+      2
+    ],
+    "event_uids": [
+      2
+    ],
+    "admitted_uids": [
+      2
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      2
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_failed",
+    "pid": 148871,
+    "monotonic_ns": 85579978235235,
+    "wall_time_ns": 1793640113020501427,
+    "reason": "Worker minisgl-TP0-scheduler (pid=148894) exited (-15)",
+    "active_uids": [
+      2
+    ]
+  },
+  {
+    "event": "i2_shutdown_policy",
+    "pid": 148871,
+    "monotonic_ns": 85579981250506,
+    "wall_time_ns": 1793640113023516408,
+    "budgets": [
+      {
+        "signal": "SIGINT",
+        "seconds": 6.0
+      },
+      {
+        "signal": "SIGTERM",
+        "seconds": 1.5
+      },
+      {
+        "signal": "SIGKILL",
+        "seconds": 0.5
+      }
+    ],
+    "total_budget_s": 8.0,
+    "external_shutdown_budget_s": 10,
+    "source_sha256": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27"
+  },
+  {
+    "event": "frontend_abort_start",
+    "pid": 148871,
+    "monotonic_ns": 85579982609922,
+    "wall_time_ns": 1793640113024875905,
+    "uid": 2
+  },
+  {
+    "event": "frontend_abort_sent",
+    "pid": 148871,
+    "monotonic_ns": 85579982922174,
+    "wall_time_ns": 1793640113025188056,
+    "uid": 2,
+    "ack_uids": [],
+    "event_uids": []
+  },
+  {
+    "event": "i2_shutdown_policy",
+    "pid": 148871,
+    "monotonic_ns": 85581393089289,
+    "wall_time_ns": 1793640114435355362,
+    "budgets": [
+      {
+        "signal": "SIGINT",
+        "seconds": 6.0
+      },
+      {
+        "signal": "SIGTERM",
+        "seconds": 1.5
+      },
+      {
+        "signal": "SIGKILL",
+        "seconds": 0.5
+      }
+    ],
+    "total_budget_s": 8.0,
+    "external_shutdown_budget_s": 10,
+    "source_sha256": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27"
+  },
+  {
+    "event": "workers_stopped",
+    "pid": 148871,
+    "monotonic_ns": 85581541971462,
+    "wall_time_ns": 1793640114584237835,
+    "workers": [
+      {
+        "pid": 148894,
+        "name": "minisgl-TP0-scheduler"
+      },
+      {
+        "pid": 148895,
+        "name": "minisgl-detokenizer-0"
+      }
+    ],
+    "seconds": 1.5589160319941584,
+    "signals": [
+      {
+        "pid": 148895,
+        "signal": "SIGINT"
+      }
+    ],
+    "escalated": false,
+    "surviving_pids": [],
+    "exitcodes": {
+      "148894": -15,
+      "148895": 0
+    }
+  },
+  {
+    "event": "workers_stopped",
+    "pid": 148871,
+    "monotonic_ns": 85581542144305,
+    "wall_time_ns": 1793640114584409977,
+    "workers": [
+      {
+        "pid": 148894,
+        "name": "minisgl-TP0-scheduler"
+      },
+      {
+        "pid": 148895,
+        "name": "minisgl-detokenizer-0"
+      }
+    ],
+    "seconds": 1.5589160319941584,
+    "signals": [
+      {
+        "pid": 148895,
+        "signal": "SIGINT"
+      }
+    ],
+    "escalated": false,
+    "surviving_pids": [],
+    "exitcodes": {
+      "148894": -15,
+      "148895": 0
+    }
+  }
+]

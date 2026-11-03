@@ -1,0 +1,1437 @@
+[
+  {
+    "event": "observer_installed",
+    "pid": 144554,
+    "monotonic_ns": 84241574696287,
+    "wall_time_ns": 1793638774616962881
+  },
+  {
+    "event": "observer_installed",
+    "pid": 144633,
+    "monotonic_ns": 84248874793368,
+    "wall_time_ns": 1793638781917059791
+  },
+  {
+    "event": "observer_installed",
+    "pid": 144634,
+    "monotonic_ns": 84248875131642,
+    "wall_time_ns": 1793638781917397855
+  },
+  {
+    "event": "i2_precision_policy",
+    "pid": 144633,
+    "monotonic_ns": 84405898250952,
+    "wall_time_ns": 1793638938940517285,
+    "mode": "mixed",
+    "policy": "fi_nosplit_linear512_fp16_main_fp32_residual_norm",
+    "dtype": "torch.float16",
+    "weight_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "residual_dtype": "torch.float32",
+    "graph_install": {
+      "norms_installed": 57,
+      "before_graph_constructor": true
+    },
+    "captured_buckets": [
+      1,
+      2,
+      4
+    ],
+    "captured_graph_keys": [
+      1,
+      2,
+      4
+    ],
+    "actual_backend": "FlashInferBackend",
+    "prefill_no_split": true,
+    "linear_tile": 512,
+    "source_sha256": {
+      "serving/i2_precision_policy.py": "7b94c6f96dda50834d32c62ca26c84517bd9372db633a98eb05a2764a26fb5b7",
+      "serving/i2_numerical_policy.py": "2a654bda505cd7b1340bddd6333831fd7a540b279183dcda95857d41e9aa33d3",
+      "serving/i2_linear_tile_policy.py": "dd885f32d020c20682465f7671a3a8e2b38035f3e0f10eb8b61241805a830326"
+    }
+  },
+  {
+    "event": "i3_precision_policy",
+    "pid": 144633,
+    "monotonic_ns": 84405898645158,
+    "wall_time_ns": 1793638938940910870,
+    "policy": "fp16_lower_fp32_upper16_head_fp16_FI_KV",
+    "upper_layers": 16,
+    "installed_before_graph": true,
+    "upper_linear_weight_dtype": "torch.float32",
+    "head_weight_dtype": "torch.float32",
+    "attention_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "TF32": false,
+    "FP32_rope_and_qk_norm": true,
+    "captured_graph_keys": [
+      1,
+      2,
+      4
+    ],
+    "source_sha256": "1d61f2ea55c7dbbbf021c7a0b9795bb2ffc789bd7021e5be492e5e9b7f74d116"
+  },
+  {
+    "event": "engine_ready",
+    "pid": 144633,
+    "monotonic_ns": 84406644358215,
+    "wall_time_ns": 1793638939686624358,
+    "backend": "FlashInferBackend",
+    "torch": "2.9.1+cu129",
+    "cuda": "12.9",
+    "capability": [
+      12,
+      0
+    ],
+    "dtype": "torch.float16",
+    "free_bytes": 4000317440,
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "scheduler_idle",
+    "pid": 144633,
+    "monotonic_ns": 84406647051602,
+    "wall_time_ns": 1793638939689317555,
+    "integrity": "pass",
+    "pending_uids": [],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84407166672656,
+    "wall_time_ns": 1793638940208938969,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84407676632838,
+    "wall_time_ns": 1793638940718899622,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84408183913214,
+    "wall_time_ns": 1793638941226179678,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84408690855222,
+    "wall_time_ns": 1793638941733121344,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84409197127508,
+    "wall_time_ns": 1793638942239393961,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84409703555505,
+    "wall_time_ns": 1793638942745821618,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84410209427880,
+    "wall_time_ns": 1793638943251694123,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84410716922167,
+    "wall_time_ns": 1793638943759188501,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84411223214554,
+    "wall_time_ns": 1793638944265481057,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84411729304174,
+    "wall_time_ns": 1793638944771570296,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84412235497083,
+    "wall_time_ns": 1793638945277763146,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84412742061303,
+    "wall_time_ns": 1793638945784327656,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84413247985501,
+    "wall_time_ns": 1793638946290251664,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84413754912194,
+    "wall_time_ns": 1793638946797178688,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84414260668375,
+    "wall_time_ns": 1793638947302934909,
+    "uid_counter": 0,
+    "ack_uids": [],
+    "event_uids": [],
+    "admitted_uids": [],
+    "aborting_uids": [],
+    "deadline_uids": [],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_new_user",
+    "pid": 144554,
+    "monotonic_ns": 84414295254719,
+    "wall_time_ns": 1793638947337521202,
+    "uid": 0,
+    "external_id": "warmup",
+    "admitted_uids": [
+      0
+    ]
+  },
+  {
+    "event": "tokenized",
+    "pid": 144634,
+    "monotonic_ns": 84414303965993,
+    "wall_time_ns": 1793638947346232677,
+    "uid": 0,
+    "input_ids": [
+      151644,
+      872,
+      198,
+      40451,
+      264,
+      2805,
+      3364,
+      911,
+      264,
+      3743,
+      323,
+      264,
+      13638,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198,
+      151667,
+      271,
+      151668,
+      271
+    ]
+  },
+  {
+    "event": "i3_input",
+    "pid": 144633,
+    "monotonic_ns": 84414305600408,
+    "wall_time_ns": 1793638947347866230,
+    "uid": 0,
+    "prompt_tokens": 23,
+    "output_budget": 16
+  },
+  {
+    "event": "scheduler_receive",
+    "pid": 144633,
+    "monotonic_ns": 84414305867734,
+    "wall_time_ns": 1793638947348133406,
+    "uid": 0,
+    "kind": "UserMsg"
+  },
+  {
+    "event": "scheduler_state",
+    "pid": 144633,
+    "monotonic_ns": 84414306225090,
+    "wall_time_ns": 1793638947348490702,
+    "trigger": "UserMsg",
+    "uid": 0,
+    "pending_uids": [
+      0
+    ],
+    "running_uids": [],
+    "available_tables": 4,
+    "free_pages": 2048,
+    "num_pages": 2048,
+    "prefix_total_tokens": 0,
+    "prefix_evictable_tokens": 0
+  },
+  {
+    "event": "batch_prepare",
+    "pid": 144633,
+    "monotonic_ns": 84414308699474,
+    "wall_time_ns": 1793638947350965056,
+    "phase": "prefill",
+    "uids": [
+      0
+    ]
+  },
+  {
+    "event": "i3_allocate",
+    "pid": 144633,
+    "monotonic_ns": 84414309035640,
+    "wall_time_ns": 1793638947351301252,
+    "requested_pages": 23,
+    "prefix_evicted_pages": 0
+  },
+  {
+    "event": "i3_batch",
+    "pid": 144633,
+    "monotonic_ns": 84414311407711,
+    "wall_time_ns": 1793638947353673222,
+    "phase": "prefill",
+    "requests": [
+      {
+        "uid": 0,
+        "cached": 0,
+        "extend": 23,
+        "device_len": 23
+      }
+    ],
+    "padded": 1,
+    "graph_eligible": false
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84414769058034,
+    "wall_time_ns": 1793638947811324217,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84415275620706,
+    "wall_time_ns": 1793638948317886979,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84415782468978,
+    "wall_time_ns": 1793638948824735010,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84416289943056,
+    "wall_time_ns": 1793638949332209339,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84416799987259,
+    "wall_time_ns": 1793638949842253642,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84417307943216,
+    "wall_time_ns": 1793638950350209499,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84417816665726,
+    "wall_time_ns": 1793638950858932219,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84418323992442,
+    "wall_time_ns": 1793638951366258615,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84418830953357,
+    "wall_time_ns": 1793638951873219861,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84419338239478,
+    "wall_time_ns": 1793638952380505600,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84419846249431,
+    "wall_time_ns": 1793638952888515864,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84420355268208,
+    "wall_time_ns": 1793638953397534511,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84420863364682,
+    "wall_time_ns": 1793638953905630805,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84421371924363,
+    "wall_time_ns": 1793638954414190676,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84421879379522,
+    "wall_time_ns": 1793638954921645725,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84422386654703,
+    "wall_time_ns": 1793638955428921066,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84422895552650,
+    "wall_time_ns": 1793638955937818993,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84423401919164,
+    "wall_time_ns": 1793638956444185287,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84423908824655,
+    "wall_time_ns": 1793638956951090818,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84424415711450,
+    "wall_time_ns": 1793638957457977693,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84424922042220,
+    "wall_time_ns": 1793638957964308273,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84425428358123,
+    "wall_time_ns": 1793638958470624466,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84425935944292,
+    "wall_time_ns": 1793638958978210394,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84426443891462,
+    "wall_time_ns": 1793638959486157975,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84426951006798,
+    "wall_time_ns": 1793638959993273000,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84427457861170,
+    "wall_time_ns": 1793638960500127423,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84427965627237,
+    "wall_time_ns": 1793638961007893670,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84428471606921,
+    "wall_time_ns": 1793638961513872883,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84428978523663,
+    "wall_time_ns": 1793638962020790076,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84429485353516,
+    "wall_time_ns": 1793638962527619629,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84429992911522,
+    "wall_time_ns": 1793638963035177875,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84430499644473,
+    "wall_time_ns": 1793638963541910676,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84431006216150,
+    "wall_time_ns": 1793638964048482423,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84431513981977,
+    "wall_time_ns": 1793638964556248440,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84432021104837,
+    "wall_time_ns": 1793638965063371200,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84432528094814,
+    "wall_time_ns": 1793638965570361187,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84433034837593,
+    "wall_time_ns": 1793638966077104067,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84433541348797,
+    "wall_time_ns": 1793638966583614910,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_snapshot",
+    "pid": 144554,
+    "monotonic_ns": 84434048207165,
+    "wall_time_ns": 1793638967090473788,
+    "uid_counter": 1,
+    "ack_uids": [
+      0
+    ],
+    "event_uids": [
+      0
+    ],
+    "admitted_uids": [
+      0
+    ],
+    "aborting_uids": [],
+    "deadline_uids": [
+      0
+    ],
+    "accepting": true,
+    "failure": null,
+    "backend_done_uids": []
+  },
+  {
+    "event": "frontend_abort_start",
+    "pid": 144554,
+    "monotonic_ns": 84434320267449,
+    "wall_time_ns": 1793638967362533902,
+    "uid": 0
+  },
+  {
+    "event": "frontend_abort_sent",
+    "pid": 144554,
+    "monotonic_ns": 84434321667259,
+    "wall_time_ns": 1793638967363932961,
+    "uid": 0,
+    "ack_uids": [],
+    "event_uids": []
+  },
+  {
+    "event": "frontend_failed",
+    "pid": 144554,
+    "monotonic_ns": 84434724435833,
+    "wall_time_ns": 1793638967766701826,
+    "reason": "Service is shutting down",
+    "active_uids": []
+  },
+  {
+    "event": "i2_shutdown_policy",
+    "pid": 144554,
+    "monotonic_ns": 84434731761450,
+    "wall_time_ns": 1793638967774027884,
+    "budgets": [
+      {
+        "signal": "SIGINT",
+        "seconds": 6.0
+      },
+      {
+        "signal": "SIGTERM",
+        "seconds": 1.5
+      },
+      {
+        "signal": "SIGKILL",
+        "seconds": 0.5
+      }
+    ],
+    "total_budget_s": 8.0,
+    "external_shutdown_budget_s": 10,
+    "source_sha256": "e8984d05ce3b57c66db866fe9bff5b45960b959a35e9175178769998c3d31b27"
+  },
+  {
+    "event": "scheduler_shutdown_start",
+    "pid": 144633,
+    "monotonic_ns": 84434735840178,
+    "wall_time_ns": 1793638967778106281
+  },
+  {
+    "event": "scheduler_shutdown_end",
+    "pid": 144633,
+    "monotonic_ns": 84435257039078,
+    "wall_time_ns": 1793638968299305171
+  },
+  {
+    "event": "workers_stopped",
+    "pid": 144554,
+    "monotonic_ns": 84438298005884,
+    "wall_time_ns": 1793638971340272197,
+    "workers": [
+      {
+        "pid": 144633,
+        "name": "minisgl-TP0-scheduler"
+      },
+      {
+        "pid": 144634,
+        "name": "minisgl-detokenizer-0"
+      }
+    ],
+    "seconds": 3.565518899995368,
+    "signals": [
+      {
+        "pid": 144633,
+        "signal": "SIGINT"
+      },
+      {
+        "pid": 144634,
+        "signal": "SIGINT"
+      }
+    ],
+    "escalated": false,
+    "surviving_pids": [],
+    "exitcodes": {
+      "144633": 0,
+      "144634": 0
+    }
+  }
+]

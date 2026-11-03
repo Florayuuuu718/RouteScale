@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/scripts/prepare_serving_tp.py", line 82, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shunzi/projects/RouteScale/scripts/prepare_serving_tp.py", line 28, in main
+    if args.stage in ('benchmark','trace'):numerical_gate(directory,c)
+                                           ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/serving/tp_preparation.py", line 55, in numerical_gate
+    gate=read(directory/'qualification_gate.json')
+  File "/home/shunzi/projects/RouteScale/serving/delivery.py", line 22, in read
+    return json.loads(Path(path).read_text())
+                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/shunzi/projects/RouteScale/runs/tp_delivery/local004/qualification_gate.json'

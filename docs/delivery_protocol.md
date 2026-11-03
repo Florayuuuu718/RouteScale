@@ -1,4 +1,7 @@
-# 本机框架交付与TP准备验收
+# Mini-SGLang本机交付加固与TP准备验收
+
+本协议对应教学服务的交付加固。规划M5要求的正式SGLang/vLLM框架迁移另行验收，
+不能以这里的Mini-SGLang结果代替。
 
 2026-11-03，真实GPU检查前冻结本轮范围。选用I3 v2验收的Mini-SGLang链路，保持
 原计算源码、patch tree、FP16主路径/FP32上16层及head、FI/KV FP16、TF32关闭，
@@ -20,7 +23,8 @@ worker_fault和shutdown_active，保存所有请求终态、取消/客户端期�
 CPU测试、依赖一致性、真实smoke和独立审计全部通过后才标记本机交付完成。
 
 TP准备是新范围：现有TP1-only guards原样保留。H2/nano新适配器逐rank固定同一
-32块逻辑KV池，BF16禁止中间归约降精度、静态页表/paged prefill，参考为同host TP1
+32块逻辑KV池，BF16禁止中间归约降精度、静态页表/paged prefill，并对所有路径
+使用共同Decode桶[1,2,4]（Eager的batch3也补4行，head仍只投影真实行），参考为同host TP1
 全词表内部一致性；不宣称原BF16/HF FP32外部失败已解决。I2/mini新TP适配器保留
 FP16+FP32 upper16/residual/norm，并补齐TP词表gather、每rank一致的prefill tile512、
 FI no-split；这是新计算适配器，不能继承旧TP1数值gate。

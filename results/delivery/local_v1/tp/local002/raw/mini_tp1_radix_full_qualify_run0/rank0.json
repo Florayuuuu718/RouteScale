@@ -1,0 +1,233 @@
+{
+  "passed": true,
+  "framework": "mini",
+  "variant": "radix_full",
+  "world": 1,
+  "rank": 0,
+  "mode": "qualify",
+  "label": "mini_tp1_radix_full_qualify_run0",
+  "config_sha256": "411f5f401ceb391f509c5079a05998ebb7a06cb7feb9d8e53a42549e220638d9",
+  "workload_sha256": "603683bad1c14b5d154c2db150b09ef6ec1448a68fafd403d4f74529303ba314",
+  "policy": "fp16_lower_FP32_upper16_residual_norm_TP_vocab_gather_v1",
+  "pid": 153481,
+  "waves": [
+    {
+      "seconds": 7.173341507,
+      "requests": [
+        {
+          "request_id": "b1_p128_cold_0",
+          "uid": 0,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 2600.681027,
+          "terminal_ms": 7173.049123,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3961,
+        "prefix_total": 135,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 128,
+      "graph_replays": 0,
+      "batch_trace_sha256": "d7c92ca8569319d2f876118f3ba18e36113ac3fad080cf2a296628cb721dcace",
+      "case_id": "b1_p128",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.684105927,
+      "requests": [
+        {
+          "request_id": "b1_p128_warm_0",
+          "uid": 1,
+          "cached_tokens": 127,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 182.36416,
+          "terminal_ms": 683.972765,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3961,
+        "prefix_total": 135,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 1,
+      "graph_replays": 0,
+      "batch_trace_sha256": "17c8ed0847da66e3ea8d170fdaffa7273fa0fb0cef9ad98f4adcc0fc0110c15a",
+      "case_id": "b1_p128",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.673492412,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_cold_0",
+          "uid": 2,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 174.69098,
+          "terminal_ms": 673.357867,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_cold_1",
+          "uid": 3,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "3265b459f24c99092397ab17dd4fe0f3a552acec13cd8fcc87d7c8b425ff0524",
+          "first_result_ms": 174.69098,
+          "terminal_ms": 673.357867,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_cold_2",
+          "uid": 4,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "c93a2bb9832e3e991cd5bb40e6a29385b1cdc966989391aab4920cae89652509",
+          "first_result_ms": 174.69098,
+          "terminal_ms": 673.357867,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3551,
+        "prefix_total": 545,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 1536,
+      "graph_replays": 0,
+      "batch_trace_sha256": "eceec43982c7c3845c721537f57474642ad08cc5e73ae4e62eafacf3ee1b1b87",
+      "case_id": "b3_p512_shared",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.622937442,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_warm_0",
+          "uid": 5,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 99.151818,
+          "terminal_ms": 622.749466,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_warm_1",
+          "uid": 6,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "3265b459f24c99092397ab17dd4fe0f3a552acec13cd8fcc87d7c8b425ff0524",
+          "first_result_ms": 99.151818,
+          "terminal_ms": 622.749466,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_warm_2",
+          "uid": 7,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "c93a2bb9832e3e991cd5bb40e6a29385b1cdc966989391aab4920cae89652509",
+          "first_result_ms": 99.151818,
+          "terminal_ms": 622.749466,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3551,
+        "prefix_total": 545,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 3,
+      "graph_replays": 0,
+      "batch_trace_sha256": "0406e1b7a0543bfc7b829479e026e785a7e1945df2e797cdd2ab9f9c554d4552",
+      "case_id": "b3_p512_shared",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    }
+  ],
+  "observed": {
+    "policy": "fp16_lower_fp32_upper16_head_fp16_FI_KV",
+    "upper_layers": 16,
+    "installed_before_graph": true,
+    "upper_linear_weight_dtype": "torch.float32",
+    "head_weight_dtype": "torch.float32",
+    "attention_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "TF32": false,
+    "FP32_rope_and_qk_norm": true,
+    "rank": 0,
+    "world": 1,
+    "head_all_gather": true,
+    "collective": "torch_nccl",
+    "captured_graph_keys": []
+  },
+  "tensor_file": "tensors/mini_tp1_radix_full_qualify_run0_rank0.pt",
+  "tensor_sha256": "d26da05d0938d61b0cdf1e2074612b87399411480f7ab74f92e21a70b4e77da6",
+  "vectors": 64,
+  "peak_allocated_bytes": 3564636672,
+  "peak_reserved_bytes": 3695181824,
+  "shutdown_s": 0.3125901659950614
+}

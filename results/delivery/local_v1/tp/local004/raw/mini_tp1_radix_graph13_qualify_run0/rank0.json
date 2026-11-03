@@ -1,0 +1,236 @@
+{
+  "passed": true,
+  "framework": "mini",
+  "variant": "radix_graph13",
+  "world": 1,
+  "rank": 0,
+  "mode": "qualify",
+  "label": "mini_tp1_radix_graph13_qualify_run0",
+  "config_sha256": "596d62794ea2b68eca876921909c08bc8b7d1befcbb58c58b399c3c9bf4d339b",
+  "workload_sha256": "603683bad1c14b5d154c2db150b09ef6ec1448a68fafd403d4f74529303ba314",
+  "policy": "fp16_lower_FP32_upper16_residual_norm_TP_vocab_gather_v1",
+  "pid": 159690,
+  "waves": [
+    {
+      "seconds": 0.338184156,
+      "requests": [
+        {
+          "request_id": "b1_p128_cold_0",
+          "uid": 0,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 241.876776,
+          "terminal_ms": 337.950314,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3961,
+        "prefix_total": 135,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 128,
+      "graph_replays": 7,
+      "batch_trace_sha256": "ec59cd01be4a750190a01d48cc5f5556227328ead9939f1fb7a5d42a6d52a989",
+      "case_id": "b1_p128",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.195128961,
+      "requests": [
+        {
+          "request_id": "b1_p128_warm_0",
+          "uid": 1,
+          "cached_tokens": 127,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 120.077601,
+          "terminal_ms": 194.991489,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3961,
+        "prefix_total": 135,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 1,
+      "graph_replays": 7,
+      "batch_trace_sha256": "d7714dfe7e67f5241b6bda3813ec6cfaeeab1b822fcbcf881d877a955162bfb3",
+      "case_id": "b1_p128",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.265619746,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_cold_0",
+          "uid": 2,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 177.519015,
+          "terminal_ms": 265.381124,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_cold_1",
+          "uid": 3,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "3265b459f24c99092397ab17dd4fe0f3a552acec13cd8fcc87d7c8b425ff0524",
+          "first_result_ms": 177.519015,
+          "terminal_ms": 265.381124,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_cold_2",
+          "uid": 4,
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "output_sha256": "c93a2bb9832e3e991cd5bb40e6a29385b1cdc966989391aab4920cae89652509",
+          "first_result_ms": 177.519015,
+          "terminal_ms": 265.381124,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3551,
+        "prefix_total": 545,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 1536,
+      "graph_replays": 7,
+      "batch_trace_sha256": "87b97338c7e958484c6d96e986bf16f77e4bccdc4fc23bc492e44d5f51882c1b",
+      "case_id": "b3_p512_shared",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.206545693,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_warm_0",
+          "uid": 5,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "d3f5e55ab64f988cee8c1c831003cf62a2cc51f20c614af4d180bfad32c6c53f",
+          "first_result_ms": 130.029363,
+          "terminal_ms": 206.380006,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_warm_1",
+          "uid": 6,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "3265b459f24c99092397ab17dd4fe0f3a552acec13cd8fcc87d7c8b425ff0524",
+          "first_result_ms": 130.029363,
+          "terminal_ms": 206.380006,
+          "reason": "length",
+          "free_count": 1
+        },
+        {
+          "request_id": "b3_p512_shared_warm_2",
+          "uid": 7,
+          "cached_tokens": 511,
+          "output_tokens": 8,
+          "output_sha256": "c93a2bb9832e3e991cd5bb40e6a29385b1cdc966989391aab4920cae89652509",
+          "first_result_ms": 130.029363,
+          "terminal_ms": 206.380006,
+          "reason": "length",
+          "free_count": 1
+        }
+      ],
+      "released": {
+        "pending": [],
+        "running": [],
+        "tables": 4,
+        "free_pages": 3551,
+        "prefix_total": 545,
+        "prefix_protected": 0,
+        "num_pages": 4096,
+        "retired": [],
+        "table_slots_unique": true,
+        "page_indices_unique": true,
+        "page_indices_sha256": "cb2249fa75b0f55c6f8922ce37038f8596d44b3ecf325f1ddc6d9d8a301d7e66"
+      },
+      "prefill_batches": 1,
+      "decode_batches": 7,
+      "computed_prefill_tokens": 3,
+      "graph_replays": 7,
+      "batch_trace_sha256": "ae60cc497eac9ae854ec9ae698b73d4e1fab438527b05d6b03022ec859796f2f",
+      "case_id": "b3_p512_shared",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    }
+  ],
+  "observed": {
+    "policy": "fp16_lower_fp32_upper16_head_fp16_FI_KV",
+    "upper_layers": 16,
+    "installed_before_graph": true,
+    "upper_linear_weight_dtype": "torch.float32",
+    "head_weight_dtype": "torch.float32",
+    "attention_dtype": "torch.float16",
+    "kv_dtype": "torch.float16",
+    "TF32": false,
+    "FP32_rope_and_qk_norm": true,
+    "rank": 0,
+    "world": 1,
+    "head_all_gather": true,
+    "collective": "torch_nccl",
+    "captured_graph_keys": [
+      1,
+      3
+    ]
+  },
+  "tensor_file": "tensors/mini_tp1_radix_graph13_qualify_run0_rank0.pt",
+  "tensor_sha256": "a6a047b25359f528fe533d151df1bf87d0d95234ea6acd1e672eca8042b948b4",
+  "vectors": 64,
+  "peak_allocated_bytes": 3566633472,
+  "peak_reserved_bytes": 3718250496,
+  "shutdown_s": 0.3420280159916729
+}

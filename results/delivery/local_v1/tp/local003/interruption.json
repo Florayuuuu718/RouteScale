@@ -1,0 +1,27 @@
+{
+  "reason": "Controller and graph124 child no longer live after context handoff; no terminal record exists; cause unestablished",
+  "interrupted": {
+    "pid": 156956,
+    "command": [
+      "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+      "-m",
+      "torch.distributed.run",
+      "--standalone",
+      "--nproc-per-node=1",
+      "scripts/tp_worker.py",
+      "--directory",
+      "/home/shunzi/projects/RouteScale/runs/tp_delivery/local003",
+      "--mode",
+      "qualify",
+      "--framework",
+      "mini",
+      "--variant",
+      "radix_graph124",
+      "--label",
+      "mini_tp1_radix_graph124_qualify_run0"
+    ],
+    "status": "running"
+  },
+  "raw_rank_existed": false,
+  "resume": "Only the two uncompleted configurations; existing source snapshot and completed records retained"
+}

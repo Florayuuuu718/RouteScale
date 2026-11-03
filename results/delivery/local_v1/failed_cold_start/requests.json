@@ -1,0 +1,50 @@
+[
+  {
+    "request_id": "warmup",
+    "payload_sha256": "d255abec7670f07f87fd4e70c958557629ba04da2a55cb29cd5715011933d951",
+    "state": "failed",
+    "events": [
+      {
+        "request_id": "warmup",
+        "event": "created",
+        "monotonic_ns": 84414289048279,
+        "wall_time_ns": 1793638947331314712,
+        "planned_arrival_monotonic_s": 84414.280353109
+      },
+      {
+        "request_id": "warmup",
+        "event": "queued",
+        "monotonic_ns": 84414289077304,
+        "wall_time_ns": 1793638947331342715,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "warmup",
+        "event": "http_send",
+        "monotonic_ns": 84414289124073,
+        "wall_time_ns": 1793638947331389544
+      },
+      {
+        "request_id": "warmup",
+        "event": "http_headers",
+        "monotonic_ns": 84434324779392,
+        "wall_time_ns": 1793638967367045896,
+        "status": 504
+      },
+      {
+        "request_id": "warmup",
+        "event": "failed",
+        "monotonic_ns": 84434325671611,
+        "wall_time_ns": 1793638967367937714,
+        "reason": "HTTP 504",
+        "response": "{\"detail\":\"Request deadline exceeded\"}"
+      }
+    ],
+    "content": "",
+    "sse_chunks": 0,
+    "response_id": null,
+    "finish_reason": null,
+    "http_status": 504,
+    "reason": "HTTP 504"
+  }
+]

@@ -48,6 +48,19 @@ def create(c,variant,world,rank,numeric):
             self.kv_cache=torch.empty(shape,device=f'cuda:{rank}',dtype=torch.bfloat16)
             for index,module in enumerate(m for m in self.model.modules() if hasattr(m,'k_cache')):
                 module.k_cache,module.v_cache=self.kv_cache[0,index],self.kv_cache[1,index]
+        @torch.inference_mode()
+        def run_model(self,input_ids,positions,is_prefill):
+            if is_prefill or not self.enforce_eager:return super().run_model(input_ids,positions,is_prefill)
+            from nanovllm.utils.context import get_context,set_context
+            import torch.nn.functional as F
+            batch=input_ids.size(0);bucket=next(n for n in (1,2,4) if n>=batch)
+            if bucket==batch:return super().run_model(input_ids,positions,is_prefill)
+            context=get_context();extra=bucket-batch
+            set_context(False,slot_mapping=F.pad(context.slot_mapping,(0,extra),value=-1),
+                context_lens=F.pad(context.context_lens,(0,extra),value=0),
+                block_tables=F.pad(context.block_tables,(0,0,0,extra),value=0))
+            hidden=self.model(F.pad(input_ids,(0,extra),value=0),F.pad(positions,(0,extra),value=0))
+            return self.model.compute_logits(hidden[:batch])
     runner=Runner()
     class Replay:
         def __init__(self):

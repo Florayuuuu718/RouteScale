@@ -144,7 +144,8 @@ def main():
     if args.mode=='fixture':write(args.directory/'workload.json',fixture(c));return
     if args.mode=='reference':reference(args.directory,c);return
     if args.mode=='collective':collective(args.directory,world,rank);return
-    from serving.tp_preparation import numerical_gate
+    from serving.tp_preparation import engine_rendezvous,numerical_gate
+    engine_rendezvous()
     if args.mode in ('benchmark','trace'):numerical_gate(args.directory,c)
     meta=read(args.directory/'provenance.json')
     if any(sha(ROOT/n)!=s for n,s in meta['source_sha256'].items()):raise ValueError('Frozen TP sources changed')

@@ -1,0 +1,198 @@
+{
+  "passed": true,
+  "framework": "nano",
+  "variant": "eager_no_prefix",
+  "world": 1,
+  "rank": 0,
+  "mode": "qualify",
+  "label": "nano_tp1_eager_no_prefix_qualify_run0",
+  "config_sha256": "411f5f401ceb391f509c5079a05998ebb7a06cb7feb9d8e53a42549e220638d9",
+  "workload_sha256": "603683bad1c14b5d154c2db150b09ef6ec1448a68fafd403d4f74529303ba314",
+  "policy": "bf16_reduction_false_static_tables_paged_prefill_new_TP_scope",
+  "pid": 151300,
+  "waves": [
+    {
+      "seconds": 15.56748780500493,
+      "requests": [
+        {
+          "request_id": "b1_p128_cold_0",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            362,
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638
+          ]
+        }
+      ],
+      "graph_replays": 0,
+      "released": true,
+      "case_id": "b1_p128",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.5266915710089961,
+      "requests": [
+        {
+          "request_id": "b1_p128_warm_0",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            362,
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638
+          ]
+        }
+      ],
+      "graph_replays": 0,
+      "released": true,
+      "case_id": "b1_p128",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.5564338119875174,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_cold_0",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            362,
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638
+          ]
+        },
+        {
+          "request_id": "b3_p512_shared_cold_1",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638,
+            13
+          ]
+        },
+        {
+          "request_id": "b3_p512_shared_cold_2",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638,
+            13,
+            2932
+          ]
+        }
+      ],
+      "graph_replays": 0,
+      "released": true,
+      "case_id": "b3_p512_shared",
+      "phase": "cold",
+      "repeat": 0,
+      "measured": false
+    },
+    {
+      "seconds": 0.4742391040053917,
+      "requests": [
+        {
+          "request_id": "b3_p512_shared_warm_0",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            362,
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638
+          ]
+        },
+        {
+          "request_id": "b3_p512_shared_warm_1",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            2632,
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638,
+            13
+          ]
+        },
+        {
+          "request_id": "b3_p512_shared_warm_2",
+          "cached_tokens": 0,
+          "output_tokens": 8,
+          "actual_tokens": [
+            3743,
+            14858,
+            1526,
+            279,
+            6176,
+            13638,
+            13,
+            2932
+          ]
+        }
+      ],
+      "graph_replays": 0,
+      "released": true,
+      "case_id": "b3_p512_shared",
+      "phase": "warm",
+      "repeat": 0,
+      "measured": false
+    }
+  ],
+  "observed": {
+    "dtype": "torch.bfloat16",
+    "KV_shape": [
+      2,
+      28,
+      32,
+      256,
+      8,
+      128
+    ],
+    "graph_keys": [],
+    "head_reference": "TP1_internal_only"
+  },
+  "tensor_file": "tensors/nano_tp1_eager_no_prefix_qualify_run0_rank0.pt",
+  "tensor_sha256": "180a0cfe2fd2535fb406051784fe4553fe6df11c40a867079d83775afffeb4b3",
+  "vectors": 64,
+  "peak_allocated_bytes": 2205201920,
+  "peak_reserved_bytes": 2296381440,
+  "shutdown_s": 0.002205575001426041
+}

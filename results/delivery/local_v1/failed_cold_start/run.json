@@ -1,0 +1,8 @@
+{
+  "scenario": "healthy",
+  "passed": false,
+  "source_root": "/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery002",
+  "root_commit": "d5c119204b0983d1735763bdd8fc5d36065a3d0b",
+  "checkout_clean": true,
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery002/scripts/check_delivery.py\", line 109, in main\n    asyncio.run(exercise(c,run,out,args.scenario))\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 190, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py\", line 654, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery002/scripts/check_delivery.py\", line 57, in exercise\n    first=await run_requests([request('warmup',timeout_s=600)]);assert first[0]['state']=='finished'\n                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+}

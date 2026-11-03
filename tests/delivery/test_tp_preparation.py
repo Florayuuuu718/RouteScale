@@ -5,10 +5,16 @@ import unittest
 from unittest.mock import patch
 
 from serving.delivery import write
-from serving.tp_preparation import CONFIG,jobs,load_plan,numerical_gate,require_gpus
+from serving.tp_preparation import CONFIG,engine_rendezvous,jobs,load_plan,numerical_gate,require_gpus
 
 
 class TPPreparationTests(unittest.TestCase):
+    def test_explicit_engine_store_does_not_reuse_torchrun_agent_store(self):
+        import os
+        with patch.dict(os.environ,{'TORCHELASTIC_USE_AGENT_STORE':'True'}):
+            self.assertEqual(engine_rendezvous(),'True')
+            self.assertNotIn('TORCHELASTIC_USE_AGENT_STORE',os.environ)
+
     def test_complete_tp1234_matrix_is_separate_from_historical_gates(self):
         c=load_plan();q=jobs(c,'qualify');b=jobs(c,'benchmark')
         self.assertEqual(len(q),30);self.assertEqual(len(b),90)

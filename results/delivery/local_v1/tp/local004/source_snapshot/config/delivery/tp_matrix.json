@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_multigpu_accepted",
+  "scope": "new_host_serving_TP1_2_4_v1",
+  "world_sizes": [1, 2, 4],
+  "model_path": "runs/models/Qwen3-0.6B",
+  "model_manifest": "config/delivery/model.json",
+  "seed": 20261103,
+  "port": 2333,
+  "subprocess_timeout_s": 900,
+  "shutdown_grace_s": 10,
+  "collective_timeout_s": 60,
+  "qualification_output_tokens": 8,
+  "warmup_repeats": 3,
+  "measure_repeats": 5,
+  "independent_runs": 3,
+  "numerics": {"atol": 0.125, "rtol": 0.02, "max_relative_rmse": 0.005},
+  "frameworks": {
+    "nano": {
+      "environment": "runs/envs/nano-vllm",
+      "checkout": "runs/vendor/nano-vllm",
+      "commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+      "policy": "bf16_reduction_false_static_tables_paged_prefill_decode_buckets124_new_TP_scope_v2",
+      "reference": "same_host_TP1_full_vocabulary_internal_agreement",
+      "variants": ["eager_no_prefix", "graph_no_prefix", "eager_prefix"]
+    },
+    "mini": {
+      "environment": "runs/envs/mini-sglang",
+      "checkout": "runs/vendor/mini-sglang-i2",
+      "tree": "8ba75c4d14eb6cc985a254fd5185606d62da9061",
+      "policy": "fp16_lower_FP32_upper16_residual_norm_TP_vocab_gather_v1",
+      "reference": "HF_FP32_same_checkpoint_forced_continuation_and_same_host_TP1",
+      "variants": ["naive_full", "radix_full", "radix_chunk256", "radix_chunk128", "radix_overlap", "radix_graph124", "radix_graph13"]
+    }
+  },
+  "paid_resources_authorized": false,
+  "performance_requires_all_world_sizes_numerically_qualified": true,
+  "trace_is_separate_from_timing": true
+}

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/scripts/audit_serving_tp.py", line 64, in <module>
+    result=audit(args.directory,args.local);write(target,result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/scripts/audit_serving_tp.py", line 24, in audit
+    p=directory/'raw'/job['label']/f'rank{rank}.json';r=read(p);evidence[str(p.relative_to(directory))]=sha(p)
+                                                        ^^^^^^^
+  File "/home/shunzi/projects/RouteScale/serving/delivery.py", line 22, in read
+    return json.loads(Path(path).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'runs/tp_delivery/local003/raw/mini_tp1_radix_graph13_qualify_run0/rank0.json'

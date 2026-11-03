@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v1",
+  "version": "0.5.20",
+  "source_commit": "94602c9c2b7cbdb8efd5c52802dac6a1c180089e",
+  "environment": "runs/envs/sglang-framework-v1",
+  "model_path": "runs/models/Qwen3-0.6B",
+  "model_manifest": "config/delivery/model.json",
+  "host": "127.0.0.1",
+  "port": 1971,
+  "dashboard_port": 1972,
+  "startup_s": 600,
+  "shutdown_s": 20,
+  "request_timeout_s": 30,
+  "server_args": {
+    "served_model_name": "RouteScale-Qwen3-0.6B",
+    "dtype": "bfloat16",
+    "attention_backend": "flashinfer",
+    "context_length": 1024,
+    "mem_fraction_static": 0.55,
+    "max_total_tokens": 4096,
+    "max_running_requests": 4,
+    "max_queued_requests": 8,
+    "chunked_prefill_size": 256,
+    "page_size": 1,
+    "watchdog_timeout": 30
+  },
+  "server_flags": [
+    "enable_metrics",
+    "disable_prefill_cuda_graph",
+    "disable_decode_cuda_graph",
+    "log_requests"
+  ]
+}

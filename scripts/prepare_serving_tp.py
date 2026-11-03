@@ -66,6 +66,9 @@ def main():
                 names += [str(p.relative_to(ROOT)) for p in (ROOT/c['frameworks']['mini']['checkout']/'python').rglob('*.py')]
                 write(directory/'provenance.json',dict(config_sha256=sha(CONFIG),source_sha256={n:sha(ROOT/n) for n in sorted(set(names))},
                     model_manifest_sha256=sha(ROOT/c['model_manifest']),workload_sha256=sha(directory/'workload.json')))
+                import shutil
+                for name in sorted(set(names)):
+                    target=directory/'source_snapshot'/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,target)
         selected=jobs(c,'qualify' if args.stage=='local-smoke' else args.stage)
         if args.stage=='local-smoke':selected=[j for j in selected if j['world']==1]
         for j in selected:

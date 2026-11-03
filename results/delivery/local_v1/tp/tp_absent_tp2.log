@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/scripts/prepare_serving_tp.py", line 82, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shunzi/projects/RouteScale/scripts/prepare_serving_tp.py", line 30, in main
+    require_gpus(args.world if args.stage=='collective' else 1 if args.stage=='local-smoke' else 4)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/serving/tp_preparation.py", line 49, in require_gpus
+    if len(rows)<world:raise ValueError(f'{world} GPUs required, only {len(rows)} available; no subprocess started')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: 2 GPUs required, only 1 available; no subprocess started

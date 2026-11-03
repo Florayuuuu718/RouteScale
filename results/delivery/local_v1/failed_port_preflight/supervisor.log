@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery003/scripts/routeserve.py", line 23, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery003/scripts/routeserve.py", line 18, in main
+    if args.action=='run':return serve(c,args.run_dir)
+                                 ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery003/serving/delivery.py", line 149, in serve
+    checked = doctor(c); check_ports(c['host'],c['port'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/clean_checkout/delivery003/serving/delivery.py", line 69, in check_ports
+    s = socket.socket(); sockets.append(s); s.bind((host,number))
+                                            ^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 98] Address already in use
