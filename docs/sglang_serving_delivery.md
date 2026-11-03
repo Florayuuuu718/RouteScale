@@ -40,7 +40,7 @@ python3 scripts/framework_service.py status --run-dir runs/sglang/local001
 python3 scripts/framework_service.py stop --run-dir runs/sglang/local001
 ```
 
-doctor逐文件核对模型、锁定依赖、SGLang版本、11份原生关键源码和Ninja可执行文件。run前台持原全局
+doctor逐文件核对模型、锁定依赖、SGLang版本、14份原生关键源码和Ninja可执行文件。run前台持原全局
 GPU互斥锁，执行原生 `sglang.launch_server`；`/ready` 加实际 `/health_generate`
 通过后才发布ready。端口1971为原生API，1972为本地仪表盘。启动预算600秒，关闭
 预算20秒，Ctrl-C也可停止；只清理自己创建的进程组。不要复用旧run目录。

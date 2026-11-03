@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
-  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v2",
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v3",
   "version": "0.5.20",
   "source_commit": "94602c9c2b7cbdb8efd5c52802dac6a1c180089e",
   "environment": "runs/envs/sglang-framework-v1",
   "model_path": "runs/models/Qwen3-0.6B",
   "model_manifest": "config/delivery/model.json",
+  "cache_path": "runs/cache/sglang-framework-v3",
   "host": "127.0.0.1",
   "port": 1971,
   "dashboard_port": 1972,
@@ -27,7 +28,7 @@
     "max_queued_requests": 8,
     "chunked_prefill_size": 256,
     "page_size": 1,
-    "watchdog_timeout": 30
+    "watchdog_timeout": 300
   },
   "server_flags": [
     "enable_metrics",

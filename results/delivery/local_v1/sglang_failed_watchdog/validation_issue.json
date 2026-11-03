@@ -1,0 +1,7 @@
+{
+  "accepted": false,
+  "stage": "native_initial_warmup_before_ready",
+  "reason": "First FlashInfer prefill template compilation exceeded the locally selected30s forward watchdog. Partial NVCC objects prove JIT was underway; no numerical gate or client trace ran.",
+  "fix": "v3 restores the pinned upstream default300s forward watchdog; startup600/client30/shutdown20 unchanged. New empty cache avoids interrupted build artifacts.",
+  "GPU_end": "0 MiB"
+}

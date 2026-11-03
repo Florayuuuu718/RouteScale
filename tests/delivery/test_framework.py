@@ -33,7 +33,7 @@ class NativeMetricsTests(unittest.TestCase):
     def test_native_bin_and_current_unified_cache_are_explicit(self):
         c=load();env=environment(c)
         self.assertIn(str(runtime_bin(c)),env['PATH'].split(':'))
-        self.assertTrue(env['SGLANG_CACHE_DIR'].endswith('runs/cache/sglang-framework-v1'))
+        self.assertTrue(env['SGLANG_CACHE_DIR'].endswith(c['cache_path']))
     def test_optional_crash_diagnostics_cannot_extend_the_shutdown_budget(self):
         c=load();env=environment(c)
         self.assertEqual(env['SGLANG_PYSPY_DUMP_BEFORE_CRASH'],'0')

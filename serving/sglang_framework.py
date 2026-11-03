@@ -45,7 +45,7 @@ def runtime_bin(c):
 
 def environment(c):
     toolkit=Path(os.environ.get('ROUTESCALE_CUDA_HOME') or os.environ.get('CUDA_HOME') or str(ROOT/'runs/toolchains/cuda-13.0-i1')).resolve()
-    cache=Path(os.environ.get('ROUTESCALE_FRAMEWORK_CACHE') or ('/root/.cache/routescale' if os.environ.get('ROUTESCALE_IN_CONTAINER')=='1' else str(ROOT/'runs/cache/sglang-framework-v1')))
+    cache=Path(os.environ.get('ROUTESCALE_FRAMEWORK_CACHE') or ('/root/.cache/routescale/'+c['scope'] if os.environ.get('ROUTESCALE_IN_CONTAINER')=='1' else str(ROOT/c['cache_path'])))
     return dict(os.environ,CUDA_VISIBLE_DEVICES='0',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='4',MAX_JOBS='4',
         PYTHONUNBUFFERED='1',CUDA_HOME=str(toolkit),PATH=str(toolkit/'bin')+':'+str(runtime_bin(c))+':'+os.environ['PATH'],
         SGLANG_CACHE_DIR=str(cache),TVM_FFI_CACHE_DIR=str(cache/'tvm'),FLASHINFER_WORKSPACE_BASE=str(cache/'flashinfer'),

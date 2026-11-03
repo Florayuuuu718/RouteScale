@@ -27,6 +27,9 @@ KV4096 token、chunked prefill256、静态显存比例0.55。Prefill/Decode CUDA
 设置本版本新的SGLANG_CACHE_DIR。另关闭原生可选py-spy/CUDA崩溃dump：其默认诊断
 等待60秒会超出20秒关闭预算。worker故障检测、原生stderr和客户端失败记录仍保留。
 算法、模型、精度、队列、上下文和客户端期限不改；失败v1单独归档，不追认为通过。
+v2随后完成模型/KV初始化，但首次FlashInfer编译在30秒watchdog下中止，保留部分NVCC
+产物及失败。v3恢复固定上游默认watchdog300秒，使用新的独立缓存目录；600秒启动、
+30秒客户端、20秒关闭预算不变。watchdog约束单次forward失去进展的时间，不能当请求SLO。
 
 验收包含真实非流式、错误预算、超长输入、流式断开、客户端期限、实际队列占用、
 过载拒绝、原48请求 trace、取消后恢复、受控 worker 故障和带请求停服。

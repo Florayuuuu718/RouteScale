@@ -1,8 +1,8 @@
 # SGLang0.5.20：取消、队列与 KV 释放
 
 固定源 commit `94602c9c2b7cbdb8efd5c52802dac6a1c180089e`。
-[关键源码清单](../deploy/local/sglang/upstream_sources.json)绑定11文件SHA，doctor核对
-已安装wheel与干净上游源码相同。以下路径针对本轮TP1、普通Radix、无PD分离和无Mamba；
+[关键源码清单](../deploy/local/sglang/upstream_sources.json)绑定14文件SHA，doctor核对
+已安装wheel与干净上游源码相同。以下路径针对本轮TP1、UnifiedRadixCache的FULL组件、无PD分离和无Mamba；
 不把其他分支的释放语义移植到本配置。
 
 ```mermaid
@@ -41,8 +41,8 @@ TokenizerManager.create_abort_task。后台任务等待2秒后，若RID仍在状
 在req.finished()后进入release_kv_cache。
 [mem_cache/common.py](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/python/sglang/srt/mem_cache/common.py#L276)
 先处理cache_finished_req、越界预分配的尾页，再释放req_to_token_pool请求槽并标记
-KV已释放。[RadixCache.cache_finished_req](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/python/sglang/srt/mem_cache/radix_cache.py#L479)
-可能将前缀留下以供复用，同时释放重复页/未对齐尾部并解除原前缀锁。
+KV已释放。[UnifiedRadixCache.cache_finished_req](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/python/sglang/srt/mem_cache/unified_radix_cache.py#L959)
+实际初始化日志指明impl=UnifiedRadixCache，FULL组件走统一树实现。它可能将前缀留下以供复用，释放重复页/未对齐尾部，解除请求前缀锁并完成component清理。
 因此客户端结束后GPU显存池不下降、前缀仍可复用，都不能单独判定为泄漏。
 
 本轮最小问题复现为：观察4个原生running请求，另一个明确RID实际入队；关闭该客户端

@@ -226,6 +226,7 @@ def main():
             except subprocess.TimeoutExpired:parent.kill();parent.wait()
         if (run/'status.json').exists():write(out/'status.json',read(run/'status.json'))
         if (run/'snapshot.json').exists():write(out/'dashboard_snapshot.json',read(run/'snapshot.json'))
+        if (run/'server.log').exists():shutil.copy2(run/'server.log',out/'native_server.txt')
         if (run/'metrics_samples.jsonl').exists():shutil.copy2(run/'metrics_samples.jsonl',out/'native_metrics_samples.jsonl')
         write(out/'run.json',report)
     print('Full SGLang',a.scenario,report['passed'],flush=True);return 0 if report['passed'] else 1

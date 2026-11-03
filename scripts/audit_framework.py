@@ -23,6 +23,7 @@ def audit(directory):
         all_offered_terminal=all(x['state'] in TERMINAL for x in rows),
         actual_BF16=s['config']['server_args']['dtype']=='bfloat16',
         separate_numeric_scope=r['native_BF16_not_I3_numeric_qualification'])
+    checks['actual_unified_radix_cache']='impl=UnifiedRadixCache' in (d/'native_server.txt').read_text()
     if r.get('container'):
         # A built image has no .git. Host build/inspect evidence is required instead.
         build=read(d/'container_provenance.json')
