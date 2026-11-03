@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "model_started": true,
+  "cold_start_s": 270.4388603080006,
+  "stream_nonstream_worked": true,
+  "reason": "Validation settle saw stale native gauges: KV_used103/available3993 despite repeated successful flush. Pinned idle reporter rate-limits updates for30s.",
+  "fix": "v4 immediately invokes the native pool observer/reporter after a successful real flush and logs actual allocator counts; exact zero and4096free requirements retained. Native wheel unchanged.",
+  "GPU_end": "0 MiB"
+}

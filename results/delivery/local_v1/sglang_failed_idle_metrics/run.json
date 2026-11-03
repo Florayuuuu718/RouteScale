@@ -1,0 +1,26 @@
+{
+  "passed": false,
+  "scenario": "healthy",
+  "root_commit": "99395f5d550485dd89c874a2025529e321fae368",
+  "checkout_clean": true,
+  "container": false,
+  "source_sha256": {
+    "serving/sglang_framework.py": "efaf62d9e9c69dd3753a5b4f88dc00692e048640007640da4c7497622f26550c",
+    "serving/framework_metrics.py": "6eaa4a4206e5c7cea7a003e45d40477a9e517dc81557c6eeee28beb302ab1a8b",
+    "serving/framework_client.py": "8246650d809bcae6ccb74859ea5d94bb9d66d299c8e2460cf7697515cdc1c971",
+    "scripts/framework_service.py": "fa7b95482fb6f30fde667d16c9c9658ee3eccf8a2229a714609d0530420b7a96",
+    "scripts/check_framework.py": "9107fd3f7c31744df94cedff1df0f507ddc7772ec25cc685869e10861f7b8063",
+    "scripts/audit_framework.py": "a50c395cc712b8249142e2d1fbbb5aadd3017f75cb3f89ab2969931525d08fd5",
+    "serving/delivery.py": "e9aaddd045a0214d76423ab75bef60d67a04508be05f52808e7b09eebdabac21",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "deploy/local/sglang/runtime.json": "e9ff70c0fe6ccf8700db48273475ac7a19443deb1136e25cbee226134bf35c3a",
+    "deploy/local/sglang/upstream_sources.json": "2f18da472d915b191f7574fdefb20260610a5676aef32eb4367d40bed535da13",
+    "deploy/local/sglang/requirements.lock": "f355640c5b577e8665d67b6652c974d019719bb126a70e98c3898e79065e0f4d",
+    "docs/sglang_delivery_protocol.md": "5d6b4869c463288c6bd4ac16fbb257e75ee195d168095505a750d538da48a114",
+    "results/i_minisglang/i3_online_v2/workload002/workload.json": "e87891205739c63331a3adec84dd6dc59e5922a225312f864edb6eb86dee0c4f",
+    "results/i_minisglang/i3_online_v2/online001/schedule.json": "2f9ce535732679ba12124635a5596fd7b2642d1694ba9102ddc30102fa3a4062"
+  },
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v3",
+  "native_BF16_not_I3_numeric_qualification": true,
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework003/scripts/check_framework.py\", line 214, in main\n    asyncio.run(exercise(c,run,out,a.scenario))\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 190, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py\", line 654, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework003/scripts/check_framework.py\", line 96, in exercise\n    await settle('validation')\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework003/scripts/check_framework.py\", line 83, in settle\n    raise TimeoutError('Native queue/KV did not release: '+label)\nTimeoutError: Native queue/KV did not release: validation\n"
+}

@@ -75,10 +75,10 @@ async def exercise(c,run,out,scenario):
             while time.monotonic()<end:
                 m=await snap(label)
                 if m['running']==0 and m['queued']==0:
-                    flush=await client.get('/flush_cache',params={'timeout':3});flush.raise_for_status()
-                    write(out/f'flush_{label}.json',dict(status=flush.status_code,body=flush.text))
+                    start=time.monotonic_ns();flush=await client.get('/flush_cache',params={'timeout':3});flush.raise_for_status()
+                    write(out/f'flush_{label}.json',dict(status=flush.status_code,body=flush.text,start_ns=start,end_ns=time.monotonic_ns()))
                     await asyncio.sleep(.3);after=await snap(label+'_flushed')
-                    if after['KV_used']==0 and after['KV_usage']==0:return
+                    if after['KV_used']==0 and after['KV_usage']==0 and after['KV_available']==4096:return
                 await asyncio.sleep(.2)
             raise TimeoutError('Native queue/KV did not release: '+label)
         for route in ('/ready','/health','/health_generate','/v1/models','/server_info'):
@@ -192,7 +192,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--directory',type=Path,required=True)
     p.add_argument('--scenario',choices=['healthy','worker_fault','shutdown_active'],required=True);a=p.parse_args()
     out=a.directory.resolve();out.mkdir(parents=True,exist_ok=False);run=out/'runtime';c=load();parent=None
-    names=['serving/sglang_framework.py','serving/framework_metrics.py','serving/framework_client.py','scripts/framework_service.py','scripts/check_framework.py','scripts/audit_framework.py','serving/delivery.py','serving/online_client.py','deploy/local/sglang/runtime.json','deploy/local/sglang/upstream_sources.json','deploy/local/sglang/requirements.lock','docs/sglang_delivery_protocol.md',str(WORKLOAD),str(SCHEDULE)]
+    names=['serving/sglang_framework.py','serving/framework_metrics.py','serving/framework_client.py','serving/framework_flush_metrics.py','scripts/launch_sglang_framework.py','scripts/framework_service.py','scripts/check_framework.py','scripts/audit_framework.py','serving/delivery.py','serving/online_client.py','deploy/local/sglang/runtime.json','deploy/local/sglang/upstream_sources.json','deploy/local/sglang/requirements.lock','docs/sglang_delivery_protocol.md',str(WORKLOAD),str(SCHEDULE)]
     sources={n:sha(ROOT/n) for n in names if (ROOT/n).exists()}
     container=os.environ.get('ROUTESCALE_IN_CONTAINER')=='1'
     commit=os.environ.get('ROUTESCALE_SOURCE_COMMIT','unrecorded') if container else subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()

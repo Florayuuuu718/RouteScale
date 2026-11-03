@@ -1,7 +1,7 @@
 # SGLang0.5.20：取消、队列与 KV 释放
 
 固定源 commit `94602c9c2b7cbdb8efd5c52802dac6a1c180089e`。
-[关键源码清单](../deploy/local/sglang/upstream_sources.json)绑定14文件SHA，doctor核对
+[关键源码清单](../deploy/local/sglang/upstream_sources.json)绑定16文件SHA，doctor核对
 已安装wheel与干净上游源码相同。以下路径针对本轮TP1、UnifiedRadixCache的FULL组件、无PD分离和无Mamba；
 不把其他分支的释放语义移植到本配置。
 

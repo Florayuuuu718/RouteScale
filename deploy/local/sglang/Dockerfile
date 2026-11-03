@@ -2,6 +2,7 @@ FROM lmsysorg/sglang@sha256:b27fce60bc5494c118c4910702812bcfa8cee67abcdd1ff8b090
 WORKDIR /workspace/RouteScale
 COPY serving/ ./serving/
 COPY scripts/framework_service.py ./scripts/framework_service.py
+COPY scripts/launch_sglang_framework.py ./scripts/launch_sglang_framework.py
 COPY scripts/check_framework.py ./scripts/check_framework.py
 COPY scripts/audit_framework.py ./scripts/audit_framework.py
 COPY deploy/local/sglang/ ./deploy/local/sglang/

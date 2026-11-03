@@ -99,4 +99,41 @@ class SummaryTests(unittest.TestCase):
             self.assertEqual(client_counts(p),dict(offered=3,finished=1,failed=1,rejected=0,cancelled=1))
 
 
+class NativeFlushMetricsTests(unittest.TestCase):
+    def fixture(self,result=True,enabled=True):
+        from types import SimpleNamespace as S
+        calls=[]
+        class Scheduler:
+            def __init__(self):
+                self.metrics_reporter=S(current_scheduler_metrics_enabled=enabled,metrics_collector=S(last_log_time=99),
+                    _maybe_log_idle_metrics=lambda:calls.append('native_refresh'))
+                self.max_total_num_tokens=119
+                def pool():
+                    calls.append('native_pool');return S(full_num_used=7,full_available_size=100,full_evictable_size=12)
+                self.pool_stats_observer=S(get_pool_stats=pool)
+            def flush_cache(self):calls.append('original_flush');return result
+        from serving.framework_flush_metrics import apply
+        apply(Scheduler);return Scheduler,calls
+    def invoke(self,cls):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        output=StringIO()
+        with redirect_stdout(output):result=cls().flush_cache()
+        return result,output.getvalue()
+    def test_success_refreshes_after_original_and_emits_real_nonzero_fixture(self):
+        cls,calls=self.fixture();result,out=self.invoke(cls);event=json.loads(out)
+        self.assertTrue(result);self.assertEqual(calls,['original_flush','native_refresh','native_pool'])
+        self.assertEqual([event[k] for k in ('used','available','evictable','capacity')],[7,100,12,119])
+    def test_busy_flush_does_not_claim_release_or_refresh(self):
+        cls,calls=self.fixture(result=False);result,out=self.invoke(cls)
+        self.assertFalse(result);self.assertEqual(out,'');self.assertEqual(calls,['original_flush'])
+    def test_repeated_installation_does_not_wrap_twice(self):
+        from serving.framework_flush_metrics import apply
+        cls,calls=self.fixture();apply(cls);self.invoke(cls)
+        self.assertEqual(calls.count('original_flush'),1);self.assertEqual(calls.count('native_refresh'),1)
+    def test_disabled_metrics_still_report_actual_pool_without_a_fake_gauge(self):
+        cls,calls=self.fixture(enabled=False);_,out=self.invoke(cls)
+        self.assertEqual(calls,['original_flush','native_pool']);self.assertEqual(json.loads(out)['used'],7)
+
+
 if __name__=='__main__':unittest.main()

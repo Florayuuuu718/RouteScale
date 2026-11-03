@@ -33,7 +33,7 @@ def load(path=CONFIG):
 
 def command(c):
     python=Path(os.environ.get('ROUTESCALE_FRAMEWORK_PYTHON',str(ROOT/c['environment']/'bin/python')))
-    args=[str(python),'-m','sglang.launch_server','--model-path',str(ROOT/c['model_path']),'--host',c['host'],'--port',str(c['port'])]
+    args=[str(python),str(ROOT/'scripts/launch_sglang_framework.py'),'--model-path',str(ROOT/c['model_path']),'--host',c['host'],'--port',str(c['port'])]
     for key,value in c['server_args'].items():args+=['--'+key.replace('_','-'),str(value)]
     return args+['--'+key.replace('_','-') for key in c['server_flags']]
 

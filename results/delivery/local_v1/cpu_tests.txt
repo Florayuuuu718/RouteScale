@@ -18,6 +18,10 @@ test_sse_entire_transport_lifetime_and_429 (test_delivery.MetricsTests.test_sse_
 test_incomplete_native_stream_is_not_finished (test_framework.CompletionSchemaTests.test_incomplete_native_stream_is_not_finished) ... ok
 test_malformed_native_choice_is_a_bounded_client_error (test_framework.CompletionSchemaTests.test_malformed_native_choice_is_a_bounded_client_error) ... ok
 test_native_text_maps_to_canonical_schema_and_raw_frame_stays_raw (test_framework.CompletionSchemaTests.test_native_text_maps_to_canonical_schema_and_raw_frame_stays_raw) ... ok
+test_busy_flush_does_not_claim_release_or_refresh (test_framework.NativeFlushMetricsTests.test_busy_flush_does_not_claim_release_or_refresh) ... ok
+test_disabled_metrics_still_report_actual_pool_without_a_fake_gauge (test_framework.NativeFlushMetricsTests.test_disabled_metrics_still_report_actual_pool_without_a_fake_gauge) ... ok
+test_repeated_installation_does_not_wrap_twice (test_framework.NativeFlushMetricsTests.test_repeated_installation_does_not_wrap_twice) ... ok
+test_success_refreshes_after_original_and_emits_real_nonzero_fixture (test_framework.NativeFlushMetricsTests.test_success_refreshes_after_original_and_emits_real_nonzero_fixture) ... ok
 test_OCI_image_pinned_and_model_mount_readonly (test_framework.NativeMetricsTests.test_OCI_image_pinned_and_model_mount_readonly) ... ok
 test_fixed_native_profile_is_not_the_I3_mixed_precision_policy (test_framework.NativeMetricsTests.test_fixed_native_profile_is_not_the_I3_mixed_precision_policy) ... ok
 test_labels_are_preserved_and_replicas_sum (test_framework.NativeMetricsTests.test_labels_are_preserved_and_replicas_sum) ... ok
@@ -42,6 +46,6 @@ test_only_startup_request_uses_startup_budget (test_warmup.WarmupTests.test_only
 test_warmup_error_aborts_and_does_not_publish_end (test_warmup.WarmupTests.test_warmup_error_aborts_and_does_not_publish_end) ... ok
 
 ----------------------------------------------------------------------
-Ran 42 tests in 0.210s
+Ran 46 tests in 0.223s
 
 OK

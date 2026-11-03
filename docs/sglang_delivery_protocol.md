@@ -30,6 +30,11 @@ KV4096 token、chunked prefill256、静态显存比例0.55。Prefill/Decode CUDA
 v2随后完成模型/KV初始化，但首次FlashInfer编译在30秒watchdog下中止，保留部分NVCC
 产物及失败。v3恢复固定上游默认watchdog300秒，使用新的独立缓存目录；600秒启动、
 30秒客户端、20秒关闭预算不变。watchdog约束单次forward失去进展的时间，不能当请求SLO。
+v3实际在270.439秒完成冷启动并通过流式/非流式，后续15秒资源检查读到了旧Prometheus
+KV值。原生flush已成功，而空闲指标刷新有硬编码30秒窗口。v4增加一个有测试的启动
+hook：成功flush后立即调用原生pool observer/metrics reporter刷新真实值，记录实际
+used/available/evictable/capacity；不手填零。仍要求15秒内原生KV归零、4096槽全部可用，
+并独立核对原生allocator事件。上游wheel源码保持原样，hook和新入口另存源码/哈希。
 
 验收包含真实非流式、错误预算、超长输入、流式断开、客户端期限、实际队列占用、
 过载拒绝、原48请求 trace、取消后恢复、受控 worker 故障和带请求停服。

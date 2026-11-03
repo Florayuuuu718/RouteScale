@@ -24,6 +24,9 @@ def audit(directory):
         actual_BF16=s['config']['server_args']['dtype']=='bfloat16',
         separate_numeric_scope=r['native_BF16_not_I3_numeric_qualification'])
     checks['actual_unified_radix_cache']='impl=UnifiedRadixCache' in (d/'native_server.txt').read_text()
+    native_flushes=[]
+    for line in (d/'native_server.txt').read_text().splitlines():
+        if '{"event": "routescale_native_flush"' in line:native_flushes.append(json.loads(line[line.index('{'):]))
     if r.get('container'):
         # A built image has no .git. Host build/inspect evidence is required instead.
         build=read(d/'container_provenance.json')
@@ -74,8 +77,10 @@ def audit(directory):
         checks['native_queued_abort']=queued['status']==200 and queued['waiting']['queued']>0 and queued['after']['queued']==0 and queued['after']['running']==4
         for label in ('warmup','validation','cancel','deadline','queued_cancel','burst','trace','final'):
             final=[x['native']['metrics'] for x in snapshots if x['label']==label+'_flushed'][-1]
-            checks[label+'/native_released']=final['running']==0 and final['queued']==0 and final['KV_used']==0 and final['KV_usage']==0
+            checks[label+'/native_released']=final['running']==0 and final['queued']==0 and final['KV_used']==0 and final['KV_usage']==0 and final['KV_available']==4096
             flush=read(d/f'flush_{label}.json');checks[label+'/native_flush']=flush['status']==200 and 'Cache flushed' in flush['body']
+            observed=[e for e in native_flushes if flush['start_ns']<=e['monotonic_ns']<=flush['end_ns']]
+            checks[label+'/actual_pool_state']=len(observed)==1 and observed[0]['used']==0 and observed[0]['available']==4096 and observed[0]['evictable']==0 and observed[0]['capacity']==4096
         http=read(d/'http_checks.json')
         checks['validation_errors']=http['nonstream_status']==200 and all(400<=http[k]<500 for k in ('invalid_budget_status','over_context_status'))
         checks['probe_after_cancellations']=byid['post_cancel_probe']['state']=='finished'
