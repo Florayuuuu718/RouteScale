@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--rm",
+    "--name",
+    "routescale-m5-mount-probe001",
+    "--entrypoint",
+    "/bin/sh",
+    "--mount",
+    "type=bind,source=\\\\wsl.localhost\\Ubuntu\\home\\shunzi\\projects\\RouteScale\\README.md,target=/probe,readonly",
+    "sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23",
+    "-c",
+    "head -c 100 /probe"
+  ],
+  "returncode": 127,
+  "output": "docker: Error response from daemon: accessing specified distro mount service: stat /run/guest-services/distro-services/ubuntu.sock: no such file or directory\n\nRun 'docker run --help' for more information\n"
+}

@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--rm",
+    "--name",
+    "routescale-m5-cuda-probe001",
+    "--gpus",
+    "device=0",
+    "--env",
+    "NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models,readonly",
+    "python@sha256:00f0ecbf74ff8f915020d5a40c4bc6a83f46cd7b83f47db51c7e204f0d8a3ec2",
+    "python3",
+    "-c",
+    "import ctypes,json,subprocess,hashlib,platform\nc=ctypes.CDLL('libcuda.so.1');init=c.cuInit(0);v=ctypes.c_int();d=ctypes.c_int();c.cuDeviceGet(ctypes.byref(d),0);major=ctypes.c_int();minor=ctypes.c_int();a=c.cuDeviceGetAttribute(ctypes.byref(major),75,d);b=c.cuDeviceGetAttribute(ctypes.byref(minor),76,d);c.cuDriverGetVersion(ctypes.byref(v));print(json.dumps(dict(cuInit=init,attributes=[a,b],compute=[major.value,minor.value],driver_api=v.value,python=platform.python_version(),model_config_sha256=hashlib.sha256(open('/models/config.json','rb').read()).hexdigest(),nvidia_smi=subprocess.check_output(['nvidia-smi','--query-gpu=name,memory.used','--format=csv,noheader'],text=True))))\n"
+  ],
+  "returncode": 0,
+  "output": "{\"cuInit\": 0, \"attributes\": [0, 0], \"compute\": [12, 0], \"driver_api\": 13030, \"python\": \"3.11.16\", \"model_config_sha256\": \"660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd\", \"nvidia_smi\": \"NVIDIA GeForce RTX 5060 Laptop GPU, 0 MiB\\n\"}\n",
+  "GPU_before": "0 MiB",
+  "GPU_after": "0 MiB",
+  "full_SGLang_validation": false
+}

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/runs/tmp/build_and_check_framework_container.py", line 9, in <module>
+    with (root/'runs/tmp/framework_container_build.log').open('wb') as log:subprocess.run(build,stdout=log,stderr=subprocess.STDOUT,timeout=1200,check=True)
+                                                                           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 557, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1221, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2179, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1279, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2076, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['/mnt/d/APP/Docker/resources/bin/docker.exe', 'build', '--pull=false', '--network=none', '--progress=plain', '--file', 'D:\\RouteScale-local-delivery-20261103\\build002\\deploy\\local\\sglang\\Dockerfile.offline', '--tag', 'routescale-sglang:m5-2b4cbfc', 'D:\\RouteScale-local-delivery-20261103\\build002']' timed out after 1200 seconds

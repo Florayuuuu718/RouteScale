@@ -45,7 +45,7 @@ GPU互斥锁，执行原生 `sglang.launch_server`；`/ready` 加实际 `/health
 通过后才发布ready。端口1971为原生API，1972为本地仪表盘。启动预算600秒，关闭
 预算20秒，Ctrl-C也可停止；只清理自己创建的进程组。不要复用旧run目录。
 worker异常会使服务失败并退出，排查日志后用新目录启动，不自动重启覆盖故障。
-v2显式设置SGLANG_CACHE_DIR为独立缓存，并将环境bin加入PATH。原生可选py-spy/CUDA
+当前v4范围显式设置SGLANG_CACHE_DIR为独立缓存，并将环境bin加入PATH。原生可选py-spy/CUDA
 崩溃dump关闭，避免默认60秒诊断等待越过20秒关闭预算；正常stderr和故障事件照常保存。
 
 ```bash
@@ -78,6 +78,10 @@ curl -N http://127.0.0.1:1971/v1/chat/completions \
 
 取消后先等原生 running/queue清空，再调用 `/flush_cache?timeout=3`，核对活跃KV与
 使用比例归零。Radix缓存保留可复用前缀不等于泄漏；只有客户端关闭也不足以证明释放。
+固定版本的空闲指标默认30秒才刷新；本地启动器安装一个成功flush后的观测补丁，
+调用原生采样器重新读取真实pool，并保存其used/available/evictable/capacity事件。
+它不把返回200直接转换为零，失败flush也不刷新，机制与反例见
+[源码说明](sglang_cancel_sourcewalk.md)。
 
 ## 固定镜像与只读模型
 
@@ -125,5 +129,14 @@ runs/envs/sglang-framework-v1/bin/python scripts/audit_framework.py --directory 
 独立healthy审计通过后，可用 [export_framework.py](../scripts/export_framework.py)
 导出实际queue/KV/GPU时间线和无需GPU即可打开的离线仪表盘快照；时间线使用单调时钟，
 只展示运行期间样本，关闭后GPU归零另以状态记录证明，不补画虚构采样点。
-CPU CI不安装Torch、不下载模型；运行tests/delivery与check_delivery_cpu.py，覆盖配置、
+CPU CI不安装Torch、不下载模型；可在独立轻量环境复现：
+
+```bash
+uv venv --python 3.11.16 runs/envs/delivery-cpu-ci
+uv pip sync --python runs/envs/delivery-cpu-ci/bin/python config/delivery/cpu_requirements.txt
+runs/envs/delivery-cpu-ci/bin/python -m unittest discover -s tests/delivery -p 'test_*.py' -v
+runs/envs/delivery-cpu-ci/bin/python scripts/check_delivery_cpu.py
+```
+
+运行tests/delivery与check_delivery_cpu.py，覆盖配置、
 事件/指标schema、汇总fixture、文档链接和AST。真实GPU及容器证据单独归档。

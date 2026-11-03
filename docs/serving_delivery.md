@@ -78,7 +78,10 @@ client_disconnected或error，不等同生成成功。维度仅固定路由/方�
 原始scheduler/Graph/页分配与释放记录在events中，主机时间不是CUDA kernel计时。
 
 ```bash
-python3 -m unittest discover -s tests/delivery -p 'test_*.py' -v
+uv venv --python 3.11.16 runs/envs/delivery-cpu-ci
+uv pip sync --python runs/envs/delivery-cpu-ci/bin/python config/delivery/cpu_requirements.txt
+runs/envs/delivery-cpu-ci/bin/python -m unittest discover -s tests/delivery -p 'test_*.py' -v
+runs/envs/delivery-cpu-ci/bin/python scripts/check_delivery_cpu.py
 ```
 
 GitHub工作流`.github/workflows/serving-cpu.yml`运行同一命令，不下载模型或CUDA包。

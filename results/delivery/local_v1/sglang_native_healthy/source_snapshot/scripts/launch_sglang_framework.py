@@ -1,0 +1,17 @@
+"""Native SGLang launcher with one scoped observability repair, also in spawn."""
+from pathlib import Path
+import sys
+
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+from serving.framework_flush_metrics import install
+
+# Multiprocessing imports this as __mp_main__; each scheduler must install it.
+install()
+
+if __name__=='__main__':
+    import os
+    from sglang.launch_server import load_plugins,prepare_server_args,run_server,kill_process_tree
+    load_plugins()
+    args=prepare_server_args(sys.argv[1:])
+    try:run_server(args)
+    finally:kill_process_tree(os.getpid(),include_parent=False)

@@ -51,7 +51,16 @@ KV已释放。[UnifiedRadixCache.cache_finished_req](https://github.com/sgl-proj
 最终待running/queue都为0，原生flush成功，再核对KV指标，避免仅凭HTTP终态下结论。
 重放入口见 [check_framework.py](../scripts/check_framework.py)，每次使用新目录。
 
-提交的小改动是 [CompletionClient](../serving/framework_client.py)：保持原生完成接口、
+另一个实际问题是flush后的可观测性：固定版本的空闲reporter按30秒节流，flush返回成功
+后15秒内仍可能读到上一个batch的KV使用103/可用3993。首次真实失败保存在
+[原始证据](../results/delivery/local_v1/sglang_failed_idle_metrics/run.json)，不改写为通过。
+[成功flush观测补丁](../serving/framework_flush_metrics.py)先执行原生flush；只有成功
+才触发原生idle reporter重新采样，再从pool_stats_observer输出实际池状态。原生wheel
+文件不改，补丁在父进程和spawn的scheduler中显式安装。CPU反例保留非零used=7、
+available=100、evictable=12、capacity=119，证明不会写死零；失败flush不刷新。
+真实验收把每次HTTP flush的单调时间窗口、原生池事件与Prometheus指标三方核对。
+
+客户端适配 [CompletionClient](../serving/framework_client.py)保持原生完成接口、
 原prompt和全部原生SSE帧不变，映射choices.text到既有M3/I3事件读取器，使两个框架能
 用同一客户端状态/时间边界观察。CPU测试覆盖正常原生流、截断流、错误schema及文本帧
 保真；真实验收逐请求重开原生帧并重建文本，与客户端账本核对。它不修改上游计算，
