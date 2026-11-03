@@ -31,7 +31,7 @@ def client_counts(path):
     if path is None:return None
     try:rows=json.loads(Path(path).read_text())
     except FileNotFoundError:return None
-    if not isinstance(rows,list) or any(r.get('state') not in ('finished','failed','rejected','cancelled') for r in rows):
+    if not isinstance(rows,list) or any(not isinstance(r,dict) or r.get('state') not in ('finished','failed','rejected','cancelled') for r in rows):
         raise ValueError('Expected a terminal client observation ledger')
     counts=Counter(r['state'] for r in rows)
     return dict(offered=len(rows),**{k:counts[k] for k in ('finished','failed','rejected','cancelled')})

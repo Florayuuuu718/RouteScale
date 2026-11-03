@@ -2,11 +2,14 @@
 import argparse
 from concurrent.futures import ThreadPoolExecutor,as_completed
 import hashlib
+import http.client
 import json
 from pathlib import Path
 import re
 import time
+import threading
 import urllib.request
+from urllib.parse import urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 LARGE=('sglang-kernel','nvidia-cublas','nvidia-cudnn-cu13','nvidia-cufft','nvidia-cusolver',
@@ -43,25 +46,31 @@ def main():
     else:
         with ThreadPoolExecutor(max_workers=a.workers) as pool:specs=list(pool.map(lambda n:select(n,pins[n]),LARGE))
         manifest.write_text(json.dumps(specs,indent=2)+'\n')
-    pending=[];chunk=4*1024*1024
+    pending=[];chunk=4*1024*1024;valid=set()
     for s in specs:
         target=out/s['filename']
-        if target.exists() and target.stat().st_size==s['bytes'] and sha(target)==s['sha256']:continue
+        if target.exists() and target.stat().st_size==s['bytes'] and sha(target)==s['sha256']:
+            valid.add(s['filename']);continue
         for start in range(0,s['bytes'],chunk):pending.append((s,start,min(s['bytes']-1,start+chunk-1)))
+    local=threading.local()
     def fetch(job):
         s,start,end=job;folder=out/'chunks'/s['filename'];folder.mkdir(parents=True,exist_ok=True)
         dest=folder/str(start)
         if dest.exists() and dest.stat().st_size==end-start+1:return
         for attempt in range(5):
             try:
-                req=urllib.request.Request(s['url'],headers={'Range':f'bytes={start}-{end}'})
-                with urllib.request.urlopen(req,timeout=30) as r:
-                    expected=f'bytes {start}-{end}/{s["bytes"]}'
-                    if r.status!=206 or r.headers.get('Content-Range')!=expected:raise ValueError('Unexpected byte-range response')
-                    value=r.read(end-start+2)
+                if not getattr(local,'connection',None):
+                    local.connection=http.client.HTTPSConnection('files.pythonhosted.org',timeout=30)
+                parts=urlsplit(s['url']);path=parts.path+('?' + parts.query if parts.query else '')
+                local.connection.request('GET',path,headers={'Range':f'bytes={start}-{end}'})
+                r=local.connection.getresponse();expected=f'bytes {start}-{end}/{s["bytes"]}'
+                if r.status!=206 or r.headers.get('Content-Range')!=expected:raise ValueError('Unexpected byte-range response')
+                value=r.read(end-start+2)
+                if r.will_close:local.connection.close();local.connection=None
                 if len(value)!=end-start+1:raise ValueError('Incomplete chunk')
                 temp=dest.with_suffix('.tmp');temp.write_bytes(value);temp.replace(dest);return
             except Exception:
+                if getattr(local,'connection',None):local.connection.close();local.connection=None
                 if attempt==4:raise
                 time.sleep(min(attempt+1,4))
     print('Official SHA-bound wheel chunks:',len(pending),flush=True)
@@ -72,7 +81,7 @@ def main():
     results=[]
     for s in specs:
         target=out/s['filename']
-        if not target.exists():
+        if s['filename'] not in valid:
             temp=target.with_suffix('.assembling')
             with temp.open('wb') as f:
                 for start in range(0,s['bytes'],chunk):f.write((out/'chunks'/s['filename']/str(start)).read_bytes())

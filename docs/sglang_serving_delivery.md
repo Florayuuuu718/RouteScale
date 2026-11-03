@@ -12,9 +12,14 @@
 
 ```bash
 uv venv --python 3.11.16 runs/envs/sglang-framework-v1
-uv pip sync --prerelease=allow --torch-backend cu130 --python runs/envs/sglang-framework-v1/bin/python deploy/local/sglang/requirements.lock
+uv pip sync --torch-backend cu130 --python runs/envs/sglang-framework-v1/bin/python deploy/local/sglang/requirements.lock
 uv pip check --python runs/envs/sglang-framework-v1/bin/python
 ```
+
+若大型wheel传输反复中断，可先用 `scripts/fetch_framework_wheels.py --directory
+runs/wheels/sglang-v1 --workers 16` 分段续传八个大型依赖，逐文件核对官方PyPI SHA256。
+其他依赖均已缓存后，sync可加 `--offline --find-links runs/wheels/sglang-v1`。
+不改版本，不用不完整文件绕过校验。
 
 将 Qwen/Qwen3-0.6B revision `c1899de289a04d12100db370d81485cdf75e47ca`
 下载到 `runs/models/Qwen3-0.6B`，与 [十文件清单](../config/delivery/model.json)核对。
