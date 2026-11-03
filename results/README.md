@@ -7,7 +7,9 @@ JSON `stage` fields use the current numbering. The
 [migration record](../docs/stage_numbering_migration.md) preserves the old/new
 paths and file hashes; measurements and experiment outcomes are unchanged.
 
-H still needs timing-stability replication and H2 multi-GPU TP=2/4 experiments.
+H3's bounded timing-stability replication is accepted, with residual within-process
+variability retained in [the report](h_nanovllm/h3_timing_replication_v1/README.md).
+H still needs H2 multi-GPU TP=2/4 experiments.
 H2/I2 multi-GPU work is deferred to a later consolidated rental session.
 The original H3 correctness gate retains `performance_execution_allowed=false`;
 the separate v5 controlled scope has its own passed performance gate.
@@ -28,7 +30,21 @@ replayable patches cover the six gaps and bounded admission. Four fresh GPU
 service processes pass 130 scenario checks; 40 local control-plane/client/audit
 tests pass. Overload rejects explicitly, faulted workers propagate errors, and
 shutdown leaves no live processes or GPU allocations. Failed attempts and the
-original baseline remain available. I2/I3 and multi-GPU work are still pending.
+original baseline remain available. The subsequent local I2/I3 scopes are accepted
+below; multi-GPU work remains pending.
+
+## I2/I3: qualified local precision and finite online loads
+
+[I2's final FI/TP1 precision scope](i_minisglang/i2_precision_v1/README.md) passed
+12,544 HF FP32 numerical vectors at the original threshold, 168 HTTP requests,
+560 lifecycle checks and 42 balanced performance processes. The original BF16
+HF rejection remains a separate historical failure.
+
+[I3 v2](i_minisglang/i3_online_v2/README.md) uses its own qualified upper16 policy:
+3,840 numerical vectors, 18 independent services, 864 accounted offers
+(744 completions, 120 rejections), 3,889 audit checks and 26 CPU tests passed.
+This is a finite local workload; TP2/4 and production steady-state claims remain
+outside these acceptances.
 
 ## H3: same-model controlled performance and timing variability
 

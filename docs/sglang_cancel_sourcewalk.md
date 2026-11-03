@@ -51,6 +51,14 @@ KV已释放。[UnifiedRadixCache.cache_finished_req](https://github.com/sgl-proj
 最终待running/queue都为0，原生flush成功，再核对KV指标，避免仅凭HTTP终态下结论。
 重放入口见 [check_framework.py](../scripts/check_framework.py)，每次使用新目录。
 
+容器随后复现了另一个观测边界：`/v1/loads`读取共享快照，
+[publish_load_snapshot](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/python/sglang/srt/managers/scheduler.py#L863)
+按scheduler迭代计数节流，GET不等于即时重新采样。显式预热通过后，0.7秒内仍多次
+读到同一timestamp，所以不能用该短窗口证明请求没有排队。新的
+[容器握手范围](sglang_container_protocol.md)先观测真实queue，再关闭HTTP连接；
+保持原256token阻塞请求；900token夹具超过正式30秒预算的失败也保留。客户端门控另有真实异步流CPU测试，
+覆盖关闭、自然完成与deadline，防止仅取消观察任务而没有关闭连接。
+
 另一个实际问题是flush后的可观测性：固定版本的空闲reporter按30秒节流，flush返回成功
 后15秒内仍可能读到上一个batch的KV使用103/可用3993。首次真实失败保存在
 [原始证据](../results/delivery/local_v1/sglang_failed_idle_metrics/run.json)，不改写为通过。

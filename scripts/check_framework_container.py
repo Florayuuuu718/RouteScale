@@ -106,7 +106,7 @@ async def exercise(c,run,out,scenario):
             deadline=await send([request('deadline',512,timeout_s=.1)]);assert deadline[0]['state']=='cancelled' and deadline[0]['reason']=='deadline';await settle('deadline')
             # An explicit native RID makes the queued abort reproducible. The
             # disconnect and administrative abort are recorded as separate acts.
-            blockers=asyncio.create_task(send([request(f'queue_blocker_{i}',900) for i in range(4)]))
+            blockers=asyncio.create_task(send([request(f'queue_blocker_{i}',256) for i in range(4)]))
             end=time.monotonic()+10
             while time.monotonic()<end:
                 before=await snap('queue_blockers')
@@ -217,7 +217,7 @@ def main():
     container=os.environ.get('ROUTESCALE_IN_CONTAINER')=='1'
     commit=os.environ.get('ROUTESCALE_SOURCE_COMMIT','unrecorded') if container else subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     clean=False if container else not subprocess.check_output(['git','status','--porcelain'],text=True).strip()
-    report=dict(passed=False,scenario=a.scenario,root_commit=commit,checkout_clean=clean,container=container,source_sha256=sources,scope=c['scope'],native_BF16_not_I3_numeric_qualification=True,diagnostic_scope='container_queue_handshake_v1')
+    report=dict(passed=False,scenario=a.scenario,root_commit=commit,checkout_clean=clean,container=container,source_sha256=sources,scope=c['scope'],native_BF16_not_I3_numeric_qualification=True,diagnostic_scope='container_queue_handshake_v2')
     import shutil
     for n in sources:
         t=out/'source_snapshot'/n;t.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/n,t)

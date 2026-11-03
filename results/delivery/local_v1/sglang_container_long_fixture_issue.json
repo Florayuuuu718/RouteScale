@@ -1,0 +1,109 @@
+{
+  "passed": false,
+  "name": "routescale-m5-healthy-018cbae",
+  "command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "run",
+    "--name",
+    "routescale-m5-healthy-018cbae",
+    "--gpus",
+    "device=0",
+    "--shm-size=1g",
+    "--env",
+    "ROUTESCALE_SOURCE_COMMIT=018cbae24f70816edd67b1d42a73a4028900e15e",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B,target=/models/Qwen3-0.6B,readonly",
+    "--mount",
+    "type=bind,source=D:\\RouteScale-local-delivery-20261103\\container_provenance006.json,target=/provenance.json,readonly",
+    "--volume",
+    "routescale-m5-cache-018cbae:/root/.cache",
+    "--publish",
+    "127.0.0.1:21971:1971",
+    "--publish",
+    "127.0.0.1:21972:1972",
+    "--entrypoint",
+    "sh",
+    "sha256:e02f8ea10fa3d3923058740fb5ccc005cccdf5555ae59335389fa00bf5cd01b4",
+    "-c",
+    "python3 scripts/warm_framework.py --directory /state/warmup001 && python3 scripts/check_framework_container.py --scenario healthy --directory /state/healthy001 && cp /provenance.json /state/healthy001/container_provenance.json && python3 scripts/audit_framework_container.py --directory /state/healthy001"
+  ],
+  "build_command": [
+    "/mnt/d/APP/Docker/resources/bin/docker.exe",
+    "build",
+    "--pull=false",
+    "--network=none",
+    "--progress=plain",
+    "--file",
+    "D:\\RouteScale-local-delivery-20261103\\build005-handshake\\Dockerfile",
+    "--tag",
+    "routescale-sglang:m5-018cbae",
+    "D:\\RouteScale-local-delivery-20261103\\build005-handshake"
+  ],
+  "source_commit": "018cbae24f70816edd67b1d42a73a4028900e15e",
+  "image_id": "sha256:e02f8ea10fa3d3923058740fb5ccc005cccdf5555ae59335389fa00bf5cd01b4",
+  "build_attempt": 5,
+  "build_log": "runs/tmp/framework_container_build005-handshake.log",
+  "container_id": "7535e504d0b4bcc3ef3e919a24822be8e14dddc827b86d57c62edaf5296b5928",
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\models\\Qwen3-0.6B",
+      "Destination": "/models/Qwen3-0.6B",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "D:\\RouteScale-local-delivery-20261103\\container_provenance006.json",
+      "Destination": "/provenance.json",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "volume",
+      "Name": "routescale-m5-cache-018cbae",
+      "Source": "/var/lib/docker/volumes/routescale-m5-cache-018cbae/_data",
+      "Destination": "/root/.cache",
+      "Driver": "local",
+      "Mode": "z",
+      "RW": true,
+      "Propagation": ""
+    }
+  ],
+  "devices": [
+    {
+      "Driver": "",
+      "Count": 0,
+      "DeviceIDs": [
+        "0"
+      ],
+      "Capabilities": [
+        [
+          "gpu"
+        ]
+      ],
+      "Options": {}
+    }
+  ],
+  "ports": {
+    "1971/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21971"
+      }
+    ],
+    "1972/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "21972"
+      }
+    ]
+  },
+  "returncode": 1,
+  "evidence_directory": "/mnt/d/RouteScale-local-delivery-20261103/container_evidence006/healthy001",
+  "warmup_directory": "/mnt/d/RouteScale-local-delivery-20261103/container_evidence006/warmup001",
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/tmp/build_and_check_framework_container006.py\", line 42, in <module>\n    audit=json.loads((evidence/'healthy001/audit.json').read_text());assert process.returncode==0 and audit['passed']\n                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 788, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 772, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/mnt/d/RouteScale-local-delivery-20261103/container_evidence006/healthy001/audit.json'\n",
+  "GPU_end": "0 MiB"
+}

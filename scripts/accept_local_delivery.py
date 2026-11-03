@@ -130,7 +130,8 @@ def accept(directory, tp_runtime, bundle_directory):
         and any((f.get('choices') or [{}])[0].get('finish_reason') == 'length' for f in frames))
     probe = read(directory / 'sglang_windows_host_probe.json')
     checks['published_API_and_dashboard'] = (probe['passed'] and probe['ready_status'] == probe['dashboard_status'] == 200
-        and probe['dashboard_has_cards'] and 'RouteScale-Qwen3-0.6B' in probe['model_ids'])
+        and probe['dashboard_has_cards'] and 'RouteScale-Qwen3-0.6B' in probe['model_ids']
+        and probe['container_id'] == container['container_id'] and probe['image_id'] == container['image_id'])
 
     historical = read(directory / 'historical.json')
     checks['1498_historical_JSON_unchanged'] = len(historical) == 1498 and hashes_match(ROOT, historical)
@@ -139,7 +140,7 @@ def accept(directory, tp_runtime, bundle_directory):
     environment = read(directory / 'cpu_environment.json')
     cpu = (directory / 'cpu_tests.txt').read_text()
     test_count = re.search(r'Ran (\d+) tests', cpu)
-    checks['CPU_tests'] = bool(test_count) and int(test_count[1]) >= 51 and cpu.rstrip().endswith('OK')
+    checks['CPU_tests'] = bool(test_count) and int(test_count[1]) >= 54 and cpu.rstrip().endswith('OK')
     checks['CPU_environment_without_Torch'] = environment['no_Torch_or_GPU_dependencies'] and 'torch' not in environment['packages']
     checks['CPU_static'] = read(directory / 'cpu_static.json')['passed']
     ci = read(directory / 'github_ci_source.json')
