@@ -1,0 +1,26 @@
+{
+  "passed": false,
+  "scenario": "healthy",
+  "root_commit": "c688be22bb4501bc8e178a67fd33cdf342adc559",
+  "checkout_clean": true,
+  "container": false,
+  "source_sha256": {
+    "serving/sglang_framework.py": "60f57203c1cdc0d9666042bad46e1dcf71f75c5320abf85e46891af30d7f67eb",
+    "serving/framework_metrics.py": "6eaa4a4206e5c7cea7a003e45d40477a9e517dc81557c6eeee28beb302ab1a8b",
+    "serving/framework_client.py": "8246650d809bcae6ccb74859ea5d94bb9d66d299c8e2460cf7697515cdc1c971",
+    "scripts/framework_service.py": "fa7b95482fb6f30fde667d16c9c9658ee3eccf8a2229a714609d0530420b7a96",
+    "scripts/check_framework.py": "b67ced513f4a41abbd0ae20884f5573edb87ca2c98739e4b5a4330d420af8b08",
+    "scripts/audit_framework.py": "33a15295db2e25e62ccf439f2377f0e0814f2bb00e8bcc26751e03d6d0af08d2",
+    "serving/delivery.py": "e9aaddd045a0214d76423ab75bef60d67a04508be05f52808e7b09eebdabac21",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "deploy/local/sglang/runtime.json": "d23c4c34676f7398cc78c89bffe935f8059b339ba3baa9db3022156c1905d06b",
+    "deploy/local/sglang/upstream_sources.json": "5fcc9e218e4ca0f83980e2ce896c024c3310c601ef6fdf9080324c37ef4685c6",
+    "deploy/local/sglang/requirements.lock": "f355640c5b577e8665d67b6652c974d019719bb126a70e98c3898e79065e0f4d",
+    "docs/sglang_delivery_protocol.md": "58e97d10f69b82086f9215c17bb7b077bee5f8aa62f291801ea8691807f4e219",
+    "results/i_minisglang/i3_online_v2/workload002/workload.json": "e87891205739c63331a3adec84dd6dc59e5922a225312f864edb6eb86dee0c4f",
+    "results/i_minisglang/i3_online_v2/online001/schedule.json": "2f9ce535732679ba12124635a5596fd7b2642d1694ba9102ddc30102fa3a4062"
+  },
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v1",
+  "native_BF16_not_I3_numeric_qualification": true,
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework001/scripts/check_framework.py\", line 210, in main\n    if parent.poll() is not None:raise RuntimeError('SGLang supervisor exited before readiness')\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: SGLang supervisor exited before readiness\n"
+}

@@ -7,7 +7,7 @@ import unittest
 from serving.framework_metrics import parse,NAMES
 from serving.framework_client import CompletionClient
 from serving.online_client import OnlineRequest,RequestRecord
-from serving.sglang_framework import command,load
+from serving.sglang_framework import command,environment,load,runtime_bin
 
 
 class NativeMetricsTests(unittest.TestCase):
@@ -30,6 +30,15 @@ class NativeMetricsTests(unittest.TestCase):
         self.assertEqual(c['version'],'0.5.20');self.assertEqual(c['server_args']['dtype'],'bfloat16')
         self.assertIn('--disable-prefill-cuda-graph',args);self.assertIn('--disable-decode-cuda-graph',args)
         self.assertNotIn('--disable-cuda-graph',args)
+    def test_native_bin_and_current_unified_cache_are_explicit(self):
+        c=load();env=environment(c)
+        self.assertIn(str(runtime_bin(c)),env['PATH'].split(':'))
+        self.assertTrue(env['SGLANG_CACHE_DIR'].endswith('runs/cache/sglang-framework-v1'))
+    def test_optional_crash_diagnostics_cannot_extend_the_shutdown_budget(self):
+        c=load();env=environment(c)
+        self.assertEqual(env['SGLANG_PYSPY_DUMP_BEFORE_CRASH'],'0')
+        self.assertEqual(env['SGLANG_CUDA_COREDUMP_BEFORE_CRASH'],'0')
+        self.assertEqual(c['shutdown_s'],20)
     def test_OCI_image_pinned_and_model_mount_readonly(self):
         root=Path(__file__).resolve().parents[2];base=root/'deploy/local/sglang'
         image=json.loads((base/'image.lock.json').read_text())

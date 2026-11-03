@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "stage": "startup_before_API_readiness",
+  "reason": "Pinned Ninja installed but serving PATH lacked the dedicated environment bin. No model numerical or HTTP acceptance was run.",
+  "cache_issue": "SGLang0.5.20 uses unified SGLANG_CACHE_DIR; older cache envs were overridden.",
+  "diagnostic_issue": "Optional crash diagnostics waited60s despite CUDA coredump not enabled.",
+  "fix": "New v2 launcher: explicit bin/cache, Ninja preflight and disabled optional crash dumps. Same mathematical/API budgets.",
+  "GPU_end": "0 MiB"
+}

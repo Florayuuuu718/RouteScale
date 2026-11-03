@@ -22,6 +22,12 @@ KV4096 token、chunked prefill256、静态显存比例0.55。Prefill/Decode CUDA
 薄适配层保存全部原生 SSE 帧，再映射 text。first_text TTFT 与非空 SSE 文本块间隔
 分别报告，不冒称逐 token ITL。全部 offered 请求进入终态分母，包括过载503。
 
+首次v1真实启动在模型加载后因PATH缺少独立环境bin、找不到已安装Ninja而失败，
+未进入API流量或数值资格。v2明确将该bin加入PATH，doctor验证Ninja实际可执行，
+设置本版本新的SGLANG_CACHE_DIR。另关闭原生可选py-spy/CUDA崩溃dump：其默认诊断
+等待60秒会超出20秒关闭预算。worker故障检测、原生stderr和客户端失败记录仍保留。
+算法、模型、精度、队列、上下文和客户端期限不改；失败v1单独归档，不追认为通过。
+
 验收包含真实非流式、错误预算、超长输入、流式断开、客户端期限、实际队列占用、
 过载拒绝、原48请求 trace、取消后恢复、受控 worker 故障和带请求停服。
 排队复现先观察4个实际运行请求，再让指定原生RID入队并断开客户端；随后显式调用

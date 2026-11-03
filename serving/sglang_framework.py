@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import signal
+import shutil
 import subprocess
 import threading
 import time
@@ -23,6 +24,8 @@ def load(path=CONFIG):
     if c['version']!='0.5.20' or c['host']!='127.0.0.1' or c['server_args']['context_length']!=1024:
         raise ValueError('Unsupported formal framework profile')
     if c['server_args']['max_running_requests']!=4 or c['server_args']['max_queued_requests']!=8:raise ValueError('Bounded profile required')
+    if c.get('server_env')!={'SGLANG_PYSPY_DUMP_BEFORE_CRASH':'0','SGLANG_CUDA_COREDUMP_BEFORE_CRASH':'0'}:
+        raise ValueError('Bounded crash handling required')
     c['model_path']=os.environ.get('ROUTESCALE_MODEL_PATH',c['model_path'])
     if os.environ.get('ROUTESCALE_IN_CONTAINER')=='1':c['host']='0.0.0.0'
     return c
@@ -33,6 +36,20 @@ def command(c):
     args=[str(python),'-m','sglang.launch_server','--model-path',str(ROOT/c['model_path']),'--host',c['host'],'--port',str(c['port'])]
     for key,value in c['server_args'].items():args+=['--'+key.replace('_','-'),str(value)]
     return args+['--'+key.replace('_','-') for key in c['server_flags']]
+
+
+def runtime_bin(c):
+    executable=command(c)[0]
+    return Path(executable).parent if Path(executable).is_absolute() else Path(shutil.which(executable) or executable).parent
+
+
+def environment(c):
+    toolkit=Path(os.environ.get('ROUTESCALE_CUDA_HOME') or os.environ.get('CUDA_HOME') or str(ROOT/'runs/toolchains/cuda-13.0-i1')).resolve()
+    cache=Path(os.environ.get('ROUTESCALE_FRAMEWORK_CACHE') or ('/root/.cache/routescale' if os.environ.get('ROUTESCALE_IN_CONTAINER')=='1' else str(ROOT/'runs/cache/sglang-framework-v1')))
+    return dict(os.environ,CUDA_VISIBLE_DEVICES='0',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='4',MAX_JOBS='4',
+        PYTHONUNBUFFERED='1',CUDA_HOME=str(toolkit),PATH=str(toolkit/'bin')+':'+str(runtime_bin(c))+':'+os.environ['PATH'],
+        SGLANG_CACHE_DIR=str(cache),TVM_FFI_CACHE_DIR=str(cache/'tvm'),FLASHINFER_WORKSPACE_BASE=str(cache/'flashinfer'),
+        TORCHINDUCTOR_CACHE_DIR=str(cache/'inductor'),TRITON_CACHE_DIR=str(cache/'triton'),**c['server_env'])
 
 
 def doctor(c):
@@ -54,9 +71,11 @@ def doctor(c):
         if bad:raise ValueError(f'Locked formal environment changed: {bad}')
     toolkit=Path(os.environ.get('ROUTESCALE_CUDA_HOME') or os.environ.get('CUDA_HOME') or str(ROOT/'runs/toolchains/cuda-13.0-i1')).resolve()
     nvcc=subprocess.check_output([str(toolkit/'bin/nvcc'),'--version'],text=True)
+    ninja=runtime_bin(c)/'ninja';ninja_version=subprocess.check_output([str(ninja),'--version'],text=True).strip()
     return dict(passed=True,model_revision=manifest['revision'],environment=env,model_manifest_sha256=sha(ROOT/c['model_manifest']),
         upstream_source_sha256=actual,source_commit=pinned['commit'],toolchain=dict(path=str(toolkit),nvcc=nvcc,
-            math_header_sha256=sha(toolkit/'targets/x86_64-linux/include/crt/math_functions.h')))
+            math_header_sha256=sha(toolkit/'targets/x86_64-linux/include/crt/math_functions.h')),
+        ninja=dict(path=str(ninja),version=ninja_version,sha256=sha(ninja)))
 
 
 def serve(c,directory):
@@ -77,12 +96,9 @@ def serve(c,directory):
                 def log_message(self,*args):pass
             viewer=ThreadingHTTPServer((c['host'],c['dashboard_port']),Dashboard)
             threading.Thread(target=viewer.serve_forever,daemon=True).start()
-            toolkit=Path(os.environ.get('ROUTESCALE_CUDA_HOME') or os.environ.get('CUDA_HOME') or str(ROOT/'runs/toolchains/cuda-13.0-i1')).resolve()
-            cache=Path(os.environ.get('ROUTESCALE_FRAMEWORK_CACHE') or ('/root/.cache/routescale' if os.environ.get('ROUTESCALE_IN_CONTAINER')=='1' else str(ROOT/'runs/cache/sglang-framework-v1')))
-            env=dict(os.environ,CUDA_VISIBLE_DEVICES='0',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='4',MAX_JOBS='4',
-                PYTHONUNBUFFERED='1',CUDA_HOME=str(toolkit),PATH=str(toolkit/'bin')+':'+os.environ['PATH'],
-                TVM_FFI_CACHE_DIR=str(cache/'tvm'),FLASHINFER_WORKSPACE_BASE=str(cache/'flashinfer'),
-                TORCHINDUCTOR_CACHE_DIR=str(cache/'inductor'),TRITON_CACHE_DIR=str(cache/'triton'))
+            env=environment(c)
+            state['runtime_environment']={k:env[k] for k in ['SGLANG_CACHE_DIR','CUDA_HOME',*c['server_env']]}
+            write(directory/'status.json',state)
             process=None;base=f'http://127.0.0.1:{c["port"]}';started=time.monotonic();sample=0
             try:
                 with (directory/'server.log').open('x') as log:

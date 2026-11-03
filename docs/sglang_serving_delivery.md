@@ -40,11 +40,13 @@ python3 scripts/framework_service.py status --run-dir runs/sglang/local001
 python3 scripts/framework_service.py stop --run-dir runs/sglang/local001
 ```
 
-doctor逐文件核对模型、锁定依赖、SGLang版本和11份原生关键源码。run前台持原全局
+doctor逐文件核对模型、锁定依赖、SGLang版本、11份原生关键源码和Ninja可执行文件。run前台持原全局
 GPU互斥锁，执行原生 `sglang.launch_server`；`/ready` 加实际 `/health_generate`
 通过后才发布ready。端口1971为原生API，1972为本地仪表盘。启动预算600秒，关闭
 预算20秒，Ctrl-C也可停止；只清理自己创建的进程组。不要复用旧run目录。
 worker异常会使服务失败并退出，排查日志后用新目录启动，不自动重启覆盖故障。
+v2显式设置SGLANG_CACHE_DIR为独立缓存，并将环境bin加入PATH。原生可选py-spy/CUDA
+崩溃dump关闭，避免默认60秒诊断等待越过20秒关闭预算；正常stderr和故障事件照常保存。
 
 ```bash
 curl -N http://127.0.0.1:1971/v1/chat/completions \

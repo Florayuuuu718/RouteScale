@@ -4,6 +4,7 @@ Weights are never copied. Archives and the resulting image stay outside Git.
 """
 import argparse
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -27,6 +28,13 @@ def main():
     files += [str(f.relative_to(ROOT)) for f in (ROOT/'deploy/local/sglang').iterdir() if f.is_file()]
     for name in files:
         target=out/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,target)
+    console=out/'console-scripts';console.mkdir();scripts={}
+    for source in (ROOT/c['environment']/'bin').iterdir():
+        if source.name.startswith('python') or not source.is_file() or not os.access(source,os.X_OK):continue
+        value=source.read_bytes()
+        if value.startswith(b'#!') and b'python' in value.split(b'\n',1)[0]:value=b'#!/usr/local/bin/python3\n'+value.split(b'\n',1)[1]
+        target=console/source.name;target.write_bytes(value);target.chmod(0o755);scripts[source.name]=sha(target)
+    if 'ninja' not in scripts:raise ValueError('Native compiler requires the pinned Ninja executable')
     site=ROOT/c['environment']/'lib/python3.11/site-packages'
     subprocess.run(['tar','--exclude=__pycache__','-C',str(site),'-cf',str(out/'sglang-environment.tar'),'.'],check=True)
     toolkit=Path('/usr/local/cuda-13.0')
@@ -38,7 +46,7 @@ def main():
     write(out/'framework_bundle.json',dict(source_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         clean_source_checkout=True,source_sha256={n:sha(ROOT/n) for n in files},doctor=checked,
         requirements_sha256=sha(ROOT/'deploy/local/sglang/requirements.lock'),toolchain_header_sha256=sha(ROOT/'runs/toolchains/cuda-13.0-i1'/header),
-        archives_sha256={n:sha(out/n) for n in ['sglang-environment.tar','cuda-toolchain.tar']},weights_embedded=False))
+        archives_sha256={n:sha(out/n) for n in ['sglang-environment.tar','cuda-toolchain.tar']},console_scripts_sha256=scripts,weights_embedded=False))
     print(json.dumps(dict(directory=str(out),weights_embedded=False,passed=True)))
 
 
