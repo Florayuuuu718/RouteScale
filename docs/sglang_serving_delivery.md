@@ -123,7 +123,8 @@ docker stop --time 30 routescale-local001
 
 本版本原生ready执行内置健康生成；首次额外并发/Prefill形状仍可能触发JIT。冷容器曾
 在391秒完成模型启动，之后先后在10秒running4、0.7秒queued观测窗口失败，原始记录
-保留。正式代表场景先执行显式预热，保持30秒客户端、20秒关闭预算及原验收门槛：
+保留。正式代表场景先执行显式预热；内部预热使用600秒启动预算的剩余时间，启动
+观察器另有15秒控制开销。正式客户端30秒、关闭20秒及原验收门槛不变：
 
 ```bash
 runs/envs/sglang-framework-v1/bin/python scripts/warm_framework.py --directory runs/framework/preparation001

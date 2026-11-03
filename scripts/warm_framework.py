@@ -1,11 +1,13 @@
 """Prepare declared SGLang request shapes before the unchanged delivery checks.
 
 Own one temporary server, preserve all warmup offers, then release the GPU.
-The normal 30s client and 20s shutdown budgets still apply. This preparation
+Internal warmup uses the remaining startup budget; public checks retain 30s
+clients and 20s shutdown. This preparation
 does not claim that arbitrary new shapes are compiled by native /ready.
 """
 import argparse
 import asyncio
+from dataclasses import replace
 import json
 import os
 from pathlib import Path
@@ -35,13 +37,17 @@ def plan(workload, model):
              for i in range(4)] for s, q in enumerate(prompts) for tokens in (32, 64, 256)]
 
 
-async def exercise(c, out):
+async def exercise(c, out, deadline):
     catalogue = []
     rows = []
     def sink(event):
         with (out / 'client_events.jsonl').open('a') as stream:
             stream.write(json.dumps(event) + '\n')
     for batch in plan(read(WORKLOAD), c['server_args']['served_model_name']):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError('Total startup/preparation budget')
+        batch = [replace(r, timeout_s=remaining) for r in batch]
         catalogue.extend(dict(request_id=r.request_id, payload=r.payload, timeout_s=r.timeout_s) for r in batch)
         write(out / 'request_catalogue.json', catalogue)
         result = await CompletionClient(f'http://127.0.0.1:{c["port"]}', concurrency=4, sink=sink).run(batch)
@@ -62,6 +68,8 @@ def main():
     result = dict(passed=False, workload_sha256=sha(WORKLOAD), warmup_source_sha256=sha(Path(__file__)),
         shapes='shortest/longest eligible I3 prompt; concurrency4; outputs32/64/256',
         public_client_budget_s=30, shutdown_budget_s=c['shutdown_s'], arbitrary_cold_shapes_qualified=False)
+    result['internal_warmup_uses_remaining_startup_budget'] = True
+    result['startup_budget_s'] = c['startup_s']
     process = None
     try:
         with (out / 'supervisor.txt').open('x') as log:
@@ -77,7 +85,7 @@ def main():
                 time.sleep(.2)
             else:
                 raise TimeoutError('Preparation startup budget')
-            rows = asyncio.run(exercise(c, out))
+            rows = asyncio.run(exercise(c, out, end))
             result.update(requests=len(rows), terminal_counts={'finished': len(rows)})
             process.send_signal(signal.SIGTERM)
             process.wait(timeout=c['shutdown_s'] + 15)
