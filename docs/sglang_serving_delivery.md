@@ -120,5 +120,8 @@ runs/envs/sglang-framework-v1/bin/python scripts/audit_framework.py --directory 
 ```
 
 保存源快照、全部原生SSE、客户端事件/终态、原始metrics、缓存flush、进程状态和GPU归零。
+独立healthy审计通过后，可用 [export_framework.py](../scripts/export_framework.py)
+导出实际queue/KV/GPU时间线和无需GPU即可打开的离线仪表盘快照；时间线使用单调时钟，
+只展示运行期间样本，关闭后GPU归零另以状态记录证明，不补画虚构采样点。
 CPU CI不安装Torch、不下载模型；运行tests/delivery与check_delivery_cpu.py，覆盖配置、
 事件/指标schema、汇总fixture、文档链接和AST。真实GPU及容器证据单独归档。

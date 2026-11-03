@@ -107,7 +107,7 @@ def serve(c,directory):
                                 if code==200:
                                     native=parse(text)
                                     gpu=subprocess.check_output(['nvidia-smi','--query-gpu=memory.used','--format=csv,noheader,nounits'],text=True).strip()
-                                    snapshot=dict(state=state['state'],time_ns=time.time_ns(),native=native,
+                                    snapshot=dict(state=state['state'],time_ns=time.time_ns(),monotonic_ns=time.monotonic_ns(),native=native,
                                         client=client_counts(os.environ.get('ROUTESCALE_CLIENT_LEDGER')),GPU_used_MiB=float(gpu))
                                     write(directory/'snapshot.json',snapshot)
                                     with (directory/'metrics_samples.jsonl').open('a') as f:f.write(json.dumps(snapshot)+'\n')

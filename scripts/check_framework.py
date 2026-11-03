@@ -68,7 +68,7 @@ async def exercise(c,run,out,scenario):
         async def snap(label):
             r=await client.get('/metrics');r.raise_for_status();native=parse(r.text)
             p=out/'metrics'/f'{len(snapshots):03d}_{label}.txt';p.parent.mkdir(exist_ok=True);p.write_text(r.text)
-            row=dict(label=label,time_ns=time.time_ns(),native=native,metrics_file=str(p.relative_to(out)))
+            row=dict(label=label,time_ns=time.time_ns(),monotonic_ns=time.monotonic_ns(),native=native,metrics_file=str(p.relative_to(out)))
             snapshots.append(row);write(out/'snapshots.json',snapshots);return native['metrics']
         async def settle(label):
             end=time.monotonic()+15
