@@ -1,0 +1,10 @@
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[1m[2026-11-03|01:34:16|core|rank=0][0m [32mINFO    [0m Free memory before loading model: 6.86 GiB
+Loading weights:   0%|          | 0/1 [00:00<?, ?it/s]Loading weights: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]Loading weights: 100%|██████████| 1/1 [00:02<00:00,  2.18s/it]
+[1m[2026-11-03|01:34:22|core|rank=0][0m [32mINFO    [0m Allocating 4096 tokens for KV cache, K + V = 0.44 GiB
+[1m[2026-11-03|01:34:22|core|rank=0][0m [32mINFO    [0m Free memory after initialization: 5.07 GiB
+[1m[2026-11-03|01:34:22|core|rank=0][0m [32mINFO    [0m CUDA graph is disabled.
+2026-11-03 01:34:38,769 - INFO - core.py:594 - flashinfer.jit: Building JIT module rope; this can take several minutes on first use.
+2026-11-03 01:36:04,927 - INFO - core.py:594 - flashinfer.jit: Building JIT module batch_prefill_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False_f16qk_False_kv_stride_equal; this can take several minutes on first use.
+2026-11-03 01:37:19,778 - INFO - core.py:594 - flashinfer.jit: Building JIT module silu_and_mul; this can take several minutes on first use.
+2026-11-03 01:37:30,723 - INFO - core.py:594 - flashinfer.jit: Building JIT module batch_decode_with_kv_cache_dtype_q_f16_dtype_kv_f16_dtype_o_f16_dtype_idx_i32_head_dim_qk_128_head_dim_vo_128_posenc_0_use_swa_False_use_logits_cap_False; this can take several minutes on first use.

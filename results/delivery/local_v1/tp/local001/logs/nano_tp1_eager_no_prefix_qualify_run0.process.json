@@ -1,0 +1,26 @@
+{
+  "pid": 150077,
+  "command": [
+    "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python",
+    "-m",
+    "torch.distributed.run",
+    "--standalone",
+    "--nproc-per-node=1",
+    "scripts/tp_worker.py",
+    "--directory",
+    "/home/shunzi/projects/RouteScale/runs/tp_delivery/local001",
+    "--mode",
+    "qualify",
+    "--framework",
+    "nano",
+    "--variant",
+    "eager_no_prefix",
+    "--label",
+    "nano_tp1_eager_no_prefix_qualify_run0"
+  ],
+  "status": "failed",
+  "returncode": 1,
+  "seconds": 152.6806120100082,
+  "escalated": [],
+  "log_sha256": "c67f850b399810db891ec544336291b43bbfddd0ec534fca936a8a1d74fc5642"
+}

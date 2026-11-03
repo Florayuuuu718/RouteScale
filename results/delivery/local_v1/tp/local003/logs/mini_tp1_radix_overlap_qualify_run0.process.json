@@ -1,0 +1,26 @@
+{
+  "pid": 156794,
+  "command": [
+    "/home/shunzi/projects/RouteScale/runs/envs/mini-sglang/bin/python",
+    "-m",
+    "torch.distributed.run",
+    "--standalone",
+    "--nproc-per-node=1",
+    "scripts/tp_worker.py",
+    "--directory",
+    "/home/shunzi/projects/RouteScale/runs/tp_delivery/local003",
+    "--mode",
+    "qualify",
+    "--framework",
+    "mini",
+    "--variant",
+    "radix_overlap",
+    "--label",
+    "mini_tp1_radix_overlap_qualify_run0"
+  ],
+  "status": "pass",
+  "returncode": 0,
+  "seconds": 29.14719139500812,
+  "escalated": [],
+  "log_sha256": "281b161922e5b361ac24f7b5264c19e418960e3baeec30af54e0c16506ea0951"
+}

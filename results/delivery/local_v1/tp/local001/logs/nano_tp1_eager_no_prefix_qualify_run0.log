@@ -1,0 +1,160 @@
+[E1103 01:27:59.435136813 socket.cpp:1019] [c10d] The client socket has timed out after 60000ms while trying to connect to (127.0.0.1, 2333).
+[W1103 01:27:59.472481193 TCPStore.cpp:340] [c10d] TCP client failed to connect/validate to host 127.0.0.1:2333 - retrying (try=0, timeout=60000ms, delay=36521ms): The client socket has timed out after 60000ms while trying to connect to (127.0.0.1, 2333).
+Exception raised from throwTimeoutError at /pytorch/torch/csrc/distributed/c10d/socket.cpp:1021 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x71616f57eeb0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5d694f1 (0x7161531694f1 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x1369132 (0x71614e769132 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5ddde0b (0x7161531dde0b in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: <unknown function> + 0x5dddfab (0x7161531ddfab in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x5dde344 (0x7161531de344 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: <unknown function> + 0x5d61de3 (0x716153161de3 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: c10d::TCPStore::TCPStore(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, c10d::TCPStoreOptions const&) + 0x41d (0x7161531687ed in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0xc16635 (0x716162616635 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #9: <unknown function> + 0xc50bd6 (0x716162650bd6 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #10: <unknown function> + 0x3838b0 (0x716161d838b0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #11: <unknown function> + 0x346745 (0x58c85c2a8745 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #12: _PyObject_MakeTpCall + 0x12e (0x58c85c1568ae in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #13: <unknown function> + 0x31c80a (0x58c85c27e80a in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #14: _PyObject_Call + 0x391 (0x58c85c3ce681 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #15: <unknown function> + 0x35a3e9 (0x58c85c2bc3e9 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #16: <unknown function> + 0x35daca (0x58c85c2bfaca in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #17: <unknown function> + 0x3825db (0x716161d825db in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #18: _PyEval_EvalFrameDefault + 0x2694c (0x58c85c319a5c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #19: <unknown function> + 0x322ea5 (0x58c85c284ea5 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #20: <unknown function> + 0x38d5a4 (0x58c85c2ef5a4 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #21: <unknown function> + 0x3460ee (0x58c85c2a80ee in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #22: _PyEval_EvalFrameDefault + 0x26589 (0x58c85c319699 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #23: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #24: _PyEval_EvalFrameDefault + 0x3d7f4 (0x58c85c330904 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #25: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #26: _PyEval_EvalFrameDefault + 0x3d7f4 (0x58c85c330904 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #27: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #28: <unknown function> + 0x35a0d0 (0x58c85c2bc0d0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #29: <unknown function> + 0x35daca (0x58c85c2bfaca in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #30: _PyEval_EvalFrameDefault + 0x2694c (0x58c85c319a5c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #31: <unknown function> + 0x38ec86 (0x58c85c2f0c86 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #32: <unknown function> + 0x506a36 (0x58c85c468a36 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #33: <unknown function> + 0x254e1c (0x58c85c1b6e1c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #34: _PyRun_SimpleFileObject + 0x113 (0x58c85c1b6923 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #35: _PyRun_AnyFileObject + 0xb6 (0x58c85c1b6336 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #36: <unknown function> + 0x25eac8 (0x58c85c1c0ac8 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #37: <unknown function> + 0x25e5d5 (0x58c85c1c05d5 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #38: Py_RunMain + 0x5c9 (0x58c85c473ee9 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #39: <unknown function> + 0x51263e (0x58c85c47463e in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #40: <unknown function> + 0x43d79c (0x58c85c39f79c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #41: <unknown function> + 0x2a601 (0x71617042a601 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #42: __libc_start_main + 0x88 (0x71617042a718 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #43: <unknown function> + 0x43d6ad (0x58c85c39f6ad in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+
+[E1103 01:29:24.489411898 socket.cpp:1019] [c10d] The client socket has timed out after 60000ms while trying to connect to (127.0.0.1, 2333).
+[E1103 01:29:24.490624263 TCPStore.cpp:328] [c10d] TCP client failed to connect/validate to host 127.0.0.1:2333 - timed out (try=1, timeout=60000ms): The client socket has timed out after 60000ms while trying to connect to (127.0.0.1, 2333).
+Exception raised from throwTimeoutError at /pytorch/torch/csrc/distributed/c10d/socket.cpp:1021 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x80 (0x71616f57eeb0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5d694f1 (0x7161531694f1 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x1369132 (0x71614e769132 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5ddde0b (0x7161531dde0b in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #4: <unknown function> + 0x5dddfab (0x7161531ddfab in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #5: <unknown function> + 0x5dde344 (0x7161531de344 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: <unknown function> + 0x5d61de3 (0x716153161de3 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: c10d::TCPStore::TCPStore(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, c10d::TCPStoreOptions const&) + 0x41d (0x7161531687ed in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: <unknown function> + 0xc16635 (0x716162616635 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #9: <unknown function> + 0xc50bd6 (0x716162650bd6 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #10: <unknown function> + 0x3838b0 (0x716161d838b0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #11: <unknown function> + 0x346745 (0x58c85c2a8745 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #12: _PyObject_MakeTpCall + 0x12e (0x58c85c1568ae in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #13: <unknown function> + 0x31c80a (0x58c85c27e80a in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #14: _PyObject_Call + 0x391 (0x58c85c3ce681 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #15: <unknown function> + 0x35a3e9 (0x58c85c2bc3e9 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #16: <unknown function> + 0x35daca (0x58c85c2bfaca in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #17: <unknown function> + 0x3825db (0x716161d825db in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/lib/libtorch_python.so)
+frame #18: _PyEval_EvalFrameDefault + 0x2694c (0x58c85c319a5c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #19: <unknown function> + 0x322ea5 (0x58c85c284ea5 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #20: <unknown function> + 0x38d5a4 (0x58c85c2ef5a4 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #21: <unknown function> + 0x3460ee (0x58c85c2a80ee in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #22: _PyEval_EvalFrameDefault + 0x26589 (0x58c85c319699 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #23: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #24: _PyEval_EvalFrameDefault + 0x3d7f4 (0x58c85c330904 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #25: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #26: _PyEval_EvalFrameDefault + 0x3d7f4 (0x58c85c330904 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #27: _PyFunction_Vectorcall + 0x1d9 (0x58c85c27b199 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #28: <unknown function> + 0x35a0d0 (0x58c85c2bc0d0 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #29: <unknown function> + 0x35daca (0x58c85c2bfaca in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #30: _PyEval_EvalFrameDefault + 0x2694c (0x58c85c319a5c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #31: <unknown function> + 0x38ec86 (0x58c85c2f0c86 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #32: <unknown function> + 0x506a36 (0x58c85c468a36 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #33: <unknown function> + 0x254e1c (0x58c85c1b6e1c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #34: _PyRun_SimpleFileObject + 0x113 (0x58c85c1b6923 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #35: _PyRun_AnyFileObject + 0xb6 (0x58c85c1b6336 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #36: <unknown function> + 0x25eac8 (0x58c85c1c0ac8 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #37: <unknown function> + 0x25e5d5 (0x58c85c1c05d5 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #38: Py_RunMain + 0x5c9 (0x58c85c473ee9 in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #39: <unknown function> + 0x51263e (0x58c85c47463e in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #40: <unknown function> + 0x43d79c (0x58c85c39f79c in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+frame #41: <unknown function> + 0x2a601 (0x71617042a601 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #42: __libc_start_main + 0x88 (0x71617042a718 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #43: <unknown function> + 0x43d6ad (0x58c85c39f6ad in /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python)
+
+Traceback (most recent call last):
+  File "/home/shunzi/projects/RouteScale/scripts/tp_worker.py", line 154, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/shunzi/projects/RouteScale/scripts/tp_worker.py", line 151, in main
+    replay(args.directory,c,args.framework,args.variant,world,rank,args.mode,args.label)
+  File "/home/shunzi/projects/RouteScale/scripts/tp_worker.py", line 102, in replay
+    runtime=create(cfg,variant,world,rank,numeric)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/serving/tp_nano_runtime.py", line 51, in create
+    runner=Runner()
+           ^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/serving/tp_nano_runtime.py", line 36, in __init__
+    dist.init_process_group('nccl',init_method='tcp://127.0.0.1:2333',world_size=world,rank=rank,timeout=timedelta(seconds=60))
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 81, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/c10d_logger.py", line 95, in wrapper
+    func_return = func(*args, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/distributed_c10d.py", line 1757, in init_process_group
+    store, rank, world_size = next(rendezvous_iterator)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/rendezvous.py", line 230, in _tcp_rendezvous_handler
+    store = _create_c10d_store(
+            ^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/rendezvous.py", line 189, in _create_c10d_store
+    return TCPStore(
+           ^^^^^^^^^
+torch.distributed.DistNetworkError: The client socket has timed out after 60000ms while trying to connect to (127.0.0.1, 2333).
+E1103 01:29:29.370000 150077 runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/api.py:874] failed (exitcode: 1) local_rank: 0 (pid: 150103) of binary: /home/shunzi/projects/RouteScale/runs/envs/nano-vllm/bin/python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/run.py", line 905, in <module>
+    main()
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 357, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/run.py", line 901, in main
+    run(args)
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/run.py", line 892, in run
+    elastic_launch(
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 143, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shunzi/projects/RouteScale/runs/envs/nano-vllm/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 277, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts/tp_worker.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-11-03_01:29:29
+  host      : localhost
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 150103)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
