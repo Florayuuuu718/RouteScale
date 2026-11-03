@@ -17,7 +17,7 @@ import traceback
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from serving.delivery import read,sha,write
 from serving.framework_client import CompletionClient
-from serving.framework_metrics import HTML,parse
+from serving.framework_metrics import HTML,parse,parse_loads
 from serving.online_client import OnlineRequest,canonical_hash
 from serving.sglang_framework import load
 
@@ -63,13 +63,20 @@ async def exercise(c,run,out,scenario):
         payload=dict(workload['requests'][0]['payload'],model=c['server_args']['served_model_name'],max_tokens=tokens)
         return OnlineRequest(rid,payload,timeout_s=options.pop('timeout_s',c['request_timeout_s']),**options)
     async def send(reqs):
-        rows=await CompletionClient(base,concurrency=len(reqs)).run(reqs);ledger.extend(rows);write(out/'requests.json',ledger);return rows
+        catalog=read(out/'request_catalogue.json') if (out/'request_catalogue.json').exists() else []
+        catalog.extend(dict(request_id=r.request_id,payload=r.payload,arrival_s=r.arrival_s,timeout_s=r.timeout_s,
+            cancel_after_s=r.cancel_after_s,disconnect_after_chunks=r.disconnect_after_chunks) for r in reqs);write(out/'request_catalogue.json',catalog)
+        def sink(event):
+            with (out/'client_events.jsonl').open('a') as f:f.write(json.dumps(event)+'\n')
+        rows=await CompletionClient(base,concurrency=len(reqs),sink=sink).run(reqs);ledger.extend(rows);write(out/'requests.json',ledger);return rows
     async with httpx.AsyncClient(base_url=base,timeout=5,trust_env=False) as client:
         async def snap(label):
             r=await client.get('/metrics');r.raise_for_status();native=parse(r.text)
+            loads=await client.get('/v1/loads');loads.raise_for_status();load_body=loads.json();fresh=parse_loads(load_body)
             p=out/'metrics'/f'{len(snapshots):03d}_{label}.txt';p.parent.mkdir(exist_ok=True);p.write_text(r.text)
-            row=dict(label=label,time_ns=time.time_ns(),monotonic_ns=time.monotonic_ns(),native=native,metrics_file=str(p.relative_to(out)))
-            snapshots.append(row);write(out/'snapshots.json',snapshots);return native['metrics']
+            row=dict(label=label,time_ns=time.time_ns(),monotonic_ns=time.monotonic_ns(),native=native,loads=load_body,fresh=fresh,metrics_file=str(p.relative_to(out)))
+            snapshots.append(row);write(out/'snapshots.json',snapshots)
+            return dict(native['metrics'],running=fresh['running'],queued=fresh['queued'])
         async def settle(label):
             end=time.monotonic()+15
             while time.monotonic()<end:
@@ -98,7 +105,7 @@ async def exercise(c,run,out,scenario):
             deadline=await send([request('deadline',512,timeout_s=.1)]);assert deadline[0]['state']=='cancelled' and deadline[0]['reason']=='deadline';await settle('deadline')
             # An explicit native RID makes the queued abort reproducible. The
             # disconnect and administrative abort are recorded as separate acts.
-            blockers=asyncio.create_task(send([request(f'queue_blocker_{i}',900) for i in range(4)]))
+            blockers=asyncio.create_task(send([request(f'queue_blocker_{i}',256) for i in range(4)]))
             end=time.monotonic()+10
             while time.monotonic()<end:
                 before=await snap('queue_blockers')
@@ -119,13 +126,13 @@ async def exercise(c,run,out,scenario):
             end=time.monotonic()+5
             while time.monotonic()<end:
                 after=await snap('queued_cancel_aborted')
-                if after['queued']==0 and after['running']==4 and after['aborted']>before['aborted']:break
+                if after['queued']==0 and after['running']==4 and after['aborted'] is not None and (before['aborted'] is None or after['aborted']>before['aborted']):break
                 await asyncio.sleep(.03)
             else:raise TimeoutError('Native queued abort was not observed while blockers were still running')
             write(out/'queued_abort.json',dict(rid='routescale_queued_cancel',client_id='queued_disconnect',
                 client_closed_before_native_abort=True,status=abort.status_code,waiting=waiting,after=after))
             held=await blockers;assert all(r['state']=='finished' for r in held);await settle('queued_cancel')
-            tasks=asyncio.create_task(send([request(f'burst_{i}',512) for i in range(14)]))
+            tasks=asyncio.create_task(send([request(f'burst_{i}',128) for i in range(14)]))
             observed=[]
             while not tasks.done():
                 observed.append(await snap('burst'));await asyncio.sleep(.05)
@@ -145,7 +152,7 @@ async def exercise(c,run,out,scenario):
             await settle('trace')
             probe=await send([request('post_cancel_probe')]);assert probe[0]['state']=='finished';await settle('final')
         else:
-            active=asyncio.create_task(send([request('inflight',512)]));end=time.monotonic()+10
+            active=asyncio.create_task(send([request('inflight',128)]));end=time.monotonic()+10
             while time.monotonic()<end:
                 m=await snap('inflight')
                 if m['running'] and m['running']>0:break

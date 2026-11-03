@@ -35,6 +35,10 @@ KV值。原生flush已成功，而空闲指标刷新有硬编码30秒窗口。v4
 hook：成功flush后立即调用原生pool observer/metrics reporter刷新真实值，记录实际
 used/available/evictable/capacity；不手填零。仍要求15秒内原生KV归零、4096槽全部可用，
 并独立核对原生allocator事件。上游wheel源码保持原样，hook和新入口另存源码/哈希。
+排队诊断改用每个256-token的4个blocker、128-token burst；先前900-token诊断未在
+10秒内建立4个实际运行请求，其失败和关闭升级保留，不作容量结论。运行/排队判断采用
+原生 `/v1/loads` 共享内存实时快照，Prometheus原始批次指标另存；每个offer的payload
+与事件立即落盘，避免诊断中途退出时遗漏尚未汇总的客户端记录。原48请求trace不变。
 
 验收包含真实非流式、错误预算、超长输入、流式断开、客户端期限、实际队列占用、
 过载拒绝、原48请求 trace、取消后恢复、受控 worker 故障和带请求停服。

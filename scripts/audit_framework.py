@@ -6,8 +6,8 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from serving.delivery import identity,read,sha,write
-from serving.framework_metrics import parse
-from serving.online_client import TERMINAL
+from serving.framework_metrics import parse,parse_loads
+from serving.online_client import TERMINAL,canonical_hash
 from scripts.check_framework import SCHEDULE,WORKLOAD,sha_text,summarize
 
 
@@ -49,10 +49,16 @@ def audit(directory):
         if row['state']=='finished':
             checks[rid+'/native_finish']=any((f.get('choices') or [{}])[0].get('finish_reason') for f in frames)
     checks['independent_summary']=read(d/'client_summary.json')==summarize(rows)
+    catalog=read(d/'request_catalogue.json');checks['all_catalogued_offers_accounted']={r['request_id'] for r in catalog}=={r['request_id'] for r in rows} and len(catalog)==len(rows)
+    actual={r['request_id']:r for r in rows}
+    checks['catalogue_payloads_bound']=all(canonical_hash(r['payload'])==actual[r['request_id']]['payload_sha256'] for r in catalog)
+    durable=[json.loads(line) for line in (d/'client_events.jsonl').read_text().splitlines() if line]
+    checks['durable_client_events']=all([e for e in durable if e['request_id']==r['request_id']]==r['events'] for r in rows)
     snapshots=read(d/'snapshots.json')
     for i,snap in enumerate(snapshots):
         actual=parse((d/snap['metrics_file']).read_text())
         checks[f'raw_metrics/{i}']=actual==snap['native']
+        checks[f'native_loads/{i}']=parse_loads(snap['loads'])==snap['fresh']
     if r['scenario']=='healthy':
         byid={x['request_id']:x for x in rows};binding=read(d/'workload_binding.json')
         w=read(d/'source_snapshot'/WORKLOAD);schedule=read(d/'source_snapshot'/SCHEDULE);source={q['request_id']:q for q in w['requests']}

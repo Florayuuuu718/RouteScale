@@ -11,6 +11,15 @@ from serving.sglang_framework import command,environment,load,runtime_bin
 
 
 class NativeMetricsTests(unittest.TestCase):
+    def test_live_load_schema_does_not_use_a_stale_exporter_running_gauge(self):
+        from serving.framework_metrics import parse_loads
+        body=dict(loads=[dict(dp_rank=0,num_running_reqs=4,num_waiting_reqs=1,num_used_tokens=700,max_total_num_tokens=4096,token_usage=.17,timestamp=123)])
+        live=parse_loads(body)
+        self.assertEqual(live['running'],4);self.assertEqual(live['queued'],1);self.assertEqual(live['used'],700)
+    def test_missing_live_loads_are_not_invented_as_zero(self):
+        from serving.framework_metrics import parse_loads
+        for body in [dict(loads=[]),dict(loads=[dict(dp_rank=0)])]:
+            with self.assertRaises(ValueError):parse_loads(body)
     def test_missing_is_not_zero(self):
         out=parse('sglang:num_running_reqs{model_name="Qwen"} 0\n')
         self.assertEqual(out['metrics']['running'],0);self.assertIsNone(out['metrics']['queued'])

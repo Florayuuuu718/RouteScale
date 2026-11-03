@@ -18,7 +18,7 @@ def main():
     if not samples:raise ValueError('Actual native samples required')
     t0=samples[0]['monotonic_ns'];times=[(s['monotonic_ns']-t0)/1e9 for s in samples]
     if any(b<a for a,b in zip(times,times[1:])):raise ValueError('Non-monotonic sample clock')
-    def values(key):return [s['native']['metrics'].get(key) if s['native']['metrics'].get(key) is not None else float('nan') for s in samples]
+    def values(key):return [s['fresh'][key] for s in samples]
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -27,8 +27,8 @@ def main():
     axes[0].plot(times,values('queued'),label='Native queued',color='#cb7627')
     axes[0].axhline(4,color='#176b98',linestyle=':',alpha=.5);axes[0].axhline(8,color='#cb7627',linestyle=':',alpha=.5)
     axes[0].set_ylabel('Requests');axes[0].legend(loc='upper right',ncol=2)
-    axes[1].plot(times,values('KV_used'),label='KV actively used',color='#6a4b9b')
-    axes[1].plot(times,values('KV_available'),label='KV available',color='#27835d')
+    axes[1].plot(times,values('used'),label='Scheduler KV actively used',color='#6a4b9b')
+    axes[1].plot(times,values('capacity'),label='KV token capacity',color='#27835d')
     axes[1].set_ylabel('KV token slots');axes[1].legend(loc='upper right',ncol=2)
     axes[2].plot(times,[s['GPU_used_MiB'] for s in samples],label='GPU total, nvidia-smi',color='#294b6e')
     axes[2].set_ylabel('GPU memory / MiB');axes[2].set_xlabel('Seconds since first native metric sample (monotonic)')

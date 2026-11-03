@@ -1,0 +1,1279 @@
+[
+  {
+    "request_id": "warmup",
+    "payload_sha256": "ef7de6564b26c2a169aa0b108045019531bda82af71597ed514df06e38586476",
+    "state": "finished",
+    "events": [
+      {
+        "request_id": "warmup",
+        "event": "created",
+        "monotonic_ns": 94915478481271,
+        "wall_time_ns": 1793681769223153495,
+        "planned_arrival_monotonic_s": 94915.470318329
+      },
+      {
+        "request_id": "warmup",
+        "event": "queued",
+        "monotonic_ns": 94915478510509,
+        "wall_time_ns": 1793681769223181922,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "warmup",
+        "event": "http_send",
+        "monotonic_ns": 94915478562833,
+        "wall_time_ns": 1793681769223234005
+      },
+      {
+        "request_id": "warmup",
+        "event": "http_headers",
+        "monotonic_ns": 94915608195595,
+        "wall_time_ns": 1793681769352869523,
+        "status": 200
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915608702316,
+        "wall_time_ns": 1793681769353374109,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "This",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "running",
+        "monotonic_ns": 94915608785211,
+        "wall_time_ns": 1793681769353456453,
+        "boundary": "first_sse_choice_not_gpu_start"
+      },
+      {
+        "request_id": "warmup",
+        "event": "first_text",
+        "monotonic_ns": 94915608790993,
+        "wall_time_ns": 1793681769353462275,
+        "boundary": "first_nonempty_text_not_token"
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915608796293,
+        "wall_time_ns": 1793681769353467576,
+        "text": "This",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915649339117,
+        "wall_time_ns": 1793681769394011171,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " text",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915649412763,
+        "wall_time_ns": 1793681769394083946,
+        "text": " text",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915686727235,
+        "wall_time_ns": 1793681769431399329,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " describes",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915686799338,
+        "wall_time_ns": 1793681769431470721,
+        "text": " describes",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915731937904,
+        "wall_time_ns": 1793681769476610089,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " two",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915732105949,
+        "wall_time_ns": 1793681769476778564,
+        "text": " two",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915836348376,
+        "wall_time_ns": 1793681769581020781,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " related",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915836435560,
+        "wall_time_ns": 1793681769581106902,
+        "text": " related",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915892427196,
+        "wall_time_ns": 1793681769637099400,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " concepts",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915892506003,
+        "wall_time_ns": 1793681769637177205,
+        "text": " concepts",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915933899172,
+        "wall_time_ns": 1793681769678571166,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": ":",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915933963731,
+        "wall_time_ns": 1793681769678635003,
+        "text": ":",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94915982627918,
+        "wall_time_ns": 1793681769727299802,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "  \n",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94915982691425,
+        "wall_time_ns": 1793681769727362597,
+        "text": "  \n",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916065869551,
+        "wall_time_ns": 1793681769810542096,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "1",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916065977747,
+        "wall_time_ns": 1793681769810649039,
+        "text": "1",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916115016594,
+        "wall_time_ns": 1793681769859688498,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": ".",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916115087335,
+        "wall_time_ns": 1793681769859758578,
+        "text": ".",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916190800810,
+        "wall_time_ns": 1793681769935473054,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " **",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916190900579,
+        "wall_time_ns": 1793681769935572272,
+        "text": " **",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916301737590,
+        "wall_time_ns": 1793681770046410566,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "A",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916301874904,
+        "wall_time_ns": 1793681770046546096,
+        "text": "A",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916360993878,
+        "wall_time_ns": 1793681770105666083,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " reliable",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916361060371,
+        "wall_time_ns": 1793681770105731543,
+        "text": " reliable",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916423577680,
+        "wall_time_ns": 1793681770168249694,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " service",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916423658100,
+        "wall_time_ns": 1793681770168329342,
+        "text": " service",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916495832051,
+        "wall_time_ns": 1793681770240504065,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "**",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916495907301,
+        "wall_time_ns": 1793681770240578463,
+        "text": "**",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916557428768,
+        "wall_time_ns": 1793681770302100972,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " (",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916557698111,
+        "wall_time_ns": 1793681770302369855,
+        "text": " (",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916624748009,
+        "wall_time_ns": 1793681770369420134,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "like",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916624829051,
+        "wall_time_ns": 1793681770369500253,
+        "text": "like",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916671583446,
+        "wall_time_ns": 1793681770416256121,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " a",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916671741331,
+        "wall_time_ns": 1793681770416412773,
+        "text": " a",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916724413259,
+        "wall_time_ns": 1793681770469085293,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " web",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916724485663,
+        "wall_time_ns": 1793681770469156846,
+        "text": " web",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916783391667,
+        "wall_time_ns": 1793681770528063921,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " server",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916783551966,
+        "wall_time_ns": 1793681770528223810,
+        "text": " server",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916827437180,
+        "wall_time_ns": 1793681770572109424,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " or",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916827518953,
+        "wall_time_ns": 1793681770572190175,
+        "text": " or",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916865289174,
+        "wall_time_ns": 1793681770609961177,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " application",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916865363592,
+        "wall_time_ns": 1793681770610034764,
+        "text": " application",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916906202427,
+        "wall_time_ns": 1793681770650874702,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": ")",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916906275272,
+        "wall_time_ns": 1793681770650946525,
+        "text": ")",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916946866359,
+        "wall_time_ns": 1793681770691538423,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " records",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916946965887,
+        "wall_time_ns": 1793681770691637510,
+        "text": " records",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94916999743330,
+        "wall_time_ns": 1793681770744415645,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " requests",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94916999824372,
+        "wall_time_ns": 1793681770744495745,
+        "text": " requests",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917055434887,
+        "wall_time_ns": 1793681770800106720,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": ",",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917055501219,
+        "wall_time_ns": 1793681770800172592,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917103034256,
+        "wall_time_ns": 1793681770847706249,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " schedules",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917103098834,
+        "wall_time_ns": 1793681770847769997,
+        "text": " schedules",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917145031727,
+        "wall_time_ns": 1793681770889703681,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " bounded",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917145096186,
+        "wall_time_ns": 1793681770889767388,
+        "text": " bounded",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917220861783,
+        "wall_time_ns": 1793681770965533747,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " work",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917220943265,
+        "wall_time_ns": 1793681770965614728,
+        "text": " work",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917284629715,
+        "wall_time_ns": 1793681771029301990,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": ",",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917284714294,
+        "wall_time_ns": 1793681771029385556,
+        "text": ",",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917334716212,
+        "wall_time_ns": 1793681771079388356,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " and",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917334805600,
+        "wall_time_ns": 1793681771079476803,
+        "text": " and",
+        "finish_reason": null,
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "framework_frame",
+        "monotonic_ns": 94917406469850,
+        "wall_time_ns": 1793681771151142114,
+        "native": {
+          "id": "97c41e0fc73a4831add94964e8615259",
+          "object": "text_completion",
+          "created": 1793681769,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " releases",
+              "logprobs": null,
+              "finish_reason": "length",
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "warmup",
+        "event": "sse_choice",
+        "monotonic_ns": 94917406536573,
+        "wall_time_ns": 1793681771151207775,
+        "text": " releases",
+        "finish_reason": "length",
+        "response_id": "97c41e0fc73a4831add94964e8615259"
+      },
+      {
+        "request_id": "warmup",
+        "event": "finished",
+        "monotonic_ns": 94917406811561,
+        "wall_time_ns": 1793681771151482914
+      }
+    ],
+    "content": "This text describes two related concepts:  \n1. **A reliable service** (like a web server or application) records requests, schedules bounded work, and releases",
+    "sse_chunks": 32,
+    "response_id": "97c41e0fc73a4831add94964e8615259",
+    "finish_reason": "length",
+    "http_status": 200,
+    "reason": null
+  },
+  {
+    "request_id": "disconnect",
+    "payload_sha256": "cb237468c2a55ccb53452de1fea63552bb76cf4aac968eae430b8af2137b89fb",
+    "state": "cancelled",
+    "events": [
+      {
+        "request_id": "disconnect",
+        "event": "created",
+        "monotonic_ns": 94919699850451,
+        "wall_time_ns": 1793681773444522525,
+        "planned_arrival_monotonic_s": 94919.69228355
+      },
+      {
+        "request_id": "disconnect",
+        "event": "queued",
+        "monotonic_ns": 94919699881483,
+        "wall_time_ns": 1793681773444552816,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "http_send",
+        "monotonic_ns": 94919699928577,
+        "wall_time_ns": 1793681773444599759
+      },
+      {
+        "request_id": "disconnect",
+        "event": "http_headers",
+        "monotonic_ns": 94919873490187,
+        "wall_time_ns": 1793681773618162041,
+        "status": 200
+      },
+      {
+        "request_id": "disconnect",
+        "event": "framework_frame",
+        "monotonic_ns": 94919873825435,
+        "wall_time_ns": 1793681773618497349,
+        "native": {
+          "id": "72c4cf74286d43f2a2ff2acc9a99fa0a",
+          "object": "text_completion",
+          "created": 1793681773,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": "This",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "disconnect",
+        "event": "running",
+        "monotonic_ns": 94919873887309,
+        "wall_time_ns": 1793681773618558491,
+        "boundary": "first_sse_choice_not_gpu_start"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "first_text",
+        "monotonic_ns": 94919873891627,
+        "wall_time_ns": 1793681773618562749,
+        "boundary": "first_nonempty_text_not_token"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "sse_choice",
+        "monotonic_ns": 94919873893992,
+        "wall_time_ns": 1793681773618565104,
+        "text": "This",
+        "finish_reason": null,
+        "response_id": "72c4cf74286d43f2a2ff2acc9a99fa0a"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "framework_frame",
+        "monotonic_ns": 94919939451963,
+        "wall_time_ns": 1793681773684124097,
+        "native": {
+          "id": "72c4cf74286d43f2a2ff2acc9a99fa0a",
+          "object": "text_completion",
+          "created": 1793681773,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " text",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "disconnect",
+        "event": "sse_choice",
+        "monotonic_ns": 94919939540780,
+        "wall_time_ns": 1793681773684211982,
+        "text": " text",
+        "finish_reason": null,
+        "response_id": "72c4cf74286d43f2a2ff2acc9a99fa0a"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "framework_frame",
+        "monotonic_ns": 94919999394804,
+        "wall_time_ns": 1793681773744067048,
+        "native": {
+          "id": "72c4cf74286d43f2a2ff2acc9a99fa0a",
+          "object": "text_completion",
+          "created": 1793681773,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " describes",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "disconnect",
+        "event": "sse_choice",
+        "monotonic_ns": 94919999486296,
+        "wall_time_ns": 1793681773744157609,
+        "text": " describes",
+        "finish_reason": null,
+        "response_id": "72c4cf74286d43f2a2ff2acc9a99fa0a"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "framework_frame",
+        "monotonic_ns": 94920050425050,
+        "wall_time_ns": 1793681773795096974,
+        "native": {
+          "id": "72c4cf74286d43f2a2ff2acc9a99fa0a",
+          "object": "text_completion",
+          "created": 1793681773,
+          "model": "RouteScale-Qwen3-0.6B",
+          "choices": [
+            {
+              "index": 0,
+              "text": " two",
+              "logprobs": null,
+              "finish_reason": null,
+              "matched_stop": null
+            }
+          ],
+          "usage": null
+        }
+      },
+      {
+        "request_id": "disconnect",
+        "event": "sse_choice",
+        "monotonic_ns": 94920050506432,
+        "wall_time_ns": 1793681773795177815,
+        "text": " two",
+        "finish_reason": null,
+        "response_id": "72c4cf74286d43f2a2ff2acc9a99fa0a"
+      },
+      {
+        "request_id": "disconnect",
+        "event": "cancelled",
+        "monotonic_ns": 94920050523366,
+        "wall_time_ns": 1793681773795194518,
+        "reason": "intentional_disconnect"
+      }
+    ],
+    "content": "This text describes two",
+    "sse_chunks": 4,
+    "response_id": "72c4cf74286d43f2a2ff2acc9a99fa0a",
+    "finish_reason": null,
+    "http_status": 200,
+    "reason": "intentional_disconnect"
+  },
+  {
+    "request_id": "deadline",
+    "payload_sha256": "cb237468c2a55ccb53452de1fea63552bb76cf4aac968eae430b8af2137b89fb",
+    "state": "cancelled",
+    "events": [
+      {
+        "request_id": "deadline",
+        "event": "created",
+        "monotonic_ns": 94920525177533,
+        "wall_time_ns": 1793681774269849346,
+        "planned_arrival_monotonic_s": 94920.516378186
+      },
+      {
+        "request_id": "deadline",
+        "event": "queued",
+        "monotonic_ns": 94920525205148,
+        "wall_time_ns": 1793681774269876410,
+        "boundary": "client_semaphore"
+      },
+      {
+        "request_id": "deadline",
+        "event": "http_send",
+        "monotonic_ns": 94920525254486,
+        "wall_time_ns": 1793681774269925638
+      },
+      {
+        "request_id": "deadline",
+        "event": "cancelled",
+        "monotonic_ns": 94920618289762,
+        "wall_time_ns": 1793681774362961866,
+        "reason": "deadline"
+      }
+    ],
+    "content": "",
+    "sse_chunks": 0,
+    "response_id": null,
+    "finish_reason": null,
+    "http_status": null,
+    "reason": "deadline"
+  }
+]

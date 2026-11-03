@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "scenario": "healthy",
+  "root_commit": "bf8103fb0f8e68f37ea48102039765ac71145e0d",
+  "checkout_clean": true,
+  "container": false,
+  "source_sha256": {
+    "serving/sglang_framework.py": "ede91dacf3b46afaeeec0866cad16aa85fd360c58eda408ed37b95d041a16472",
+    "serving/framework_metrics.py": "6eaa4a4206e5c7cea7a003e45d40477a9e517dc81557c6eeee28beb302ab1a8b",
+    "serving/framework_client.py": "8246650d809bcae6ccb74859ea5d94bb9d66d299c8e2460cf7697515cdc1c971",
+    "serving/framework_flush_metrics.py": "fe8fa11f0f9e6fba02ec0253098c424ce13e779fd8415a8b0cedfe35dd25b347",
+    "scripts/launch_sglang_framework.py": "32e657e549502984a12ba8cddbbbea5a8885c8ef917b8d09d1d131f9f52bef32",
+    "scripts/framework_service.py": "fa7b95482fb6f30fde667d16c9c9658ee3eccf8a2229a714609d0530420b7a96",
+    "scripts/check_framework.py": "b1b64a16239d3f5026d3a9b571ab41afd9bbadf5814263d5116b5ea28c6d78ce",
+    "scripts/audit_framework.py": "316c251dbf155876c1f049dbcc5f17eb464492bf08ee7df82035fe0be0fadc1b",
+    "serving/delivery.py": "e9aaddd045a0214d76423ab75bef60d67a04508be05f52808e7b09eebdabac21",
+    "serving/online_client.py": "a7d135327996f6dcc87d32ab1ad57cf522b9b970e8ca3e0706169dc5937c1a53",
+    "deploy/local/sglang/runtime.json": "31a1d22f317296e5117c3526a2f37ad527eb3813ce02d81d0c3b78246f08ef9a",
+    "deploy/local/sglang/upstream_sources.json": "7c659dd9bd3fb130f3ff60d8faa971f0bcb134d581736c8278e6937e4c10bc7e",
+    "deploy/local/sglang/requirements.lock": "f355640c5b577e8665d67b6652c974d019719bb126a70e98c3898e79065e0f4d",
+    "docs/sglang_delivery_protocol.md": "774daf6498364da08b96926e4249978708fcec454b694089b7ce31472be41ff1",
+    "results/i_minisglang/i3_online_v2/workload002/workload.json": "e87891205739c63331a3adec84dd6dc59e5922a225312f864edb6eb86dee0c4f",
+    "results/i_minisglang/i3_online_v2/online001/schedule.json": "2f9ce535732679ba12124635a5596fd7b2642d1694ba9102ddc30102fa3a4062"
+  },
+  "scope": "M5_SGLang_0_5_20_native_BF16_TP1_v4",
+  "native_BF16_not_I3_numeric_qualification": true,
+  "error": "Traceback (most recent call last):\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework005/scripts/check_framework.py\", line 214, in main\n    asyncio.run(exercise(c,run,out,a.scenario))\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 190, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/shunzi/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/base_events.py\", line 654, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/home/shunzi/projects/RouteScale/runs/clean_checkout/framework005/scripts/check_framework.py\", line 108, in exercise\n    else:raise TimeoutError('Did not observe four native running requests')\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTimeoutError: Did not observe four native running requests\n"
+}

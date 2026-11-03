@@ -40,7 +40,7 @@ python3 scripts/framework_service.py status --run-dir runs/sglang/local001
 python3 scripts/framework_service.py stop --run-dir runs/sglang/local001
 ```
 
-doctor逐文件核对模型、锁定依赖、SGLang版本、16份原生关键源码和Ninja可执行文件。run前台持原全局
+doctor逐文件核对模型、锁定依赖、SGLang版本、19份原生关键源码和Ninja可执行文件。run前台持原全局
 GPU互斥锁，执行原生 `sglang.launch_server`；`/ready` 加实际 `/health_generate`
 通过后才发布ready。端口1971为原生API，1972为本地仪表盘。启动预算600秒，关闭
 预算20秒，Ctrl-C也可停止；只清理自己创建的进程组。不要复用旧run目录。
@@ -59,7 +59,7 @@ curl -N http://127.0.0.1:1971/v1/chat/completions \
 
 ## 原生监控与客户端观测
 
-仪表盘位于 `http://127.0.0.1:1972`，原始 exporter 为API端口的 `/metrics`。
+仪表盘位于 `http://127.0.0.1:1972`，实时运行/排队/KV来自 `/v1/loads`，原始批次 exporter 为API端口的 `/metrics`。
 实际名称与解析在 [framework_metrics.py](../serving/framework_metrics.py)：
 
 |含义|SGLang0.5.20实际名称|

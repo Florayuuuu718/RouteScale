@@ -14,7 +14,7 @@ import threading
 import time
 
 from serving.delivery import ROOT,check_ports,gpu_idle,http,identity,read,sha,stop_child,write
-from serving.framework_metrics import HTML,client_counts,parse
+from serving.framework_metrics import HTML,client_counts,parse,parse_loads
 
 CONFIG=ROOT/'deploy/local/sglang/runtime.json'
 
@@ -122,9 +122,12 @@ def serve(c,directory):
                                 code,text=http(base,'/metrics',timeout=3)
                                 if code==200:
                                     native=parse(text)
+                                    load_code,load_text=http(base,'/v1/loads',timeout=3)
+                                    if load_code!=200:raise ValueError('Native load snapshot unavailable')
+                                    load_body=json.loads(load_text);fresh=parse_loads(load_body)
                                     gpu=subprocess.check_output(['nvidia-smi','--query-gpu=memory.used','--format=csv,noheader,nounits'],text=True).strip()
                                     snapshot=dict(state=state['state'],time_ns=time.time_ns(),monotonic_ns=time.monotonic_ns(),native=native,
-                                        client=client_counts(os.environ.get('ROUTESCALE_CLIENT_LEDGER')),GPU_used_MiB=float(gpu))
+                                        loads=load_body,fresh=fresh,client=client_counts(os.environ.get('ROUTESCALE_CLIENT_LEDGER')),GPU_used_MiB=float(gpu))
                                     write(directory/'snapshot.json',snapshot)
                                     with (directory/'metrics_samples.jsonl').open('a') as f:f.write(json.dumps(snapshot)+'\n')
                                     (directory/'metrics.latest.txt').write_text(text)
