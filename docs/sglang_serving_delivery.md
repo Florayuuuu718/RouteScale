@@ -121,11 +121,22 @@ docker stop --time 30 routescale-local001
 
 ## 重放验收与 CPU CI
 
+本版本原生ready执行内置健康生成；首次额外并发/Prefill形状仍可能触发JIT。冷容器曾
+在391秒完成模型启动，之后先后在10秒running4、0.7秒queued观测窗口失败，原始记录
+保留。正式代表场景先执行显式预热，保持30秒客户端、20秒关闭预算及原验收门槛：
+
 ```bash
+runs/envs/sglang-framework-v1/bin/python scripts/warm_framework.py --directory runs/framework/preparation001
 runs/envs/sglang-framework-v1/bin/python scripts/check_framework.py --scenario healthy --directory runs/framework/healthy001
 runs/envs/sglang-framework-v1/bin/python scripts/audit_framework.py --directory runs/framework/healthy001
 # worker_fault / shutdown_active分别用新的目录，GPU串行
 ```
+
+预热启动并关闭一个临时服务，用I3最短/最长可容纳256输出的prompt，分别发送并发4、
+输出32/64/256，共24个请求，逐请求保留事件与终态。复用同一明确缓存后再执行场景；
+容器使用同一命名缓存卷先运行`--entrypoint python3 <image> scripts/warm_framework.py
+--directory /state/preparation001`，再正常启动。预热失败需要保留新目录并排查，不能
+把任意新形状都当作原生ready已覆盖。本范围不承诺所有形状首次访问均无编译开销。
 
 保存源快照、全部原生SSE、客户端事件/终态、原始metrics、缓存flush、进程状态和GPU归零。
 独立healthy审计通过后，可用 [export_framework.py](../scripts/export_framework.py)

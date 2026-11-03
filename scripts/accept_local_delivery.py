@@ -97,6 +97,16 @@ def accept(directory, tp_runtime, bundle_directory):
         and hashes_match(ROOT, bundle['source_sha256']))
     checks['container_healthy'] = container['passed'] and container['returncode'] == 0 and container['GPU_end'] == '0 MiB'
     checks['container_image_identity'] = container['image_id'] == stop['image_id'] and container['image_id'].startswith('sha256:')
+    files = read(directory / 'sglang_container_files_proof.json')
+    checks['container_all_source_and_parent_layers'] = (files['passed'] and files['source_files'] == len(bundle['source_sha256'])
+        and not files['mismatches'] and files['header_matches'] and files['parent_rootfs_prefix_verified']
+        and files['source_commit'] == bundle['source_commit'] and files['image_id'] == container['image_id']
+        and files['derived_parent_image_id'] == bundle['derived_base_image_id'])
+    warm = read(directory / 'sglang_container_warmup/warmup.json')
+    checks['declared_representative_warmup'] = (warm['passed'] and warm['requests'] == 24
+        and warm['public_client_budget_s'] == 30 and warm['shutdown_budget_s'] == 20
+        and warm['native_status']['GPU_end'] == '0 MiB' and not warm['native_status']['forced_cleanup']
+        and warm['warmup_source_sha256'] == sha(ROOT / 'scripts/warm_framework.py'))
     checks['container_default_entrypoint_stop'] = (stop['passed'] and stop['actual_supervisor_PID1']
         and stop['readonly_model'] and stop['container_exit_code'] == 0
         and stop['docker_stop_returncode'] == 0 and stop['docker_stop_s'] < 30
@@ -134,6 +144,7 @@ def accept(directory, tp_runtime, bundle_directory):
     return dict(passed=all(checks.values()), local_delivery_complete=all(checks.values()), checks=checks,
         counts=counts, cpu_tests=int(test_count[1]) if test_count else 0, TP_local_vectors=tp['vectors'],
         TP2_4_accepted=False, paid_resources_used=False, native_HF_FP32_equivalence_claimed=False,
+        cold_all_workload_shapes_accepted=False, warm_JIT_cache_used_in_full_container_scenario=True,
         steady_state_performance_ranking_claimed=False, GPU_end=gpu,
         evidence_sha256={str(p.relative_to(directory)): sha(p) for p in directory.rglob('*')
                          if p.is_file() and p.name != 'acceptance.json'},

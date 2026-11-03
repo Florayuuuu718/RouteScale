@@ -30,7 +30,7 @@ def main():
     if out.exists():raise ValueError('Fresh offline build context required')
     if subprocess.check_output(['git','status','--porcelain'],text=True,cwd=ROOT).strip():raise ValueError('Commit the source before creating its container context')
     c=load();checked=doctor(c);out.mkdir(parents=True)
-    files=[n for n in ['scripts/framework_service.py','scripts/launch_sglang_framework.py','scripts/check_framework.py','scripts/audit_framework.py',
+    files=[n for n in ['scripts/framework_service.py','scripts/launch_sglang_framework.py','scripts/check_framework.py','scripts/audit_framework.py','scripts/warm_framework.py',
         'config/delivery/model.json','docs/sglang_delivery_protocol.md',
         'results/i_minisglang/i3_online_v2/workload002/workload.json','results/i_minisglang/i3_online_v2/online001/schedule.json']]
     files += [str(f.relative_to(ROOT)) for f in (ROOT/'serving').glob('*.py')]
