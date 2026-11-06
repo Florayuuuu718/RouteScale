@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "gpu_count": 4,
+  "counts": {
+    "tp_qualification": 30,
+    "tp_performance": 90,
+    "tp_trace": 30,
+    "f_module_qualification": 8,
+    "f_training_qualification": 5,
+    "f_performance": 9,
+    "f_trace": 1
+  },
+  "worst_case_timeout_s": 170160,
+  "warning": "Timeout sums are a failure bound, not a rental duration or cost estimate.",
+  "scopes": {
+    "H2": "nano-vLLM TP1/2/4 Qwen3-0.6B",
+    "I2": "Mini-SGLang TP1/2/4 Qwen3-0.6B",
+    "F": "EP2 complete MoE training; manual replicated control; module communication trace"
+  },
+  "unplanned": [
+    "C1-C7 already accepted",
+    "larger serving model",
+    "multigpu HTTP lifecycle/I3",
+    "native PyTorch DDP reducer MoE timing",
+    "full GPT EP communication attribution"
+  ]
+}

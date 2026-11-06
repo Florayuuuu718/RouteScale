@@ -165,6 +165,15 @@ C1–C7 multi-GPU acceptance is already complete and is not repeated. The curren
 TP scope uses Qwen3-0.6B only; larger-model I2 scaling, native-DDP-reducer MoE
 timing, full-GPT EP trace and multi-GPU HTTP/I3 are separate extensions.
 
+On 2026-11-06, the remaining local deployment/execution/reporting preparation
+was accepted: 4,967 portable bundle files restored and verified, three pinned
+environments rebuilt, 85 CPU tests passed, and a real restored Gloo2 tiny GPT
+update passed 1,744 checks. Prior numerical sources and 5,361 evidence files
+remain unchanged. Failed offline installation and the stopped download are
+preserved. See [the acceptance report](../results/rental/local_v1/README.md).
+The next dependency is the actual four-GPU host and an explicit cost/time budget,
+then target-host qualification; no actual multigpu result is claimed here.
+
 ## Final acceptance and learning material
 
 Full-framework local validation is accepted above. Finish the remaining

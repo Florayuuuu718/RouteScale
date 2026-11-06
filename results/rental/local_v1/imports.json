@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "environments": {
+    "training": {
+      "torch": "2.12.1+cu129",
+      "numpy": "2.4.6",
+      "cuda_initialized": false
+    },
+    "mini": {
+      "torch": "2.9.1+cu129",
+      "numpy": "2.4.6",
+      "cuda_initialized": true
+    },
+    "nano": {
+      "torch": "2.8.0+cu129",
+      "numpy": "2.4.6",
+      "cuda_initialized": false
+    }
+  },
+  "scheduled_GPU_qualifications_or_benchmarks": 0,
+  "note": "FlashInfer import initializes a CUDA context; all import subprocesses exited normally."
+}

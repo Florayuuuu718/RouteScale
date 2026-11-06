@@ -69,6 +69,7 @@ JSON stage labels use the current numbering; see the
 - [x] TP rental preparation: 640 local qualification vectors and 70 checks; the same-host TP1/2/4 matrix prepares 30 qualifications and 90 performance processes. Actual multi-GPU experiments remain deferred; no paid resources have been used.
 - [x] F local EP preparation: Gloo world1/2/4, NCCL1 FP32/BF16, D/E expert shapes and small complete GPT updates; 12 jobs, 62,892 tensor/state checks, 60 CPU tests and 17 MoE regressions passed. See [the F report](results/f_ep/local_v1/README.md) and [runbook](docs/f_ep_runbook.md).
 - [x] F complete-training preparation: four additional jobs / 4,996 checks, accumulated/shared gradients and global clipping, a real 16,384-token full TinyStories update, nine-process gated rental benchmark and separate trace launcher prepared; final CPU suite 64 tests. See [the training protocol](docs/f_training_preparation.md).
+- [x] Consolidated rental deployment/execution/reporting preparation: portable bundle restored, three pinned environments rebuilt, 85 CPU tests and a real restored Gloo2 update (1,744 checks) passed. See [acceptance](results/rental/local_v1/README.md) and the [F/H2/I2 execution runbook](docs/rental_execution.md). Actual multi-GPU jobs await the target host and budget.
 - [ ] F actual two-GPU EP correctness, full-training comparison and communication traces (qualification/configuration prepared; no paid resources authorized).
 
 The native-weight integration, architecture mapping and remaining measurement

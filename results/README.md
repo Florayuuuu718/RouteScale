@@ -14,6 +14,13 @@ H2/I2 multi-GPU work is deferred to a later consolidated rental session.
 The original H3 correctness gate retains `performance_execution_allowed=false`;
 the separate v5 controlled scope has its own passed performance gate.
 
+## Consolidated rental preparation
+
+[Local deployment/execution/reporting acceptance](rental/local_v1/README.md) passed
+on 2026-11-06: a fresh restored bundle, three pinned environments, 85 CPU tests
+and 1,744 real Gloo2 training checks. F/H2/I2 multigpu results remain pending;
+no paid resources were used.
+
 ## F: local EP preparation accepted, real two-GPU experiments pending
 
 [F local preparation](f_ep/local_v1/README.md) passed 12 jobs / 18 worker
