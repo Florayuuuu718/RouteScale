@@ -14,3 +14,5 @@ jobs:
         run: python -m unittest discover -s tests/delivery -p 'test_*.py' -v
       - name: Configuration, authored Python and documentation links
         run: python scripts/check_delivery_cpu.py
+      - name: Rental deployment, cleanup and result accounting without CUDA
+        run: python -m unittest discover -s tests/rental -v
