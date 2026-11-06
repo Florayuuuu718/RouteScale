@@ -206,8 +206,9 @@ def summarize_traces(directory):
         path = f / f'trace_rank{rank}.json'
         summary = trace_summary(path)
         require(summary['nccl_kernels'] > 0, 'Missing EP2 NCCL trace')
-        result[str(path.relative_to(directory))] = dict(summary, scope='D/E MoE module, not full GPT attribution',
-                                                      logical_traffic=audit['traffic'])
+        result[str(path.relative_to(directory))] = dict(summary,
+            scope='D/E module qualification harness: reference + replicated + EP; not isolated EP or full GPT timing',
+            logical_traffic=audit['traffic'], ep_cpu_scopes=read(f / f'rank{rank}.json').get('events', []))
     return result
 
 

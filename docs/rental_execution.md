@@ -16,7 +16,8 @@ C1–C7 的 DDP、ZeRO、FSDP2 已有四卡验收，本轮无需重跑。
 I3 在线负载、H3 RouteScale 模型接入和 M5 完整 SGLang 交付的现有验收属于各自本机范围。
 本次 TP 是固定 continuation 的 scheduler replay，并非多卡 HTTP 生命周期或在线 SLO。
 F 的复制对照是显式梯度归约，不是原生 PyTorch DDP reducer 性能。
-F trace 是 D/E 形状的 MoE 模块，不把它当作完整 GPT 的通信比例。
+F trace 是 D/E 形状的 MoE 资格程序，包含 reference、复制和 EP 三个对照的工作；
+整段 kernel 并集不等于纯 EP 的通信比例，也不当作完整 GPT 的通信比例。
 
 教程还提到 I2 较大模型通信/计算对照；当前冻结矩阵只含 Qwen3-0.6B。
 较大模型需要另定模型 revision、显存、数值资格和时间预算，不在此次已准备矩阵中。
@@ -33,13 +34,14 @@ python3 scripts/prepare_rental.py verify --bundle runs/rental/bundle001
 ```
 
 包包含项目和两份 vendor 的 Git bundle、原始 Qwen 文件、TinyStories train/val、
-固定 FlashAttention wheel，以及解引用后的 CUDA13.0 工具链。逐文件记录 SHA256；
+此前固定的 H1 二进制 wheels（包括 Torch、NCCL、Triton 和 FlashAttention），
+以及解引用后的 CUDA13.0 工具链。逐文件记录 SHA256；
 不包含虚拟环境、个人文档或凭据。包中的 Git 历史仍只包含项目原来跟踪的文件。
 CUDA overlay 原来指向 `/usr/local` 的绝对链接已复制为实体文件。
 模型和工具链受各自许可证约束，包保留原许可证文件。
 
 传输时使用整个包目录（例如 rsync），在目标 Linux x86_64 主机重新验证。
-目标须具备 Git、Python3、uv、兼容 NVIDIA 驱动、足够内存和磁盘。
+目标须具备 Git、Python3、uv、C/C++ 编译器及开发头文件、兼容 NVIDIA 驱动、足够内存和磁盘。
 四卡数量不等于兼容性通过；实际兼容性由三套 Torch 栈和数值资格检查决定。
 Python3.11.16 和依赖通过 uv 重建；需要依赖源网络或已有 uv 缓存。
 这不是包含所有 Python wheels 的完全离线镜像。
@@ -59,7 +61,8 @@ python3 scripts/prepare_rental.py check-env
 外部 `.git` 指针。`install` 拒绝覆盖环境，失败日志保留在 `runs/rental/install`；
 排查后使用新的恢复目录，不清理旧证据。已有完整 uv 缓存时可使用 `install --offline`。
 三套环境分别为训练 `.venv`、nano-vLLM 和 Mini-SGLang，不混装。
-训练依赖锁包含 Torch 要求的 CUDA extras；nano 的 FlashAttention 使用单独 SHA 固定 wheel。
+训练依赖锁包含 Torch 要求的 CUDA extras；安装器优先使用包内已校验的 H1 wheels，
+nano 的 FlashAttention 使用单独 SHA 固定 wheel。
 
 ## 执行、停止与继续
 

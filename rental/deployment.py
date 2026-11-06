@@ -27,6 +27,7 @@ def verify_assets(root):
     wheel = root / 'runs/downloads' / nano['flash_attn_wheel'].rsplit('/', 1)[1]
     if sha(wheel) != nano['flash_attn_wheel_sha256']:
         raise ValueError('FlashAttention wheel mismatch')
+    validate_hashes(root / 'runs/downloads', read(root / 'deploy/rental/wheels.json')['files'])
     return wheel
 
 
@@ -52,7 +53,7 @@ def build_bundle(destination, root=ROOT):
     assets = destination / 'assets'
     names = ['runs/models/Qwen3-0.6B/' + name for name in read(root / 'config/delivery/model.json')['files']]
     names += ['data/tinystories_full/' + name for name in ('train.bin', 'val.bin', 'manifest.json')]
-    names += [str(wheel.relative_to(root))]
+    names += ['runs/downloads/' + name for name in read(root / 'deploy/rental/wheels.json')['files']]
     for name in names:
         target = assets / name
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -130,7 +131,8 @@ def install_environments(root, offline=False):
             raise ValueError('Refusing to replace environment: ' + str(target))
         python = target / 'bin/python'
         commands = [['uv', 'venv', '--python', '3.11.16', str(target)],
-                    ['uv', 'pip', 'sync', '--torch-backend', 'cu129', '--python', str(python), str(root / lock)]]
+                    ['uv', 'pip', 'sync', '--torch-backend', 'cu129', '--find-links', str(root / 'runs/downloads'),
+                     '--python', str(python), str(root / lock)]]
         if name == 'nano':
             commands.append(['uv', 'pip', 'install', '--no-deps', '--python', str(python), str(wheel)])
         commands.append(['uv', 'pip', 'check', '--python', str(python)])

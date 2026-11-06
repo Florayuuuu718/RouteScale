@@ -5,6 +5,7 @@ import math
 import os
 from pathlib import Path
 import subprocess
+import socket
 import sys
 import tempfile
 import unittest
@@ -13,7 +14,7 @@ from unittest.mock import patch
 from rental.common import ROOT, read, relative, sha, write
 from rental.deployment import verify_bundle
 from rental.report import comparisons, export, measured_waves, trace_summary, training_record, summarize_tp, summarize_training
-from rental.session import host_budget, plan, process_table, run_command, resume_state
+from rental.session import host_budget, plan, process_table, run_command, resume_state, execute
 from serving.tp_preparation import load_plan
 from fixtures import create
 
@@ -231,6 +232,28 @@ class RentalTests(unittest.TestCase):
             write(directory / 'session.json', journal)
             with self.assertRaisesRegex(ValueError, 'retries'):
                 resume_state(directory, config)
+
+    def test_failed_stage_stops_pipeline_and_preserves_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / 'session'
+            config = self.contract(); config['hostname'] = socket.gethostname()
+            rows = [[str(i), uuid, 'fixture GPU', '24576', '0', '0'] for i, uuid in enumerate(config['gpu_uuids'])]
+            calls = []
+
+            def command(argv, log, timeout):
+                calls.append(argv); Path(log).write_text('synthetic execution\n')
+                first = len(calls) == 1
+                if first:
+                    write(directory / 'preflight.json', dict(source_sha256={'model.py': sha(ROOT / 'model.py')}))
+                return dict(passed=first, failure=None if first else 'synthetic worker failure',
+                            returncode=0 if first else 1, log_sha256=sha(log))
+
+            with patch('rental.session.gpu_rows', return_value=rows), patch('rental.session.run_command', side_effect=command):
+                result = execute(directory, config)
+            self.assertFalse(result['passed']); self.assertEqual(result['status'], 'failed')
+            self.assertEqual(len(calls), 2)
+            self.assertEqual([s['name'] for s in result['steps']], ['nccl1'])
+            self.assertFalse(result['cloud_billing_stopped'])
 
 
 if __name__ == '__main__':

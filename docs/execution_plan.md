@@ -157,6 +157,14 @@ Include F EP2 qualification and the separately gated MoE training matrix in the
 same authorized session where resources fit; do not conflate EP with serving TP.
 No paid resources are authorized by this plan alone. Unrun cases remain pending.
 
+Deployment and session orchestration are documented in the [consolidated rental runbook](rental_execution.md).
+The prepared matrix is H2 nano-vLLM (9 qualifications / 27 timing runs), I2
+Mini-SGLang (21 / 63), plus F EP qualification and nine complete-training timing
+runs. All comparisons rerun the single-GPU reference on the same target host.
+C1–C7 multi-GPU acceptance is already complete and is not repeated. The current
+TP scope uses Qwen3-0.6B only; larger-model I2 scaling, native-DDP-reducer MoE
+timing, full-GPT EP trace and multi-GPU HTTP/I3 are separate extensions.
+
 ## Final acceptance and learning material
 
 Full-framework local validation is accepted above. Finish the remaining
